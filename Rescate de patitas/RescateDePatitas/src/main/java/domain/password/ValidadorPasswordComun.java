@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 public class ValidadorPasswordComun implements Validador {
     @Override
     public boolean esValido(String usuario, String password){
-        Path path = Paths.get("resources/10k-most-common.txt");
+        Path path = Paths.get("src/main/resources/utils/10k-most-common.txt");
         Stream<String> stream;
 
         try {
