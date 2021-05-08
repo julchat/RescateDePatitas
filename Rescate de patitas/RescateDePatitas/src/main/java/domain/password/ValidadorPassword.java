@@ -7,8 +7,9 @@ public class ValidadorPassword {
     private final List<Validador> validadoresPassword;
 
     public ValidadorPassword() {
-        this.validadoresPassword = Arrays.asList( /*new ValidadorPrimerLetra(),*/
+        this.validadoresPassword = Arrays.asList( /*new ValidadorPasswordPrimerLetra(),*/
                                                   new ValidadorPasswordComun(),
+                                                  new ValidadorPasswordNull(),
                                                   new ValidadorPasswordTamanio());
     }
 

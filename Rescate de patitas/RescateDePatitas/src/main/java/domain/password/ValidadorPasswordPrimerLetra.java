@@ -5,7 +5,7 @@ import exception.PasswordInvalidException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ValidadorPrimerLetra implements Validador{
+public class ValidadorPasswordPrimerLetra implements Validador{
     @Override
     public boolean esValido(String usuario, String password) {
         Pattern pattern = Pattern.compile("[A-Z]");
