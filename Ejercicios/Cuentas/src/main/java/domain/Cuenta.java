@@ -16,4 +16,9 @@ public class Cuenta {
     public Cuenta(int saldo) {
         this.saldo = saldo;
     }
+
+    // Metodos
+    public boolean superaMonto(int saldoPiso) {
+        return this.getSaldo() > saldoPiso;
+    }
 }

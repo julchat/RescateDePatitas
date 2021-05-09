@@ -3,26 +3,26 @@ package domain;
 import domain.strategyEnvios.StrategyEnvio;
 
 public class Envio {
-    private String ciudadDesde;
-    private String ciudadHasta;
+    private Direccion direccionDesde;
+    private Direccion direccionHasta;
     private Paquete paquete;
     private StrategyEnvio estrategiaEnvio;
 
     // Getters and Setters
-    public String getCiudadDesde() {
-        return ciudadDesde;
+    public Direccion getDireccionDesde() {
+        return direccionDesde;
     }
 
-    public void setCiudadDesde(String ciudadDesde) {
-        this.ciudadDesde = ciudadDesde;
+    public void setDireccionDesde(Direccion direccionDesde) {
+        this.direccionDesde = direccionDesde;
     }
 
-    public String getCiudadHasta() {
-        return ciudadHasta;
+    public Direccion getDireccionHasta() {
+        return direccionHasta;
     }
 
-    public void setCiudadHasta(String ciudadHasta) {
-        this.ciudadHasta = ciudadHasta;
+    public void setDireccionHasta(Direccion direccionHasta) {
+        this.direccionHasta = direccionHasta;
     }
 
     public Paquete getPaquete() {
@@ -34,9 +34,9 @@ public class Envio {
     }
 
     // Constructor
-    public Envio(String ciudadDesde, String ciudadHasta, Paquete paquete) {
-        this.ciudadDesde = ciudadDesde;
-        this.ciudadHasta = ciudadHasta;
+    public Envio(Direccion direccionDesde, Direccion direccionHasta, Paquete paquete) {
+        this.direccionDesde = direccionDesde;
+        this.direccionHasta = direccionHasta;
         this.paquete = paquete;
     }
 

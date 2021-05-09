@@ -34,7 +34,7 @@ public class Control {
 
     // Métodos
     private Cliente buscarCliente(int numeroDocumento) {
-        return (Cliente) clientes.stream().filter(cliente -> cliente.getNumeroDocumento() == numeroDocumento);
+        return clientes.stream().filter(cliente -> cliente.esMiDocumento(numeroDocumento)).findFirst().get();
     }
 
     private int pedirSaldo(Cliente cliente, Cuenta cuenta) {
@@ -46,12 +46,12 @@ public class Control {
         }
     }
 
-    public List<Cuenta> chequearCuentas(Cliente clienteBuscado, int saldoTope) {
-        return (List<Cuenta>) clienteBuscado.getCuentas().stream().filter(cuenta -> cuenta.getSaldo() <= saldoTope);
+    public List<Cuenta> chequearCuentas(Cliente clienteBuscado, int saldoPiso) {
+        return clienteBuscado.getCuentas().stream().filter(cuenta -> cuenta.superaMonto(saldoPiso)).collect(Collectors.toList());
     }
 
-    public int cantidadCuentasBuscadas(Cliente clienteBuscado, int saldoTope) {
-        return this.chequearCuentas(clienteBuscado, saldoTope).size();
+    public int cantidadCuentasBuscadas(Cliente clienteBuscado, int saldoPiso) {
+        return this.chequearCuentas(clienteBuscado, saldoPiso).size();
     }
 
     private void anotarCuenta(Cuenta cuenta, Cliente cliente) {

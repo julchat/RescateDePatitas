@@ -1,11 +1,11 @@
 package domain.password;
 
-import exception.NullException;
+import excepciones.NullException;
 
 public class ValidadorPasswordNull implements Validador{
 
     @Override
-    public boolean esValido(String nombreDeUsuario, String password) {
+    public boolean esValida(String password) {
         if (password.isEmpty()) {
             throw new NullException();
         }

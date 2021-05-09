@@ -49,6 +49,10 @@ public class Cliente {
         return cuentas.size();
     }
 
+    public boolean esMiDocumento(int numeroDocumento) {
+        return this.numeroDocumento == numeroDocumento;
+    }
+
     public boolean tieneCuenta(Cuenta cuentaBuscada) {
         return cuentas.stream().anyMatch(cuenta -> cuenta == cuentaBuscada);
     }

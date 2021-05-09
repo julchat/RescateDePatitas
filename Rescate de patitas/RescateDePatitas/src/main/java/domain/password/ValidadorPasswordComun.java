@@ -1,6 +1,6 @@
 package domain.password;
 
-import exception.ReadFileException;
+import excepciones.ReadFileException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class ValidadorPasswordComun implements Validador {
     @Override
-    public boolean esValido(String usuario, String password){
+    public boolean esValida(String password){
         Path path = Paths.get("src/main/resources/utils/10k-most-common.txt");
         Stream<String> stream;
 

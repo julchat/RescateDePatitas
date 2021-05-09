@@ -42,6 +42,6 @@ public class Estandar implements StrategyEnvio {
     }
 
     public boolean esLocal(Envio envio) {
-        return envio.getCiudadDesde().equals(envio.getCiudadHasta());
+        return envio.getDireccionDesde().mismaLocalidad(envio.getDireccionHasta());
     }
 }

@@ -1,4 +1,4 @@
-package exception;
+package excepciones;
 
 public class ReadFileException extends RuntimeException {
     public ReadFileException() {

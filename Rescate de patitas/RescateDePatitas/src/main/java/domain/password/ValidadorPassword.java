@@ -13,7 +13,7 @@ public class ValidadorPassword {
                                                   new ValidadorPasswordTamanio());
     }
 
-    public boolean esValido(String usuario, String password) {
-        return validadoresPassword.stream().allMatch(validadorPassword -> validadorPassword.esValido(usuario, password));
+    public boolean esValida(String password) {
+        return validadoresPassword.stream().allMatch(validadorPassword -> validadorPassword.esValida(password));
     }
 }

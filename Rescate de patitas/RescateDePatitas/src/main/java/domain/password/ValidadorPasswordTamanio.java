@@ -1,11 +1,11 @@
 package domain.password;
 
-import exception.TamanioException;
+import excepciones.TamanioException;
 import java.util.stream.Stream;
 
 public class ValidadorPasswordTamanio implements Validador{
     @Override
-    public boolean esValido(String usuario, String password) {
+    public boolean esValida(String password) {
         int tamanioPassword = password.length();
         Stream<String> stream;
 

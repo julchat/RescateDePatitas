@@ -16,7 +16,7 @@ public class main {
         System.out.print("Ingrese la contraseña:  ");
         String password = entrada.nextLine();
 
-        if(validador.esValido(usuario, password)){
+        if(validador.esValida(password)){
             System.out.println("Es valido.");
         }
         else {
