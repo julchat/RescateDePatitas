@@ -33,11 +33,18 @@ public class Envio {
         this.paquete = paquete;
     }
 
+    public StrategyEnvio getEstrategiaEnvio() { return estrategiaEnvio;}
+
+    public void setEstrategiaEnvio(StrategyEnvio estrategiaEnvio) { this.estrategiaEnvio = estrategiaEnvio;}
     // Constructor
-    public Envio(Direccion direccionDesde, Direccion direccionHasta, Paquete paquete) {
+    public Envio(Direccion direccionDesde, Direccion direccionHasta, Paquete paquete, StrategyEnvio estrategiaEnvio) {
         this.direccionDesde = direccionDesde;
         this.direccionHasta = direccionHasta;
         this.paquete = paquete;
+        this.estrategiaEnvio = estrategiaEnvio;
+    }
+
+    public Envio() {
     }
 
     // Método CalcularPrecio

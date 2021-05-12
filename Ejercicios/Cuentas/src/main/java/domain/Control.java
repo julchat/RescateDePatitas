@@ -3,11 +3,13 @@ package domain;
 import domain.exception.CuentaNoEncontrada;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Control {
-    private List<Cliente> clientes;
+    private List<Cliente> clientes = new ArrayList<>();
+
 
     public Control() {
 
@@ -33,11 +35,11 @@ public class Control {
 
 
     // Métodos
-    private Cliente buscarCliente(int numeroDocumento) {
+    public Cliente buscarCliente(int numeroDocumento) {
         return clientes.stream().filter(cliente -> cliente.esMiDocumento(numeroDocumento)).findFirst().get();
     }
 
-    private int pedirSaldo(Cliente cliente, Cuenta cuenta) {
+    public int pedirSaldo(Cliente cliente, Cuenta cuenta) {
         if (cliente.tieneCuenta(cuenta)) {
             return cuenta.getSaldo();
         }
@@ -54,7 +56,7 @@ public class Control {
         return this.chequearCuentas(clienteBuscado, saldoPiso).size();
     }
 
-    private void anotarCuenta(Cuenta cuenta, Cliente cliente) {
+    public void anotarCuenta(Cuenta cuenta, Cliente cliente) {
         this.agregarCliente(cliente);
         cliente.agregarCuenta(cuenta);
     }
