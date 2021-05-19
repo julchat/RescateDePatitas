@@ -35,25 +35,45 @@ public class Control {
 
 
     // Métodos
-    public Cliente buscarCliente(int numeroDocumento) {
+    private Cliente buscarCliente(int numeroDocumento) {
         return clientes.stream().filter(cliente -> cliente.esMiDocumento(numeroDocumento)).findFirst().get();
     }
 
-    public int pedirSaldo(Cliente cliente, Cuenta cuenta) {
+    public boolean noExisteCliente(int numeroDocumento) {
+        return clientes.stream().filter(cliente -> cliente.esMiDocumento(numeroDocumento)).collect(Collectors.toList()).isEmpty();
+    }
+
+    /*
+    private int pedirSaldo(Cliente cliente, Cuenta cuenta) {
         if (cliente.tieneCuenta(cuenta)) {
             return cuenta.getSaldo();
         }
         else {
             throw new CuentaNoEncontrada();
         }
+    }*/
+
+
+
+    private List<Cuenta> chequearCuentas(int numeroDocumento, int saldoPiso) {
+        if(this.noExisteCliente(numeroDocumento)){
+            return null;
+        }
+        else {
+            Cliente clienteBuscado = this.buscarCliente(numeroDocumento);
+            return clienteBuscado.getCuentas().stream().filter(cuenta -> cuenta.superaMonto(saldoPiso)).collect(Collectors.toList());
+        }
     }
 
-    public List<Cuenta> chequearCuentas(Cliente clienteBuscado, int saldoPiso) {
-        return clienteBuscado.getCuentas().stream().filter(cuenta -> cuenta.superaMonto(saldoPiso)).collect(Collectors.toList());
-    }
+    public void cantidadCuentasBuscadas(int numeroDocumento, int saldoPiso) {
+        List<Cuenta> cuentas = chequearCuentas(numeroDocumento, saldoPiso);
 
-    public int cantidadCuentasBuscadas(Cliente clienteBuscado, int saldoPiso) {
-        return this.chequearCuentas(clienteBuscado, saldoPiso).size();
+        if(cuentas == null) {
+            System.out.println("Las cuentas que posee el cliente no superan los $" + saldoPiso);
+        }
+        else {
+            System.out.println("La cantidad de cuentas que superan los $" + saldoPiso + " son " + cuentas.size());
+        }
     }
 
     public void anotarCuenta(Cuenta cuenta, Cliente cliente) {

@@ -40,6 +40,11 @@ public class Cliente {
         this.cuentas = cuentas;
     }
 
+    public Cliente(int numeroDocumento, String nombreCliente) {
+        this.numeroDocumento = numeroDocumento;
+        this.nombreCliente = nombreCliente;
+    }
+
     public Cliente() {
     }
 
