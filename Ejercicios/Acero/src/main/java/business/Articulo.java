@@ -93,9 +93,7 @@ public class Articulo {
     }
 
     // Métodos
-    public boolean soyCompatibleCon(TipoEnvase unEnvase) {
-        return envaseDefault == unEnvase;
+    public boolean soyCompatibleCon(TipoEnvase tipoEnvase) {
+        return tipoEnvase.getArticulosCompatibles().stream().anyMatch(unArticulo -> unArticulo == this);
     }
-
-
 }

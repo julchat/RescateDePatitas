@@ -57,7 +57,7 @@ public class Entrega {
     }
 
     // Métodos
-    public void ingresarArticulo(int codArticulo, int cantidadArticulos, int toleranciaAncho, int toleranciaAlto, int toleranciaLargo) {
+    public void ingresarArticulo(int codArticulo, int cantidadArticulos, int toleranciaAncho, int toleranciaAlto, int toleranciaLargo){
     }
 
     public LocalDate calcularFechaEntrega(int numeroEntrega, LocalDate fechaInicioEntrega, IntervaloRepeticion repeticion) {

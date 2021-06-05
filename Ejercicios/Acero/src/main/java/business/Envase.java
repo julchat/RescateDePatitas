@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Envase {
     private int codigo;
-    private List<Articulo> articulosCompatibles;
     private TipoEnvase tipo;
 
     // Getters and Setters
@@ -16,13 +15,6 @@ public class Envase {
         this.codigo = codigo;
     }
 
-    public List<Articulo> getArticulosCompatibles() {
-        return articulosCompatibles;
-    }
-
-    public void setArticulosCompatibles(List<Articulo> articulosCompatibles) {
-        this.articulosCompatibles = articulosCompatibles;
-    }
 
     public TipoEnvase getTipo() {
         return tipo;
@@ -35,9 +27,8 @@ public class Envase {
     // Constructor
     public Envase(){ }
 
-    public Envase(int codigo, List<Articulo> articulosCompatibles, TipoEnvase tipo) {
+    public Envase(int codigo, TipoEnvase tipo) {
         this.codigo = codigo;
-        this.articulosCompatibles = articulosCompatibles;
         this.tipo = tipo;
     }
 }

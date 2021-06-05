@@ -4,6 +4,7 @@ public class TipoEnvase {
     private int capacidad;
     private String descripcion;
     private int stock;
+    private List<Articulo> articulosCompatibles;
 
     // Getters and Setters
     public int getCapacidad() {
@@ -28,6 +29,14 @@ public class TipoEnvase {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public List<Articulo> getArticulosCompatibles{
+        return articulosCompatibles;
+    }
+
+    public void setArticulosCompatibles(List<Articulo> articulosCompatibles) {
+        this.articulosCompatibles = articulosCompatibles;
     }
 
     // Constructor
