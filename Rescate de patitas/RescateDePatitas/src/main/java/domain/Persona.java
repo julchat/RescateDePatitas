@@ -144,8 +144,17 @@ public class Persona {
 
     // Metodos
 
-    void rescatarMascota() {}
+    void rescatarMascota(Mascota mascota) {
+        // TODO. Si la mascota tiene chapita, se le notifica al dueño
+        //  en cambio, si no la tiene, se genera una publicacion
+    }
 
 
-    void registarMascota() {}
+    void registarMascota(Mascota mascota) {
+        this.agregarMascota(mascota);
+        // TODO Si se registra una mascota, deberia hacerlo "rellenando un formulario"
+        //  o mejor dicho, armando la publicacion
+
+    }
+
 }

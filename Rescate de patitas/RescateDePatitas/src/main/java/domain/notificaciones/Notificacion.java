@@ -1,6 +1,7 @@
 package domain.notificaciones;
 
+import domain.Persona;
 
-// Este seria un Interfaz, e implementamos el patron Strategy
-public class Notificacion {
+public interface Notificacion {
+    public void notificar(Persona persona);
 }

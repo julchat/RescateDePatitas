@@ -1,6 +1,6 @@
 package domain;
 
-import domain.caracteristicas.CaracteristicaPorValor;
+import domain.caracteristicas.CaracteristicaConValor;
 import domain.foto.Foto;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class Mascota {
     private char sexoMascota;                   // M o H, o un Enum con MACHO, HEMBRA?
     private String descripcionMascota;
     private Foto foto;
-    private List<CaracteristicaPorValor> caracteristicasMascota;
+    private List<CaracteristicaConValor> caracteristicasMascota;
     private boolean estaPerdida;
     private boolean estaAdoptada;
     private Persona encargado;
@@ -76,11 +76,19 @@ public class Mascota {
         this.foto = foto;
     }
 
-    public void quitarCaracteristica(CaracteristicaPorValor caracteristica) {
+    public List<CaracteristicaConValor> getCaracteristicasMascota() {
+        return caracteristicasMascota;
+    }
+
+    public void setCaracteristicasMascota(List<CaracteristicaConValor> caracteristicasMascota) {
+        this.caracteristicasMascota = caracteristicasMascota;
+    }
+
+    public void quitarCaracteristica(CaracteristicaConValor caracteristica) {
         this.caracteristicasMascota.remove(caracteristica);
     }
 
-    public void agregarCaracteristica(CaracteristicaPorValor caracteristica) {
+    public void agregarCaracteristica(CaracteristicaConValor caracteristica) {
         this.caracteristicasMascota.add(caracteristica);
     }
 

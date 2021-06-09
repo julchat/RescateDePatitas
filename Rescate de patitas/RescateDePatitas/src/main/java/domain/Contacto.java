@@ -45,6 +45,14 @@ public class Contacto {
         this.emailContacto = emailContacto;
     }
 
+    public List<Notificacion> getFormasDeNotificacionContacto() {
+        return formasDeNotificacionContacto;
+    }
+
+    public void setFormasDeNotificacionContacto(List<Notificacion> formasDeNotificacionContacto) {
+        this.formasDeNotificacionContacto = formasDeNotificacionContacto;
+    }
+
     public void agregarFormaDeNotificacion(Notificacion notificacion) {
         this.formasDeNotificacionContacto.add(notificacion);
     }
