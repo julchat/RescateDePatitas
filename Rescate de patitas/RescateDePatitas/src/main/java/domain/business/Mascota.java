@@ -85,12 +85,15 @@ public class Mascota {
     }
 
     public void quitarCaracteristica(CaracteristicaConValor caracteristica) {
-        this.caracteristicasMascota.remove(caracteristica);
+        if(this.caracteristicasMascota.contains(caracteristica)) {
+            this.caracteristicasMascota.remove(caracteristica);
+        }
+        else {
+            System.out.println("La mascota no posee dicha caracteristica.");
+        }
     }
 
-    public void agregarCaracteristica(CaracteristicaConValor caracteristica) {
-        this.caracteristicasMascota.add(caracteristica);
-    }
+    public void agregarCaracteristica(CaracteristicaConValor caracteristica) { this.caracteristicasMascota.add(caracteristica); }
 
     void serEncontrada() {
         this.estaPerdida = false;
