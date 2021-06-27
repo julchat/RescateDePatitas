@@ -23,6 +23,4 @@ public class main {
             System.out.println("Es Invalido.");
         }
     }
-
-    
 }

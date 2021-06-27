@@ -1,6 +1,6 @@
 package domain.notificaciones;
 
-import domain.Persona;
+import domain.business.Persona;
 
 public class NotificadorSms implements Notificacion{
     @Override

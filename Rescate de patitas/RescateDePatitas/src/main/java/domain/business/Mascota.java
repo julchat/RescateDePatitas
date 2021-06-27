@@ -1,7 +1,7 @@
-package domain;
+package domain.business;
 
-import domain.caracteristicas.CaracteristicaConValor;
-import domain.foto.Foto;
+import domain.business.caracteristicas.CaracteristicaConValor;
+import domain.business.foto.Foto;
 
 import java.util.List;
 

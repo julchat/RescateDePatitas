@@ -1,7 +1,7 @@
 package domain.organizaciones;
 
-import domain.caracteristicas.Caracteristica;
-import domain.foto.Foto;
+import domain.business.caracteristicas.Caracteristica;
+import domain.business.foto.Foto;
 
 import java.util.Date;
 import java.util.List;

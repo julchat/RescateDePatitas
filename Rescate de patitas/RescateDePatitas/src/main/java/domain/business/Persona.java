@@ -1,4 +1,4 @@
-package domain;
+package domain.business;
 
 import domain.notificaciones.Notificacion;
 import domain.organizaciones.Organizacion;
@@ -10,12 +10,10 @@ public class Persona {
     private String nombre;
     private String apellido;
     private Date fechaDeNacimiento;
-    private String domicilioPersona;       // Podriamos hacer una clase Domicilio
+    private Domicilio domicilio;       // Podriamos hacer una clase Domicilio
     private String tipoDocumento;          // Podriamos hacer un enum para tipo de doc: DNI, CEDULA, PASAPORTE, etc.
     private int numeroDocumento;
     private List<Contacto> contactos;
-    private List<Mascota> mascotas;
-    private String domicilioDuenio;         //******
     private List<Notificacion> formasDeNotificacion;
     private Organizacion organizacion;
 
@@ -44,12 +42,12 @@ public class Persona {
         this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
-    public String getDomicilioPersona() {
-        return domicilioPersona;
+    public Domicilio getDomicilio() {
+        return domicilio;
     }
 
-    public void setDomicilioPersona(String domicilioPersona) {
-        this.domicilioPersona = domicilioPersona;
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
     }
 
     public String getTipoDocumento() {
@@ -80,27 +78,6 @@ public class Persona {
         this.contactos.add(contacto);
     }
 
-    public List<Mascota> getMascotas() {
-        return mascotas;
-    }
-
-    public void setMascotas(List<Mascota> mascotas) {
-        this.mascotas = mascotas;
-    }
-
-    public void agregarMascota(Mascota mascota) {
-        this.mascotas.add(mascota);
-    }
-
-    // Duda con esto
-    public String getDomicilioDuenio() {
-        return domicilioDuenio;
-    }
-
-    public void setDomicilioDuenio(String domicilioDuenio) {
-        this.domicilioDuenio = domicilioDuenio;
-    }
-
     public List<Notificacion> getFormasDeNotificacion() {
         return formasDeNotificacion;
     }
@@ -125,36 +102,23 @@ public class Persona {
     // Constructor
     public Persona() {}
 
-    public Persona(String nombre, String apellido, Date fechaDeNacimiento, String domicilioPersona, String tipoDocumento,
+    public Persona(String nombre, String apellido, Date fechaDeNacimiento, Domicilio domicilio, String tipoDocumento,
                    int numeroDocumento, List<Contacto> contactos, List<Mascota> mascotas, String domicilioDuenio,
                    List<Notificacion> formasDeNotificacion, Organizacion organizacion) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaDeNacimiento = fechaDeNacimiento;
-        this.domicilioPersona = domicilioPersona;
+        this.domicilio = domicilio;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.contactos = contactos;
-        this.mascotas = mascotas;
-        this.domicilioDuenio = domicilioDuenio;
         this.formasDeNotificacion = formasDeNotificacion;
         this.organizacion = organizacion;
     }
 
 
     // Metodos
-
-    void rescatarMascota(Mascota mascota) {
-        // TODO. Si la mascota tiene chapita, se le notifica al dueño
-        //  en cambio, si no la tiene, se genera una publicacion
-    }
-
-
-    void registarMascota(Mascota mascota) {
-        this.agregarMascota(mascota);
-        // TODO Si se registra una mascota, deberia hacerlo "rellenando un formulario"
-        //  o mejor dicho, armando la publicacion
+    public void crearPublicacion() {
 
     }
-
 }

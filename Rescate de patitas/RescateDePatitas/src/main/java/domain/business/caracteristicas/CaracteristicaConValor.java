@@ -1,4 +1,4 @@
-package domain.caracteristicas;
+package domain.business.caracteristicas;
 
 public class CaracteristicaConValor {
     private String nombreCaracteristica;

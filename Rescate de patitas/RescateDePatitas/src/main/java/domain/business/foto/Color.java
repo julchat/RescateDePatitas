@@ -1,4 +1,4 @@
-package domain.foto;
+package domain.business.foto;
 
 public class Color {
     private int rojo;
