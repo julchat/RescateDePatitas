@@ -8,7 +8,7 @@ import java.util.List;
 public class Duenio extends Persona {
     private Domicilio domicilio;
     private List<Mascota> mascotas;
-
+    private Organizacion organizacion;
     // Getters and Setters
     public Domicilio getDomicilio() {
         return domicilio;
@@ -28,13 +28,24 @@ public class Duenio extends Persona {
     }
 
     // Metodos
-    public void registrarMascota(Mascota mascota) {
-        Mascota mascotaARegistrar = new Mascota();
-        // Crear el formulario para ingresar los datos de la mascota
-
+    public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaConValor> caracs) {
+        if(!(caracs.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion))){
+            throw new CaracteristicasNoValidasException();
+        }
+        fotos.forEach(unaFoto-> unaFoto.normalizarA(organizacion.getDimensionFoto()));
+        Mascota mascotaARegistrar = new Mascota(nombre, tipo, edadMascota, sexo, descripcionMascota, fotos, caracs, perdida, true, this);
         mascotas.add(mascotaARegistrar);
     }
 
+    public cambiarDomicilio(Domicilio nuevoDomicilio){
+        this.cambiarOrganizacion(domicilio.buscarOrganizacionMasCercana());
+        this.setDomicilio(nuevoDomicilio);
+    }
+
+    public cambiarOrganizacion(Organizacion nuevaOrganizacion){
+        mascotas.forEach(unaMascota -> unaMascota.ajustarseAOrganizacion(nuevaOrganizacion));
+        this.setOrganizacion(nuevaOrganizacion);
+    }
     public void mascotaEncontrada(Mascota mascotaEncontrada) {
         if(mascotas.contains(mascotaEncontrada)) {
             mascotaEncontrada.serEncontrada();
@@ -42,9 +53,5 @@ public class Duenio extends Persona {
         else {
             System.out.println("No es la mascota que esta buscando este dueño.");
         }
-    }
-
-    public void iniciarSesion(String usuario, String password) {
-
     }
 }

@@ -10,13 +10,26 @@ public class Mascota {
     private TipoAnimal tipoAnimal;
     private String apodoMascota;
     private int edadMascota;
-    private char sexoMascota;                   // M o H, o un Enum con MACHO, HEMBRA?
+    private SexoMascota sexoMascota;                   // M o H, o un Enum con MACHO, HEMBRA? // Enum, para evitar problemas como "no me toma la m porque esta en minuscula"
     private String descripcionMascota;
-    private Foto foto;
+    private List<Foto> fotos;
     private List<CaracteristicaConValor> caracteristicasMascota;
     private boolean estaPerdida;
     private boolean estaAdoptada;
     private Persona encargado;
+
+    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaConValor> caracs, boolean perdida, boolean adoptada, Persona encargado){
+        this.nombreMascota = nombre;
+        this.tipoAnimal = tipo;
+        this.edadMascota = edadMascota;
+        this.sexoMascota = sexo;
+        this.descripcionMascota = descripcionMascota;
+        this.fotos = fotos;
+        this.caracteristicasMascota =caracs;
+        this.estaAdoptada = adoptada;
+        this.estaPerdida = perdida;
+        this.encargado = encargado;
+    }
 
 
     // Getters and Setters
@@ -116,6 +129,16 @@ public class Mascota {
     Chapa generarChapitaIdentificatoria() {
         Chapa chapa = new Chapa();
         return chapa;
+    }
+
+    public void ajustarseAOrganizacion(Organizacion organizacion){
+        this.fotos.forEach(foto -> foto.normalizarA(organizacion.getDimensionFoto));
+        List<CaracteristicaConValor> caracteristicasValidas = new ArrayList<>();
+        caracteristicasMascota.forEach(unaCaracteristica ->
+        if (unaCaracteristica.soyCaracteristicaValida(Organizacion)) {
+            caracteristicasValidas.add(unaCaracteristica);
+        })
+        caracteristicasMascota = caracteristicasValidas;
     }
 
 }

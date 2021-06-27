@@ -1,13 +1,15 @@
 package domain.business;
 
+import java.time;
+
 public class Domicilio {
     private String provincia;
     private String localidad;
     private String barrio;
     private String calle;
     private int numero;
-    private int latitud;
-    private int longitud;
+    private double latitud;
+    private double longitud;
 
     // Getters and Setters
     public String getProvincia() {
@@ -50,19 +52,19 @@ public class Domicilio {
         this.numero = numero;
     }
 
-    public int getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(int latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
-    public int getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(int longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
 
@@ -78,5 +80,18 @@ public class Domicilio {
         this.numero = numero;
         this.latitud = latitud;
         this.longitud = longitud;
+    }
+
+    //Metodos
+
+    public Organizacion buscarOrganizacionMasCercana(){
+        /*List<Organizacion> organizaciones = Organizaciones.getInstance().getOrganizaciones();
+        List<HogaresDeTransito> hogares = new ArrayList<>();
+        organizaciones.stream().map(unaOrganizacion->getHogaresDeTransito()).values().forEach(unaListaDeHogares -> hogares.add(unaListaDeHogares));
+        hogares.stream().map()
+        no terminado*/
+
+        //Logica probablemente sujeta a la API de los hogares de transito
+        return new Organizacion("prueba", LocalDate.now(),null,null, new Grande(),null);
     }
 }

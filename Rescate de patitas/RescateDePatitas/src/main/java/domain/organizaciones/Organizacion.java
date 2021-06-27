@@ -11,6 +11,8 @@ public class Organizacion {
     private Date fechaDeCreacion;
     private List<Caracteristica> caracteristicasAdmitidas;
     private Foto logo;
+    private DimensionEstandar dimensionEstandar;
+    private List<HogarDeTransito> hogares;
 
     // Getters and Setters
     public String getNombreOrganizacion() {
@@ -56,11 +58,13 @@ public class Organizacion {
     // Constructor
     public Organizacion() {}
 
-    public Organizacion(String nombreOrganizacion, Date fechaDeCreacion, List<Caracteristica> caracteristicasAdmitidas, Foto logo) {
+    public Organizacion(String nombreOrganizacion, Date fechaDeCreacion, List<Caracteristica> caracteristicasAdmitidas, Foto logo, DimensionEstandar dimensionEstandar, List<HogarDeTransito> hogares) {
         this.nombreOrganizacion = nombreOrganizacion;
         this.fechaDeCreacion = fechaDeCreacion;
         this.caracteristicasAdmitidas = caracteristicasAdmitidas;
         this.logo = logo;
+        this.hogares = hogares;
+        this.dimensionEstandar = dimensionEstandar;
     }
 
 
