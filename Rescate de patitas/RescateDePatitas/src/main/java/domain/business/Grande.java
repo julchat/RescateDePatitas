@@ -1,8 +1,8 @@
-package domain.business
+package domain.business;
 
-public class Grande implements DimensionEstandar(){
-public Grande(){
-        ancho = 6000;
-        alto = 4000;
+public class Grande extends DimensionEstandar {
+        public Grande(){
+              setAncho(6000);
+             setAlto(4000);
         }
-        }
+}

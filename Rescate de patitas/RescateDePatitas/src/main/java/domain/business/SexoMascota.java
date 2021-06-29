@@ -1,4 +1,4 @@
-package domain.business
+package domain.business;
 
 public enum SexoMascota{
             MACHO,

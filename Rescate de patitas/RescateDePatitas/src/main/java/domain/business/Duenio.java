@@ -1,6 +1,10 @@
 package domain.business;
 
+import domain.business.caracteristicas.CaracteristicaConValor;
+import domain.business.foto.Foto;
 import domain.notificaciones.Notificacion;
+import domain.organizaciones.Organizacion;
+import excepciones.CaracteristicasNoValidasException;
 
 import java.util.Date;
 import java.util.List;
@@ -8,7 +12,10 @@ import java.util.List;
 public class Duenio extends Persona {
     private Domicilio domicilio;
     private List<Mascota> mascotas;
+    //TODO consultar si un dueño tiene que tener una organizacion
     private Organizacion organizacion;
+
+
     // Getters and Setters
     public Domicilio getDomicilio() {
         return domicilio;
@@ -16,6 +23,14 @@ public class Duenio extends Persona {
 
     public void setDomicilio(Domicilio domicilio) {
         this.domicilio = domicilio;
+    }
+
+    public Organizacion getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
     }
 
     // Constructor
@@ -27,22 +42,24 @@ public class Duenio extends Persona {
         this.mascotas = mascotas;
     }
 
+
+    // TODO queda pendiente saber si un dueño depende de una organizacion, si no depende de eso, entonces hay que cambiar los metodos de registrar mascota y lo relacionado a una Organizacion
     // Metodos
     public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaConValor> caracs) {
-        if(!(caracs.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion))){
+        if(!(caracs.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion)))) {
             throw new CaracteristicasNoValidasException();
         }
-        fotos.forEach(unaFoto-> unaFoto.normalizarA(organizacion.getDimensionFoto()));
+        fotos.forEach(unaFoto-> unaFoto.normalizarA(organizacion.getDimensionEstandar()));
         Mascota mascotaARegistrar = new Mascota(nombre, tipo, edadMascota, sexo, descripcionMascota, fotos, caracs, perdida, true, this);
         mascotas.add(mascotaARegistrar);
     }
 
-    public cambiarDomicilio(Domicilio nuevoDomicilio){
+    public void cambiarDomicilio(Domicilio nuevoDomicilio){
         this.cambiarOrganizacion(domicilio.buscarOrganizacionMasCercana());
         this.setDomicilio(nuevoDomicilio);
     }
 
-    public cambiarOrganizacion(Organizacion nuevaOrganizacion){
+    public void cambiarOrganizacion(Organizacion nuevaOrganizacion){
         mascotas.forEach(unaMascota -> unaMascota.ajustarseAOrganizacion(nuevaOrganizacion));
         this.setOrganizacion(nuevaOrganizacion);
     }

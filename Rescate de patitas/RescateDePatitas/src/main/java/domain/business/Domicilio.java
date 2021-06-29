@@ -1,6 +1,8 @@
 package domain.business;
 
-import java.time;
+import domain.organizaciones.Organizacion;
+
+import java.time.LocalDate;
 
 public class Domicilio {
     private String provincia;

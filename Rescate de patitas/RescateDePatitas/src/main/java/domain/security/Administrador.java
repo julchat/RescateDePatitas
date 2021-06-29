@@ -1,6 +1,6 @@
-package domain.security
+package domain.security;
 
-public class Administrador implements Rol{
+public class Administrador implements Rol {
     public boolean puedoAprobarPublicaciones(){
         return true;
     }

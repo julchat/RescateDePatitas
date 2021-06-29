@@ -2,7 +2,9 @@ package domain.business;
 
 import domain.business.caracteristicas.CaracteristicaConValor;
 import domain.business.foto.Foto;
+import domain.organizaciones.Organizacion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mascota {
@@ -29,6 +31,9 @@ public class Mascota {
         this.estaAdoptada = adoptada;
         this.estaPerdida = perdida;
         this.encargado = encargado;
+    }
+
+    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaConValor> caracs, boolean perdida, boolean adoptada, Duenio encargado) {
     }
 
 
@@ -65,11 +70,11 @@ public class Mascota {
         this.edadMascota = edadMascota;
     }
 
-    public char getSexoMascota() {
+    public SexoMascota getSexoMascota() {
         return sexoMascota;
     }
 
-    public void setSexoMascota(char sexoMascota) {
+    public void setSexoMascota(SexoMascota sexoMascota) {
         this.sexoMascota = sexoMascota;
     }
 
@@ -81,12 +86,12 @@ public class Mascota {
         this.descripcionMascota = descripcionMascota;
     }
 
-    public Foto getFoto() {
-        return foto;
+    public List<Foto> getFoto() {
+        return this.fotos;
     }
 
     public void setFoto(Foto foto) {
-        this.foto = foto;
+        this.fotos = fotos;
     }
 
     public List<CaracteristicaConValor> getCaracteristicasMascota() {
@@ -132,12 +137,10 @@ public class Mascota {
     }
 
     public void ajustarseAOrganizacion(Organizacion organizacion){
-        this.fotos.forEach(foto -> foto.normalizarA(organizacion.getDimensionFoto));
+        this.fotos.forEach(foto -> foto.normalizarA(organizacion.getDimensionEstandar()));
         List<CaracteristicaConValor> caracteristicasValidas = new ArrayList<>();
-        caracteristicasMascota.forEach(unaCaracteristica ->
-        if (unaCaracteristica.soyCaracteristicaValida(Organizacion)) {
-            caracteristicasValidas.add(unaCaracteristica);
-        })
+        caracteristicasMascota.forEach(unaCaracteristica -> organizacion.agregoSiAceptaCaracteristica(unaCaracteristica, caracteristicasValidas));
+
         caracteristicasMascota = caracteristicasValidas;
     }
 

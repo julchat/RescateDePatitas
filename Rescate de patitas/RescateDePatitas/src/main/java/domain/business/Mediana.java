@@ -1,8 +1,8 @@
-package domain.business
+package domain.business;
 
-public class Mediana implements DimensionEstandar(){
-public Mediana(){
-        ancho = 4496;
-        alto = 3000;
+public class Mediana extends DimensionEstandar {
+        public Mediana(){
+                setAncho(4496);
+                setAlto(3000);
         }
-        }
+}

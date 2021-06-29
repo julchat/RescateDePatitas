@@ -1,15 +1,17 @@
 package domain.business.caracteristicas;
 
+import domain.organizaciones.Organizacion;
+
 public class CaracteristicaConValor {
-    private String nombreCaracteristica;
+    private Caracteristica nombreCaracteristica;
     private String eleccion;
 
     // Getters and Setters
-    public String getNombreCaracteristica() {
+    public Caracteristica getNombreCaracteristica() {
         return nombreCaracteristica;
     }
 
-    public void setNombreCaracteristica(String nombreCaracteristica) {
+    public void setNombreCaracteristica(Caracteristica nombreCaracteristica) {
         this.nombreCaracteristica = nombreCaracteristica;
     }
 
@@ -25,8 +27,14 @@ public class CaracteristicaConValor {
     // Constructor
     public CaracteristicaConValor() {}
 
-    public CaracteristicaConValor(String nombreCaracteristica, String eleccion) {
+    public CaracteristicaConValor(Caracteristica nombreCaracteristica, String eleccion) {
         this.nombreCaracteristica = nombreCaracteristica;
         this.eleccion = eleccion;
     }
+
+    public boolean soyCaracteristicaValida(Organizacion organizacion) {
+        return organizacion.aceptoCaracteristica(this);
+    }
+
+
 }

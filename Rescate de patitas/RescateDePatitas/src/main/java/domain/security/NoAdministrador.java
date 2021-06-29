@@ -1,4 +1,4 @@
-package domain.security
+package domain.security;
 
 public class NoAdministrador implements Rol{
     public boolean puedoAprobarPublicaciones(){
