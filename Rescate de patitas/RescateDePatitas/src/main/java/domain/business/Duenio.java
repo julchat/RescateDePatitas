@@ -4,7 +4,7 @@ import domain.business.caracteristicas.CaracteristicaConValor;
 import domain.business.foto.Foto;
 import domain.notificaciones.Notificacion;
 import domain.organizaciones.Organizacion;
-import excepciones.CaracteristicasNoValidasException;
+import excepciones.HayCaracteristicasNoValidasException;
 
 import java.util.Date;
 import java.util.List;
@@ -47,7 +47,7 @@ public class Duenio extends Persona {
     // Metodos
     public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaConValor> caracs) {
         if(!(caracs.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion)))) {
-            throw new CaracteristicasNoValidasException();
+            throw new HayCaracteristicasNoValidasException();
         }
         fotos.forEach(unaFoto-> unaFoto.normalizarA(organizacion.getDimensionEstandar()));
         Mascota mascotaARegistrar = new Mascota(nombre, tipo, edadMascota, sexo, descripcionMascota, fotos, caracs, perdida, true, this);

@@ -1,8 +1,8 @@
 package excepciones;
 
-public class CaracteristicasNoValidasException extends RuntimeException {
+public class HayCaracteristicasNoValidasException extends RuntimeException {
     private static final String message = "Las caracteristicas ingresadas no son validas para la organizacion";
-    public CaracteristicasNoValidasException() {
+    public HayCaracteristicasNoValidasException() {
         super(message);
     }
 }
