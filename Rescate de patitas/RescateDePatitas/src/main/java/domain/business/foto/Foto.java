@@ -1,8 +1,5 @@
 package domain.business.foto;
 
-import domain.business.DimensionEstandar;
-
-import java.awt.*;
 import java.util.HashMap;
 
 public class Foto {

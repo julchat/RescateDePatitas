@@ -1,4 +1,6 @@
-package domain.business;
+package domain.business.foto;
+
+import domain.business.foto.DimensionEstandar;
 
 public class Pequenia extends DimensionEstandar {
         public Pequenia(){

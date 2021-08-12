@@ -64,7 +64,6 @@ public class HogarDeTransito{
         System.out.println("No posee dicha caracteristicas como caracteristicas admitidas.");
     }
 
-
     // Constructor
     public HogarDeTransito(){ }
 
@@ -75,5 +74,4 @@ public class HogarDeTransito{
         this.disponibilidad = disponibilidad;
         this.caracteristicasAdmitidas = caracteristicasAdmitidas;
     }
-
 }

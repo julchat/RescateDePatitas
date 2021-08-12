@@ -1,4 +1,4 @@
-package domain.business;
+package domain.business.foto;
 
 public abstract class DimensionEstandar{
     private int ancho;

@@ -1,12 +1,11 @@
 package domain.organizaciones;
 
-import domain.business.DimensionEstandar;
+import domain.business.foto.DimensionEstandar;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.caracteristicas.CaracteristicaConValor;
 import domain.business.foto.Foto;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class Organizacion {
