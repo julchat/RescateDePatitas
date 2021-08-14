@@ -3,7 +3,7 @@ package domain.business;
 public class Chapa {
     private int idChapa;
     private Mascota mascota;
-    private Duenio dueño;
+    private Duenio duenio;
 
     public int getIdChapa() {
         return idChapa;
@@ -21,20 +21,20 @@ public class Chapa {
         this.mascota = mascota;
     }
 
-    public Duenio getDueño() {
-        return dueño;
+    public Duenio getDuenio() {
+        return duenio;
     }
 
-    public void setDueño(Duenio dueño) {
-        this.dueño = dueño;
+    public void setDuenio(Duenio duenio) {
+        this.duenio = duenio;
     }
 
     public Chapa() {}
 
-    public Chapa(int idChapa, Mascota mascota, Duenio dueño) {
+    public Chapa(int idChapa, Mascota mascota, Duenio duenio) {
         this.idChapa = idChapa;
         this.mascota = mascota;
-        this.dueño = dueño;
+        this.duenio = duenio;
     }
 
 
