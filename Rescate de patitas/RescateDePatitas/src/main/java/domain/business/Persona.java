@@ -9,12 +9,13 @@ public class Persona {
     private String nombre;
     private String apellido;
     private Date fechaDeNacimiento;
-    private String tipoDocumento;          // Podriamos hacer un enum para tipo de doc: DNI, CEDULA, PASAPORTE, etc.
+    private TipoDoc tipoDocumento;          // Podriamos hacer un enum para tipo de doc: DNI, CEDULA, PASAPORTE, etc.
     private int numeroDocumento;
     private int telefono;
     private String email;
     private List<Notificacion> formasDeNotificacion;
     private List<Contacto> contactos;
+    private boolean suscripto;
 
     // Getters and Setters
     public String getNombre() { return nombre; }
@@ -29,9 +30,9 @@ public class Persona {
 
     public void setFechaDeNacimiento(Date fechaDeNacimiento) { this.fechaDeNacimiento = fechaDeNacimiento; }
 
-    public String getTipoDocumento() { return tipoDocumento; }
+    public TipoDoc getTipoDocumento() { return tipoDocumento; }
 
-    public void setTipoDocumento(String tipoDocumento) { this.tipoDocumento = tipoDocumento; }
+    public void setTipoDocumento(TipoDoc tipoDocumento) { this.tipoDocumento = tipoDocumento; }
 
     public int getNumeroDocumento() { return numeroDocumento; }
 
@@ -75,20 +76,10 @@ public class Persona {
         }
     }
 
-    /*
-    public Organizacion getOrganizacion() {
-        return organizacion;
-    }
-
-    public void setOrganizacion(Organizacion organizacion) {
-        this.organizacion = organizacion;
-    }
-*/
-
     // Constructor
     public Persona() {}
 
-    public Persona(String nombre, String apellido, Date fechaDeNacimiento, String tipoDocumento, int numeroDocumento, int telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
+    public Persona(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, int telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaDeNacimiento = fechaDeNacimiento;
@@ -101,6 +92,14 @@ public class Persona {
     }
 
     // Metodos
-    public void crearPublicacion() {
+    public void crearPublicacionParaAdoptar() {
+    }
+
+    public void suscribirseNovedades() {
+        this.suscripto = true;
+    }
+
+    public void desuscribirseNovedades() {
+        this.suscripto = false;
     }
 }
