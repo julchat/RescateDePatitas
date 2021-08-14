@@ -1,4 +1,4 @@
-package domain.organizaciones;
+package domain.business.organizaciones;
 
 import domain.business.Domicilio;
 import domain.business.TipoAnimal;

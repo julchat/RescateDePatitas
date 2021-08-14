@@ -1,7 +1,6 @@
 package domain.business;
 
 import domain.notificaciones.Notificacion;
-import domain.organizaciones.Organizacion;
 
 import java.util.Date;
 import java.util.List;

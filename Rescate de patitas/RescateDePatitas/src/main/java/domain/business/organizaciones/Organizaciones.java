@@ -1,4 +1,4 @@
-package domain.organizaciones;
+package domain.business.organizaciones;
 
 import java.util.List;
 

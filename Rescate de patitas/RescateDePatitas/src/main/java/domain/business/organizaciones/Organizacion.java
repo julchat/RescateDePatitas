@@ -1,4 +1,4 @@
-package domain.organizaciones;
+package domain.business.organizaciones;
 
 import domain.business.foto.DimensionEstandar;
 import domain.business.caracteristicas.Caracteristica;

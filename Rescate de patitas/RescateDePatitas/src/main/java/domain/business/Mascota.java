@@ -2,7 +2,7 @@ package domain.business;
 
 import domain.business.caracteristicas.CaracteristicaConValor;
 import domain.business.foto.Foto;
-import domain.organizaciones.Organizacion;
+import domain.business.organizaciones.Organizacion;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package domain.business;
 
 import domain.business.foto.Grande;
-import domain.organizaciones.Organizacion;
+import domain.business.organizaciones.Organizacion;
 
 import java.time.LocalDate;
 

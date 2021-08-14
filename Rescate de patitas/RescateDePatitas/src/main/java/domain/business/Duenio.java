@@ -3,7 +3,7 @@ package domain.business;
 import domain.business.caracteristicas.CaracteristicaConValor;
 import domain.business.foto.Foto;
 import domain.notificaciones.Notificacion;
-import domain.organizaciones.Organizacion;
+import domain.business.organizaciones.Organizacion;
 import excepciones.HayCaracteristicasNoValidasException;
 
 import java.util.Date;

@@ -1,6 +1,6 @@
 package domain.business.caracteristicas;
 
-import domain.organizaciones.Organizacion;
+import domain.business.organizaciones.Organizacion;
 
 public class CaracteristicaConValor {
     private Caracteristica nombreCaracteristica;
