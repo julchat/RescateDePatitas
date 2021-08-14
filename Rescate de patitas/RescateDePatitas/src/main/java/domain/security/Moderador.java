@@ -1,16 +1,16 @@
 package domain.security;
 
-public class Administrador implements Rol {
+public class Moderador implements Rol{
     @Override
     public boolean puedoAprobarPublicaciones() { return true; }
 
     @Override
     public boolean puedoCrearAdministradores() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean puedoCambiarEstandares() {
-        return true;
+        return false;
     }
 }
