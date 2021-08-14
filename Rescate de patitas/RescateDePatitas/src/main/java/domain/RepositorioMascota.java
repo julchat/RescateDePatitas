@@ -20,6 +20,6 @@ public class RepositorioMascota {
     public Mascota buscarMascota(Chapa chapaMascota) {
         // Todo de algun repositorio de chapas, buscar la que contenga los datos de esta chapita
         //  O sino, a partir de esta chapita, podemos ubicar al duenio y asi poder notificarle
-        return mascotaBuscada;
+        return null;
     }
 }
