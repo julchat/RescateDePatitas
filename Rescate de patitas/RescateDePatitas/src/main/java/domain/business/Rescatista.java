@@ -29,7 +29,7 @@ public class Rescatista extends Persona{
     // Constructor
     public Rescatista() { }
 
-    public Rescatista(String nombre, String apellido, Date fechaDeNacimiento, String tipoDocumento, int numeroDocumento, int telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, boolean puedeAlojarMascota, Domicilio domicilio) {
+    public Rescatista(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, int telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, boolean puedeAlojarMascota, Domicilio domicilio) {
         super(nombre, apellido, fechaDeNacimiento, tipoDocumento, numeroDocumento, telefono, email, formasDeNotificacion, contactos);
         this.puedeAlojarMascota = puedeAlojarMascota;
         this.domicilio = domicilio;

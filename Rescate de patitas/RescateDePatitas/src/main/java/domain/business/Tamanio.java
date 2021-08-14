@@ -1,7 +1,7 @@
 package domain.business;
 
-public enum Tamaño {
-    PEQUEÑA,
+public enum Tamanio {
+    PEQUENIA,
     MEDIANA,
     GRANDE
 }

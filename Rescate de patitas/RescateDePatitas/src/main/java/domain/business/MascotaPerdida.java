@@ -9,7 +9,7 @@ public class MascotaPerdida {
     private List<Foto> carrouselFotos;
     private String descripcion;
     private TipoAnimal tipoAnimal;
-    private Tamaño tamanio;
+    private Tamanio tamanio;
     private HogarDeTransito hogarDeTransito;
     private Ubicacion ubicacionEncontrada;
 
