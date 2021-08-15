@@ -28,15 +28,25 @@ public class Sistema {
 
     public void crearUsuario(String nombre, String contrasenia) {
         Usuario nuevoUsuario = new Usuario(nombre, contrasenia);
-        if (!this.buscarUsuario(nuevoUsuario)) {
+        if (!this.existeUsuario(nombre)) {
             this.usuarios.add(nuevoUsuario);
         } else {
             System.out.println("El usuario ya se encuentra en el Sistema.");
         }
     }
 
-    public boolean buscarUsuario(Usuario usuarioBuscado) {
-        return this.usuarios.contains(usuarioBuscado);
+    public Usuario buscarUsuario(String nombreUsuario) {
+        return this.usuarios.stream().filter(usuario -> usuario.getUsuario().equals(nombreUsuario)).findFirst().get();
+    }
+
+    public boolean coincideContrasenia(String usuarioBuscado, String contrasenia) {
+        Usuario usuario = buscarUsuario(usuarioBuscado);
+        if(usuario.getContrasenia().equals(contrasenia)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public boolean existeUsuario(String usuarioBuscado) {
@@ -45,5 +55,17 @@ public class Sistema {
 
     public boolean validarContrasenia(String contrasenia) {
         return validador.esValida(contrasenia);
+    }
+
+
+
+
+    public void inicioSesion(Usuario usuario) {
+        // TODO: todo lo relacionado al inicio de sesion, como registrar mascota, adoptar
+        this.cerrarSesion();
+    }
+
+    public void cerrarSesion() {
+        return;
     }
 }

@@ -17,7 +17,8 @@ public class ValidadorPasswordComun implements Validador {
             stream = Files.lines(path);
             return stream.noneMatch(palabra -> palabra.equals(password));
         } catch (IOException e){
-            throw new ReadFileException();
+            //throw new ReadFileException();
+            return false;
         }
     }
 

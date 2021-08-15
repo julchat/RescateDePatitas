@@ -1,5 +1,7 @@
 package domain.views;
 import domain.business.Sistema;
+import domain.security.Usuario;
+
 import java.util.Scanner;
 
 public class MenuPrueba {
@@ -23,6 +25,30 @@ public class MenuPrueba {
 
             switch(opcionElegida) {
                 case 1:
+                    System.out.print("Ingrese su nombre de usuario: ");
+                    String usuarioLogin = datosUsuario.nextLine();
+                    while(!miSistema.existeUsuario(usuarioLogin)) {
+                        System.out.print("Usuario incorrecto. Por favor ingrese nuevamente: ");
+                        usuarioLogin = datosUsuario.nextLine();
+                    }
+
+                    System.out.print("Ingrese la contraseña: ");
+                    String contraseniaLogin = datosUsuario.nextLine();
+                    int intentos = 0;
+                    while(!miSistema.coincideContrasenia(usuarioLogin, contraseniaLogin)) {
+                        System.out.print("Contraseña incorrecta. Por favor ingrese nuevamente: ");
+                        contraseniaLogin = datosUsuario.nextLine();
+                        intentos++;
+                        if(intentos == 3) {
+                            System.out.println("Ha realizado 3 intentos consecutivos y erróneos. Por favor espere unos segundos e intente nuevamente.");
+                            // TODO: sleep(30) o algo asi
+                        }
+                    }
+                    System.out.println("¡Bienvenido de vuelta " + usuarioLogin + "!");
+                    Usuario usuarioLogged = miSistema.buscarUsuario(usuarioLogin);
+
+                    miSistema.inicioSesion(usuarioLogged);
+                    fin = true;
 
                     break;
                 case 2:

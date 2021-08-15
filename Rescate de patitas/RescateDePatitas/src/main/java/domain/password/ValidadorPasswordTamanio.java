@@ -12,7 +12,8 @@ public class ValidadorPasswordTamanio implements Validador{
             return true;
         }
         else {
-            throw new TamanioException();
+            //throw new TamanioException();
+            return false;
         }
     }
 }
