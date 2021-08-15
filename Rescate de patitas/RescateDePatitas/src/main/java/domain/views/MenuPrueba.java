@@ -9,16 +9,16 @@ public class MenuPrueba {
     public void iniciarMenu() {
         Scanner opciones = new Scanner(System.in);
         Scanner datosUsuario = new Scanner(System.in);
-        boolean fin = false;
+        boolean salir = false;
         int opcionElegida;
         Sistema miSistema = Sistema.getInstance();
 
 
-        while(!fin) {
+        while(!salir) {
             System.out.println("¡Bienvenido/a a RescateDePatitas!");
-            System.out.println("    - Para Iniciar Sesion: 1");
-            System.out.println("    - Para Crear un Usuario: 2");
-            System.out.println("    - Para Cerrar: 3");
+            System.out.println("    - Para Iniciar Sesion, ingrese 1.");
+            System.out.println("    - Para Crear un Usuario, ingrese 2.");
+            System.out.println("    - Para Cerrar, ingrese 3.");
 
             System.out.print("Ingrese el comando: ");
             opcionElegida = opciones.nextInt();
@@ -47,8 +47,8 @@ public class MenuPrueba {
                     System.out.println("¡Bienvenido de vuelta " + usuarioLogin + "!");
                     Usuario usuarioLogged = miSistema.buscarUsuario(usuarioLogin);
 
-                    miSistema.inicioSesion(usuarioLogged);
-                    fin = true;
+                    this.inicioSesion(usuarioLogged);
+                    salir = true;
 
                     break;
                 case 2:
@@ -79,15 +79,54 @@ public class MenuPrueba {
                     break;
                 case 3:
                     System.out.println("¡Gracias por visitar RescateDePatitas!");
-                    fin = true;
+                    salir = true;
                     break;
                 default:
                     System.out.println("Se ha elegido una opción incorrecta. Intente nuevamente.");
                     break;
             }
         }
+    }
+
+    public void inicioSesion(Usuario usuarioLogin) {
+        Scanner entrada = new Scanner(System.in);
+        Sistema miSistema = Sistema.getInstance();
+        boolean salir = false;
+        System.out.println("    - Para Registrar a una mascota, ingrese 1.");
+        System.out.println("    - Para Ver las mascotas perdidas, ingrese 2");
+        System.out.println("    - Para Adoptar a una mascota, ingrese 3");
+        System.out.println("    - Para Cerrar sesión, ingrese 4");
+        int opcion = entrada.nextInt();
+
+        while(!salir) {
+            switch(opcion) {
+                case 1:
+                    // Todo: todo lo relacionado al registro de una mascota, se haria el formulario
+                    break;
+                case 2:
+                    miSistema.mostrarMascotasPerdidas();
+                    break;
+                case 3:
+                    // Todo: todo lo relacionado a querer adoptar a una mascota
+                    break;
+                case 4:
+                    System.out.println("¡Gracias por visitar RescateDePatitas!");
+                    this.cerrarSesion();
+                    salir = true;
+                    break;
+                default:
+                    System.out.print("Ha ingresado una opción incorrecta. Por favor intente nuevamente: ");
+                    opcion = entrada.nextInt();
+                    break;
+            }
+        }
 
 
 
+    }
+
+    public void cerrarSesion() {
+        // Todo: aca habria que cerrar sesion, creo que implementando algo de seguridad
+        return;
     }
 }

@@ -79,15 +79,4 @@ public class Sistema {
         }
     }
 
-
-    public void inicioSesion(Usuario usuario) {
-        // TODO: todo lo relacionado al inicio de sesion, como registrar mascota, adoptar
-        this.cerrarSesion();
-    }
-
-    public void cerrarSesion() {
-        return;
-    }
-
-
 }
