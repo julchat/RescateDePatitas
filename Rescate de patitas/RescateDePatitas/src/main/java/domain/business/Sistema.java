@@ -1,5 +1,6 @@
 package domain.business;
 
+import domain.business.organizaciones.HogarDeTransito;
 import domain.business.organizaciones.Organizacion;
 import domain.business.publicaciones.Publicacion;
 import domain.password.ValidadorPassword;
@@ -14,6 +15,7 @@ public class Sistema {
     private static List<Usuario> usuarios = new ArrayList<>();
     private List<Publicacion> publicaciones = new ArrayList<>();
     private List<Organizacion> organizaciones = new ArrayList<>();
+    private List<MascotaPerdida> mascotasPerdidas = new ArrayList<>();
     private ValidadorPassword validador = new ValidadorPassword();
     // Todo: preguntas que deben estar si o si
 
@@ -23,6 +25,12 @@ public class Sistema {
             instancia = new Sistema();
         }
         return instancia;
+    }
+
+    public void mostrarMascotasPerdidas() {
+        for (MascotaPerdida mascota : mascotasPerdidas) {
+            mascota.mostrarMascota();
+        }
     }
 
 
@@ -58,6 +66,18 @@ public class Sistema {
     }
 
 
+    public void registrarMascotaPerdida(MascotaPerdida mascotaPerdida) {
+        this.mascotasPerdidas.add(mascotaPerdida);
+    }
+
+    public void reclamarMascotaEncontrada(MascotaPerdida mascota) {
+        if(mascotasPerdidas.contains(mascota)) {
+            mascotasPerdidas.remove(mascota);
+        }
+        else {
+            System.out.println("La mascota en cuestión no se encuentra en la BD de Mascotas Perdidas.");
+        }
+    }
 
 
     public void inicioSesion(Usuario usuario) {
@@ -68,4 +88,6 @@ public class Sistema {
     public void cerrarSesion() {
         return;
     }
+
+
 }
