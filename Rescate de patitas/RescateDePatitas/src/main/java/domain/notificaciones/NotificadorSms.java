@@ -1,10 +1,22 @@
 package domain.notificaciones;
-
+import domain.business.Mascota;
+import domain.business.MascotaPerdida;
 import domain.business.Persona;
+import domain.business.publicaciones.BusquedaMascotaIdeal;
 
-public class NotificadorSms implements Notificacion{
+public class NotificadorSms extends Notificacion{
     @Override
-    public void notificar(Persona persona) {
-        // Todo logica para notificar a una persona por sms (a su numero de telefono, siempre que sea un celular)
+    public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta) {
+        twillio.enviarSMS(destinatario.getTelefono(),armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida,ruta));
+    }
+
+    @Override
+    public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta) {
+
+    }
+
+    @Override
+    public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
+
     }
 }

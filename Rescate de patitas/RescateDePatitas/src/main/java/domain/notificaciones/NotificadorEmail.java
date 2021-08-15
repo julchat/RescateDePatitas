@@ -1,11 +1,21 @@
 package domain.notificaciones;
-
+import domain.business.Mascota;
 import domain.business.Persona;
+import domain.business.publicaciones.BusquedaMascotaIdeal;
 
-public class NotificadorEmail implements Notificacion{
+public class NotificadorEmail extends Notificacion{
+    @Override
+    public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta){
+
+    }
 
     @Override
-    public void notificar(Persona persona) {
-        // Todo logica para notificar a una persona via mail
+    public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta) {
+
+    }
+
+    @Override
+    public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
+
     }
 }

@@ -2,16 +2,17 @@ package domain.business;
 
 import domain.notificaciones.Notificacion;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 public class Persona {
     private String nombre;
     private String apellido;
-    private Date fechaDeNacimiento;
+    private LocalDateTime fechaDeNacimiento;
     private TipoDoc tipoDocumento;          // Podriamos hacer un enum para tipo de doc: DNI, CEDULA, PASAPORTE, etc.
     private int numeroDocumento;
-    private int telefono;
+    private String telefono;
     private String email;
     private List<Notificacion> formasDeNotificacion;
     private List<Contacto> contactos;
@@ -26,9 +27,9 @@ public class Persona {
 
     public void setApellido(String apellido) { this.apellido = apellido; }
 
-    public Date getFechaDeNacimiento() { return fechaDeNacimiento; }
+    public LocalDateTime getFechaDeNacimiento() { return fechaDeNacimiento; }
 
-    public void setFechaDeNacimiento(Date fechaDeNacimiento) { this.fechaDeNacimiento = fechaDeNacimiento; }
+    public void setFechaDeNacimiento(LocalDateTime fechaDeNacimiento) { this.fechaDeNacimiento = fechaDeNacimiento; }
 
     public TipoDoc getTipoDocumento() { return tipoDocumento; }
 
@@ -38,9 +39,9 @@ public class Persona {
 
     public void setNumeroDocumento(int numeroDocumento) { this.numeroDocumento = numeroDocumento; }
 
-    public int getTelefono() { return telefono; }
+    public String getTelefono() { return telefono; }
 
-    public void setTelefono(int telefono) { this.telefono = telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 
     public String getEmail() { return email; }
 
@@ -79,7 +80,7 @@ public class Persona {
     // Constructor
     public Persona() {}
 
-    public Persona(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, int telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
+    public Persona(String nombre, String apellido, LocalDateTime fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaDeNacimiento = fechaDeNacimiento;

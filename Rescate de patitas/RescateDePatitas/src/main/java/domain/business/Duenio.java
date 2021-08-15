@@ -6,6 +6,7 @@ import domain.notificaciones.Notificacion;
 import domain.business.organizaciones.Organizacion;
 import excepciones.HayCaracteristicasNoValidasException;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Duenio extends Persona {
     // Constructor
     public Duenio() {}
 
-    public Duenio(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, int telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, Domicilio domicilio, List<Mascota> mascotas) {
+    public Duenio(String nombre, String apellido, LocalDateTime fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, Domicilio domicilio, List<Mascota> mascotas) {
         super(nombre, apellido, fechaDeNacimiento, tipoDocumento, numeroDocumento, telefono, email, formasDeNotificacion, contactos);
         this.domicilio = domicilio;
         this.mascotas = mascotas;
@@ -70,5 +71,9 @@ public class Duenio extends Persona {
         else {
             System.out.println("No es la mascota que esta buscando este dueño.");
         }
+    }
+
+    public List<Mascota> getMascotas(){
+        return this.mascotas;
     }
 }

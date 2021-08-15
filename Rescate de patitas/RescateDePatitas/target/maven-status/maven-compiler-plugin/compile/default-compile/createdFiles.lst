@@ -11,6 +11,7 @@ domain\business\publicaciones\PuestoEnAdopcion.class
 domain\password\ValidadorPasswordNull.class
 domain\business\foto\Posicion.class
 domain\business\publicaciones\Pendiente.class
+domain\notificaciones\AdapterTwillio.class
 domain\business\caracteristicas\Caracteristica.class
 domain\business\publicaciones\Publicacion.class
 excepciones\ReadFileException.class

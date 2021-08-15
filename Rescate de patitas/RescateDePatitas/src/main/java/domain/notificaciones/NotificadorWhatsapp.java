@@ -1,10 +1,21 @@
 package domain.notificaciones;
-
+import domain.business.Mascota;
 import domain.business.Persona;
+import domain.business.publicaciones.BusquedaMascotaIdeal;
 
-public class NotificadorWhatsapp implements Notificacion{
-    @Override
-    public void notificar(Persona persona) {
-        // Todo logica para notificar a una persona a su casilla de mensajes de Whatsapp
-    }
+public class NotificadorWhatsapp extends Notificacion{
+@Override
+public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta) {
+        twillio.enviarWhatsapp(destinatario.getTelefono(),armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida,ruta));
+        }
+
+@Override
+public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta) {
+
+        }
+
+@Override
+public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
+
+        }
 }

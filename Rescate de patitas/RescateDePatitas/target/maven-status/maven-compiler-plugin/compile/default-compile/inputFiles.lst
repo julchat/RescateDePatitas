@@ -22,9 +22,9 @@ D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\business\foto\Posicion.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\business\Duenio.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\business\MascotaPerdida.java
+D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\business\Tamanio.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\security\Moderador.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\password\Validador.java
-D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\business\Tamaño.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\main.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\password\ValidadorPasswordPrimerLetra.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\notificaciones\Notificacion.java
@@ -53,6 +53,7 @@ D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\business\Respuesta.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\notificaciones\NotificadorWhatsapp.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\business\Contacto.java
+D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\notificaciones\AdapterTwillio.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\excepciones\NullException.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\password\ValidadorPasswordNull.java
 D:\Proyectos\DDS-Grupo8\Rescate de patitas\RescateDePatitas\src\main\java\domain\business\foto\DimensionEstandar.java

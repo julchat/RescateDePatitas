@@ -33,10 +33,6 @@ public class Mascota {
         this.encargado = encargado;
     }
 
-    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaConValor> caracs, boolean perdida, boolean adoptada, Duenio encargado) {
-    }
-
-
     // Getters and Setters
     public String getNombreMascota() {
         return nombreMascota;

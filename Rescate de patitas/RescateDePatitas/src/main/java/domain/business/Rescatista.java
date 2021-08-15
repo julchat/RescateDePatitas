@@ -2,6 +2,7 @@ package domain.business;
 
 import domain.notificaciones.Notificacion;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Rescatista extends Persona{
     // Constructor
     public Rescatista() { }
 
-    public Rescatista(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, int telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, boolean puedeAlojarMascota, Domicilio domicilio) {
+    public Rescatista(String nombre, String apellido, LocalDateTime fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, boolean puedeAlojarMascota, Domicilio domicilio) {
         super(nombre, apellido, fechaDeNacimiento, tipoDocumento, numeroDocumento, telefono, email, formasDeNotificacion, contactos);
         this.puedeAlojarMascota = puedeAlojarMascota;
         this.domicilio = domicilio;
