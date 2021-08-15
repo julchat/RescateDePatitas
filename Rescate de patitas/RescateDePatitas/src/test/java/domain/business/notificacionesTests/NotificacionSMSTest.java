@@ -1,4 +1,4 @@
-package domain.business.notificacionesTests;
+/*package domain.business.notificacionesTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -35,14 +35,14 @@ public class NotificacionSMSTest {
         halladorMascota.setApellido("Peterson");
     }
 
-    @Test
+    @Test*/
     /*public void pruebaSMS(){
         medios.add(notiSMS);
         duenioMascota.getFormasDeNotificacion().forEach((unMedio -> unMedio.notificarMascotaEncontrada(duenioMascota, halladorMascota, mascotaQueSePerdio, link)));
         assertTrue(true);
     } Comento porque baja el saldo*/
 
-    public void pruebaWhatsapp(){
+    /*public void pruebaWhatsapp(){
         duenioMascota.getFormasDeNotificacion().add(notiWPP);
         duenioMascota.getFormasDeNotificacion().forEach((unMedio -> unMedio.notificarMascotaEncontrada(duenioMascota, halladorMascota, mascotaQueSePerdio, link)));
         assertTrue(true);
@@ -54,3 +54,4 @@ public class NotificacionSMSTest {
         assertTrue(true);
     }
 }
+*/

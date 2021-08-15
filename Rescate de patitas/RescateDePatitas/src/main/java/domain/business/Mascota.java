@@ -1,6 +1,6 @@
 package domain.business;
 
-import domain.business.caracteristicas.CaracteristicaConValor;
+import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
 import domain.business.organizaciones.Organizacion;
 
@@ -15,12 +15,12 @@ public class Mascota {
     private SexoMascota sexoMascota;                   // M o H, o un Enum con MACHO, HEMBRA? // Enum, para evitar problemas como "no me toma la m porque esta en minuscula"
     private String descripcionMascota;
     private List<Foto> fotos;
-    private List<CaracteristicaConValor> caracteristicasMascota;
+    private List<CaracteristicaMascota> caracteristicasMascota;
     private boolean estaPerdida;
     private boolean estaAdoptada;
     private Persona encargado;
 
-    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaConValor> caracs, boolean perdida, boolean adoptada, Persona encargado){
+    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaMascota> caracs, boolean perdida, boolean adoptada, Persona encargado){
         this.nombreMascota = nombre;
         this.tipoAnimal = tipo;
         this.edadMascota = edadMascota;
@@ -90,15 +90,15 @@ public class Mascota {
         this.fotos = fotos;
     }
 
-    public List<CaracteristicaConValor> getCaracteristicasMascota() {
+    public List<CaracteristicaMascota> getCaracteristicasMascota() {
         return caracteristicasMascota;
     }
 
-    public void setCaracteristicasMascota(List<CaracteristicaConValor> caracteristicasMascota) {
+    public void setCaracteristicasMascota(List<CaracteristicaMascota> caracteristicasMascota) {
         this.caracteristicasMascota = caracteristicasMascota;
     }
 
-    public void quitarCaracteristica(CaracteristicaConValor caracteristica) {
+    public void quitarCaracteristica(CaracteristicaMascota caracteristica) {
         if(this.caracteristicasMascota.contains(caracteristica)) {
             this.caracteristicasMascota.remove(caracteristica);
         }
@@ -107,7 +107,7 @@ public class Mascota {
         }
     }
 
-    public void agregarCaracteristica(CaracteristicaConValor caracteristica) { this.caracteristicasMascota.add(caracteristica); }
+    public void agregarCaracteristica(CaracteristicaMascota caracteristica) { this.caracteristicasMascota.add(caracteristica); }
 
     void serEncontrada() {
         this.estaPerdida = false;
@@ -134,7 +134,7 @@ public class Mascota {
 
     public void ajustarseAOrganizacion(Organizacion organizacion){
         this.fotos.forEach(foto -> foto.normalizarA(organizacion.getDimensionEstandar()));
-        List<CaracteristicaConValor> caracteristicasValidas = new ArrayList<>();
+        List<CaracteristicaMascota> caracteristicasValidas = new ArrayList<>();
         caracteristicasMascota.forEach(unaCaracteristica -> organizacion.agregoSiAceptaCaracteristica(unaCaracteristica, caracteristicasValidas));
 
         caracteristicasMascota = caracteristicasValidas;

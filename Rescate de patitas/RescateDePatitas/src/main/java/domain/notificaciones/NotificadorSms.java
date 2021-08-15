@@ -1,4 +1,4 @@
-package domain.notificaciones;
+/*package domain.notificaciones;
 import domain.business.Mascota;
 import domain.business.MascotaPerdida;
 import domain.business.Persona;
@@ -20,3 +20,4 @@ public class NotificadorSms extends Notificacion{
         twillio.enviarSMS(destinatario.getTelefono(),armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
     }
 }
+*/

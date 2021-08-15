@@ -1,13 +1,12 @@
 package domain.business;
 
-import domain.business.caracteristicas.CaracteristicaConValor;
+import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
 import domain.notificaciones.Notificacion;
 import domain.business.organizaciones.Organizacion;
 import excepciones.HayCaracteristicasNoValidasException;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class Duenio extends Persona {
@@ -46,7 +45,7 @@ public class Duenio extends Persona {
 
     // TODO queda pendiente saber si un dueño depende de una organizacion, si no depende de eso, entonces hay que cambiar los metodos de registrar mascota y lo relacionado a una Organizacion
     // Metodos
-    public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaConValor> caracs) {
+    public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaMascota> caracs) {
         if(!(caracs.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion)))) {
             throw new HayCaracteristicasNoValidasException();
         }

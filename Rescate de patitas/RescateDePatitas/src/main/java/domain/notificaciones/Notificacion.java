@@ -4,7 +4,7 @@ import domain.business.Persona;
 import domain.business.publicaciones.BusquedaMascotaIdeal;
 
 public abstract class Notificacion {
-    AdapterTwillio twillio = new AdapterTwillio();
+    //AdapterTwillio twillio = new AdapterTwillio();
     public String armarMensajeMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaEncontrada, String ruta) {
         return "Estimado/a " + destinatario.getNombre() + "\n" + "Nos comunicamos para informarle que su mascota " + mascotaEncontrada.getNombreMascota() +
                 " ha sido encontrada por " + hallador.getApellido() + " " + hallador.getNombre() + ".\n Para mas informacion ingrese a " + ruta;

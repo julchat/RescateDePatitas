@@ -1,4 +1,4 @@
-package domain.notificaciones;
+/*package domain.notificaciones;
 import domain.business.Mascota;
 import domain.business.Persona;
 import domain.business.publicaciones.BusquedaMascotaIdeal;
@@ -20,4 +20,4 @@ public class NotificadorEmail extends Notificacion{
     public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
             twillio.enviarEmail(destinatario.getTelefono(), "Revisa estas recomendaciones para adoptar!", armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
     }
-}
+}*/

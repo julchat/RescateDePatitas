@@ -2,7 +2,7 @@ package domain.business.organizaciones;
 
 import domain.business.foto.DimensionEstandar;
 import domain.business.caracteristicas.Caracteristica;
-import domain.business.caracteristicas.CaracteristicaConValor;
+import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
 
 import java.time.LocalDate;
@@ -90,13 +90,13 @@ public class Organizacion {
     }
 
 
-    public void agregoSiAceptaCaracteristica(CaracteristicaConValor unaCaracteristica, List<CaracteristicaConValor> caracteristicasValidas ){
+    public void agregoSiAceptaCaracteristica(CaracteristicaMascota unaCaracteristica, List<CaracteristicaMascota> caracteristicasValidas ){
         if(this.aceptoCaracteristica(unaCaracteristica)) {
             caracteristicasValidas.add(unaCaracteristica);
         }
     }
 
-    public boolean aceptoCaracteristica(CaracteristicaConValor unaCaracteristica) {
+    public boolean aceptoCaracteristica(CaracteristicaMascota unaCaracteristica) {
         return caracteristicasAdmitidas.contains(unaCaracteristica.getNombreCaracteristica());
     }
 }

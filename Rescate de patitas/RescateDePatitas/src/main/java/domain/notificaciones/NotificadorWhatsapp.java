@@ -1,4 +1,4 @@
-package domain.notificaciones;
+/*package domain.notificaciones;
 import domain.business.Mascota;
 import domain.business.Persona;
 import domain.business.publicaciones.BusquedaMascotaIdeal;
@@ -18,4 +18,4 @@ public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona intere
 public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
         twillio.enviarWhatsapp(destinatario.getTelefono(),armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
         }
-}
+}*/

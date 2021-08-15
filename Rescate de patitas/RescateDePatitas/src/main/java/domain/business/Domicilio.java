@@ -11,8 +11,7 @@ public class Domicilio {
     private String barrio;
     private String calle;
     private int numero;
-    private double latitud;
-    private double longitud;
+    private Ubicacion ubicacion;
 
     // Getters and Setters
     public String getProvincia() {
@@ -55,34 +54,24 @@ public class Domicilio {
         this.numero = numero;
     }
 
-    public double getLatitud() {
-        return latitud;
+    public Ubicacion getUbicacion() {
+        return ubicacion;
     }
 
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
     }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
 
     // Constructor
     public Domicilio() {}
 
-    public Domicilio(String provincia, String localidad, String barrio, String calle, int numero, int latitud, int longitud) {
+    public Domicilio(String provincia, String localidad, String barrio, String calle, int numero, Ubicacion ubicacion) {
         this.provincia = provincia;
         this.localidad = localidad;
         this.barrio = barrio;
         this.calle = calle;
         this.numero = numero;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.ubicacion = ubicacion;
     }
 
     //Metodos
