@@ -1,20 +1,23 @@
 package domain.business.organizaciones;
 
+import domain.business.Pregunta;
 import domain.business.foto.DimensionEstandar;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Organizacion {
     private String nombreOrganizacion;
     private LocalDate fechaDeCreacion;
-    private List<Caracteristica> caracteristicasAdmitidas;
+    private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
     private Foto logo;
     private DimensionEstandar dimensionEstandar;
-    private List<HogarDeTransito> hogares;
+    private List<HogarDeTransito> hogares = new ArrayList<>();
+    private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
 
     // Getters and Setters
     public String getNombreOrganizacion() {
@@ -77,6 +80,7 @@ public class Organizacion {
         this.hogares.add(hogar);
     }
 
+
     // Constructor
     public Organizacion() {}
 
@@ -90,6 +94,7 @@ public class Organizacion {
     }
 
 
+    // Metodos
     public void agregoSiAceptaCaracteristica(CaracteristicaMascota unaCaracteristica, List<CaracteristicaMascota> caracteristicasValidas ){
         if(this.aceptoCaracteristica(unaCaracteristica)) {
             caracteristicasValidas.add(unaCaracteristica);
@@ -98,5 +103,10 @@ public class Organizacion {
 
     public boolean aceptoCaracteristica(CaracteristicaMascota unaCaracteristica) {
         return caracteristicasAdmitidas.contains(unaCaracteristica.getNombreCaracteristica());
+    }
+
+    public void crearPregunta(String pregunta) {
+        Pregunta nuevaPregunta = new Pregunta(pregunta);
+        this.preguntasOrganizacion.add(nuevaPregunta);
     }
 }

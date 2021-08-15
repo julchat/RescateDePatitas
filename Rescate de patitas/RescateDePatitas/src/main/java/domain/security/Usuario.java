@@ -30,6 +30,10 @@ public class Usuario {
         return rol;
     }
 
+    public boolean esRol(Rol rolBuscado) {
+        return this.getRol().equals(rolBuscado);
+    }
+
     public void cambiarRol(Rol rol) {
         this.rol = rol;
     }

@@ -1,5 +1,6 @@
 package domain.views;
 import domain.business.Sistema;
+import domain.security.UserDuenio;
 import domain.security.Usuario;
 
 import java.util.Scanner;
@@ -102,6 +103,10 @@ public class MenuPrueba {
             switch(opcion) {
                 case 1:
                     // Todo: todo lo relacionado al registro de una mascota, se haria el formulario
+                 //   if(usuarioLogin.esRol(UserDuenio)) {
+                   //     usuarioLogin.registrarMascota
+                    //  aunque el registrarMascota es mas de Duenio, tal vez hay que poner que Duenio se crea cuando creas un usuario y meter todos los datos extras
+                   // }
                     break;
                 case 2:
                     miSistema.mostrarMascotasPerdidas();

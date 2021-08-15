@@ -1,14 +1,14 @@
 package domain.business;
 
 public class Respuesta {
-    private String pregunta;
+    private Pregunta pregunta;
     private String respuesta;
 
-    public String getPregunta() {
+    public Pregunta getPregunta() {
         return pregunta;
     }
 
-    public void setPregunta(String pregunta) {
+    public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
     }
 
@@ -20,7 +20,7 @@ public class Respuesta {
         this.respuesta = respuesta;
     }
 
-    public Respuesta(String pregunta, String respuesta) {
+    public Respuesta(Pregunta pregunta, String respuesta) {
         this.pregunta = pregunta;
         this.respuesta = respuesta;
     }

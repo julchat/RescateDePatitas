@@ -20,14 +20,14 @@ public class Mascota {
     private boolean estaAdoptada;
     private Persona encargado;
 
-    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaMascota> caracs, boolean perdida, boolean adoptada, Persona encargado){
+    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaMascota> caracteristicasMascota, boolean perdida, boolean adoptada, Persona encargado){
         this.nombreMascota = nombre;
         this.tipoAnimal = tipo;
         this.edadMascota = edadMascota;
         this.sexoMascota = sexo;
         this.descripcionMascota = descripcionMascota;
         this.fotos = fotos;
-        this.caracteristicasMascota =caracs;
+        this.caracteristicasMascota = caracteristicasMascota;
         this.estaAdoptada = adoptada;
         this.estaPerdida = perdida;
         this.encargado = encargado;
@@ -82,11 +82,11 @@ public class Mascota {
         this.descripcionMascota = descripcionMascota;
     }
 
-    public List<Foto> getFoto() {
+    public List<Foto> getFotos() {
         return this.fotos;
     }
 
-    public void setFoto(Foto foto) {
+    public void setFotos(Foto foto) {
         this.fotos = fotos;
     }
 
@@ -109,11 +109,11 @@ public class Mascota {
 
     public void agregarCaracteristica(CaracteristicaMascota caracteristica) { this.caracteristicasMascota.add(caracteristica); }
 
-    void serEncontrada() {
+    public void serEncontrada() {
         this.estaPerdida = false;
     }
 
-    void serAdoptada() {
+    public void serAdoptada() {
         this.estaAdoptada = true;
     }
 
@@ -127,7 +127,7 @@ public class Mascota {
 
 
     // Metodos
-    Chapa generarChapitaIdentificatoria() {
+    public Chapa generarChapitaIdentificatoria() {
         Chapa chapa = new Chapa();
         return chapa;
     }

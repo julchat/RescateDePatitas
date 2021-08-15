@@ -33,6 +33,10 @@ public class Duenio extends Persona {
         this.organizacion = organizacion;
     }
 
+    public List<Mascota> getMascotas(){
+        return this.mascotas;
+    }
+
     // Constructor
     public Duenio() {}
 
@@ -45,12 +49,12 @@ public class Duenio extends Persona {
 
     // TODO queda pendiente saber si un dueño depende de una organizacion, si no depende de eso, entonces hay que cambiar los metodos de registrar mascota y lo relacionado a una Organizacion
     // Metodos
-    public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaMascota> caracs) {
-        if(!(caracs.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion)))) {
+    public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaMascota> caracteristicas) {
+        if(!(caracteristicas.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion)))) {
             throw new HayCaracteristicasNoValidasException();
         }
         fotos.forEach(unaFoto-> unaFoto.normalizarA(organizacion.getDimensionEstandar()));
-        Mascota mascotaARegistrar = new Mascota(nombre, tipo, edadMascota, sexo, descripcionMascota, fotos, caracs, perdida, true, this);
+        Mascota mascotaARegistrar = new Mascota(nombre, tipo, edadMascota, sexo, descripcionMascota, fotos, caracteristicas, perdida, true, this);
         mascotas.add(mascotaARegistrar);
     }
 
@@ -63,6 +67,7 @@ public class Duenio extends Persona {
         mascotas.forEach(unaMascota -> unaMascota.ajustarseAOrganizacion(nuevaOrganizacion));
         this.setOrganizacion(nuevaOrganizacion);
     }
+
     public void mascotaEncontrada(Mascota mascotaEncontrada) {
         if(mascotas.contains(mascotaEncontrada)) {
             mascotaEncontrada.serEncontrada();
@@ -72,7 +77,4 @@ public class Duenio extends Persona {
         }
     }
 
-    public List<Mascota> getMascotas(){
-        return this.mascotas;
-    }
 }

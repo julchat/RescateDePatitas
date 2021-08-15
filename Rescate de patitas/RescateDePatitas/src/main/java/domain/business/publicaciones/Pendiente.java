@@ -8,7 +8,7 @@ public class Pendiente implements EstadoPublicacion{
 
     @Override
     public boolean esVisible() {
-        // TODO depende del rol, si es Voluntario puede verla, si es Persona (Dueño, Rescatista) no
+        // TODO depende del rol, si es UserVoluntario puede verla, si es Persona (Dueño, Rescatista) no
         return false;
     }
 }
