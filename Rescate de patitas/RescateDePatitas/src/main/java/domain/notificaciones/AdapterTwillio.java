@@ -2,6 +2,12 @@ package domain.notificaciones;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import com.sendgrid.*;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.*;
+import org.mortbay.util.IO;
+
+import java.io.IOException;
 
 public class AdapterTwillio {
     public static final String ACCOUNT_SID = "AC4e03993b0699c3d113ede67873302ac2";
@@ -30,5 +36,26 @@ public class AdapterTwillio {
                 mensaje
         ).create();
         System.out.println(mensajeAMandar.getSid());
+    }
+
+    public void enviarEmail(String correoDestinatario, String asunto,  String contenido){
+        Email from = new Email("test@example.com");
+        Email to = new Email(correoDestinatario); // use your own email address here
+        Content content = new Content("text/html", "and <em>easy</em> to do anywhere with <strong>Java</strong>");
+        Mail mail = new Mail(from, asunto, to, content);
+        SendGrid sg = new SendGrid("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");
+        Request request = new Request();
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        try{
+            request.setBody(mail.build());
+            Response response = sg.api(request);
+            System.out.println(response.getStatusCode());
+            System.out.println(response.getHeaders());
+            System.out.println(response.getBody());
+
+        }  catch (IOException e){
+            System.out.println("hubo excepcion");
+        }
     }
 }

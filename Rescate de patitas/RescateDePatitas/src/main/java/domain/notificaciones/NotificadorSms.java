@@ -12,11 +12,11 @@ public class NotificadorSms extends Notificacion{
 
     @Override
     public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta) {
-
+        twillio.enviarSMS(destinatario.getTelefono(),armarMensajeHayInteresadoEnAdoptar(destinatario, interesado, mascotaPorSerAdoptada, ruta));
     }
 
     @Override
     public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
-
+        twillio.enviarSMS(destinatario.getTelefono(),armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
     }
 }

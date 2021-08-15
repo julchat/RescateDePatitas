@@ -11,11 +11,11 @@ public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, M
 
 @Override
 public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta) {
-
+        twillio.enviarWhatsapp(destinatario.getTelefono(),armarMensajeHayInteresadoEnAdoptar(destinatario,interesado,mascotaPorSerAdoptada,ruta));
         }
 
 @Override
 public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
-
+        twillio.enviarWhatsapp(destinatario.getTelefono(),armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
         }
 }
