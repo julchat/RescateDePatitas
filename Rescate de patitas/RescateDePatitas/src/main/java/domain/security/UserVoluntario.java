@@ -2,14 +2,10 @@ package domain.security;
 
 public class UserVoluntario implements Rol{
     @Override
-    public boolean puedoRegistrarMascota() {
-        return false;
-    }
+    public boolean puedoRegistrarMascota() { return false; }
 
     @Override
-    public boolean puedoReportarMascotaPerdida() {
-        return true;
-    }
+    public boolean puedoReportarMascotaPerdida() { return true; }
 
     @Override
     public boolean puedoAprobarPublicaciones() { return true; }

@@ -1,8 +1,12 @@
 package domain.views;
+import domain.business.Contacto;
+import domain.business.Persona;
 import domain.business.Sistema;
+import domain.business.TipoDoc;
 import domain.security.UserDuenio;
 import domain.security.Usuario;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class MenuPrueba {
@@ -72,10 +76,10 @@ public class MenuPrueba {
                         System.out.print("La confirmación de la contraseña es incorrecta, pruebe otra vez: ");
                         contraseniaConfirmada = datosUsuario.nextLine();
                     }
-                    miSistema.crearUsuario(nombreUsuario, contrasenia);
+                    Usuario usuarioRegistrado = miSistema.crearUsuario(nombreUsuario, contrasenia);
+                    usuarioRegistrado.setPersona(this.crearPersona());
                     System.out.println("El usuario ha sido creado correctamente.");
                     System.out.println("Continuando...");
-
 
                     break;
                 case 3:
@@ -84,6 +88,76 @@ public class MenuPrueba {
                     break;
                 default:
                     System.out.println("Se ha elegido una opción incorrecta. Intente nuevamente.");
+                    break;
+            }
+        }
+    }
+
+    public Persona crearPersona() {
+        Persona nuevaPersona = new Persona();
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.print("Ingrese su nombre: ");
+        nuevaPersona.setNombre(entrada.nextLine());
+        System.out.print("Ingrese su apellido: ");
+        nuevaPersona.setApellido(entrada.nextLine());
+        System.out.print("Ingrese su fecha de nacimiento: ");
+        //String fechaNacimiento = entrada.nextLine();
+        //nuevaPersona.setFechaDeNacimiento(this.crearFecha(fechaNacimiento));
+        System.out.print("Elija su Tipo de Documento: ");
+        //TipoDoc documentoElegido = this.elegirDocumento(entrada);
+        //nuevaPersona.setTipoDocumento(documentoElegido);
+        System.out.print("Ingrese su número de Documento: ");
+        nuevaPersona.setNumeroDocumento(entrada.nextInt());
+        System.out.print("Ingrese su número de teléfono o celular: ");
+        nuevaPersona.setTelefono(entrada.nextInt());
+        System.out.print("Ingrese su email: ");
+        nuevaPersona.setEmail(entrada.nextLine());
+        //System.out.print("Seleccione su forma de notificación preferida: ");
+        //nuevaPersona.setFormasDeNotificacion();
+        System.out.println("Ingrese sus contactos: ");
+        this.agregarContacto(nuevaPersona, entrada);
+
+        return nuevaPersona;
+    }
+
+
+    public void agregarContacto(Persona nuevaPersona, Scanner entrada){
+        boolean salir = false;
+
+        System.out.println("  - Si quiere cargar un Contacto, ingrese 1.");
+        System.out.println("  - Si desea no cargar contactos, ingrese 2");
+        int opcionElegida = entrada.nextInt();
+
+        while(!salir) {
+            switch(opcionElegida) {
+                case 1:
+                    Contacto nuevoContacto = new Contacto();
+                    System.out.print("Ingrese el nombre del contacto: ");
+                    nuevoContacto.setNombreContacto(entrada.nextLine());
+                    System.out.print("Ingrese el apellido del contacto: ");
+                    nuevoContacto.setApellidoContacto(entrada.nextLine());
+                    System.out.print("Ingrese el teléfono o celular del contacto: ");
+                    nuevoContacto.setTelefonoContacto(entrada.nextInt());
+                    System.out.print("Ingrese el email del contacto: ");
+                    nuevoContacto.setEmailContacto(entrada.nextLine());
+                   // System.out.print("Ingrese una forma de notificación preferida del contacto: ");
+                   // nuevoContacto.setFormasDeNotificacionContacto();
+
+                    nuevaPersona.agregarContacto(nuevoContacto);
+
+                    System.out.println("  - Si quiere cargar un nuevo Contacto, ingrese 1.");
+                    System.out.println("  - Si quiere terminar con la carga de Contactos, ingrese 2");
+                    opcionElegida = entrada.nextInt();
+                    break;
+                case 2:
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Ha ingresado una opción incorrecta.");
+                    System.out.println("  - Si quiere cargar un nuevo Contacto, ingrese 1.");
+                    System.out.println("  - Si quiere terminar con la carga de Contactos, ingrese 2");
+                    opcionElegida = entrada.nextInt();
                     break;
             }
         }
@@ -103,10 +177,10 @@ public class MenuPrueba {
             switch(opcion) {
                 case 1:
                     // Todo: todo lo relacionado al registro de una mascota, se haria el formulario
-                 //   if(usuarioLogin.esRol(UserDuenio)) {
-                   //     usuarioLogin.registrarMascota
-                    //  aunque el registrarMascota es mas de Duenio, tal vez hay que poner que Duenio se crea cuando creas un usuario y meter todos los datos extras
-                   // }
+                    if(usuarioLogin.getRol().puedoRegistrarMascota()) {
+
+                      //aunque el registrarMascota es mas de Duenio, tal vez hay que poner que Duenio se crea cuando creas un usuario y meter todos los datos extras
+                    }
                     break;
                 case 2:
                     miSistema.mostrarMascotasPerdidas();

@@ -4,9 +4,12 @@ import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
 import domain.notificaciones.Notificacion;
 import domain.business.organizaciones.Organizacion;
+import domain.security.UserDuenio;
+import domain.security.Usuario;
 import excepciones.HayCaracteristicasNoValidasException;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class Duenio extends Persona {
@@ -40,7 +43,7 @@ public class Duenio extends Persona {
     // Constructor
     public Duenio() {}
 
-    public Duenio(String nombre, String apellido, LocalDateTime fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, Domicilio domicilio, List<Mascota> mascotas) {
+    public Duenio(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, int telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, Domicilio domicilio, List<Mascota> mascotas) {
         super(nombre, apellido, fechaDeNacimiento, tipoDocumento, numeroDocumento, telefono, email, formasDeNotificacion, contactos);
         this.domicilio = domicilio;
         this.mascotas = mascotas;
@@ -50,12 +53,17 @@ public class Duenio extends Persona {
     // TODO queda pendiente saber si un dueño depende de una organizacion, si no depende de eso, entonces hay que cambiar los metodos de registrar mascota y lo relacionado a una Organizacion
     // Metodos
     public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaMascota> caracteristicas) {
-        if(!(caracteristicas.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion)))) {
-            throw new HayCaracteristicasNoValidasException();
-        }
-        fotos.forEach(unaFoto-> unaFoto.normalizarA(organizacion.getDimensionEstandar()));
-        Mascota mascotaARegistrar = new Mascota(nombre, tipo, edadMascota, sexo, descripcionMascota, fotos, caracteristicas, perdida, true, this);
-        mascotas.add(mascotaARegistrar);
+       // if(this.getUsuario().getRol().puedoRegistrarMascota()) {
+            if(!(caracteristicas.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion)))) {
+                throw new HayCaracteristicasNoValidasException();
+            }
+            fotos.forEach(unaFoto-> unaFoto.normalizarA(organizacion.getDimensionEstandar()));
+            Mascota mascotaARegistrar = new Mascota(nombre, tipo, edadMascota, sexo, descripcionMascota, fotos, caracteristicas, perdida, true, this);
+            mascotas.add(mascotaARegistrar);
+       // }
+        //else {
+         //   System.out.println("[ERROR] No tiene los permisos necesarios para registrar una mascota.");
+       // }
     }
 
     public void cambiarDomicilio(Domicilio nuevoDomicilio){

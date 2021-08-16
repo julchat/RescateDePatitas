@@ -7,6 +7,7 @@ public class BusquedaMascotaPerdida extends TipoPublicacion {
     private MascotaPerdida mascotaRescatada;
     private Rescatista rescatista;
 
+    // Getters and Setters
     public MascotaPerdida getMascotaRescatada() {
         return mascotaRescatada;
     }
@@ -24,5 +25,6 @@ public class BusquedaMascotaPerdida extends TipoPublicacion {
     }
 
 
+    // Metodos
     public void proponerResidencia() {}
 }

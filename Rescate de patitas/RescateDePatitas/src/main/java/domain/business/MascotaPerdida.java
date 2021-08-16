@@ -10,7 +10,7 @@ public class MascotaPerdida {
     private String descripcion;
     private TipoAnimal tipoAnimal;
     private Tamanio tamanio;
-    private HogarDeTransito hogarDeTransito;
+    private Domicilio lugarDeTransito;
     private Ubicacion ubicacionEncontrada;
 
     // Getters and Setters
@@ -46,12 +46,12 @@ public class MascotaPerdida {
         this.tamanio = tamanio;
     }
 
-    public HogarDeTransito getHogarDeTransito() {
-        return hogarDeTransito;
+    public Domicilio getLugarDeTransito() {
+        return lugarDeTransito;
     }
 
-    public void setHogarDeTransito(HogarDeTransito hogarDeTransito) {
-        this.hogarDeTransito = hogarDeTransito;
+    public void setLugarDeTransito(Domicilio lugarDeTransito) {
+        this.lugarDeTransito = lugarDeTransito;
     }
 
     public Ubicacion getUbicacionEncontrada() {
@@ -62,8 +62,8 @@ public class MascotaPerdida {
         this.ubicacionEncontrada = ubicacionEncontrada;
     }
 
-    public void ocuparResidencia(HogarDeTransito hogarActual) {
-        this.setHogarDeTransito(hogarActual);
+    public void ocuparResidencia(Domicilio lugarDeTransito) {
+        this.setLugarDeTransito(lugarDeTransito);
     }
 
     public void mostrarMascota() {
@@ -71,6 +71,6 @@ public class MascotaPerdida {
         System.out.println("Tamaño del animal: " + this.getTamanio());
         System.out.println("Descripción de la Mascota: " + this.getDescripcion());
         System.out.println("Ubicación encontrada: " + this.getUbicacionEncontrada());
-        System.out.println("Hogar de Tránsito actual: " + this.getHogarDeTransito());
+        System.out.println("Hogar de Tránsito actual: " + this.getLugarDeTransito());
     }
 }

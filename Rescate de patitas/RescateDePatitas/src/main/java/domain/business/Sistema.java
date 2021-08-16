@@ -34,12 +34,14 @@ public class Sistema {
     }
 
 
-    public void crearUsuario(String nombre, String contrasenia) {
+    public Usuario crearUsuario(String nombre, String contrasenia) {
         Usuario nuevoUsuario = new Usuario(nombre, contrasenia);
         if (!this.existeUsuario(nombre)) {
             this.usuarios.add(nuevoUsuario);
+            return nuevoUsuario;
         } else {
             System.out.println("El usuario ya se encuentra en el Sistema.");
+            return null;
         }
     }
 

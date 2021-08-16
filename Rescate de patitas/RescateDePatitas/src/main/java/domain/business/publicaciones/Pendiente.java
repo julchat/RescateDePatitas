@@ -3,7 +3,6 @@ package domain.business.publicaciones;
 public class Pendiente implements EstadoPublicacion{
     @Override
     public void administrarPublicacion() {
-
     }
 
     @Override

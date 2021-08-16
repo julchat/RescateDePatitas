@@ -1,5 +1,6 @@
 package domain.security;
 
+import domain.business.Persona;
 import domain.password.ValidadorPassword;
 import excepciones.PermisosInvalidosException;
 
@@ -8,6 +9,7 @@ public class Usuario {
     private String contrasenia;
     private Rol rol; //Para evitar andar chequeando tipo (es un admin? -> tiro excepcion) mejor delegarselo al rol y si no es admin tire excepcion
     public boolean soyAdmin = false; //Para almacenar en la DB
+    private Persona persona;
 
     // Getters and Setters
     public String getUsuario() {
@@ -30,10 +32,6 @@ public class Usuario {
         return rol;
     }
 
-    public boolean esRol(Rol rolBuscado) {
-        return this.getRol().equals(rolBuscado);
-    }
-
     public void cambiarRol(Rol rol) {
         this.rol = rol;
     }
@@ -46,6 +44,17 @@ public class Usuario {
         this.soyAdmin = soyAdmin;
     }
 
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
 
     // Constructor
     public Usuario(String usuario, String contrasenia){

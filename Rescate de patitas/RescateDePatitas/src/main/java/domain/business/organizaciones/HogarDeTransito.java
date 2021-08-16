@@ -141,7 +141,7 @@ public class HogarDeTransito{
 
     public void cuidarMascota(MascotaPerdida mascotaPerdida) {
         if(this.permiteMascotaPerdida(mascotaPerdida)) {
-            mascotaPerdida.ocuparResidencia(this);
+            mascotaPerdida.ocuparResidencia(this.getDomicilio());
             this.disponibilidad--;
             this.agregarMascota(mascotaPerdida);
         }
