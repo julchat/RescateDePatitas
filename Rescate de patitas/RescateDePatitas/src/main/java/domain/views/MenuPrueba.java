@@ -53,7 +53,6 @@ public class MenuPrueba {
                     Usuario usuarioLogged = miSistema.buscarUsuario(usuarioLogin);
 
                     this.inicioSesion(usuarioLogged);
-                    salir = true;
 
                     break;
                 case 2:
