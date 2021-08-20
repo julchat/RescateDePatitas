@@ -1,4 +1,4 @@
-/*package domain.notificaciones;
+/*package domain.business.notificaciones;
 import domain.business.Mascota;
 import domain.business.MascotaPerdida;
 import domain.business.Persona;

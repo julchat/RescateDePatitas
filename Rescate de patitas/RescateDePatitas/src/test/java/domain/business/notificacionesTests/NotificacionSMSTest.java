@@ -7,7 +7,7 @@ import domain.business.*;
 import org.apache.avro.generic.GenericData;
 import org.junit.Before;
 import org.junit.Test;
-import domain.notificaciones.*;
+import domain.business.notificaciones.*;
 import domain.business.foto.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

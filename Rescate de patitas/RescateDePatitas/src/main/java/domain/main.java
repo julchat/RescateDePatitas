@@ -1,9 +1,6 @@
 package domain;
 
-import domain.password.ValidadorPassword;
 import domain.views.MenuPrueba;
-
-import java.util.Scanner;
 
 public class main {
 

@@ -1,6 +1,5 @@
-package domain.password;
+package domain.security.password;
 
-import excepciones.ReadFileException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

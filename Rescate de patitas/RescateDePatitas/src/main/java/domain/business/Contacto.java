@@ -1,6 +1,6 @@
 package domain.business;
 
-import domain.notificaciones.Notificacion;
+import domain.business.notificaciones.Notificacion;
 
 import java.util.List;
 

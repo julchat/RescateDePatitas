@@ -2,13 +2,10 @@ package domain.business;
 
 import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
-import domain.notificaciones.Notificacion;
+import domain.business.notificaciones.Notificacion;
 import domain.business.organizaciones.Organizacion;
-import domain.security.UserDuenio;
-import domain.security.Usuario;
 import excepciones.HayCaracteristicasNoValidasException;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 

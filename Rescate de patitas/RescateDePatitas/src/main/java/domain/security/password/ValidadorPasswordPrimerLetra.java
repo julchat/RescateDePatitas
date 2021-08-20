@@ -1,4 +1,4 @@
-package domain.password;
+package domain.security.password;
 
 import excepciones.PasswordInvalidException;
 

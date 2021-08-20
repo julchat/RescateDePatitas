@@ -1,7 +1,4 @@
-package domain.password;
-
-import excepciones.TamanioException;
-import java.util.stream.Stream;
+package domain.security.password;
 
 public class ValidadorPasswordTamanio implements Validador{
     @Override

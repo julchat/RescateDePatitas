@@ -1,6 +1,4 @@
-package domain.password;
-
-import excepciones.NullException;
+package domain.security.password;
 
 public class ValidadorPasswordNull implements Validador{
 

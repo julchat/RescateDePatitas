@@ -3,9 +3,8 @@ package domain.business;
 import domain.business.publicaciones.BusquedaMascotaPerdida;
 import domain.business.publicaciones.Pendiente;
 import domain.business.publicaciones.Publicacion;
-import domain.notificaciones.Notificacion;
+import domain.business.notificaciones.Notificacion;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package domain.security;
 
 import domain.business.Persona;
-import domain.password.ValidadorPassword;
+import domain.security.password.ValidadorPassword;
 import excepciones.PermisosInvalidosException;
 
 public class Usuario {
@@ -25,16 +25,22 @@ public class Usuario {
     }
 
     public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+        if(new ValidadorPassword().esValida(contrasenia)){
+            this.contrasenia = contrasenia;
+        }
     }
 
     public Rol getRol() {
         return rol;
     }
 
+    /*
+    NO LO DEJARIA, YA TENEMOS EL SET ROL NO CREEMOS OTRA FUNCION CON EL MISMO OBJETIVO
+
     public void cambiarRol(Rol rol) {
         this.rol = rol;
     }
+    */
 
     public boolean isSoyAdmin() {
         return soyAdmin;

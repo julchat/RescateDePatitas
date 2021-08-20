@@ -1,9 +1,8 @@
 package domain.business;
 
-import domain.business.organizaciones.HogarDeTransito;
 import domain.business.organizaciones.Organizacion;
 import domain.business.publicaciones.Publicacion;
-import domain.password.ValidadorPassword;
+import domain.security.password.ValidadorPassword;
 import domain.security.Usuario;
 
 import java.util.ArrayList;

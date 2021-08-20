@@ -1,9 +1,7 @@
 package domain.business;
 
-import domain.notificaciones.Notificacion;
-import domain.security.Usuario;
+import domain.business.notificaciones.Notificacion;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
