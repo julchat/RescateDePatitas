@@ -109,7 +109,7 @@ public class MenuPrueba {
         System.out.print("Ingrese su número de Documento: ");
         nuevaPersona.setNumeroDocumento(entrada.nextInt());
         System.out.print("Ingrese su número de teléfono o celular: ");
-        nuevaPersona.setTelefono(entrada.nextInt());
+        nuevaPersona.setTelefono(entrada.nextLine());
         System.out.print("Ingrese su email: ");
         nuevaPersona.setEmail(entrada.nextLine());
         //System.out.print("Seleccione su forma de notificación preferida: ");

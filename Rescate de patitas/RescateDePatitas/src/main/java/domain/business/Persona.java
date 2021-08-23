@@ -11,7 +11,7 @@ public class Persona {
     private Date fechaDeNacimiento;
     private TipoDoc tipoDocumento;          // Podriamos hacer un enum para tipo de doc: DNI, CEDULA, PASAPORTE, etc.
     private int numeroDocumento;
-    private double telefono;
+    private String telefono;
     private String email;
     private List<Notificacion> formasDeNotificacion;
     private List<Contacto> contactos;
@@ -38,9 +38,9 @@ public class Persona {
 
     public void setNumeroDocumento(int numeroDocumento) { this.numeroDocumento = numeroDocumento; }
 
-    public double getTelefono() { return telefono; }
+    public String getTelefono() { return telefono; }
 
-    public void setTelefono(double telefono) { this.telefono = telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 
     public String getEmail() { return email; }
 
@@ -79,7 +79,7 @@ public class Persona {
     // Constructor
     public Persona() {}
 
-    public Persona(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, double telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
+    public Persona(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaDeNacimiento = fechaDeNacimiento;
