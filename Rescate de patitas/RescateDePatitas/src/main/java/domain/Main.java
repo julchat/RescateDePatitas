@@ -2,11 +2,13 @@ package domain;
 
 import domain.views.MenuPrueba;
 
-public class main {
+import java.io.IOException;
+
+public class Main {
 
     private static MenuPrueba menuPrueba = new MenuPrueba();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         menuPrueba.iniciarMenu();
     }
 }

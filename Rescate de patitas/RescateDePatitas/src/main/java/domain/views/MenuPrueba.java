@@ -3,15 +3,21 @@ import domain.business.Contacto;
 import domain.business.Persona;
 import domain.business.Sistema;
 import domain.business.TipoDoc;
+import domain.business.organizaciones.apiHogares.APIhogares;
+import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import domain.security.UserDuenio;
 import domain.security.Usuario;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuPrueba {
 
-    public void iniciarMenu() {
+    private APIhogares apIhogares = APIhogares.getInstance();
+
+    public void iniciarMenu() throws IOException {
         Scanner opciones = new Scanner(System.in);
         Scanner datosUsuario = new Scanner(System.in);
         boolean salir = false;
@@ -23,7 +29,8 @@ public class MenuPrueba {
             System.out.println("¡Bienvenido/a a RescateDePatitas!");
             System.out.println("    - Para Iniciar Sesion, ingrese 1.");
             System.out.println("    - Para Crear un Usuario, ingrese 2.");
-            System.out.println("    - Para Cerrar, ingrese 3.");
+            System.out.println("    - Para consultar los Hogares disponibles, ingrese 3.");
+            System.out.println("    - Para Cerrar, ingrese 4.");
 
             System.out.print("Ingrese el comando: ");
             opcionElegida = opciones.nextInt();
@@ -82,6 +89,21 @@ public class MenuPrueba {
 
                     break;
                 case 3:
+
+                    List<Hogar> hogares = apIhogares.conjuntoHogares(1);
+                    for(Hogar hogar : hogares) {
+                        System.out.println("ID: " + hogar.getId());
+                        System.out.println("NOMBRE: " + hogar.getNombre());
+                        System.out.println("TELEFONO: " + hogar.getTelefono());
+                        System.out.println("CAPACIDAD: " + hogar.getCapacidad());
+                        System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
+                        System.out.println("DIRECCION: " + hogar.getUbicacion().getDireccion());
+                        System.out.println("LATITUD: " + hogar.getUbicacion().getLat());
+                        System.out.println("LONGITUD: " + hogar.getUbicacion().getLongitud());
+                        System.out.println("-------------------------------------------------------------------");
+                    }
+                    break;
+                case 4:
                     System.out.println("¡Gracias por visitar RescateDePatitas!");
                     salir = true;
                     break;
