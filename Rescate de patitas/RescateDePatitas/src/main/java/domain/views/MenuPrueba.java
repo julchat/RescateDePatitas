@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 public class MenuPrueba {
 
     private APIhogares apIhogares = APIhogares.getInstance();
@@ -89,19 +91,23 @@ public class MenuPrueba {
 
                     break;
                 case 3:
+                    System.out.println("En total, hay " + apIhogares.cantidadHogares() + " hogares en " + apIhogares.cantidadPaginas() + " paginas.");
 
-                    List<Hogar> hogares = apIhogares.conjuntoHogares(1);
-                    for(Hogar hogar : hogares) {
-                        System.out.println("ID: " + hogar.getId());
-                        System.out.println("NOMBRE: " + hogar.getNombre());
-                        System.out.println("TELEFONO: " + hogar.getTelefono());
-                        System.out.println("CAPACIDAD: " + hogar.getCapacidad());
-                        System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
-                        System.out.println("DIRECCION: " + hogar.getUbicacion().getDireccion());
-                        System.out.println("LATITUD: " + hogar.getUbicacion().getLat());
-                        System.out.println("LONGITUD: " + hogar.getUbicacion().getLongitud());
-                        System.out.println("-------------------------------------------------------------------");
+                    for(int i=1; i<= apIhogares.cantidadPaginas(); i++) {
+                        List<Hogar> hogares = apIhogares.conjuntoHogares(i);
+                        for(Hogar hogar : hogares) {
+                            System.out.println("ID: " + hogar.getId());
+                            System.out.println("NOMBRE: " + hogar.getNombre());
+                            System.out.println("TELEFONO: " + hogar.getTelefono());
+                            System.out.println("CAPACIDAD: " + hogar.getCapacidad());
+                            System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
+                            System.out.println("DIRECCION: " + hogar.getUbicacion().getDireccion());
+                            System.out.println("LATITUD: " + hogar.getUbicacion().getLat());
+                            System.out.println("LONGITUD: " + hogar.getUbicacion().getLongitud());
+                            System.out.println("-------------------------------------------------------------------");
+                        }
                     }
+
                     break;
                 case 4:
                     System.out.println("¡Gracias por visitar RescateDePatitas!");
@@ -112,6 +118,7 @@ public class MenuPrueba {
                     break;
             }
         }
+        exit(0);
     }
 
     public Persona crearPersona() {

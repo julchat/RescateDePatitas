@@ -40,4 +40,15 @@ public class APIhogares {
         return respuestaHogares.body().getHogares();
     }
 
+    public int cantidadPaginas() throws IOException {
+        return this.cantidadHogares() / 10;
+    }
+
+    public int cantidadHogares() throws IOException {
+        APIservice apiService = this.retrofit.create(APIservice.class);
+        Call<ConjuntoHogares> pedidoHogares = apiService.hogares(1, bearer);
+        Response<ConjuntoHogares> respuestaHogares = pedidoHogares.execute();
+        return respuestaHogares.body().getTotal();
+    }
+
 }
