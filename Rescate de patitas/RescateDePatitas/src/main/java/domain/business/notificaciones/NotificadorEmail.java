@@ -6,6 +6,11 @@ import domain.business.publicaciones.BusquedaMascotaIdeal;
 import java.io.IOException;
 
 public class NotificadorEmail extends Notificacion{
+
+
+    @Override
+    public int obtenerCodigoNotificacion() { return 1; }
+
     @Override
     public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta){
             twillio.enviarEmail(destinatario.getEmail(),"Tu mascota ha sido encontrada",armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida,ruta));

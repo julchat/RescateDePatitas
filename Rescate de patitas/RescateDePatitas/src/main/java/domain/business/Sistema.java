@@ -32,6 +32,9 @@ public class Sistema {
         }
     }
 
+    public List<Usuario> getUsuarios() { return usuarios; }
+
+    public List<Publicacion> getPublicaciones() { return publicaciones; }
 
     public Usuario crearUsuario(String nombre, String contrasenia) {
         Usuario nuevoUsuario = new Usuario(nombre, contrasenia);

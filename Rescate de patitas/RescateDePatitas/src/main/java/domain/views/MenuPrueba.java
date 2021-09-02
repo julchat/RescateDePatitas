@@ -1,15 +1,20 @@
 package domain.views;
-import domain.business.Contacto;
-import domain.business.Persona;
-import domain.business.Sistema;
-import domain.business.TipoDoc;
+import domain.business.*;
+import domain.business.caracteristicas.Caracteristica;
+import domain.business.caracteristicas.CaracteristicaMascota;
+import domain.business.foto.Foto;
+import domain.business.notificaciones.Notificacion;
+import domain.business.notificaciones.NotificadorEmail;
+import domain.business.notificaciones.NotificadorSms;
+import domain.business.notificaciones.NotificadorWhatsapp;
 import domain.business.organizaciones.apiHogares.APIhogares;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
-import domain.security.UserDuenio;
 import domain.security.Usuario;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,6 +23,7 @@ import static java.lang.System.exit;
 public class MenuPrueba {
 
     private APIhogares apIhogares = APIhogares.getInstance();
+    private Sistema miSistema = Sistema.getInstance();
 
     public void iniciarMenu() throws IOException {
         Scanner opciones = new Scanner(System.in);
@@ -31,14 +37,20 @@ public class MenuPrueba {
             System.out.println("¡Bienvenido/a a RescateDePatitas!");
             System.out.println("    - Para Iniciar Sesion, ingrese 1.");
             System.out.println("    - Para Crear un Usuario, ingrese 2.");
+
+            // Esto es por ahora
             System.out.println("    - Para consultar los Hogares disponibles, ingrese 3.");
-            System.out.println("    - Para Cerrar, ingrese 4.");
+
+            System.out.println("    - Para ver las Mascotas Perdidas, ingrese 4.");
+            System.out.println("    - Para Reportar una Mascota Perdida, ingrese 5.");
+            System.out.println("    - Para querer Adoptar a una Mascota, ingrese 6.");
+            System.out.println("    - Para Cerrar, ingrese 7.");
 
             System.out.print("Ingrese el comando: ");
             opcionElegida = opciones.nextInt();
 
             switch(opcionElegida) {
-                case 1:
+                case 1: // Inicio de Sesion
                     System.out.print("Ingrese su nombre de usuario: ");
                     String usuarioLogin = datosUsuario.nextLine();
                     while(!miSistema.existeUsuario(usuarioLogin)) {
@@ -61,30 +73,40 @@ public class MenuPrueba {
                     System.out.println("¡Bienvenido de vuelta " + usuarioLogin + "!");
                     Usuario usuarioLogged = miSistema.buscarUsuario(usuarioLogin);
 
-                    this.inicioSesion(usuarioLogged);
+                    if(usuarioLogged.getRol().puedoAprobarPublicaciones()) {
+                        this.inicioSesionModerador(usuarioLogged);
+                    }
+                    else if(usuarioLogged.getRol().puedoCrearAdministradores()) {
+                        this.inicioSesionAdmin(usuarioLogged);
+                    }
+                    else {
+                        this.inicioSesionUser(usuarioLogged);
+                    }
 
                     break;
-                case 2:
+                case 2: // Creación de Nuevo Usuario
                     System.out.print("Para crear un usuario, primero ingrese un nombre de usuario: ");
-                    String nombreUsuario = datosUsuario.nextLine();
+                    String nombreUsuario = datosUsuario.next();
                     while(miSistema.existeUsuario(nombreUsuario)) {
                         System.out.print("El nombre de usuario ya existe, ingrese otro: ");
-                        nombreUsuario = datosUsuario.nextLine();
+                        nombreUsuario = datosUsuario.next();
                     }
 
                     System.out.print("Ingrese una contraseña: ");
-                    String contrasenia = datosUsuario.nextLine();
+                    String contrasenia = datosUsuario.next();
                     while(!miSistema.validarContrasenia(contrasenia)) {
                         System.out.print("La contraseña no es válida, ingrese otra: ");
-                        contrasenia = datosUsuario.nextLine();
+                        contrasenia = datosUsuario.next();
                     }
                     System.out.print("Confirme la contraseña: ");
-                    String contraseniaConfirmada = datosUsuario.nextLine();
+                    String contraseniaConfirmada = datosUsuario.next();
                     while(!contrasenia.equals(contraseniaConfirmada)) {
                         System.out.print("La confirmación de la contraseña es incorrecta, pruebe otra vez: ");
-                        contraseniaConfirmada = datosUsuario.nextLine();
+                        contraseniaConfirmada = datosUsuario.next();
                     }
                     Usuario usuarioRegistrado = miSistema.crearUsuario(nombreUsuario, contrasenia);
+
+                    // TODO: por ahora todos serian Dueños
                     usuarioRegistrado.setPersona(this.crearPersona());
                     System.out.println("El usuario ha sido creado correctamente.");
                     System.out.println("Continuando...");
@@ -110,6 +132,15 @@ public class MenuPrueba {
 
                     break;
                 case 4:
+                    this.mascotasPerdidas();
+                    break;
+                case 5:
+                    this.reportarMascotaPerdida();
+                    break;
+                case 6:
+                    this.adoptarMascota();
+                    break;
+                case 7:
                     System.out.println("¡Gracias por visitar RescateDePatitas!");
                     salir = true;
                     break;
@@ -122,35 +153,130 @@ public class MenuPrueba {
     }
 
     public Persona crearPersona() {
-        Persona nuevaPersona = new Persona();
+        Duenio nuevaPersona = new Duenio();
         Scanner entrada = new Scanner(System.in);
 
         System.out.print("Ingrese su nombre: ");
-        nuevaPersona.setNombre(entrada.nextLine());
+        nuevaPersona.setNombre(entrada.next());
         System.out.print("Ingrese su apellido: ");
-        nuevaPersona.setApellido(entrada.nextLine());
+        nuevaPersona.setApellido(entrada.next());
+        System.out.print("Ingrese su email: ");
+        nuevaPersona.setEmail(entrada.next());
         System.out.print("Ingrese su fecha de nacimiento: ");
-        //String fechaNacimiento = entrada.nextLine();
-        //nuevaPersona.setFechaDeNacimiento(this.crearFecha(fechaNacimiento));
-        System.out.print("Elija su Tipo de Documento: ");
-        //TipoDoc documentoElegido = this.elegirDocumento(entrada);
-        //nuevaPersona.setTipoDocumento(documentoElegido);
+        nuevaPersona.setFechaDeNacimiento(this.crearFecha(entrada.next()));
+        System.out.println("Elija su Tipo de Documento: ");
+        nuevaPersona.setTipoDocumento(this.elegirDocumento(entrada));
         System.out.print("Ingrese su número de Documento: ");
         nuevaPersona.setNumeroDocumento(entrada.nextInt());
         System.out.print("Ingrese su número de teléfono o celular: ");
-        nuevaPersona.setTelefono(entrada.nextLine());
-        System.out.print("Ingrese su email: ");
-        nuevaPersona.setEmail(entrada.nextLine());
-        //System.out.print("Seleccione su forma de notificación preferida: ");
-        //nuevaPersona.setFormasDeNotificacion();
+        nuevaPersona.setTelefono(entrada.next());
+        System.out.println("Seleccione su forma de notificación preferida: ");
+        nuevaPersona.setFormasDeNotificacion(this.elegirNotificacionesPreferidas(entrada));
         System.out.println("Ingrese sus contactos: ");
         this.agregarContacto(nuevaPersona, entrada);
 
         return nuevaPersona;
     }
 
+    private LocalDate crearFecha(String fecha) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(fecha, formatter);
+        return localDate;
+    }
 
-    public void agregarContacto(Persona nuevaPersona, Scanner entrada){
+    private TipoDoc elegirDocumento(Scanner entrada) {
+        System.out.println("        - 1) DNI");
+        System.out.println("        - 2) CEDULA");
+        System.out.println("        - 3) PASAPORTE");
+        System.out.print("> ");
+        int opcionElegida = entrada.nextInt();
+        boolean salir = false;
+        TipoDoc eleccion = null;
+
+        while(!salir) {
+            switch(opcionElegida) {
+                case 1:
+                    eleccion = TipoDoc.DNI;
+                    salir = true;
+                    break;
+                case 2:
+                    eleccion = TipoDoc.CEDULA;
+                    salir = true;
+                    break;
+                case 3:
+                    eleccion = TipoDoc.PASAPORTE;
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("La opción que ha elegido es incorrecta. Por favor ingrese nuevamente.");
+                    break;
+            }
+        }
+        return eleccion;
+    }
+
+    private List<Notificacion> elegirNotificacionesPreferidas(Scanner entrada) {
+        List<Notificacion> notificacionesElegidas = new ArrayList<>();
+        int cantidadNotificaciones = 0;
+        boolean salir = false;
+        int opcionElegida;
+
+        while(cantidadNotificaciones < 3 && !salir) {
+
+            System.out.println("    - 1) Email");
+            System.out.println("    - 2) Sms");
+            System.out.println("    - 3) WhatsApp");
+            System.out.print(">");
+            opcionElegida = entrada.nextInt();
+
+            switch(opcionElegida) {
+                case 1:
+                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == 1)) {
+                        System.out.println("No puede agregar un medio que ya está agregado.");
+                    }
+                    else {
+                        notificacionesElegidas.add(new NotificadorEmail());
+                        System.out.println("Se agregó el medio Email como preferencia.");
+                        cantidadNotificaciones++;
+                    }
+                    break;
+                case 2:
+                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == 2)) {
+                        System.out.println("No puede agregar un medio que ya está agregado.");
+                    }
+                    else {
+                        notificacionesElegidas.add(new NotificadorSms());
+                        System.out.println("Se agregó el medio Sms como preferencia.");
+                        cantidadNotificaciones++;
+                    }
+                    break;
+                case 3:
+                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == 3)) {
+                        System.out.println("No puede agregar un medio que ya está agregado.");
+                    }
+                    else {
+                        notificacionesElegidas.add(new NotificadorWhatsapp());
+                        System.out.println("Se agregó el medio Whatsapp como preferencia.");
+                        cantidadNotificaciones++;
+                    }
+                    break;
+                default:
+                    System.out.println("La opción que ha elegido es incorrecta. Por favor ingrese nuevamente.");
+                    break;
+            }
+
+            System.out.println("Si desea continuar con el medio elegido, ingrese 1.");
+            System.out.println("Si desea cargar otro medio de notificación preferido, ingrese cualquier otra opción.");
+            System.out.print(">");
+            opcionElegida = entrada.nextInt();
+
+            if(opcionElegida == 1) { salir = true; }
+
+        }
+        return notificacionesElegidas;
+    }
+
+    private void agregarContacto(Persona nuevaPersona, Scanner entrada){
         boolean salir = false;
 
         System.out.println("  - Si quiere cargar un Contacto, ingrese 1.");
@@ -162,15 +288,15 @@ public class MenuPrueba {
                 case 1:
                     Contacto nuevoContacto = new Contacto();
                     System.out.print("Ingrese el nombre del contacto: ");
-                    nuevoContacto.setNombreContacto(entrada.nextLine());
+                    nuevoContacto.setNombreContacto(entrada.next());
                     System.out.print("Ingrese el apellido del contacto: ");
-                    nuevoContacto.setApellidoContacto(entrada.nextLine());
+                    nuevoContacto.setApellidoContacto(entrada.next());
                     System.out.print("Ingrese el teléfono o celular del contacto: ");
                     nuevoContacto.setTelefonoContacto(entrada.nextInt());
                     System.out.print("Ingrese el email del contacto: ");
-                    nuevoContacto.setEmailContacto(entrada.nextLine());
-                   // System.out.print("Ingrese una forma de notificación preferida del contacto: ");
-                   // nuevoContacto.setFormasDeNotificacionContacto();
+                    nuevoContacto.setEmailContacto(entrada.next());
+                    System.out.println("Ingrese una forma de notificación preferida del contacto: ");
+                    nuevoContacto.setFormasDeNotificacionContacto(this.elegirNotificacionesPreferidas(entrada));
 
                     nuevaPersona.agregarContacto(nuevoContacto);
 
@@ -191,23 +317,34 @@ public class MenuPrueba {
         }
     }
 
-    public void inicioSesion(Usuario usuarioLogin) {
+    public void inicioSesionUser(Usuario usuarioLogin) {
         Scanner entrada = new Scanner(System.in);
         Sistema miSistema = Sistema.getInstance();
         boolean salir = false;
-        System.out.println("    - Para Registrar a una mascota, ingrese 1.");
-        System.out.println("    - Para Ver las mascotas perdidas, ingrese 2");
-        System.out.println("    - Para Adoptar a una mascota, ingrese 3");
+        System.out.println("    - Para Registrar a una Mascota, ingrese 1.");
+        System.out.println("    - Para Ver las Mascotas Perdidas, ingrese 2");
+        System.out.println("    - Para Adoptar a una Mascota, ingrese 3");
         System.out.println("    - Para Cerrar sesión, ingrese 4");
         int opcion = entrada.nextInt();
 
         while(!salir) {
             switch(opcion) {
                 case 1:
-                    // Todo: todo lo relacionado al registro de una mascota, se haria el formulario
+                    // Solo puedo registrar una mascota si tengo los permisos adecuados, es decir, si soy un User
                     if(usuarioLogin.getRol().puedoRegistrarMascota()) {
+                        Mascota mascota = this.registrarMascota();
+                        mascota.setEncargado(usuarioLogin.getPersona());
+                        ((Duenio) usuarioLogin.getPersona()).registrarMascota(mascota);
 
-                      //aunque el registrarMascota es mas de Duenio, tal vez hay que poner que Duenio se crea cuando creas un usuario y meter todos los datos extras
+
+                        if(((Duenio) usuarioLogin.getPersona()).getDomicilio() == null) {
+                            System.out.println("Ingrese los datos del Domicilio del Dueño: ");
+                            ((Duenio) usuarioLogin.getPersona()).cambiarDomicilio(this.datosDomicilio(entrada));
+                        }
+                        else {
+                            System.out.println("El usuario ya tiene un Domicilio cargado.");
+                            // Todo: se podria preguntar si quiere cambiarlo, aunque eso tambien podria estar en la parte de Editar Perfil del Usuario, para actualizar datos
+                        }
                     }
                     break;
                 case 2:
@@ -227,8 +364,172 @@ public class MenuPrueba {
                     break;
             }
         }
+    }
+
+    private Mascota registrarMascota() {
+        Scanner entrada = new Scanner(System.in);
+        Mascota nuevaMascota = new Mascota();
+
+        System.out.println("Seleccione que tipo de animal quiere registrar: ");
+        nuevaMascota.setTipoAnimal(this.eleccionTipoAnimal(entrada));
+        System.out.print("Ingrese el nombre completo de la mascota: ");
+        nuevaMascota.setNombreMascota(entrada.next());
+        System.out.print("Ingrese el apodo de la mascota: ");
+        nuevaMascota.setApodoMascota(entrada.next());
+        System.out.print("Ingrese la edad aproximada de la mascota: ");
+        nuevaMascota.setEdadMascota(entrada.nextInt());
+        System.out.println("Seleccione el sexo de la mascota: ");
+        nuevaMascota.setSexoMascota(this.eleccionSexoMascota(entrada));
+        System.out.println("Ingrese una breve descripción de la mascota: ");
+        nuevaMascota.setDescripcionMascota(entrada.next());
+        System.out.println("Seleccione alguna/s fotos de su mascota: ");
+        nuevaMascota.setFotos(this.eleccionFotos(entrada));
+        System.out.println("Seleccione las características que se adecuan a su mascota: ");
+        nuevaMascota.setCaracteristicasMascota(this.eleccionCaracteristicas(entrada));
+
+        return nuevaMascota;
+    }
+
+    private TipoAnimal eleccionTipoAnimal(Scanner entrada) {
+        boolean salir = false;
+        int opcionElegida;
+        TipoAnimal animalElegido = null;
+        System.out.println("    - Si es un Perro, ingrese 1.");
+        System.out.println("    - Si es un Gato, ingrese 2.");
+        System.out.print("> ");
+        opcionElegida = entrada.nextInt();
+
+        while(!salir) {
+            switch(opcionElegida) {
+                case 1:
+                    animalElegido = TipoAnimal.PERRO;
+                    salir = true;
+                    break;
+                case 2:
+                    animalElegido = TipoAnimal.GATO;
+                    salir = true;
+                    break;
+                default:
+                    System.out.print("Ha ingresado una opción incorrecta. Por favor intente nuevamente: ");
+                    break;
+            }
+        }
+        return animalElegido;
+    }
+
+    private SexoMascota eleccionSexoMascota(Scanner entrada) {
+        int opcionElegida;
+        SexoMascota sexoElegido = null;
+        System.out.println("    - Si su mascota es Macho, ingrese 1.");
+        System.out.println("    - Si su mascota es Hembra, ingrese 2.");
+        System.out.print("> ");
+        opcionElegida = entrada.nextInt();
+
+        switch(opcionElegida) {
+            case 1:
+                sexoElegido = SexoMascota.MACHO;
+                break;
+            case 2:
+                sexoElegido = SexoMascota.HEMBRA;
+                break;
+            default:
+                System.out.print("Ha ingresado una opción incorrecta. Por favor intente nuevamente: ");
+                break;
+        }
+
+        return sexoElegido;
+    }
+
+    private List<Foto> eleccionFotos(Scanner entrada) {
+        List<Foto> fotos = new ArrayList<>();
 
 
+        // TODO: Metodo para elegir una foto desde la computadora y agregarla en un carrousel para subirla a la base de datos
+
+        return fotos;
+    }
+
+    private List<CaracteristicaMascota> eleccionCaracteristicas(Scanner entrada) {
+        List<CaracteristicaMascota> caracteristicasMascota = new ArrayList<>();
+
+        /*
+        for(Caracteristica unaCaracteristica : listaCaracteristicas) {
+            ELEGIR LAS CARACTERISTICAS ADECUADAS
+        }*/
+
+        return caracteristicasMascota;
+    }
+
+    private Domicilio datosDomicilio(Scanner entrada) {
+        System.out.println("DOMICILIO DEL DUEÑO/A");
+        Domicilio nuevoDomicilio = new Domicilio();
+
+        System.out.println("Ingrese la Provincia: ");
+        nuevoDomicilio.setProvincia(entrada.next());
+        System.out.println("Ingrese la Localidad: ");
+        nuevoDomicilio.setLocalidad(entrada.next());
+        System.out.println("Ingrese su Código Postal: ");
+        nuevoDomicilio.setCodigoPostal(entrada.nextInt());
+        System.out.println("Ingrese el nombre de la Calle: ");
+        nuevoDomicilio.setCalle(entrada.next());
+        System.out.println("Ingrese la Numeración: ");
+        nuevoDomicilio.setNumero(entrada.nextInt());
+        System.out.println("Ingrese el número de Departamento: (OPCIONAL)");
+        nuevoDomicilio.setDepartamento(entrada.nextInt());
+        System.out.println("Ingrese el piso: (OPCIONAL)");
+        nuevoDomicilio.setPiso(entrada.nextInt());
+
+        return nuevoDomicilio;
+    }
+
+
+    public void mascotasPerdidas() {}
+
+    public void reportarMascotaPerdida() {
+        Scanner entrada = new Scanner(System.in);
+
+        // Todo: Generaria el Formulario del Rescatista
+        // Todo: Generaria el Formulario de la Mascota Perdida
+    }
+
+    public void adoptarMascota() {}
+
+    public void inicioSesionAdmin(Usuario usuario) {
+        Scanner entrada = new Scanner(System.in);
+        int opcionElegida;
+        boolean salir = false;
+
+        while(!salir) {
+            System.out.println("    - Para hacer nuevos Administradores, ingrese 1.");
+            System.out.println("    - Para cambiar los estandares de una Organización, ingrese 2.");
+            System.out.println("    - Para volver al Menu Principal, ingrese 3.");
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
+
+            switch (opcionElegida) {
+                case 1: // Hacer nuevos Admins
+                    // Elegir alguno de los usuarios para hacerlo Admin
+                    miSistema.getUsuarios();
+                   //usuario.hacerAdministrador(usuarioElegido);
+                    break;
+                case 2: // Administrar una Organizacion, ya sea agregando caracteristicas o modificandolas
+                    break;
+                case 3: // De vuelta al Menu Principal
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("La opción elegida es incorrecta. Por favor intente nuevamente.");
+                    break;
+            }
+        }
+    }
+
+    public void inicioSesionModerador(Usuario usuario) {
+
+        // TODO: obtener las publicaciones que estan PENDIENTES
+        // - Verificar 1 x 1?
+        miSistema.getPublicaciones();
+        // - Luego de ver 1 publicacion, tener 2 opciones: 1) APROBAR 2) DESAPROBAR, y eso cambiar el estado de dicha publicacion
 
     }
 

@@ -7,8 +7,7 @@ import excepciones.PermisosInvalidosException;
 public class Usuario {
     private String usuario;
     private String contrasenia;
-    private Rol rol; //Para evitar andar chequeando tipo (es un admin? -> tiro excepcion) mejor delegarselo al rol y si no es admin tire excepcion
-    public boolean soyAdmin = false; //Para almacenar en la DB
+    private Rol rol;
     private Persona persona;
 
     // Getters and Setters
@@ -34,23 +33,7 @@ public class Usuario {
         return rol;
     }
 
-    /*
-    NO LO DEJARIA, YA TENEMOS EL SET ROL NO CREEMOS OTRA FUNCION CON EL MISMO OBJETIVO
-
     public void cambiarRol(Rol rol) {
-        this.rol = rol;
-    }
-    */
-
-    public boolean isSoyAdmin() {
-        return soyAdmin;
-    }
-
-    public void setSoyAdmin(boolean soyAdmin) {
-        this.soyAdmin = soyAdmin;
-    }
-
-    public void setRol(Rol rol) {
         this.rol = rol;
     }
 
@@ -65,23 +48,17 @@ public class Usuario {
     // Constructor
     public Usuario(String usuario, String contrasenia){
             this.usuario = usuario;
+            this.rol = new User();
             if(new ValidadorPassword().esValida(contrasenia)){
                     this.contrasenia = contrasenia;
             } //Si no tira excepcion creo
     }
 
-    public Usuario(){
-            this.usuario = "jesucristo";
-            this.contrasenia = "soyadmin";
-            this.rol = new Administrador();
-            soyAdmin = true;
-    } //SOLO PARA PODER HACER EL PRIMER ADMINISTRADOR
-
 
     // Metodos
+    // Solamente si uno es Admin
     public void hacerAdministrador(Usuario otroUsuario){
             if(rol.puedoCrearAdministradores()){
-                    otroUsuario.soyAdmin = true;
                     otroUsuario.rol = new Administrador();
             }
             else{

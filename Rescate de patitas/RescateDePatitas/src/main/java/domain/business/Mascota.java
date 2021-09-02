@@ -20,6 +20,10 @@ public class Mascota {
     private boolean estaAdoptada;
     private Persona encargado;
 
+
+    // Constructor
+    public Mascota() {}
+
     public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaMascota> caracteristicasMascota, boolean perdida, boolean adoptada, Persona encargado){
         this.nombreMascota = nombre;
         this.tipoAnimal = tipo;
@@ -86,7 +90,7 @@ public class Mascota {
         return this.fotos;
     }
 
-    public void setFotos(Foto foto) {
+    public void setFotos(List<Foto> foto) {
         this.fotos = fotos;
     }
 

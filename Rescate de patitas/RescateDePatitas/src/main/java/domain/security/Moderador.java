@@ -1,6 +1,6 @@
 package domain.security;
 
-public class UserVoluntario implements Rol{
+public class Moderador implements Rol{
     @Override
     public boolean puedoRegistrarMascota() { return false; }
 

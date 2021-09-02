@@ -17,9 +17,7 @@ public class Contacto {
         return nombreContacto;
     }
 
-    public void setNombreContacto(String nombreContacto) {
-        this.nombreContacto = nombreContacto;
-    }
+    public void setNombreContacto(String nombreContacto) { this.nombreContacto = nombreContacto; }
 
     public String getApellidoContacto() {
         return apellidoContacto;

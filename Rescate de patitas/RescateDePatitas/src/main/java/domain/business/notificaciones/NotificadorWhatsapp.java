@@ -4,7 +4,10 @@ import domain.business.Persona;
 import domain.business.publicaciones.BusquedaMascotaIdeal;
 
 public class NotificadorWhatsapp extends Notificacion{
-@Override
+        @Override
+        public int obtenerCodigoNotificacion() { return 3; }
+
+        @Override
 public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta) {
         twillio.enviarWhatsapp(destinatario.getTelefono(),armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida,ruta));
         }

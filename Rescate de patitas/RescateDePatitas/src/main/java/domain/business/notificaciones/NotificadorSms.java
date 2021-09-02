@@ -6,6 +6,9 @@ import domain.business.publicaciones.BusquedaMascotaIdeal;
 
 public class NotificadorSms extends Notificacion{
     @Override
+    public int obtenerCodigoNotificacion() { return 2; }
+
+    @Override
     public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta) {
         twillio.enviarSMS(destinatario.getTelefono(),armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida,ruta));
     }

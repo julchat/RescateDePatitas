@@ -2,19 +2,21 @@ package domain.business;
 
 import domain.business.notificaciones.Notificacion;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Persona {
     private String nombre;
     private String apellido;
-    private Date fechaDeNacimiento;
+    private LocalDate fechaDeNacimiento;
     private TipoDoc tipoDocumento;          // Podriamos hacer un enum para tipo de doc: DNI, CEDULA, PASAPORTE, etc.
     private int numeroDocumento;
     private String telefono;
     private String email;
     private List<Notificacion> formasDeNotificacion;
-    private List<Contacto> contactos;
+    private List<Contacto> contactos = new ArrayList<>();
     private boolean suscripto;
 
     // Getters and Setters
@@ -26,9 +28,9 @@ public class Persona {
 
     public void setApellido(String apellido) { this.apellido = apellido; }
 
-    public Date getFechaDeNacimiento() { return fechaDeNacimiento; }
+    public LocalDate getFechaDeNacimiento() { return fechaDeNacimiento; }
 
-    public void setFechaDeNacimiento(Date fechaDeNacimiento) { this.fechaDeNacimiento = fechaDeNacimiento; }
+    public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) { this.fechaDeNacimiento = fechaDeNacimiento; }
 
     public TipoDoc getTipoDocumento() { return tipoDocumento; }
 
@@ -79,7 +81,7 @@ public class Persona {
     // Constructor
     public Persona() {}
 
-    public Persona(String nombre, String apellido, Date fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
+    public Persona(String nombre, String apellido, LocalDate fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaDeNacimiento = fechaDeNacimiento;
