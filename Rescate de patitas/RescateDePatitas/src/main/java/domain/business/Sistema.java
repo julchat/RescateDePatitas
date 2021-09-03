@@ -40,6 +40,8 @@ public class Sistema {
 
     public List<Publicacion> getPublicaciones() { return publicaciones; }
 
+    public List<Organizacion> getOrganizaciones() { return organizaciones; }
+
     public Usuario crearUsuario(String nombre, String contrasenia) {
         Usuario nuevoUsuario = new Usuario(nombre, contrasenia);
         if (!this.existeUsuario(nombre)) {
@@ -71,11 +73,6 @@ public class Sistema {
 
     public boolean validarContrasenia(String contrasenia) {
         return validador.esValida(contrasenia);
-    }
-
-
-    public void registrarMascotaPerdida(MascotaPerdida mascotaPerdida) {
-        this.mascotasPerdidas.add(mascotaPerdida);
     }
 
     public void reclamarMascotaEncontrada(MascotaPerdida mascota) {

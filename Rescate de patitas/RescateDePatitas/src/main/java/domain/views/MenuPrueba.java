@@ -7,8 +7,10 @@ import domain.business.notificaciones.Notificacion;
 import domain.business.notificaciones.NotificadorEmail;
 import domain.business.notificaciones.NotificadorSms;
 import domain.business.notificaciones.NotificadorWhatsapp;
+import domain.business.organizaciones.Organizacion;
 import domain.business.organizaciones.apiHogares.APIhogares;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
+import domain.business.publicaciones.Publicacion;
 import domain.security.Usuario;
 
 import java.io.IOException;
@@ -129,7 +131,6 @@ public class MenuPrueba {
                             System.out.println("-------------------------------------------------------------------");
                         }
                     }
-
                     break;
                 case 4:
                     this.mascotasPerdidas();
@@ -152,6 +153,8 @@ public class MenuPrueba {
         exit(0);
     }
 
+
+// CREAR NUEVA PERSONA
     public Persona crearPersona() {
         Duenio nuevaPersona = new Duenio();
         Scanner entrada = new Scanner(System.in);
@@ -317,6 +320,8 @@ public class MenuPrueba {
         }
     }
 
+
+// INICIO SESION SIENDO USER
     public void inicioSesionUser(Usuario usuarioLogin) {
         Scanner entrada = new Scanner(System.in);
         Sistema miSistema = Sistema.getInstance();
@@ -380,6 +385,8 @@ public class MenuPrueba {
         }
     }
 
+
+// REGISTRAR MASCOTA
     private Mascota registrarMascota() {
         Scanner entrada = new Scanner(System.in);
         Mascota nuevaMascota = new Mascota();
@@ -496,10 +503,14 @@ public class MenuPrueba {
         return nuevoDomicilio;
     }
 
+
+// VER MASCOTAS PERDIDAS
     public void mascotasPerdidas() {
         miSistema.mostrarMascotasPerdidas();
     }
 
+
+// REPORTAR MASCOTA PERDIDA
     public void reportarMascotaPerdida() {
         Scanner entrada = new Scanner(System.in);
         Persona nuevaPersona = this.generarFormularioRescatista(entrada);
@@ -600,6 +611,8 @@ public class MenuPrueba {
         return nuevaUbicacion;
     }
 
+
+// ADOPTAR UNA MASCOTA
     public void adoptarMascota() {
         /* Todo: obtener las mascotas que estan en adopcion
                 - elegir una de esas mascotas o pasar de largo
@@ -608,6 +621,8 @@ public class MenuPrueba {
         */
     }
 
+
+// INICIO DE SESION SIENDO ADMIN
     public void inicioSesionAdmin(Usuario usuario) {
         Scanner entrada = new Scanner(System.in);
         int opcionElegida;
@@ -627,6 +642,7 @@ public class MenuPrueba {
                    //usuario.hacerAdministrador(usuarioElegido);
                     break;
                 case 2: // Administrar una Organizacion, ya sea agregando caracteristicas o modificandolas
+                    this.administrarOrganizacion();
                     break;
                 case 3: // De vuelta al Menu Principal
                     salir = true;
@@ -638,6 +654,17 @@ public class MenuPrueba {
         }
     }
 
+    private void administrarOrganizacion() {
+        List<Organizacion> organizaciones = miSistema.getOrganizaciones();
+
+        for(Organizacion organizacion : organizaciones) {
+            // TODO: itera todas las organizaciones y despues se pregunta cual quiere administrar
+        }
+        // TODO: una vez elegida la organizacion, administra la misma; ya sea para agregar, modificar o quitar caracteristicas de la misma
+    }
+
+
+// INICIO DE SESION SIENDO MODERADOR
     public void inicioSesionModerador(Usuario usuario) {
 
         // TODO: obtener las publicaciones que estan PENDIENTES
@@ -647,8 +674,9 @@ public class MenuPrueba {
 
     }
 
+
     public void cerrarSesion() {
-        // Todo: aca habria que cerrar sesion, creo que implementando algo de seguridad
+        // Todo: aca habria que cerrar sesion, creo que implementando algo de seguridad; o capaz ni hace falta
         return;
     }
 }
