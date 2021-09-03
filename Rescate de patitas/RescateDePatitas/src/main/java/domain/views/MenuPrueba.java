@@ -322,9 +322,10 @@ public class MenuPrueba {
         Sistema miSistema = Sistema.getInstance();
         boolean salir = false;
         System.out.println("    - Para Registrar a una Mascota, ingrese 1.");
-        System.out.println("    - Para Ver las Mascotas Perdidas, ingrese 2");
-        System.out.println("    - Para Adoptar a una Mascota, ingrese 3");
-        System.out.println("    - Para Cerrar sesión, ingrese 4");
+        System.out.println("    - Para Ver las Mascotas Perdidas, ingrese 2.");
+        System.out.println("    - Para Adoptar a una Mascota, ingrese 3.");
+        System.out.println("    - Para mostrar las Mascotas Registradas, ingrese 4.");
+        System.out.println("    - Para Cerrar sesión, ingrese 5.");
         int opcion = entrada.nextInt();
 
         while(!salir) {
@@ -348,12 +349,25 @@ public class MenuPrueba {
                     }
                     break;
                 case 2:
-                    miSistema.mostrarMascotasPerdidas();
+                    this.mascotasPerdidas();
                     break;
                 case 3:
-                    // Todo: todo lo relacionado a querer adoptar a una mascota
+                    this.adoptarMascota();
                     break;
                 case 4:
+                    List<Mascota> mascotasRegistradas = ((Duenio)usuarioLogin.getPersona()).getMascotas();
+                    for(Mascota mascota : mascotasRegistradas) {
+                        System.out.println("Tipo del Animal: " + mascota.getTipoAnimal());
+                        System.out.println("Nombre de la Mascota: " + mascota.getNombreMascota());
+                        System.out.println("Apodo de la Mascota: " + mascota.getApodoMascota());
+                        System.out.println("Edad de la Mascota: " + mascota.getEdadMascota());
+                        System.out.println("Sexo de la Mascota: " + mascota.getSexoMascota());
+                        System.out.println("Descripción de la Mascota: " + mascota.getDescripcionMascota());
+                        System.out.println("Características de la Mascota: " + mascota.getCaracteristicasMascota());
+                        System.out.println("---------------------------------------------------------------------");
+                    }
+                    break;
+                case 5:
                     System.out.println("¡Gracias por visitar RescateDePatitas!");
                     this.cerrarSesion();
                     salir = true;
@@ -482,17 +496,117 @@ public class MenuPrueba {
         return nuevoDomicilio;
     }
 
-
-    public void mascotasPerdidas() {}
+    public void mascotasPerdidas() {
+        miSistema.mostrarMascotasPerdidas();
+    }
 
     public void reportarMascotaPerdida() {
         Scanner entrada = new Scanner(System.in);
+        Persona nuevaPersona = this.generarFormularioRescatista(entrada);
 
-        // Todo: Generaria el Formulario del Rescatista
-        // Todo: Generaria el Formulario de la Mascota Perdida
+        // nuevaPersona iria a la publicacion
+
+        MascotaPerdida mascotaPerdida = this.generarFormularioMascotaPerdida(entrada);
+
+        // mascotaPerdida se agrega en la publicacion y se agrega a la lista de mascotas perdidas
+        miSistema.agregarMascotaPerdida(mascotaPerdida);
     }
 
-    public void adoptarMascota() {}
+    private Rescatista generarFormularioRescatista(Scanner entrada) {
+        Rescatista nuevoRescatista = new Rescatista();
+
+        System.out.print("Ingrese su nombre: ");
+        nuevoRescatista.setNombre(entrada.next());
+        System.out.print("Ingrese su apellido: ");
+        nuevoRescatista.setApellido(entrada.next());
+        System.out.print("Ingrese su fecha de nacimiento: ");
+        nuevoRescatista.setFechaDeNacimiento(this.crearFecha(entrada.next()));
+        System.out.println("Elija el tipo de documento: ");
+        nuevoRescatista.setTipoDocumento(this.elegirDocumento(entrada));
+        System.out.print("Ingrese su número de documento: ");
+        nuevoRescatista.setNumeroDocumento(entrada.nextInt());
+        System.out.print("Ingrese su número de teléfono: ");
+        nuevoRescatista.setTelefono(entrada.next());
+        System.out.print("Ingrese su email: ");
+        nuevoRescatista.setEmail(entrada.next());
+        System.out.println("Seleccione su forma de notificación preferida: ");
+        nuevoRescatista.setFormasDeNotificacion(this.elegirNotificacionesPreferidas(entrada));
+        System.out.println("Ingrese sus contactos: ");
+        this.agregarContacto(nuevoRescatista, entrada);
+
+        return nuevoRescatista;
+    }
+
+    private MascotaPerdida generarFormularioMascotaPerdida(Scanner entrada) {
+        MascotaPerdida nuevaMascotaPerdida = new MascotaPerdida();
+
+        System.out.println("Seleccione el tipo de animal de la mascota encontrada: ");
+        nuevaMascotaPerdida.setTipoAnimal(this.eleccionTipoAnimal(entrada));
+        System.out.println("Seleccione el tamaño de la mascota encontrada: ");
+        nuevaMascotaPerdida.setTamanio(this.eleccionTamanio(entrada));
+        System.out.print("Ingrese la descripción de la mascota encontrada: ");
+        nuevaMascotaPerdida.setDescripcion(entrada.next());
+        System.out.println("Indique la ubicación donde fue encontrada la mascota: ");
+        nuevaMascotaPerdida.setUbicacionEncontrada(this.ingresarUbicacionEncontrada(entrada));
+        System.out.println("Ingrese el carrousel de fotos de la mascota encontrada: ");
+        nuevaMascotaPerdida.setCarrouselFotos(this.eleccionFotos(entrada));
+
+        return nuevaMascotaPerdida;
+    }
+
+    private Tamanio eleccionTamanio(Scanner entrada) {
+        Tamanio nuevoTamanio = null;
+        int opcionElegida;
+        boolean salir = false;
+
+        System.out.println("    - Si es Pequeña, ingrese 1.");
+        System.out.println("    - Si es Mediana, ingrese 2.");
+        System.out.println("    - Si es Grande, ingrese 3.");
+        System.out.print("> ");
+        opcionElegida = entrada.nextInt();
+
+        while(!salir) {
+            switch(opcionElegida) {
+                case 1:
+                    nuevoTamanio = Tamanio.PEQUENIA;
+                    salir = true;
+                    break;
+                case 2:
+                    nuevoTamanio = Tamanio.MEDIANA;
+                    salir = true;
+                    break;
+                case 3:
+                    nuevoTamanio = Tamanio.GRANDE;
+                    salir = true;
+                    break;
+                default:
+                    System.out.print("Ha ingresado una opción incorrecta. Por favor intente nuevamente: ");
+                    break;
+            }
+        }
+        return nuevoTamanio;
+    }
+
+    private Ubicacion ingresarUbicacionEncontrada(Scanner entrada) {
+        Ubicacion nuevaUbicacion = new Ubicacion();
+
+        System.out.println("    - Ingrese la latitud en el mapa: ");
+        nuevaUbicacion.setLatitud(entrada.nextDouble());
+        System.out.println("    - Ingrese la longitud en el mapa: ");
+        nuevaUbicacion.setLongitud(entrada.nextDouble());
+
+        // TODO: en este caso estaria una extensión del google maps, y se lo elige a mano, de ahi te devuelve la longitud y latitud de la ubicacion
+
+        return nuevaUbicacion;
+    }
+
+    public void adoptarMascota() {
+        /* Todo: obtener las mascotas que estan en adopcion
+                - elegir una de esas mascotas o pasar de largo
+                - si se elige una, notificar al dueño de dicha mascota
+                - otra opcion es crear una publicacion para buscar una mascota que se adecue a las preferencias del adoptante
+        */
+    }
 
     public void inicioSesionAdmin(Usuario usuario) {
         Scanner entrada = new Scanner(System.in);

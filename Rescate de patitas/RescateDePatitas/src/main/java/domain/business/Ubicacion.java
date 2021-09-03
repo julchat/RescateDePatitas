@@ -20,6 +20,9 @@ public class Ubicacion {
         this.latitud = latitud;
     }
 
+
+    public Ubicacion() { }
+
     public Ubicacion(double longitud, double latitud) {
         this.longitud = longitud;
         this.latitud = latitud;

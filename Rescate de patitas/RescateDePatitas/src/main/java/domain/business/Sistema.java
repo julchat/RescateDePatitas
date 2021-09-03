@@ -32,6 +32,10 @@ public class Sistema {
         }
     }
 
+    public void agregarMascotaPerdida(MascotaPerdida mascotaPerdida) {
+        this.mascotasPerdidas.add(mascotaPerdida);
+    }
+
     public List<Usuario> getUsuarios() { return usuarios; }
 
     public List<Publicacion> getPublicaciones() { return publicaciones; }
