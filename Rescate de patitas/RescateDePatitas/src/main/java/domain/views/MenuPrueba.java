@@ -10,7 +10,10 @@ import domain.business.notificaciones.NotificadorWhatsapp;
 import domain.business.organizaciones.Organizacion;
 import domain.business.organizaciones.apiHogares.APIhogares;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
+import domain.business.publicaciones.Aprobada;
+import domain.business.publicaciones.Pendiente;
 import domain.business.publicaciones.Publicacion;
+import domain.business.publicaciones.Rechazada;
 import domain.security.Usuario;
 
 import java.io.IOException;
@@ -19,16 +22,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static java.lang.System.exit;
 
 public class MenuPrueba {
-
     private APIhogares apIhogares = APIhogares.getInstance();
     private Sistema miSistema = Sistema.getInstance();
 
-    public void iniciarMenu() throws IOException {
-        Scanner opciones = new Scanner(System.in);
+
+// MENU PRINCIPAL
+    public void menuPrincipal() throws IOException {
+        Scanner entrada = new Scanner(System.in);
         Scanner datosUsuario = new Scanner(System.in);
         boolean salir = false;
         int opcionElegida;
@@ -37,22 +42,99 @@ public class MenuPrueba {
 
         while(!salir) {
             System.out.println("¡Bienvenido/a a RescateDePatitas!");
-            System.out.println("    - Para Iniciar Sesion, ingrese 1.");
-            System.out.println("    - Para Crear un Usuario, ingrese 2.");
+            System.out.println("    - Para Ingresar al Sistema, ingrese 1.");
 
             // Esto es por ahora
-            System.out.println("    - Para consultar los Hogares disponibles, ingrese 3.");
+            System.out.println("    - Para consultar los Hogares disponibles, ingrese 2.");
 
-            System.out.println("    - Para ver las Mascotas Perdidas, ingrese 4.");
+            System.out.println("    - Para querer Adoptar a una Mascota, ingrese 3.");
+            System.out.println("    - Para dar en Adopción a una Mascota, ingrese 4.");
             System.out.println("    - Para Reportar una Mascota Perdida, ingrese 5.");
-            System.out.println("    - Para querer Adoptar a una Mascota, ingrese 6.");
-            System.out.println("    - Para Cerrar, ingrese 7.");
-
-            System.out.print("Ingrese el comando: ");
-            opcionElegida = opciones.nextInt();
+            System.out.println("    - Para ver las Mascotas Perdidas, ingrese 6.");
+            System.out.println("    - Para Registrar a una Mascota, ingrese 7.");
+            System.out.println("    - Para Finalizar, ingrese 8.");
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
 
             switch(opcionElegida) {
-                case 1: // Inicio de Sesion
+                case 1: // Ingresar al Sistema
+                    this.ingresoSistema(entrada, datosUsuario);
+                    break;
+
+                case 2: // Mostrando Hogares de Tránsito
+                    System.out.println("En total, hay " + apIhogares.cantidadHogares() + " hogares en " + apIhogares.cantidadPaginas() + " paginas.");
+
+                    for(int i=1; i<= apIhogares.cantidadPaginas(); i++) {
+                        List<Hogar> hogares = apIhogares.conjuntoHogares(i);
+                        for(Hogar hogar : hogares) {
+                            System.out.println("ID: " + hogar.getId());
+                            System.out.println("NOMBRE: " + hogar.getNombre());
+                            System.out.println("TELEFONO: " + hogar.getTelefono());
+                            System.out.println("CAPACIDAD: " + hogar.getCapacidad());
+                            System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
+                            System.out.println("DIRECCION: " + hogar.getUbicacion().getDireccion());
+                            System.out.println("LATITUD: " + hogar.getUbicacion().getLat());
+                            System.out.println("LONGITUD: " + hogar.getUbicacion().getLongitud());
+                            System.out.println("-------------------------------------------------------------------");
+                        }
+                    }
+                    break;
+
+                case 3: // Adoptar una Mascota
+                    this.adoptarMascota();
+                    break;
+
+                case 4: // Dar en adopción a una Mascota
+                    Duenio duenio = this.generarFormularioUsuario(entrada);
+                    this.darEnAdopcion(duenio);
+                    break;
+
+                case 5: // Reportar Mascota Perdida
+                    Rescatista rescatista = this.generarFormularioRescatista(entrada);
+                    MascotaPerdida mascotaPerdida = this.generarFormularioMascotaPerdida(entrada);
+                    miSistema.agregarMascotaPerdida(mascotaPerdida);
+                    // TODO: crea publicacion agregando los datos del Rescatista y de la Mascota Perdida
+                    break;
+
+                case 6: // Ver las Mascotas Perdidas
+                    this.mascotasPerdidas();
+                    break;
+
+                case 7: // Registrar una Mascota
+                    Duenio nuevoDuenio = this.generarFormularioUsuario(entrada);
+                    Mascota nuevaMascota = this.generarFormularioNuevaMascota(entrada);
+                    nuevaMascota.setEncargado(nuevoDuenio);
+                    System.out.println("Ingrese los datos de su Domicilio: ");
+                    nuevoDuenio.cambiarDomicilio(this.datosDomicilio(entrada));
+
+                    // TODO: se cargan los datos en la Base de Datos
+                    // TODO: si agrego un domicilio valido, entonces se envia la Chapa, es decir, generarChapitaQR
+                    break;
+
+                case 8:
+                    System.out.println("¡Gracias por visitar RescateDePatitas!");
+                    salir = true;
+                    break;
+
+                default:
+                    System.out.println("Se ha elegido una opción incorrecta. Intente nuevamente.");
+                    break;
+            }
+        }
+        exit(0);
+    }
+
+
+// INGRESO AL SISTEMA
+    private void ingresoSistema(Scanner entrada, Scanner datosUsuario) {
+        boolean salir = false;
+        System.out.println("Si desea iniciar sesion, ingrese 1.");
+        System.out.println("Si no tiene un usuario, ingrese 2 para crearlo.");
+        int opcionElegida = entrada.nextInt();
+
+        while(!salir) {
+            switch(opcionElegida) {
+                case 1: // Iniciar Sesion
                     System.out.print("Ingrese su nombre de usuario: ");
                     String usuarioLogin = datosUsuario.nextLine();
                     while(!miSistema.existeUsuario(usuarioLogin)) {
@@ -75,6 +157,8 @@ public class MenuPrueba {
                     System.out.println("¡Bienvenido de vuelta " + usuarioLogin + "!");
                     Usuario usuarioLogged = miSistema.buscarUsuario(usuarioLogin);
 
+
+                    // Inicio sesion de acuerdo al rol que tengo asignado
                     if(usuarioLogged.getRol().puedoAprobarPublicaciones()) {
                         this.inicioSesionModerador(usuarioLogged);
                     }
@@ -84,9 +168,10 @@ public class MenuPrueba {
                     else {
                         this.inicioSesionUser(usuarioLogged);
                     }
-
+                    salir = true;
                     break;
-                case 2: // Creación de Nuevo Usuario
+
+                case 2: // Crear Usuario
                     System.out.print("Para crear un usuario, primero ingrese un nombre de usuario: ");
                     String nombreUsuario = datosUsuario.next();
                     while(miSistema.existeUsuario(nombreUsuario)) {
@@ -108,54 +193,23 @@ public class MenuPrueba {
                     }
                     Usuario usuarioRegistrado = miSistema.crearUsuario(nombreUsuario, contrasenia);
 
-                    // TODO: por ahora todos serian Dueños
+                    // TODO: por ahora, todos los que se crean un usuario están asignados por defecto al Rol de User
                     usuarioRegistrado.setPersona(this.crearPersona());
                     System.out.println("El usuario ha sido creado correctamente.");
                     System.out.println("Continuando...");
-
-                    break;
-                case 3:
-                    System.out.println("En total, hay " + apIhogares.cantidadHogares() + " hogares en " + apIhogares.cantidadPaginas() + " paginas.");
-
-                    for(int i=1; i<= apIhogares.cantidadPaginas(); i++) {
-                        List<Hogar> hogares = apIhogares.conjuntoHogares(i);
-                        for(Hogar hogar : hogares) {
-                            System.out.println("ID: " + hogar.getId());
-                            System.out.println("NOMBRE: " + hogar.getNombre());
-                            System.out.println("TELEFONO: " + hogar.getTelefono());
-                            System.out.println("CAPACIDAD: " + hogar.getCapacidad());
-                            System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
-                            System.out.println("DIRECCION: " + hogar.getUbicacion().getDireccion());
-                            System.out.println("LATITUD: " + hogar.getUbicacion().getLat());
-                            System.out.println("LONGITUD: " + hogar.getUbicacion().getLongitud());
-                            System.out.println("-------------------------------------------------------------------");
-                        }
-                    }
-                    break;
-                case 4:
-                    this.mascotasPerdidas();
-                    break;
-                case 5:
-                    this.reportarMascotaPerdida();
-                    break;
-                case 6:
-                    this.adoptarMascota();
-                    break;
-                case 7:
-                    System.out.println("¡Gracias por visitar RescateDePatitas!");
                     salir = true;
                     break;
+
                 default:
                     System.out.println("Se ha elegido una opción incorrecta. Intente nuevamente.");
                     break;
             }
         }
-        exit(0);
     }
 
 
 // CREAR NUEVA PERSONA
-    public Persona crearPersona() {
+    private Persona crearPersona() {
         Duenio nuevaPersona = new Duenio();
         Scanner entrada = new Scanner(System.in);
 
@@ -322,73 +376,143 @@ public class MenuPrueba {
 
 
 // INICIO SESION SIENDO USER
-    public void inicioSesionUser(Usuario usuarioLogin) {
+    public void inicioSesionUser(Usuario usuario) {
         Scanner entrada = new Scanner(System.in);
         Sistema miSistema = Sistema.getInstance();
         boolean salir = false;
-        System.out.println("    - Para Registrar a una Mascota, ingrese 1.");
-        System.out.println("    - Para Ver las Mascotas Perdidas, ingrese 2.");
-        System.out.println("    - Para Adoptar a una Mascota, ingrese 3.");
-        System.out.println("    - Para mostrar las Mascotas Registradas, ingrese 4.");
-        System.out.println("    - Para Cerrar sesión, ingrese 5.");
-        int opcion = entrada.nextInt();
 
         while(!salir) {
-            switch(opcion) {
+            System.out.println("    - Para querer Adoptar a una Mascota, ingrese 1.");
+            System.out.println("    - Para dar en Adopción a una Mascota, ingrese 2.");
+            System.out.println("    - Para Reportar una Mascota Perdida, ingrese 3.");
+            System.out.println("    - Para ver las Mascotas Perdidas, ingrese 4.");
+            System.out.println("    - Para Registrar a una Mascota, ingrese 5.");
+            System.out.println("    - Para administrar su Usuario, ingrese 6.");
+            System.out.println("    - Para Cerrar Sesión, ingrese 7.");
+            System.out.print("> ");
+            int opcionElegida = entrada.nextInt();
+
+            switch(opcionElegida) {
                 case 1:
-                    // Solo puedo registrar una mascota si tengo los permisos adecuados, es decir, si soy un User
-                    if(usuarioLogin.getRol().puedoRegistrarMascota()) {
-                        Mascota mascota = this.registrarMascota();
-                        mascota.setEncargado(usuarioLogin.getPersona());
-                        ((Duenio) usuarioLogin.getPersona()).registrarMascota(mascota);
+                    this.adoptarMascota();
+                    break;
 
+                case 2:
+                    if(usuario.getRol().puedoDarEnAdopcion()) {
+                        this.darEnAdopcion((Duenio)usuario.getPersona());
+                    }
+                    else {
+                        System.out.println("No tiene los permisos para poder dar en Adopción a una mascota.");
+                    }
 
-                        if(((Duenio) usuarioLogin.getPersona()).getDomicilio() == null) {
+                    break;
+
+                case 3:
+                    Rescatista rescatista = this.agregarDatosRescatista(usuario.getPersona());
+                    this.reportarMascotaPerdida(rescatista);
+                    break;
+
+                case 4:
+                    this.mascotasPerdidas();
+                    break;
+
+                case 5:
+                    if(usuario.getRol().puedoRegistrarMascota()) {
+                        Mascota mascota = this.generarFormularioNuevaMascota(entrada);
+                        mascota.setEncargado(usuario.getPersona());
+                        ((Duenio) usuario.getPersona()).registrarMascota(mascota);
+
+                        if(((Duenio) usuario.getPersona()).getDomicilio() == null) {
                             System.out.println("Ingrese los datos del Domicilio del Dueño: ");
-                            ((Duenio) usuarioLogin.getPersona()).cambiarDomicilio(this.datosDomicilio(entrada));
+                            ((Duenio) usuario.getPersona()).cambiarDomicilio(this.datosDomicilio(entrada));
                         }
                         else {
                             System.out.println("El usuario ya tiene un Domicilio cargado.");
-                            // Todo: se podria preguntar si quiere cambiarlo, aunque eso tambien podria estar en la parte de Editar Perfil del Usuario, para actualizar datos
                         }
                     }
-                    break;
-                case 2:
-                    this.mascotasPerdidas();
-                    break;
-                case 3:
-                    this.adoptarMascota();
-                    break;
-                case 4:
-                    List<Mascota> mascotasRegistradas = ((Duenio)usuarioLogin.getPersona()).getMascotas();
-                    for(Mascota mascota : mascotasRegistradas) {
-                        System.out.println("Tipo del Animal: " + mascota.getTipoAnimal());
-                        System.out.println("Nombre de la Mascota: " + mascota.getNombreMascota());
-                        System.out.println("Apodo de la Mascota: " + mascota.getApodoMascota());
-                        System.out.println("Edad de la Mascota: " + mascota.getEdadMascota());
-                        System.out.println("Sexo de la Mascota: " + mascota.getSexoMascota());
-                        System.out.println("Descripción de la Mascota: " + mascota.getDescripcionMascota());
-                        System.out.println("Características de la Mascota: " + mascota.getCaracteristicasMascota());
-                        System.out.println("---------------------------------------------------------------------");
+                    else {
+                        System.out.println("No tiene los permisos para poder registrar a una mascota.");
                     }
                     break;
-                case 5:
+
+                case 6:
+                    this.administrarUsuario(usuario);
+                    break;
+
+                case 7:
+                    System.out.println("Cerrando sesión...");
                     System.out.println("¡Gracias por visitar RescateDePatitas!");
-                    this.cerrarSesion();
+                    this.cerrarSesion();    // Todo: No se si hace algo esto, ni se que podría hacer
                     salir = true;
                     break;
+
                 default:
-                    System.out.print("Ha ingresado una opción incorrecta. Por favor intente nuevamente: ");
-                    opcion = entrada.nextInt();
+                    System.out.print("Ha ingresado una opción incorrecta. Por favor intente nuevamente.");
                     break;
             }
         }
     }
 
+    private void administrarUsuario(Usuario usuarioLogin) {
+        boolean salir = false;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println(" • Si desea editar su Perfil, ingrese 1.");
+        System.out.println(" • Si desea ver las Mascotas que tiene Registradas, ingrese 2.");
+        System.out.println(" • Si desea volver al Menú, ingrese 3.");
+        System.out.println("> ");
+        int opcionElegida = entrada.nextInt();
+
+        while(!salir) {
+            switch(opcionElegida) {
+                case 1: // Editar datos del Perfil de Usuario
+                    //this.editarPerfil();
+                    break;
+                case 2: // Mascotas Registradas
+                    List<Mascota> mascotasRegistradas = ((Duenio)usuarioLogin.getPersona()).getMascotas();
+                    for(Mascota mascota : mascotasRegistradas) {
+                        mascota.mostrarDatosMascota();
+                        System.out.println("---------------------------------------------------------------------");
+                    }
+                    break;
+                case 3: // Volver al Menú
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("La opción que ha ingresado es incorrecta. Por favor intente nuevamente.");
+                    break;
+            }
+        }
+    }
+
+    private Duenio generarFormularioUsuario(Scanner entrada) {
+        Duenio nuevoDuenio = new Duenio();
+
+        System.out.print("Ingrese su nombre: ");
+        nuevoDuenio.setNombre(entrada.next());
+        System.out.print("Ingrese su apellido: ");
+        nuevoDuenio.setApellido(entrada.next());
+        System.out.print("Ingrese su fecha de nacimiento: ");
+        nuevoDuenio.setFechaDeNacimiento(this.crearFecha(entrada.next()));
+        System.out.println("Elija el tipo de documento: ");
+        nuevoDuenio.setTipoDocumento(this.elegirDocumento(entrada));
+        System.out.print("Ingrese su número de documento: ");
+        nuevoDuenio.setNumeroDocumento(entrada.nextInt());
+        System.out.print("Ingrese su número de teléfono o celular: ");
+        nuevoDuenio.setTelefono(entrada.next());
+        System.out.print("Ingrese su email: ");
+        nuevoDuenio.setEmail(entrada.next());
+        System.out.println("Seleccione su forma de notificación preferida: ");
+        nuevoDuenio.setFormasDeNotificacion(this.elegirNotificacionesPreferidas(entrada));
+        System.out.println("Ingrese sus contactos: ");
+        this.agregarContacto(nuevoDuenio, entrada);
+
+        return nuevoDuenio;
+    }
+
 
 // REGISTRAR MASCOTA
-    private Mascota registrarMascota() {
-        Scanner entrada = new Scanner(System.in);
+    private Mascota generarFormularioNuevaMascota(Scanner entrada) {
         Mascota nuevaMascota = new Mascota();
 
         System.out.println("Seleccione que tipo de animal quiere registrar: ");
@@ -482,7 +606,6 @@ public class MenuPrueba {
     }
 
     private Domicilio datosDomicilio(Scanner entrada) {
-        System.out.println("DOMICILIO DEL DUEÑO/A");
         Domicilio nuevoDomicilio = new Domicilio();
 
         System.out.println("Ingrese la Provincia: ");
@@ -511,16 +634,29 @@ public class MenuPrueba {
 
 
 // REPORTAR MASCOTA PERDIDA
-    public void reportarMascotaPerdida() {
+    public void reportarMascotaPerdida(Rescatista rescatista) {
         Scanner entrada = new Scanner(System.in);
-        Persona nuevaPersona = this.generarFormularioRescatista(entrada);
-
-        // nuevaPersona iria a la publicacion
+        // tomamos a la persona que reporta a la mascota perdida para que complete los datos y la publicacion
 
         MascotaPerdida mascotaPerdida = this.generarFormularioMascotaPerdida(entrada);
 
         // mascotaPerdida se agrega en la publicacion y se agrega a la lista de mascotas perdidas
         miSistema.agregarMascotaPerdida(mascotaPerdida);
+    }
+
+    private Rescatista agregarDatosRescatista(Persona persona) {
+        Rescatista nuevoRescatista = new Rescatista();
+        Scanner entrada = new Scanner(System.in);
+
+        // Para generar un "nuevo rescatista" y asi poder hacer la publicacion, necesito los datos que tiene el Usuario o Dueño (en este caso)
+        nuevoRescatista.mapearDatosDuenio(persona);
+
+        System.out.print("¿Puede alojar a la mascota?: ");
+        nuevoRescatista.setPuedeAlojarMascota(this.confirmarAlojamiento(entrada));
+        System.out.println("Ingrese los datos del Domicilio del Rescatista: ");
+        nuevoRescatista.setDomicilio(this.datosDomicilio(entrada));
+
+        return nuevoRescatista;
     }
 
     private Rescatista generarFormularioRescatista(Scanner entrada) {
@@ -545,7 +681,35 @@ public class MenuPrueba {
         System.out.println("Ingrese sus contactos: ");
         this.agregarContacto(nuevoRescatista, entrada);
 
+        System.out.print("¿Puede alojar a la mascota?: ");
+        nuevoRescatista.setPuedeAlojarMascota(this.confirmarAlojamiento(entrada));
+        System.out.println("Ingrese los datos del Domicilio del Rescatista: ");
+        nuevoRescatista.setDomicilio(this.datosDomicilio(entrada));
+
         return nuevoRescatista;
+    }
+
+    private boolean confirmarAlojamiento(Scanner entrada) {
+        boolean salir = false;
+
+        while(!salir) {
+            System.out.println("    - 1) SI");
+            System.out.println("    - 2) NO");
+            System.out.print("> ");
+            int opcionElegida = entrada.nextInt();
+            if(opcionElegida == 1) {
+                salir = true;
+                return true;
+            }
+            else if(opcionElegida == 2) {
+                salir = true;
+                return false;
+            }
+            else {
+                System.out.println("La opción que ha ingresado es incorrecta. Por favor intente nuevamente.");
+            }
+        }
+        return false;
     }
 
     private MascotaPerdida generarFormularioMascotaPerdida(Scanner entrada) {
@@ -622,6 +786,19 @@ public class MenuPrueba {
     }
 
 
+// DAR EN ADOPCION A UNA MASCOTA
+    public void darEnAdopcion(Duenio duenio) {
+        // TODO: crea una publicacion mostrando los datos del dueño y de la mascota en cuestion
+        if(duenio.getMascotas().isEmpty()) {
+            Mascota mascotaEnAdopcion = this.generarFormularioNuevaMascota(new Scanner(System.in));
+            // usar mascotaEnAdopcion para generar la publicacion
+        }
+        else {
+            // elegir una de las mascotas que tiene el dueño
+        }
+    }
+
+
 // INICIO DE SESION SIENDO ADMIN
     public void inicioSesionAdmin(Usuario usuario) {
         Scanner entrada = new Scanner(System.in);
@@ -629,24 +806,109 @@ public class MenuPrueba {
         boolean salir = false;
 
         while(!salir) {
-            System.out.println("    - Para hacer nuevos Administradores, ingrese 1.");
-            System.out.println("    - Para cambiar los estandares de una Organización, ingrese 2.");
-            System.out.println("    - Para volver al Menu Principal, ingrese 3.");
+
+            System.out.println("    - Para querer Adoptar a una Mascota, ingrese 1.");
+            System.out.println("    - Para dar en Adopción a una Mascota, ingrese 2.");
+            System.out.println("    - Para Reportar una Mascota Perdida, ingrese 3.");
+            System.out.println("    - Para ver las Mascotas Perdidas, ingrese 4.");
+            System.out.println("    - Para Registrar a una Mascota, ingrese 5.");
+            System.out.println("    - Para hacer uso de las acciones de Admin, ingrese 6.");
+            System.out.println("    - Para Cerrar Sesión, ingrese 7.");
             System.out.print("> ");
             opcionElegida = entrada.nextInt();
 
-            switch (opcionElegida) {
-                case 1: // Hacer nuevos Admins
-                    // Elegir alguno de los usuarios para hacerlo Admin
-                    miSistema.getUsuarios();
-                   //usuario.hacerAdministrador(usuarioElegido);
+            switch(opcionElegida) {
+                case 1:
+                    this.adoptarMascota();
                     break;
-                case 2: // Administrar una Organizacion, ya sea agregando caracteristicas o modificandolas
-                    this.administrarOrganizacion();
+
+                case 2:
+                    if(usuario.getRol().puedoDarEnAdopcion()) {
+                        this.darEnAdopcion((Duenio)usuario.getPersona());
+                    }
+                    else {
+                        System.out.println("No tiene los permisos para poder dar en Adopción a una mascota.");
+                    }
                     break;
-                case 3: // De vuelta al Menu Principal
+
+                case 3:
+                    Rescatista rescatista = this.agregarDatosRescatista(usuario.getPersona());
+                    this.reportarMascotaPerdida(rescatista);
+                    break;
+
+                case 4:
+                    this.mascotasPerdidas();
+                    break;
+
+                case 5:
+                    if(usuario.getRol().puedoRegistrarMascota()) {
+                        Mascota mascota = this.generarFormularioNuevaMascota(entrada);
+                        mascota.setEncargado(usuario.getPersona());
+                        ((Duenio) usuario.getPersona()).registrarMascota(mascota);
+
+                        if(((Duenio) usuario.getPersona()).getDomicilio() == null) {
+                            System.out.println("Ingrese los datos del Domicilio del Dueño: ");
+                            ((Duenio) usuario.getPersona()).cambiarDomicilio(this.datosDomicilio(entrada));
+                        }
+                        else {
+                            System.out.println("El usuario ya tiene un Domicilio cargado.");
+                        }
+                    }
+                    else {
+                        System.out.println("No tiene los permisos para poder registrar a una mascota.");
+                    }
+                    break;
+
+                case 6:
+                    this.accionesAdmin(usuario);
+                    break;
+
+                case 7:
+                    System.out.println("Cerrando sesión...");
+                    System.out.println("¡Gracias por visitar RescateDePatitas!");
+                    this.cerrarSesion();    // Todo: No se si hace algo esto, ni se que podría hacer
                     salir = true;
                     break;
+
+                default:
+                    System.out.print("Ha ingresado una opción incorrecta. Por favor intente nuevamente.");
+                    break;
+            }
+        }
+    }
+
+    private void accionesAdmin(Usuario usuario) {
+        boolean salir = false;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("    - Para administrar una Organización, ingrese 1.");
+        System.out.println("    - Para administrar las características, ingrese 2.");
+        System.out.println("    - Para hacer nuevos Administradores, ingrese 3.");
+        System.out.println("    - Para volver al Menu Principal, ingrese 4.");
+        System.out.print("> ");
+        int opcionElegida = entrada.nextInt();
+
+        while(!salir) {
+            switch (opcionElegida) {
+                case 1: // Administrar una Organizacion, ya sea agregando caracteristicas o modificandolas
+                    this.administrarOrganizacion();
+                    break;
+
+                case 2: // Administrar características
+                    this.administrarCaracteristicas();
+                    break;
+
+                case 3: // Hacer nuevos Administradores o Administrar Roles de Usuarios
+                    // Elegir alguno de los usuarios para hacerlo Admin
+                    miSistema.getUsuarios();
+                    //Usuario usuarioElegido = this.elegirNuevoAdmin(entrada);
+                    //usuario.hacerAdministrador(usuarioElegido);
+                    break;
+
+                case 4: // De vuelta al Menu Principal
+                    salir = true;
+                    break;
+
                 default:
                     System.out.println("La opción elegida es incorrecta. Por favor intente nuevamente.");
                     break;
@@ -657,22 +919,145 @@ public class MenuPrueba {
     private void administrarOrganizacion() {
         List<Organizacion> organizaciones = miSistema.getOrganizaciones();
 
-        for(Organizacion organizacion : organizaciones) {
+        for(int i=0; i<organizaciones.size(); i++) {
             // TODO: itera todas las organizaciones y despues se pregunta cual quiere administrar
         }
-        // TODO: una vez elegida la organizacion, administra la misma; ya sea para agregar, modificar o quitar caracteristicas de la misma
+        if(organizaciones.isEmpty()){
+            System.out.println("No se encuentran organizaciones disponibles para administrar.");
+        }
+        else {
+            // TODO: una vez elegida la organizacion, administra la misma; ya sea para agregar, modificar o quitar caracteristicas de la misma
+        }
     }
+
+    private void administrarCaracteristicas() { }
 
 
 // INICIO DE SESION SIENDO MODERADOR
     public void inicioSesionModerador(Usuario usuario) {
+        Scanner entrada = new Scanner(System.in);
+        int opcionElegida;
+        boolean salir = false;
 
-        // TODO: obtener las publicaciones que estan PENDIENTES
-        // - Verificar 1 x 1?
-        miSistema.getPublicaciones();
-        // - Luego de ver 1 publicacion, tener 2 opciones: 1) APROBAR 2) DESAPROBAR, y eso cambiar el estado de dicha publicacion
+        while(!salir) {
 
+            System.out.println("    - Para querer Adoptar a una Mascota, ingrese 1.");
+            System.out.println("    - Para dar en Adopción a una Mascota, ingrese 2.");
+            System.out.println("    - Para Reportar una Mascota Perdida, ingrese 3.");
+            System.out.println("    - Para ver las Mascotas Perdidas, ingrese 4.");
+            System.out.println("    - Para Registrar a una Mascota, ingrese 5.");
+            System.out.println("    - Para hacer uso de las acciones de Moderador, ingrese 6.");
+            System.out.println("    - Para Cerrar Sesión, ingrese 7.");
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
+
+            switch(opcionElegida) {
+                case 1:
+                    this.adoptarMascota();
+                    break;
+
+                case 2:
+                    if(usuario.getRol().puedoDarEnAdopcion()) {
+                        this.darEnAdopcion((Duenio)usuario.getPersona());
+                    }
+                    else {
+                        System.out.println("No tiene los permisos para poder dar en Adopción a una mascota.");
+                    }
+                    break;
+
+                case 3:
+                    Rescatista rescatista = this.agregarDatosRescatista(usuario.getPersona());
+                    this.reportarMascotaPerdida(rescatista);
+                    break;
+
+                case 4:
+                    this.mascotasPerdidas();
+                    break;
+
+                case 5:
+                    if(usuario.getRol().puedoRegistrarMascota()) {
+                        Mascota mascota = this.generarFormularioNuevaMascota(entrada);
+                        mascota.setEncargado(usuario.getPersona());
+                        ((Duenio) usuario.getPersona()).registrarMascota(mascota);
+
+                        if(((Duenio) usuario.getPersona()).getDomicilio() == null) {
+                            System.out.println("Ingrese los datos del Domicilio del Dueño: ");
+                            ((Duenio) usuario.getPersona()).cambiarDomicilio(this.datosDomicilio(entrada));
+                        }
+                        else {
+                            System.out.println("El usuario ya tiene un Domicilio cargado.");
+                        }
+                    }
+                    else {
+                        System.out.println("No tiene los permisos para poder registrar a una mascota.");
+                    }
+                    break;
+
+                case 6:
+                    this.accionesModerador();
+                    break;
+
+                case 7:
+                    System.out.println("Cerrando sesión...");
+                    System.out.println("¡Gracias por visitar RescateDePatitas!");
+                    this.cerrarSesion();    // Todo: No se si hace algo esto, ni se que podría hacer
+                    salir = true;
+                    break;
+
+                default:
+                    System.out.print("Ha ingresado una opción incorrecta. Por favor intente nuevamente.");
+                    break;
+            }
+        }
     }
+
+    private void accionesModerador() {
+        boolean salir = false;
+        Scanner entrada = new Scanner(System.in);
+
+        while(!salir) {
+
+            System.out.println("Si desea admninistrar las publicaciones, ingrese 1.");
+            System.out.println("Si desea volver al menú principal, ingrese 2.");
+            System.out.print("> ");
+            int opcionElegida = entrada.nextInt();
+
+            switch(opcionElegida) {
+                case 1: // Administrar publicaciones
+                    this.administrarPublicaciones(entrada);
+                    break;
+                case 2:
+                    salir = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void administrarPublicaciones(Scanner entrada) {
+        // TODO: obtener las publicaciones que estan PENDIENTES
+        List<Publicacion> publicaciones = miSistema.getPublicaciones().stream().filter(publicacion -> publicacion.getEstadoPublicacion().getClass().equals(Pendiente.class)).collect(Collectors.toList());
+        for(Publicacion publicacion : publicaciones) {
+            publicacion.mostrarPublicacion();
+            System.out.println();
+            System.out.println("Si desea aprobar la publicación, ingrese 1.");
+            System.out.println("Si desea rechazar la publicación, ingrese 2.");
+            int opcionElegida = entrada.nextInt();
+
+            if(opcionElegida == 1) {
+                publicacion.cambiarEstado(new Aprobada());
+            }
+            else if(opcionElegida == 2) {
+                publicacion.cambiarEstado(new Rechazada());
+                // Notificar al autor
+            }
+            else {
+                System.out.println("La opción que ha ingresado es incorrecta.");
+            }
+        }
+    }
+
 
 
     public void cerrarSesion() {

@@ -1,5 +1,7 @@
 package domain.business.publicaciones;
 
+import domain.business.Persona;
+
 import java.util.List;
 
 public class BusquedaMascotaIdeal extends TipoPublicacion{
@@ -23,4 +25,10 @@ public class BusquedaMascotaIdeal extends TipoPublicacion{
     }
 
     public BusquedaMascotaIdeal() {}
+
+    @Override
+    public void mostrarDatos() {
+        System.out.println("Comodidades: " + obtenerComodidades());
+        System.out.println("Preferencias: " + obtenerPreferencias());
+    }
 }

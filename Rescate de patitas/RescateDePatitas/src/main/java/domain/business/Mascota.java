@@ -144,4 +144,15 @@ public class Mascota {
         caracteristicasMascota = caracteristicasValidas;
     }
 
+    public void mostrarDatosMascota() {
+        System.out.println("Tipo del Animal: " + getTipoAnimal());
+        System.out.println("Nombre de la Mascota: " + getNombreMascota());
+        System.out.println("Apodo de la Mascota: " + getApodoMascota());
+        System.out.println("Edad de la Mascota: " + getEdadMascota());
+        System.out.println("Sexo de la Mascota: " + getSexoMascota());
+        System.out.println("Descripción de la Mascota: " + getDescripcionMascota());
+        System.out.println("Características de la Mascota: " + getCaracteristicasMascota());
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println();
+    }
 }

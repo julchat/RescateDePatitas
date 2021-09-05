@@ -17,4 +17,14 @@ public class PuestoEnAdopcion extends TipoPublicacion{
     public void nuevoInteresado(Persona interesado) {
         this.personasInteresadas.add(interesado);
     }
+
+    @Override
+    public void mostrarDatos() {
+        this.mascotaElegida.mostrarDatosMascota();
+        this.duenioActual.mostrarDatosNoSensibles();
+        for(Respuesta respuesta : respuestasOrganizacion) {
+            respuesta.mostrarRespuesta();
+        }
+        System.out.println("Personas interesadas: " + personasInteresadas.size());
+    }
 }

@@ -1,6 +1,7 @@
 package domain.business.publicaciones;
 
 import domain.business.Persona;
+import domain.security.Usuario;
 
 public class Publicacion {
     private TipoPublicacion tipoPublicacion;
@@ -43,7 +44,14 @@ public class Publicacion {
         this.estadoPublicacion = nuevoEstado;
     }
 
-    public boolean esVisible() {
-        return this.estadoPublicacion.esVisible();
+    public boolean esVisible(Usuario usuario) {
+        return this.estadoPublicacion.esVisible(usuario);
+    }
+
+    public void mostrarPublicacion() {
+        System.out.println("Tipo publicación: " + getTipoPublicacion());
+        System.out.println("Autor: " + getAutor().getNombre() + " " + getAutor().getApellido());
+        // Tal vez algo redundante tener el autor y despues mostrar los datos del rescatista o dueño
+        this.tipoPublicacion.mostrarDatos();
     }
 }

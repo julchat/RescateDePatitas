@@ -78,6 +78,15 @@ public class Persona {
         }
     }
 
+    public void suscribirseNovedades() {
+        this.suscripto = true;
+    }
+
+    public void desuscribirseNovedades() {
+        this.suscripto = false;
+    }
+
+
     // Constructor
     public Persona() {}
 
@@ -97,11 +106,19 @@ public class Persona {
     public void crearPublicacionParaAdoptar() {
     }
 
-    public void suscribirseNovedades() {
-        this.suscripto = true;
-    }
 
-    public void desuscribirseNovedades() {
-        this.suscripto = false;
+
+    public void mostrarDatosNoSensibles() {
+        System.out.println("Nombre y Apellido: " + getNombre() + " " + getApellido());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Teléfono: " + getTelefono());
+        if(!getContactos().isEmpty()) {
+            System.out.println("Contacto/s: ");
+            for(Contacto contacto : getContactos()){
+                System.out.println(" - Nombre y Apellido: " + contacto.getNombreContacto() + " " + contacto.getApellidoContacto());
+                System.out.println(" - Email Contacto: " + contacto.getEmailContacto());
+                System.out.println(" - Teléfono Contacto: " + contacto.getTelefonoContacto());
+            }
+        }
     }
 }

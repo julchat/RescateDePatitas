@@ -28,4 +28,9 @@ public class Respuesta {
     public void responderPregunta(String respuesta) {
         this.respuesta = respuesta;
     }
+
+    public void mostrarRespuesta() {
+        System.out.println("Pregunta: " + getPregunta());
+        System.out.println(" - " + getRespuesta());
+    }
 }

@@ -27,4 +27,10 @@ public class BusquedaMascotaPerdida extends TipoPublicacion {
 
     // Metodos
     public void proponerResidencia() {}
+
+    @Override
+    public void mostrarDatos() {
+        this.mascotaRescatada.mostrarMascota();
+        this.rescatista.mostrarDatosNoSensibles();
+    }
 }

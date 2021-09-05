@@ -5,6 +5,9 @@ public class Administrador implements Rol {
     public boolean puedoRegistrarMascota() { return false; }
 
     @Override
+    public boolean puedoDarEnAdopcion() { return false; }
+
+    @Override
     public boolean puedoReportarMascotaPerdida() { return true; }
 
     @Override

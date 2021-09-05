@@ -5,6 +5,9 @@ public class User implements Rol{
     public boolean puedoRegistrarMascota() { return true; }
 
     @Override
+    public boolean puedoDarEnAdopcion() { return true; }
+
+    @Override
     public boolean puedoReportarMascotaPerdida() { return true; }
 
     @Override

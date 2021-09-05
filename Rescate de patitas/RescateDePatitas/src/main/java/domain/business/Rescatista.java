@@ -60,4 +60,29 @@ public class Rescatista extends Persona{
         publicacionCreada.setEstadoPublicacion(new Pendiente());
         //publicacionCreada.getTipoPublicacion()
     }
+
+    public void mapearDatosDuenio(Persona persona) {
+        setNombre(persona.getNombre());
+        setApellido(persona.getApellido());
+        setFechaDeNacimiento(persona.getFechaDeNacimiento());
+        setTipoDocumento(persona.getTipoDocumento());
+        setNumeroDocumento(persona.getNumeroDocumento());
+        setTelefono(persona.getTelefono());
+        setEmail(persona.getEmail());
+        setFormasDeNotificacion(persona.getFormasDeNotificacion());
+        setContactos(persona.getContactos());
+    }
+
+    @Override
+    public void mostrarDatosNoSensibles() {
+        super.mostrarDatosNoSensibles();
+        System.out.println("Puede alojar mascota: " + isPuedeAlojarMascota());
+        System.out.println("Domicilio: ");
+        System.out.println("    - Provincia: " + getDomicilio().getProvincia());
+        System.out.println("    - Localidad: " + getDomicilio().getLocalidad());
+        System.out.println("    - Calle: " + getDomicilio().getCalle());
+        System.out.println("    - Numeración: " + getDomicilio().getNumero());
+    }
+
+
 }
