@@ -69,15 +69,68 @@ public class MenuPrueba {
                         for(Hogar hogar : hogares) {
                             System.out.println("ID: " + hogar.getId());
                             System.out.println("NOMBRE: " + hogar.getNombre());
+                            System.out.println("UBICACION:");
+                            System.out.println("    - DIRECCION: " + hogar.getUbicacion().getDireccion());
+                            System.out.println("    - LATITUD: " + hogar.getUbicacion().getLat());
+                            System.out.println("    - LONGITUD: " + hogar.getUbicacion().getLongitud());
                             System.out.println("TELEFONO: " + hogar.getTelefono());
+                            System.out.println("ADMISIONES: ");
+                            System.out.println("    - PERROS: " + hogar.getAdmisiones().admitePerros());
+                            System.out.println("    - GATOS: " + hogar.getAdmisiones().admiteGatos());
                             System.out.println("CAPACIDAD: " + hogar.getCapacidad());
+                            System.out.println("LUGARES DISPONIBLES: " + hogar.getLugares_disponibles());
+                            System.out.println("TIENE PATIO: " + hogar.isPatio());
                             System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
-                            System.out.println("DIRECCION: " + hogar.getUbicacion().getDireccion());
-                            System.out.println("LATITUD: " + hogar.getUbicacion().getLat());
-                            System.out.println("LONGITUD: " + hogar.getUbicacion().getLongitud());
+
                             System.out.println("-------------------------------------------------------------------");
                         }
                     }
+
+
+                    System.out.println("HOGARES QUE ADMITEN PERROS:");
+                    List<Hogar> hogaresPerrunos = apIhogares.hogaresAdmitidos(TipoAnimal.PERRO);
+                    for(Hogar hogar : hogaresPerrunos) {
+                        System.out.println("ID: " + hogar.getId());
+                        System.out.println("NOMBRE: " + hogar.getNombre());
+                        System.out.println("UBICACION:");
+                        System.out.println("    - DIRECCION: " + hogar.getUbicacion().getDireccion());
+                        System.out.println("    - LATITUD: " + hogar.getUbicacion().getLat());
+                        System.out.println("    - LONGITUD: " + hogar.getUbicacion().getLongitud());
+                        System.out.println("TELEFONO: " + hogar.getTelefono());
+                        System.out.println("ADMISIONES: ");
+                        System.out.println("    - PERROS: " + hogar.getAdmisiones().admitePerros());
+                        System.out.println("    - GATOS: " + hogar.getAdmisiones().admiteGatos());
+                        System.out.println("CAPACIDAD: " + hogar.getCapacidad());
+                        System.out.println("LUGARES DISPONIBLES: " + hogar.getLugares_disponibles());
+                        System.out.println("TIENE PATIO: " + hogar.isPatio());
+                        System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
+
+                        System.out.println("-------------------------------------------------------------------");
+                    }
+
+
+                    System.out.println("HOGARES QUE ADMITEN GATOS:");
+                    List<Hogar> hogaresGatunos = apIhogares.hogaresAdmitidos(TipoAnimal.GATO);
+                    for(Hogar hogar : hogaresGatunos) {
+                        System.out.println("ID: " + hogar.getId());
+                        System.out.println("NOMBRE: " + hogar.getNombre());
+                        System.out.println("UBICACION:");
+                        System.out.println("    - DIRECCION: " + hogar.getUbicacion().getDireccion());
+                        System.out.println("    - LATITUD: " + hogar.getUbicacion().getLat());
+                        System.out.println("    - LONGITUD: " + hogar.getUbicacion().getLongitud());
+                        System.out.println("TELEFONO: " + hogar.getTelefono());
+                        System.out.println("ADMISIONES: ");
+                        System.out.println("    - PERROS: " + hogar.getAdmisiones().admitePerros());
+                        System.out.println("    - GATOS: " + hogar.getAdmisiones().admiteGatos());
+                        System.out.println("CAPACIDAD: " + hogar.getCapacidad());
+                        System.out.println("LUGARES DISPONIBLES: " + hogar.getLugares_disponibles());
+                        System.out.println("TIENE PATIO: " + hogar.isPatio());
+                        System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
+
+                        System.out.println("-------------------------------------------------------------------");
+                    }
+
+
                     break;
 
                 case 3: // Adoptar una Mascota
