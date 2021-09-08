@@ -7,6 +7,7 @@ public abstract class Notificacion {
     public abstract int obtenerCodigoNotificacion();
 
     AdapterTwillio twillio = new AdapterTwillio();
+    AdapterJavaMailApi mailSender = new AdapterJavaMailApi();
     public String armarMensajeMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaEncontrada, String ruta) {
         return "Estimado/a " + destinatario.getNombre() + "\n" + "Nos comunicamos para informarle que su mascota " + mascotaEncontrada.getNombreMascota() +
                 " ha sido encontrada por " + hallador.getApellido() + " " + hallador.getNombre() + ".\n Para mas informacion ingrese a " + ruta;

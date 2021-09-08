@@ -1,4 +1,4 @@
-/*package domain.business.notificacionesTests;
+package domain.business.notificacionesTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,30 +28,29 @@ public class NotificacionSMSTest {
     @Before
     public void setUp(){
         fotos.add(new Foto());
-        duenioMascota = new Duenio("Jorge", "Santos" , LocalDateTime.now(), TipoDoc.DNI, 3541212, "+541128646857" , "cristianmanuelcali@hotmail.com", medios, null, null, mascotas);
+        duenioMascota = new Duenio("Jorge", "Santos" , LocalDateTime.now().toLocalDate(), TipoDoc.DNI, 3541212, "+541128646857" , "cristianmanuelcali@hotmail.com", medios, null, null, mascotas);
         mascotaQueSePerdio = new Mascota("Popi", TipoAnimal.GATO, 5, SexoMascota.HEMBRA, "gordi", fotos, null, true, false, duenioMascota);
         duenioMascota.getMascotas().add(mascotaQueSePerdio);
         halladorMascota.setNombre("Claudio");
         halladorMascota.setApellido("Peterson");
     }
-
-    @Test*/
-    /*public void pruebaSMS(){
+    /*
+    @Test
+    public void pruebaSMS(){
         medios.add(notiSMS);
         duenioMascota.getFormasDeNotificacion().forEach((unMedio -> unMedio.notificarMascotaEncontrada(duenioMascota, halladorMascota, mascotaQueSePerdio, link)));
         assertTrue(true);
     } Comento porque baja el saldo*/
-
-    /*public void pruebaWhatsapp(){
+    /*@Test
+    public void pruebaWhatsapp(){
         duenioMascota.getFormasDeNotificacion().add(notiWPP);
         duenioMascota.getFormasDeNotificacion().forEach((unMedio -> unMedio.notificarMascotaEncontrada(duenioMascota, halladorMascota, mascotaQueSePerdio, link)));
         assertTrue(true);
-    }
-
+    }Comento para que no me spameen el whatsapp jaja */
+    /*@Test
     public void pruebaMail(){
         duenioMascota.getFormasDeNotificacion().add(notiMail);
         duenioMascota.getFormasDeNotificacion().forEach((unMedio -> unMedio.notificarMascotaEncontrada(duenioMascota, halladorMascota, mascotaQueSePerdio, link)));
         assertTrue(true);
-    }
+    }Comento para que no me spameen el mail*/
 }
-*/
