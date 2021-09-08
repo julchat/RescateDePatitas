@@ -15,6 +15,7 @@ public class Sistema {
     private List<Publicacion> publicaciones = new ArrayList<>();
     private List<Organizacion> organizaciones = new ArrayList<>();
     private List<MascotaPerdida> mascotasPerdidas = new ArrayList<>();
+    private List<Mascota> mascotasEnAdopcion = new ArrayList<>();
     private ValidadorPassword validador = new ValidadorPassword();
     // Todo: preguntas que deben estar si o si
 

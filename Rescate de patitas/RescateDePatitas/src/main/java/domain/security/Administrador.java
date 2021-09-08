@@ -11,7 +11,7 @@ public class Administrador implements Rol {
     public boolean puedoReportarMascotaPerdida() { return true; }
 
     @Override
-    public boolean puedoAprobarPublicaciones() { return true; }
+    public boolean puedoAprobarPublicaciones() { return false; }
 
     @Override
     public boolean puedoCrearAdministradores() {

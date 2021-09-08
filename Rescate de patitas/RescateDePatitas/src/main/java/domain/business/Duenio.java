@@ -72,7 +72,7 @@ public class Duenio extends Persona {
     }
 */
     public void cambiarDomicilio(Domicilio nuevoDomicilio){
-        this.cambiarOrganizacion(domicilio.buscarOrganizacionMasCercana());
+        //this.cambiarOrganizacion(domicilio.buscarOrganizacionMasCercana());
         this.setDomicilio(nuevoDomicilio);
     }
 

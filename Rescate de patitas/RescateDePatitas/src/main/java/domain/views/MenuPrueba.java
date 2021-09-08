@@ -140,9 +140,11 @@ public class MenuPrueba {
                 case 4: // Dar en adopción a una Mascota
                     Duenio duenio = this.generarFormularioUsuario(entrada);
                     this.darEnAdopcion(duenio);
+
+                    // TODO: persistir los datos del Dueño en la BD, al igual que la mascota
                     break;
 
-                case 5: // Reportar Mascota Perdida
+                case 5: // Reportar Mascota Perdida (no tiene Chapita)
                     Rescatista rescatista = this.generarFormularioRescatista(entrada);
                     MascotaPerdida mascotaPerdida = this.generarFormularioMascotaPerdida(entrada);
                     miSistema.agregarMascotaPerdida(mascotaPerdida);
@@ -157,6 +159,7 @@ public class MenuPrueba {
                     Duenio nuevoDuenio = this.generarFormularioUsuario(entrada);
                     Mascota nuevaMascota = this.generarFormularioNuevaMascota(entrada);
                     nuevaMascota.setEncargado(nuevoDuenio);
+                    nuevoDuenio.registrarMascota(nuevaMascota);
                     System.out.println("Ingrese los datos de su Domicilio: ");
                     nuevoDuenio.cambiarDomicilio(this.datosDomicilio(entrada));
 
@@ -460,7 +463,7 @@ public class MenuPrueba {
 
                     break;
 
-                case 3:
+                case 3: // Reportar Mascota Perdida (sin chapita)
                     Rescatista rescatista = this.agregarDatosRescatista(usuario.getPersona());
                     this.reportarMascotaPerdida(rescatista);
                     break;
@@ -661,19 +664,19 @@ public class MenuPrueba {
     private Domicilio datosDomicilio(Scanner entrada) {
         Domicilio nuevoDomicilio = new Domicilio();
 
-        System.out.println("Ingrese la Provincia: ");
+        System.out.print("  - Ingrese la Provincia: ");
         nuevoDomicilio.setProvincia(entrada.next());
-        System.out.println("Ingrese la Localidad: ");
+        System.out.print("  - Ingrese la Localidad: ");
         nuevoDomicilio.setLocalidad(entrada.next());
-        System.out.println("Ingrese su Código Postal: ");
+        System.out.print("  - Ingrese su Código Postal: ");
         nuevoDomicilio.setCodigoPostal(entrada.nextInt());
-        System.out.println("Ingrese el nombre de la Calle: ");
+        System.out.print("  - Ingrese el nombre de la Calle: ");
         nuevoDomicilio.setCalle(entrada.next());
-        System.out.println("Ingrese la Numeración: ");
+        System.out.print("  - Ingrese la Numeración: ");
         nuevoDomicilio.setNumero(entrada.nextInt());
-        System.out.println("Ingrese el número de Departamento: (OPCIONAL)");
+        System.out.print("  - Ingrese el número de Departamento: (OPCIONAL)");
         nuevoDomicilio.setDepartamento(entrada.nextInt());
-        System.out.println("Ingrese el piso: (OPCIONAL)");
+        System.out.print("  - Ingrese el piso: (OPCIONAL)");
         nuevoDomicilio.setPiso(entrada.nextInt());
 
         return nuevoDomicilio;
@@ -708,6 +711,8 @@ public class MenuPrueba {
         nuevoRescatista.setPuedeAlojarMascota(this.confirmarAlojamiento(entrada));
         System.out.println("Ingrese los datos del Domicilio del Rescatista: ");
         nuevoRescatista.setDomicilio(this.datosDomicilio(entrada));
+
+        // TODO: si NO puede alojar a una mascota, entonces hay que buscar a un Hogar de Transito (el más cercano)
 
         return nuevoRescatista;
     }
@@ -831,6 +836,9 @@ public class MenuPrueba {
 
 // ADOPTAR UNA MASCOTA
     public void adoptarMascota() {
+
+        //miSistema.getMascotasEnAdopcion();
+
         /* Todo: obtener las mascotas que estan en adopcion
                 - elegir una de esas mascotas o pasar de largo
                 - si se elige una, notificar al dueño de dicha mascota
@@ -849,6 +857,8 @@ public class MenuPrueba {
         else {
             // elegir una de las mascotas que tiene el dueño
         }
+
+        //miSistema.agregarMAscotaEnAdopcion(mascotaEnAdopcion);
     }
 
 
@@ -869,6 +879,11 @@ public class MenuPrueba {
             System.out.println("    - Para Cerrar Sesión, ingrese 7.");
             System.out.print("> ");
             opcionElegida = entrada.nextInt();
+
+            /*
+            TODO: el ADMIN puede tener la opcion para crear
+             */
+
 
             switch(opcionElegida) {
                 case 1:
@@ -1071,7 +1086,8 @@ public class MenuPrueba {
         while(!salir) {
 
             System.out.println("Si desea admninistrar las publicaciones, ingrese 1.");
-            System.out.println("Si desea volver al menú principal, ingrese 2.");
+            System.out.println("Si desea ver las publicaciones que han sido cerradas, ingrese 2.");
+            System.out.println("Si desea volver al menú principal, ingrese 3.");
             System.out.print("> ");
             int opcionElegida = entrada.nextInt();
 
@@ -1080,6 +1096,9 @@ public class MenuPrueba {
                     this.administrarPublicaciones(entrada);
                     break;
                 case 2:
+                    //TODO: filtrar y mostrar las publicaciones con el estado Cerrado
+                    break;
+                case 3:
                     salir = true;
                     break;
                 default:
