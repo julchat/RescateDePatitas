@@ -1,6 +1,7 @@
 package domain.business.organizaciones.apiHogares;
 
 import domain.business.TipoAnimal;
+import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.organizaciones.apiHogares.entidades.ConjuntoHogares;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import retrofit2.Call;
@@ -97,5 +98,32 @@ public class APIhogares {
         }
         return hogaresFiltrados;
     }
+
+
+    // Condiciones
+    public boolean tienePatio(Hogar hogar) {
+        return hogar.isPatio();
+    }
+
+    public boolean tieneDisponibilidad(Hogar hogar) {
+        return hogar.getLugares_disponibles() >= 1;
+    }
+
+    public boolean cumpleAdmision(Hogar hogar, TipoAnimal tipoAdmitido) {
+        if(tipoAdmitido.equals(TipoAnimal.PERRO) && hogar.getAdmisiones().admitePerros()){
+            return true;
+        }
+        else if(tipoAdmitido.equals(TipoAnimal.GATO) && hogar.getAdmisiones().admiteGatos()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /*
+    public boolean cumpleCaracteristicas(Hogar hogar, List<CaracteristicaMascota> caracteristicaMascotas) {
+
+    }*/
 
 }

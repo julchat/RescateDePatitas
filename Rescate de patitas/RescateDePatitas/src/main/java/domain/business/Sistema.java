@@ -37,6 +37,14 @@ public class Sistema {
         this.mascotasPerdidas.add(mascotaPerdida);
     }
 
+    public void mostrarMascotasEnAdopcion() {
+        for(Mascota mascotaEnAdopcion : mascotasEnAdopcion) {
+            mascotaEnAdopcion.mostrarDatosMascota();
+        }
+    }
+
+    public void agregarMascotaEnAdopcion(Mascota mascotaAdopcion) { this.mascotasEnAdopcion.add(mascotaAdopcion); }
+
     public List<Usuario> getUsuarios() { return usuarios; }
 
     public List<Publicacion> getPublicaciones() { return publicaciones; }

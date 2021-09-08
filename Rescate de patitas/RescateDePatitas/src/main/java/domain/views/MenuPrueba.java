@@ -146,9 +146,7 @@ public class MenuPrueba {
 
                 case 5: // Reportar Mascota Perdida (no tiene Chapita)
                     Rescatista rescatista = this.generarFormularioRescatista(entrada);
-                    MascotaPerdida mascotaPerdida = this.generarFormularioMascotaPerdida(entrada);
-                    miSistema.agregarMascotaPerdida(mascotaPerdida);
-                    // TODO: crea publicacion agregando los datos del Rescatista y de la Mascota Perdida
+                    this.reportarMascotaPerdida(rescatista);
                     break;
 
                 case 6: // Ver las Mascotas Perdidas
@@ -182,7 +180,7 @@ public class MenuPrueba {
 
 
 // INGRESO AL SISTEMA
-    private void ingresoSistema(Scanner entrada, Scanner datosUsuario) {
+    private void ingresoSistema(Scanner entrada, Scanner datosUsuario) throws IOException {
         boolean salir = false;
         System.out.println("Si desea iniciar sesion, ingrese 1.");
         System.out.println("Si no tiene un usuario, ingrese 2 para crearlo.");
@@ -432,7 +430,7 @@ public class MenuPrueba {
 
 
 // INICIO SESION SIENDO USER
-    public void inicioSesionUser(Usuario usuario) {
+    public void inicioSesionUser(Usuario usuario) throws IOException {
         Scanner entrada = new Scanner(System.in);
         Sistema miSistema = Sistema.getInstance();
         boolean salir = false;
@@ -690,15 +688,53 @@ public class MenuPrueba {
 
 
 // REPORTAR MASCOTA PERDIDA
-    public void reportarMascotaPerdida(Rescatista rescatista) {
+    public void reportarMascotaPerdida(Rescatista rescatista) throws IOException {
         Scanner entrada = new Scanner(System.in);
         // tomamos a la persona que reporta a la mascota perdida para que complete los datos y la publicacion
 
         MascotaPerdida mascotaPerdida = this.generarFormularioMascotaPerdida(entrada);
 
+        if(rescatista.isPuedeAlojarMascota()) {
+            /* TODO: el rescatista se encarga de albergar a la Mascota Perdida, por lo tanto,
+                la ubicacion de esta mascota en la Publicacion es el Domicilio del Rescatista */
+        }
+        else {
+            /* TODO: en este caso, se busca al Hogar de Transito MAS cercano según ¿el Domicilio del Rescatista O de
+                la ubicacion donde fue encontrada la Mascota? */
+            // Suponiendo la Ubicacion es el Domicilio del Rescatista
+
+            System.out.print("Ingrese un radio en KM para la búsqueda de los Hogares de Transito: ");
+            int radio = entrada.nextInt();
+            this.buscarHogarMasCercano(rescatista.getDomicilio().getUbicacion(), radio, mascotaPerdida);
+        }
+
+
         // mascotaPerdida se agrega en la publicacion y se agrega a la lista de mascotas perdidas
         miSistema.agregarMascotaPerdida(mascotaPerdida);
     }
+
+    private void buscarHogarMasCercano(Ubicacion ubicacion, int radio, MascotaPerdida mascotaEncontrada) throws IOException {
+
+    /* TODO: verificar las condiciones de los hogares con las que tiene la Mascota
+            - Según Admisión (si acepta solo Perros o solo Gatos, tal vez acepte ambos)
+            - Si tiene Patio: acepta mascotas Medianas o Grandes; de lo contrario, solo Pequenias
+            - Según los Lugares Disponibles del Hogar
+            - Si cumple las caracteristicas que pide el Hogar. Dichas caracteristicas las tiene que cumplir la MascotaEncontrada
+     */
+
+        for(int i=1; i<= apIhogares.cantidadPaginas(); i++) {
+            List<Hogar> hogares = apIhogares.conjuntoHogares(i);
+            for(Hogar hogar : hogares) {
+                if(apIhogares.cumpleAdmision(hogar, mascotaEncontrada.getTipoAnimal()) && apIhogares.tieneDisponibilidad(hogar) && apIhogares.tienePatio(hogar)) {
+                    // TODO: si cumple estas condiciones, entonces el Hogar de Transito puede albergar a la Mascota
+
+                }
+            }
+
+
+        }
+    }
+
 
     private Rescatista agregarDatosRescatista(Persona persona) {
         Rescatista nuevoRescatista = new Rescatista();
@@ -837,7 +873,7 @@ public class MenuPrueba {
 // ADOPTAR UNA MASCOTA
     public void adoptarMascota() {
 
-        //miSistema.getMascotasEnAdopcion();
+        miSistema.mostrarMascotasEnAdopcion();
 
         /* Todo: obtener las mascotas que estan en adopcion
                 - elegir una de esas mascotas o pasar de largo
@@ -850,20 +886,39 @@ public class MenuPrueba {
 // DAR EN ADOPCION A UNA MASCOTA
     public void darEnAdopcion(Duenio duenio) {
         // TODO: crea una publicacion mostrando los datos del dueño y de la mascota en cuestion
+        Mascota mascotaEnAdopcion = null;
+
         if(duenio.getMascotas().isEmpty()) {
-            Mascota mascotaEnAdopcion = this.generarFormularioNuevaMascota(new Scanner(System.in));
-            // usar mascotaEnAdopcion para generar la publicacion
+            mascotaEnAdopcion = this.generarFormularioNuevaMascota(new Scanner(System.in));
         }
         else {
-            // elegir una de las mascotas que tiene el dueño
-        }
+            Scanner entrada = new Scanner(System.in);
+            boolean salir = false;
 
-        //miSistema.agregarMAscotaEnAdopcion(mascotaEnAdopcion);
+            while(!salir) {
+                duenio.mostrarMascotas();
+
+                System.out.print("Eliga según el ID la Mascota que quiere dar en adopción: ");
+                int idMascota = entrada.nextInt();
+
+                mascotaEnAdopcion = duenio.getMascotas().get(idMascota);
+                System.out.println("Usted eligio a: ");
+                mascotaEnAdopcion.mostrarDatosMascota();
+
+                System.out.println("Si está seguro de la elección, ingrese 1.");
+                int opcionElegida = entrada.nextInt();
+                if(opcionElegida == 1) {
+                    salir = true;
+                }
+            }
+        }
+        miSistema.agregarMascotaEnAdopcion(mascotaEnAdopcion);
+        // TODO: crear publicación de Mascota En Adopción
     }
 
 
 // INICIO DE SESION SIENDO ADMIN
-    public void inicioSesionAdmin(Usuario usuario) {
+    public void inicioSesionAdmin(Usuario usuario) throws IOException {
         Scanner entrada = new Scanner(System.in);
         int opcionElegida;
         boolean salir = false;
@@ -1002,7 +1057,7 @@ public class MenuPrueba {
 
 
 // INICIO DE SESION SIENDO MODERADOR
-    public void inicioSesionModerador(Usuario usuario) {
+    public void inicioSesionModerador(Usuario usuario) throws IOException {
         Scanner entrada = new Scanner(System.in);
         int opcionElegida;
         boolean salir = false;
