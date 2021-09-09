@@ -136,13 +136,14 @@ public class Mascota {
         return chapa;
     }
 
+    /*
     public void ajustarseAOrganizacion(Organizacion organizacion){
         this.fotos.forEach(foto -> foto.normalizarA(organizacion.getDimensionEstandar()));
         List<CaracteristicaMascota> caracteristicasValidas = new ArrayList<>();
         caracteristicasMascota.forEach(unaCaracteristica -> organizacion.agregoSiAceptaCaracteristica(unaCaracteristica, caracteristicasValidas));
 
         caracteristicasMascota = caracteristicasValidas;
-    }
+    }*/
 
     public void mostrarDatosMascota() {
         System.out.println("Tipo del Animal: " + getTipoAnimal());

@@ -7,6 +7,7 @@ import domain.business.notificaciones.Notificacion;
 import domain.business.notificaciones.NotificadorEmail;
 import domain.business.notificaciones.NotificadorSms;
 import domain.business.notificaciones.NotificadorWhatsapp;
+import domain.business.organizaciones.HogarDeTransito;
 import domain.business.organizaciones.Organizacion;
 import domain.business.organizaciones.apiHogares.APIhogares;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
@@ -14,6 +15,7 @@ import domain.business.publicaciones.Aprobada;
 import domain.business.publicaciones.Pendiente;
 import domain.business.publicaciones.Publicacion;
 import domain.business.publicaciones.Rechazada;
+import domain.security.Admin;
 import domain.security.Usuario;
 
 import java.io.IOException;
@@ -182,30 +184,42 @@ public class MenuPrueba {
 // INGRESO AL SISTEMA
     private void ingresoSistema(Scanner entrada, Scanner datosUsuario) throws IOException {
         boolean salir = false;
-        System.out.println("Si desea iniciar sesion, ingrese 1.");
-        System.out.println("Si no tiene un usuario, ingrese 2 para crearlo.");
+        System.out.println("    - Si desea Iniciar Sesion, ingrese 1.");
+        System.out.println("    - Si no tiene un Usuario, ingrese 2 para Crearlo.");
+        System.out.print("> ");
         int opcionElegida = entrada.nextInt();
 
         while(!salir) {
             switch(opcionElegida) {
                 case 1: // Iniciar Sesion
-                    System.out.print("Ingrese su nombre de usuario: ");
+                    int intentosUser = 0;
+                    int intentosContrasenia = 0;
+
+                    System.out.print("* Ingrese su nombre de usuario: ");
                     String usuarioLogin = datosUsuario.nextLine();
+                    intentosUser++;
                     while(!miSistema.existeUsuario(usuarioLogin)) {
-                        System.out.print("Usuario incorrecto. Por favor ingrese nuevamente: ");
+                        System.out.print("- Usuario incorrecto. Por favor ingrese nuevamente: ");
                         usuarioLogin = datosUsuario.nextLine();
+                        intentosUser++;
+                        if(intentosUser == 3) {
+                            System.out.println("Ha realizado 3 intentos consecutivos erróneos. Se le regresará al Menú Principal...");
+                            System.out.println();
+                            return;
+                        }
                     }
 
-                    System.out.print("Ingrese la contraseña: ");
+                    System.out.print("* Ingrese la contraseña: ");
                     String contraseniaLogin = datosUsuario.nextLine();
-                    int intentos = 0;
+                    intentosContrasenia++;
                     while(!miSistema.coincideContrasenia(usuarioLogin, contraseniaLogin)) {
-                        System.out.print("Contraseña incorrecta. Por favor ingrese nuevamente: ");
+                        System.out.print("- Contraseña incorrecta. Por favor ingrese nuevamente: ");
                         contraseniaLogin = datosUsuario.nextLine();
-                        intentos++;
-                        if(intentos == 3) {
-                            System.out.println("Ha realizado 3 intentos consecutivos y erróneos. Por favor espere unos segundos e intente nuevamente.");
-                            // TODO: sleep(30) o algo asi
+                        intentosContrasenia++;
+                        if(intentosContrasenia == 3) {
+                            System.out.println("Ha realizado 3 intentos consecutivos erróneos. Se le regresará al Menú Principal...");
+                            System.out.println();
+                            return;
                         }
                     }
                     System.out.println("¡Bienvenido de vuelta " + usuarioLogin + "!");
@@ -245,9 +259,13 @@ public class MenuPrueba {
                         System.out.print("La confirmación de la contraseña es incorrecta, pruebe otra vez: ");
                         contraseniaConfirmada = datosUsuario.next();
                     }
-                    Usuario usuarioRegistrado = miSistema.crearUsuario(nombreUsuario, contrasenia);
 
-                    // TODO: por ahora, todos los que se crean un usuario están asignados por defecto al Rol de User
+                    Usuario usuarioRegistrado = miSistema.crearUsuario(nombreUsuario, contrasenia);
+                    if(usuarioRegistrado == null) {
+                        System.out.println("El usuario ya se encuentra en el Sistema.");
+                        break;
+                    }
+
                     usuarioRegistrado.setPersona(this.crearPersona());
                     System.out.println("El usuario ha sido creado correctamente.");
                     System.out.println("Continuando...");
@@ -697,23 +715,30 @@ public class MenuPrueba {
         if(rescatista.isPuedeAlojarMascota()) {
             /* TODO: el rescatista se encarga de albergar a la Mascota Perdida, por lo tanto,
                 la ubicacion de esta mascota en la Publicacion es el Domicilio del Rescatista */
+            mascotaPerdida.setLugarDeTransito(rescatista.getDomicilio());
         }
         else {
             /* TODO: en este caso, se busca al Hogar de Transito MAS cercano según ¿el Domicilio del Rescatista O de
                 la ubicacion donde fue encontrada la Mascota? */
             // Suponiendo la Ubicacion es el Domicilio del Rescatista
 
+            System.out.println("Seleccione el tipo de animal de la mascota encontrada: ");
+            mascotaPerdida.setTipoAnimal(this.eleccionTipoAnimal(entrada));
+            System.out.println("Seleccione el tamaño de la mascota encontrada: ");
+            mascotaPerdida.setTamanio(this.eleccionTamanio(entrada));
+
+
             System.out.print("Ingrese un radio en KM para la búsqueda de los Hogares de Transito: ");
             int radio = entrada.nextInt();
-            this.buscarHogarMasCercano(rescatista.getDomicilio().getUbicacion(), radio, mascotaPerdida);
+            HogarDeTransito hogarDeTransito = this.buscarHogarMasCercano(rescatista.getDomicilio().getUbicacion(), radio, mascotaPerdida);
+            mascotaPerdida.setLugarDeTransito(hogarDeTransito.getDomicilio());
         }
-
 
         // mascotaPerdida se agrega en la publicacion y se agrega a la lista de mascotas perdidas
         miSistema.agregarMascotaPerdida(mascotaPerdida);
     }
 
-    private void buscarHogarMasCercano(Ubicacion ubicacion, int radio, MascotaPerdida mascotaEncontrada) throws IOException {
+    private HogarDeTransito buscarHogarMasCercano(Ubicacion ubicacion, int radio, MascotaPerdida mascotaEncontrada) throws IOException {
 
     /* TODO: verificar las condiciones de los hogares con las que tiene la Mascota
             - Según Admisión (si acepta solo Perros o solo Gatos, tal vez acepte ambos)
@@ -722,6 +747,7 @@ public class MenuPrueba {
             - Si cumple las caracteristicas que pide el Hogar. Dichas caracteristicas las tiene que cumplir la MascotaEncontrada
      */
 
+        HogarDeTransito hogarAdecuado = null;
         for(int i=1; i<= apIhogares.cantidadPaginas(); i++) {
             List<Hogar> hogares = apIhogares.conjuntoHogares(i);
             for(Hogar hogar : hogares) {
@@ -733,6 +759,8 @@ public class MenuPrueba {
 
 
         }
+
+        return hogarAdecuado;
     }
 
 
@@ -809,10 +837,6 @@ public class MenuPrueba {
     private MascotaPerdida generarFormularioMascotaPerdida(Scanner entrada) {
         MascotaPerdida nuevaMascotaPerdida = new MascotaPerdida();
 
-        System.out.println("Seleccione el tipo de animal de la mascota encontrada: ");
-        nuevaMascotaPerdida.setTipoAnimal(this.eleccionTipoAnimal(entrada));
-        System.out.println("Seleccione el tamaño de la mascota encontrada: ");
-        nuevaMascotaPerdida.setTamanio(this.eleccionTamanio(entrada));
         System.out.print("Ingrese la descripción de la mascota encontrada: ");
         nuevaMascotaPerdida.setDescripcion(entrada.next());
         System.out.println("Indique la ubicación donde fue encontrada la mascota: ");
@@ -1004,8 +1028,8 @@ public class MenuPrueba {
         boolean salir = false;
         Scanner entrada = new Scanner(System.in);
 
-        System.out.println("    - Para administrar una Organización, ingrese 1.");
-        System.out.println("    - Para administrar las características, ingrese 2.");
+        System.out.println("    - Para administrar a la Organización, ingrese 1.");
+        System.out.println("    - Para administrar las características de la Organización, ingrese 2.");
         System.out.println("    - Para hacer nuevos Administradores, ingrese 3.");
         System.out.println("    - Para volver al Menu Principal, ingrese 4.");
         System.out.print("> ");
@@ -1014,11 +1038,11 @@ public class MenuPrueba {
         while(!salir) {
             switch (opcionElegida) {
                 case 1: // Administrar una Organizacion, ya sea agregando caracteristicas o modificandolas
-                    this.administrarOrganizacion();
+                    this.administrarOrganizacion((Administrador) usuario.getPersona());
                     break;
 
                 case 2: // Administrar características
-                    this.administrarCaracteristicas();
+                    this.administrarCaracteristicas((Administrador) usuario.getPersona());
                     break;
 
                 case 3: // Hacer nuevos Administradores o Administrar Roles de Usuarios
@@ -1039,21 +1063,91 @@ public class MenuPrueba {
         }
     }
 
-    private void administrarOrganizacion() {
-        List<Organizacion> organizaciones = miSistema.getOrganizaciones();
-
-        for(int i=0; i<organizaciones.size(); i++) {
-            // TODO: itera todas las organizaciones y despues se pregunta cual quiere administrar
-        }
-        if(organizaciones.isEmpty()){
-            System.out.println("No se encuentran organizaciones disponibles para administrar.");
-        }
-        else {
-            // TODO: una vez elegida la organizacion, administra la misma; ya sea para agregar, modificar o quitar caracteristicas de la misma
-        }
+    private void administrarOrganizacion(Administrador admin) {
+        admin.getOrganizacion();
     }
 
-    private void administrarCaracteristicas() { }
+    private void administrarCaracteristicas(Administrador admin) {
+        boolean salir = false;
+        Scanner entrada = new Scanner(System.in);
+        int opcionElegida;
+
+        for(Caracteristica caracteristica : admin.getOrganizacion().getCaracteristicasAdmitidas()) {
+            System.out.println(caracteristica.getNombre());
+        }
+
+        while(!salir) {
+            System.out.println("Si desea agregar una nueva característica, ingrese 1.");
+            System.out.println("Si desea quitar una característica, ingrese 2.");
+            System.out.println("Si desea finalizar, ingrese 3.");
+            System.out.print("> ");
+            opcionElegida = entrada.nextInt();
+            System.out.println();
+
+            switch(opcionElegida) {
+                case 1:
+                    boolean terminar = false;
+                    Caracteristica nuevaCaracteristica = new Caracteristica();
+                    System.out.println("    - Ingrese el nombre de la Característica: ");
+                    nuevaCaracteristica.setNombre(entrada.next());
+                    System.out.println("    - Ingrese las opciones válidas: ");
+                    List<String> opcionesValidas = new ArrayList<>();
+                    while(!terminar) {
+                        System.out.println("Ingrese una opción válida: ");
+                        System.out.print("> ");
+                        String valor = entrada.nextLine();
+
+                        System.out.println("Usted ingresó: " + valor + ". Si está seguro de la elección, ingrese 1.");
+                        System.out.print("> ");
+                        opcionElegida = entrada.nextInt();
+
+                        if(opcionElegida == 1) {
+                            opcionesValidas.add(valor);
+                        }
+
+                        System.out.println("Si desea finalizar con la carga de opciones válidas, ingrese 2.");
+                        System.out.println("De lo contrario, ingrese cualquier valor.");
+                        System.out.print("> ");
+                        opcionElegida = entrada.nextInt();
+
+                        if(opcionElegida == 2) {
+                            terminar = true;
+                        }
+                    }
+
+                    nuevaCaracteristica.setOpcionesValidas(opcionesValidas);
+                    admin.getOrganizacion().agregarCaracteristicaAdmitida(nuevaCaracteristica);
+
+                    System.out.println("Se agregó la característica " + nuevaCaracteristica.getNombre() + " a la Organizacion " + admin.getOrganizacion().getNombreOrganizacion());
+                    break;
+
+                case 2:
+                    System.out.println("    - Ingrese el nombre de la Característica a eliminar: ");
+                    System.out.print("> ");
+                    String nombre = entrada.nextLine();
+
+                    if(admin.getOrganizacion().quitarCaracteristicaAdmitida(nombre)){
+                        System.out.println(nombre + " se ha eliminado correctamente de la Organización.");
+                    }
+                    else {
+                        System.out.println("La característica ingresada no existe en la Organización.");
+                    }
+
+
+                    break;
+                case 3:
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Ha ingresado una opción incorrecta. Por favor intente nuevamente.");
+                    break;
+            }
+
+
+        }
+
+
+    }
 
 
 // INICIO DE SESION SIENDO MODERADOR

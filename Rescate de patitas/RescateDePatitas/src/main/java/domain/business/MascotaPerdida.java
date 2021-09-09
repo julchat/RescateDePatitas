@@ -67,8 +67,8 @@ public class MascotaPerdida {
     }
 
     public void mostrarMascota() {
-        System.out.println("Tipo de Animal: " + this.getTipoAnimal());
-        System.out.println("Tamaño del animal: " + this.getTamanio());
+        //System.out.println("Tipo de Animal: " + this.getTipoAnimal());
+        //System.out.println("Tamaño del animal: " + this.getTamanio());
         System.out.println("Descripción de la Mascota: " + this.getDescripcion());
         System.out.println("Ubicación encontrada:");
         System.out.println("    - Latitud: " + this.getUbicacionEncontrada().getLatitud());

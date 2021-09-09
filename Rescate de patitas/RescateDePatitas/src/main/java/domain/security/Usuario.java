@@ -59,7 +59,7 @@ public class Usuario {
     // Solamente si uno es Admin
     public void hacerAdministrador(Usuario otroUsuario){
             if(rol.puedoCrearAdministradores()){
-                    otroUsuario.rol = new Administrador();
+                    otroUsuario.rol = new Admin();
             }
             else{
                 throw new PermisosInvalidosException();

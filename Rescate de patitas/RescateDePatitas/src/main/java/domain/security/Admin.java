@@ -1,6 +1,6 @@
 package domain.security;
 
-public class Administrador implements Rol {
+public class Admin implements Rol {
     @Override
     public boolean puedoRegistrarMascota() { return false; }
 

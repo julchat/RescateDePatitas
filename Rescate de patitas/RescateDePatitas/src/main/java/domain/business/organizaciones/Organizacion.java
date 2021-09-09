@@ -9,6 +9,7 @@ import domain.business.foto.Foto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Organizacion {
     private String nombreOrganizacion;
@@ -48,8 +49,16 @@ public class Organizacion {
         this.caracteristicasAdmitidas.add(caracteristica);
     }
 
-    public void quitarCaracteristicaAdmitida(Caracteristica caracteristica) {
-        this.caracteristicasAdmitidas.remove(caracteristica);
+    public boolean quitarCaracteristicaAdmitida(String nombreCaracteristica) {
+
+        if(caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.getNombre().equals(nombreCaracteristica))){
+            Caracteristica caracteristicaBuscada = caracteristicasAdmitidas.stream().filter(caracteristica -> caracteristica.getNombre().equals(nombreCaracteristica)).collect(Collectors.toList()).get(0);
+            this.caracteristicasAdmitidas.remove(caracteristicaBuscada);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public Foto getLogo() {
@@ -95,6 +104,7 @@ public class Organizacion {
 
 
     // Metodos
+    /*
     public void agregoSiAceptaCaracteristica(CaracteristicaMascota unaCaracteristica, List<CaracteristicaMascota> caracteristicasValidas ){
         if(this.aceptoCaracteristica(unaCaracteristica)) {
             caracteristicasValidas.add(unaCaracteristica);
@@ -103,7 +113,7 @@ public class Organizacion {
 
     public boolean aceptoCaracteristica(CaracteristicaMascota unaCaracteristica) {
         return caracteristicasAdmitidas.contains(unaCaracteristica.getNombreCaracteristica());
-    }
+    }*/
 
     public void crearPregunta(String pregunta) {
         Pregunta nuevaPregunta = new Pregunta(pregunta);

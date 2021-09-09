@@ -75,10 +75,11 @@ public class Duenio extends Persona {
         this.setDomicilio(nuevoDomicilio);
     }
 
+    /*
     public void cambiarOrganizacion(Organizacion nuevaOrganizacion){
         mascotas.forEach(unaMascota -> unaMascota.ajustarseAOrganizacion(nuevaOrganizacion));
         this.setOrganizacion(nuevaOrganizacion);
-    }
+    }*/
 
     public void mascotaEncontrada(Mascota mascotaEncontrada) {
         if(mascotas.contains(mascotaEncontrada)) {

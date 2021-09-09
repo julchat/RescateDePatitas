@@ -33,8 +33,9 @@ public class CaracteristicaMascota {
 
 
     // Metodos
+    /*
     public boolean soyCaracteristicaValida(Organizacion organizacion) {
         return organizacion.aceptoCaracteristica(this);
-    }
+    }*/
 
 }

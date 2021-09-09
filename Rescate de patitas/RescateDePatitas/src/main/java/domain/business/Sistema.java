@@ -57,7 +57,6 @@ public class Sistema {
             this.usuarios.add(nuevoUsuario);
             return nuevoUsuario;
         } else {
-            System.out.println("El usuario ya se encuentra en el Sistema.");
             return null;
         }
     }
