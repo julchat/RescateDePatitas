@@ -66,73 +66,23 @@ public class MenuPrueba {
                 case 2: // Mostrando Hogares de Tránsito
                     System.out.println("En total, hay " + apIhogares.cantidadHogares() + " hogares en " + apIhogares.cantidadPaginas() + " paginas.");
 
-                    for(int i=1; i<= apIhogares.cantidadPaginas(); i++) {
-                        List<Hogar> hogares = apIhogares.conjuntoHogares(i);
-                        for(Hogar hogar : hogares) {
-                            System.out.println("ID: " + hogar.getId());
-                            System.out.println("NOMBRE: " + hogar.getNombre());
-                            System.out.println("UBICACION:");
-                            System.out.println("    - DIRECCION: " + hogar.getUbicacion().getDireccion());
-                            System.out.println("    - LATITUD: " + hogar.getUbicacion().getLat());
-                            System.out.println("    - LONGITUD: " + hogar.getUbicacion().getLongitud());
-                            System.out.println("TELEFONO: " + hogar.getTelefono());
-                            System.out.println("ADMISIONES: ");
-                            System.out.println("    - PERROS: " + hogar.getAdmisiones().admitePerros());
-                            System.out.println("    - GATOS: " + hogar.getAdmisiones().admiteGatos());
-                            System.out.println("CAPACIDAD: " + hogar.getCapacidad());
-                            System.out.println("LUGARES DISPONIBLES: " + hogar.getLugares_disponibles());
-                            System.out.println("TIENE PATIO: " + hogar.isPatio());
-                            System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
-
-                            System.out.println("-------------------------------------------------------------------");
-                        }
-                    }
-
-
-                    System.out.println("HOGARES QUE ADMITEN PERROS:");
-                    List<Hogar> hogaresPerrunos = apIhogares.hogaresAdmitidos(TipoAnimal.PERRO);
-                    for(Hogar hogar : hogaresPerrunos) {
-                        System.out.println("ID: " + hogar.getId());
-                        System.out.println("NOMBRE: " + hogar.getNombre());
-                        System.out.println("UBICACION:");
-                        System.out.println("    - DIRECCION: " + hogar.getUbicacion().getDireccion());
-                        System.out.println("    - LATITUD: " + hogar.getUbicacion().getLat());
-                        System.out.println("    - LONGITUD: " + hogar.getUbicacion().getLongitud());
-                        System.out.println("TELEFONO: " + hogar.getTelefono());
+                    for(HogarDeTransito hogarDeTransito : miSistema.getHogaresDeTransito()) {
+                        System.out.println("NOMBRE: " + hogarDeTransito.getNombreOrganizacion());
+                        System.out.println("UBICACION: ");
+                        System.out.println("    - DIRECCION: " + hogarDeTransito.getDireccion());
+                        System.out.println("    - LATITUD: " + hogarDeTransito.getLatitud());
+                        System.out.println("    - LONGITUD: " + hogarDeTransito.getLongitud());
+                        System.out.println("TELEFONO: " + hogarDeTransito.getTelefono());
                         System.out.println("ADMISIONES: ");
-                        System.out.println("    - PERROS: " + hogar.getAdmisiones().admitePerros());
-                        System.out.println("    - GATOS: " + hogar.getAdmisiones().admiteGatos());
-                        System.out.println("CAPACIDAD: " + hogar.getCapacidad());
-                        System.out.println("LUGARES DISPONIBLES: " + hogar.getLugares_disponibles());
-                        System.out.println("TIENE PATIO: " + hogar.isPatio());
-                        System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
+                        System.out.println("    - PERROS: " + hogarDeTransito.aceptaPerros());
+                        System.out.println("    - GATOS: " + hogarDeTransito.aceptaGatos());
+                        System.out.println("CAPACIDAD: " + hogarDeTransito.getCapacidad());
+                        System.out.println("LUGARES DISPONIBLES: " + hogarDeTransito.getLugaresDisponibles());
+                        System.out.println("TIENE PATIO: " + hogarDeTransito.poseePatio());
+                        System.out.println("CARACTERISTICAS: " + hogarDeTransito.getCaracteristicasAdmitidas());
 
                         System.out.println("-------------------------------------------------------------------");
                     }
-
-
-                    System.out.println("HOGARES QUE ADMITEN GATOS:");
-                    List<Hogar> hogaresGatunos = apIhogares.hogaresAdmitidos(TipoAnimal.GATO);
-                    for(Hogar hogar : hogaresGatunos) {
-                        System.out.println("ID: " + hogar.getId());
-                        System.out.println("NOMBRE: " + hogar.getNombre());
-                        System.out.println("UBICACION:");
-                        System.out.println("    - DIRECCION: " + hogar.getUbicacion().getDireccion());
-                        System.out.println("    - LATITUD: " + hogar.getUbicacion().getLat());
-                        System.out.println("    - LONGITUD: " + hogar.getUbicacion().getLongitud());
-                        System.out.println("TELEFONO: " + hogar.getTelefono());
-                        System.out.println("ADMISIONES: ");
-                        System.out.println("    - PERROS: " + hogar.getAdmisiones().admitePerros());
-                        System.out.println("    - GATOS: " + hogar.getAdmisiones().admiteGatos());
-                        System.out.println("CAPACIDAD: " + hogar.getCapacidad());
-                        System.out.println("LUGARES DISPONIBLES: " + hogar.getLugares_disponibles());
-                        System.out.println("TIENE PATIO: " + hogar.isPatio());
-                        System.out.println("CARACTERISTICAS: " + hogar.getCaracteristicas());
-
-                        System.out.println("-------------------------------------------------------------------");
-                    }
-
-
                     break;
 
                 case 3: // Adoptar una Mascota
@@ -182,7 +132,7 @@ public class MenuPrueba {
 
 
 // INGRESO AL SISTEMA
-    private void ingresoSistema(Scanner entrada, Scanner datosUsuario) throws IOException {
+    private void ingresoSistema(Scanner entrada, Scanner datosUsuario) {
         boolean salir = false;
         System.out.println("    - Si desea Iniciar Sesion, ingrese 1.");
         System.out.println("    - Si no tiene un Usuario, ingrese 2 para Crearlo.");
@@ -448,7 +398,7 @@ public class MenuPrueba {
 
 
 // INICIO SESION SIENDO USER
-    public void inicioSesionUser(Usuario usuario) throws IOException {
+    public void inicioSesionUser(Usuario usuario) {
         Scanner entrada = new Scanner(System.in);
         Sistema miSistema = Sistema.getInstance();
         boolean salir = false;
@@ -706,7 +656,7 @@ public class MenuPrueba {
 
 
 // REPORTAR MASCOTA PERDIDA
-    public void reportarMascotaPerdida(Rescatista rescatista) throws IOException {
+    public void reportarMascotaPerdida(Rescatista rescatista) {
         Scanner entrada = new Scanner(System.in);
         // tomamos a la persona que reporta a la mascota perdida para que complete los datos y la publicacion
 
@@ -730,36 +680,49 @@ public class MenuPrueba {
 
             System.out.print("Ingrese un radio en KM para la búsqueda de los Hogares de Transito: ");
             int radio = entrada.nextInt();
-            HogarDeTransito hogarDeTransito = this.buscarHogarMasCercano(rescatista.getDomicilio().getUbicacion(), radio, mascotaPerdida);
-            mascotaPerdida.setLugarDeTransito(hogarDeTransito.getDomicilio());
+            HogarDeTransito hogarDeTransito = this.buscarHogarMasCercano(radio, mascotaPerdida);
+
+            if(hogarDeTransito == null) {
+                System.out.println("No hay ningún hogar de tránsito que pueda alojar a la mascota encontrada.");
+                // Todo: en este caso, que pasa?
+                return;
+            }
+            //mascotaPerdida.setLugarDeTransito(hogarDeTransito.getDomicilio());
         }
 
         // mascotaPerdida se agrega en la publicacion y se agrega a la lista de mascotas perdidas
         miSistema.agregarMascotaPerdida(mascotaPerdida);
     }
 
-    private HogarDeTransito buscarHogarMasCercano(Ubicacion ubicacion, int radio, MascotaPerdida mascotaEncontrada) throws IOException {
+    public HogarDeTransito buscarHogarMasCercano(int radio, MascotaPerdida mascotaEncontrada) {
 
-    /* TODO: verificar las condiciones de los hogares con las que tiene la Mascota
-            - Según Admisión (si acepta solo Perros o solo Gatos, tal vez acepte ambos)
-            - Si tiene Patio: acepta mascotas Medianas o Grandes; de lo contrario, solo Pequenias
-            - Según los Lugares Disponibles del Hogar
-            - Si cumple las caracteristicas que pide el Hogar. Dichas caracteristicas las tiene que cumplir la MascotaEncontrada
-     */
-
+        Ubicacion ubicacionMascota = mascotaEncontrada.getUbicacionEncontrada();
+        List<HogarDeTransito> hogaresCercanos = miSistema.getHogaresDeTransito().stream().filter(hogarDeTransito -> hogarDeTransito.distancia(hogarDeTransito.getLatitud(), hogarDeTransito.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) <= radio*1000).collect(Collectors.toList());
         HogarDeTransito hogarAdecuado = null;
-        for(int i=1; i<= apIhogares.cantidadPaginas(); i++) {
-            List<Hogar> hogares = apIhogares.conjuntoHogares(i);
-            for(Hogar hogar : hogares) {
-                if(apIhogares.cumpleAdmision(hogar, mascotaEncontrada.getTipoAnimal()) && apIhogares.tieneDisponibilidad(hogar) && apIhogares.tienePatio(hogar)) {
-                    // TODO: si cumple estas condiciones, entonces el Hogar de Transito puede albergar a la Mascota
 
-                }
+        for(HogarDeTransito hogarDeTransito : hogaresCercanos) {
+            if(hogarDeTransito.permiteMascotaPerdida(mascotaEncontrada)) {
+                hogarAdecuado = hogarDeTransito;
             }
-
-
         }
 
+        if(hogarAdecuado != null) {
+            System.out.println("NOMBRE: " + hogarAdecuado.getNombreOrganizacion());
+            System.out.println("UBICACION: ");
+            System.out.println("    - DIRECCION: " + hogarAdecuado.getDireccion());
+            System.out.println("    - LATITUD: " + hogarAdecuado.getLatitud());
+            System.out.println("    - LONGITUD: " + hogarAdecuado.getLongitud());
+            System.out.println("TELEFONO: " + hogarAdecuado.getTelefono());
+            System.out.println("ADMISIONES: ");
+            System.out.println("    - PERROS: " + hogarAdecuado.aceptaPerros());
+            System.out.println("    - GATOS: " + hogarAdecuado.aceptaGatos());
+            System.out.println("CAPACIDAD: " + hogarAdecuado.getCapacidad());
+            System.out.println("LUGARES DISPONIBLES: " + hogarAdecuado.getLugaresDisponibles());
+            System.out.println("TIENE PATIO: " + hogarAdecuado.poseePatio());
+            System.out.println("CARACTERISTICAS: " + hogarAdecuado.getCaracteristicasAdmitidas());
+
+            System.out.println("-------------------------------------------------------------------");
+        }
         return hogarAdecuado;
     }
 
@@ -942,7 +905,7 @@ public class MenuPrueba {
 
 
 // INICIO DE SESION SIENDO ADMIN
-    public void inicioSesionAdmin(Usuario usuario) throws IOException {
+    public void inicioSesionAdmin(Usuario usuario) {
         Scanner entrada = new Scanner(System.in);
         int opcionElegida;
         boolean salir = false;
@@ -1151,7 +1114,7 @@ public class MenuPrueba {
 
 
 // INICIO DE SESION SIENDO MODERADOR
-    public void inicioSesionModerador(Usuario usuario) throws IOException {
+    public void inicioSesionModerador(Usuario usuario) {
         Scanner entrada = new Scanner(System.in);
         int opcionElegida;
         boolean salir = false;

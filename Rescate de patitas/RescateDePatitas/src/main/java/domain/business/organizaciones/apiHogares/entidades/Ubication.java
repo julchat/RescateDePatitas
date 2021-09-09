@@ -3,7 +3,7 @@ package domain.business.organizaciones.apiHogares.entidades;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Ubicacion {
+public class Ubication {
     String direccion;
     float lat;
     @SerializedName("long")

@@ -1,8 +1,11 @@
 package domain.business;
 
+import domain.business.caracteristicas.Caracteristica;
+import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
 import domain.business.organizaciones.HogarDeTransito;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MascotaPerdida {
@@ -11,6 +14,7 @@ public class MascotaPerdida {
     private TipoAnimal tipoAnimal;
     private Tamanio tamanio;
     private Domicilio lugarDeTransito;
+    private List<String> caracteristicaMascotas = new ArrayList<>();
     private Ubicacion ubicacionEncontrada;
 
     // Getters and Setters
@@ -58,12 +62,24 @@ public class MascotaPerdida {
         return ubicacionEncontrada;
     }
 
-    public void setUbicacionEncontrada(Ubicacion ubicacionEncontrada) {
-        this.ubicacionEncontrada = ubicacionEncontrada;
-    }
+    public void setUbicacionEncontrada(Ubicacion ubicacionEncontrada) { this.ubicacionEncontrada = ubicacionEncontrada; }
 
     public void ocuparResidencia(Domicilio lugarDeTransito) {
         this.setLugarDeTransito(lugarDeTransito);
+    }
+
+    public List<String> getCaracteristicaMascotas() { return caracteristicaMascotas; }
+
+    public void setCaracteristicaMascotas(List<String> caracteristicaMascotas) { this.caracteristicaMascotas = caracteristicaMascotas; }
+
+
+    // Constructor
+    public MascotaPerdida() {}
+
+
+    // Metodos
+    public boolean cumpleCaracteristicaHogar(String caracteristica) {
+        return caracteristicaMascotas.stream().anyMatch(caracteristicaMascotas -> caracteristica.equals(caracteristica));
     }
 
     public void mostrarMascota() {

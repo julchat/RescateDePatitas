@@ -1,10 +1,14 @@
 package domain.business;
 
+import domain.business.organizaciones.HogarDeTransito;
 import domain.business.organizaciones.Organizacion;
+import domain.business.organizaciones.apiHogares.APIhogares;
+import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import domain.business.publicaciones.Publicacion;
 import domain.security.password.ValidadorPassword;
 import domain.security.Usuario;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,11 +18,26 @@ public class Sistema {
     private static List<Usuario> usuarios = new ArrayList<>();
     private List<Publicacion> publicaciones = new ArrayList<>();
     private List<Organizacion> organizaciones = new ArrayList<>();
+    private List<HogarDeTransito> hogaresDeTransito = new ArrayList<>();
     private List<MascotaPerdida> mascotasPerdidas = new ArrayList<>();
     private List<Mascota> mascotasEnAdopcion = new ArrayList<>();
     private ValidadorPassword validador = new ValidadorPassword();
-    // Todo: preguntas que deben estar si o si
 
+    {
+        APIhogares apIhogares = APIhogares.getInstance();
+        try {
+             for(int i=1; i<= apIhogares.cantidadPaginas(); i++) {
+                List<Hogar> hogares = apIhogares.conjuntoHogares(i);
+                for(Hogar hogar : hogares) {
+                    HogarDeTransito hogarDeTransito = new HogarDeTransito();
+                    hogarDeTransito.mappearHogar(hogar);
+                    hogaresDeTransito.add(hogarDeTransito);
+                }
+             }
+        } catch (IOException e) {
+
+        }
+    }
 
     public static Sistema getInstance() {
         if (instancia == null) {
@@ -50,6 +69,8 @@ public class Sistema {
     public List<Publicacion> getPublicaciones() { return publicaciones; }
 
     public List<Organizacion> getOrganizaciones() { return organizaciones; }
+
+    public List<HogarDeTransito> getHogaresDeTransito() { return hogaresDeTransito; }
 
     public Usuario crearUsuario(String nombre, String contrasenia) {
         Usuario nuevoUsuario = new Usuario(nombre, contrasenia);

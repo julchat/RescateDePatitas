@@ -1,40 +1,61 @@
 package domain.business.organizaciones;
 
-import domain.business.Domicilio;
-import domain.business.MascotaPerdida;
-import domain.business.Tamanio;
-import domain.business.TipoAnimal;
+import domain.business.*;
 import domain.business.caracteristicas.Caracteristica;
+import domain.business.caracteristicas.CaracteristicaMascota;
+import domain.business.organizaciones.apiHogares.entidades.Hogar;
+import domain.business.organizaciones.apiHogares.entidades.Ubication;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HogarDeTransito{
-    private Domicilio domicilio;
-    private TipoAnimal mascotaQueAcepta;
+    private String nombreOrganizacion;
+    private String direccion;
+    private float latitud;
+    private float longitud;
+    private String telefono;
+    private boolean aceptaPerros;
+    private boolean aceptaGatos;
     private boolean poseePatio;
-    private int disponibilidad;
-    private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
+    private int capacidad;
+    private int lugaresDisponibles;
+    private List<String> caracteristicasAdmitidas = new ArrayList<>();
     private List<MascotaPerdida> mascotasActuales = new ArrayList<>();
 
     // Getters and Setters
-    public void setDomicilio(Domicilio domicilio) {
-        this.domicilio = domicilio;
+    public String getNombreOrganizacion() { return nombreOrganizacion; }
+
+    public void setNombreOrganizacion(String nombreOrganizacion) { this.nombreOrganizacion = nombreOrganizacion; }
+
+    public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public String getDireccion() {
+        return direccion;
     }
 
-    public Domicilio getDomicilio() {
-        return domicilio;
-    }
+    public float getLatitud() { return latitud; }
 
-    public TipoAnimal getMascotaQueAcepta() {
-        return mascotaQueAcepta;
-    }
+    public void setLatitud(float latitud) { this.latitud = latitud; }
 
-    public void setMascotaQueAcepta(TipoAnimal mascotaQueAcepta) {
-        this.mascotaQueAcepta = mascotaQueAcepta;
-    }
+    public float getLongitud() { return longitud; }
 
-    public boolean isPoseePatio() {
+    public void setLongitud(float longitud) { this.longitud = longitud; }
+
+    public String getTelefono() { return telefono; }
+
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+
+    public boolean aceptaPerros() { return aceptaPerros; }
+
+    public void setAceptaPerros(boolean aceptaPerros) { this.aceptaPerros = aceptaPerros; }
+
+    public boolean aceptaGatos() { return aceptaGatos; }
+
+    public void setAceptaGatos(boolean aceptaGatos) { this.aceptaGatos = aceptaGatos; }
+
+    public boolean poseePatio() {
         return poseePatio;
     }
 
@@ -42,27 +63,25 @@ public class HogarDeTransito{
         this.poseePatio = poseePatio;
     }
 
-    public int getDisponibilidad() {
-        return disponibilidad;
-    }
+    public int getCapacidad() { return capacidad; }
 
-    public void setDisponibilidad(int disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
+    public void setCapacidad(int capacidad) { this.capacidad = capacidad; }
 
-    public List<Caracteristica> getCaracteristicasAdmitidas() {
+    public int getLugaresDisponibles() { return lugaresDisponibles; }
+
+    public void setLugaresDisponibles(int lugaresDisponibles) { this.lugaresDisponibles = lugaresDisponibles; }
+
+    public List<String> getCaracteristicasAdmitidas() {
         return caracteristicasAdmitidas;
     }
 
-    public void setCaracteristicasAdmitidas(List<Caracteristica> caracteristicasAdmitidas) {
-        this.caracteristicasAdmitidas = caracteristicasAdmitidas;
-    }
+    public void setCaracteristicasAdmitidas(List<String> caracteristicasAdmitidas) { this.caracteristicasAdmitidas = caracteristicasAdmitidas; }
 
-    public void agregarCaracteristicaAdmitida(Caracteristica unaCaracteristica) {
+    public void agregarCaracteristicaAdmitida(String unaCaracteristica) {
         this.caracteristicasAdmitidas.add(unaCaracteristica);
     }
 
-    public void quitarCaracteristicaAdmitida(Caracteristica unaCaracteristica) {
+    public void quitarCaracteristicaAdmitida(String unaCaracteristica) {
         if(this.caracteristicasAdmitidas.contains(unaCaracteristica)) {
             caracteristicasAdmitidas.remove(unaCaracteristica);
         }
@@ -90,30 +109,41 @@ public class HogarDeTransito{
         }
     }
 
+
     // Constructor
     public HogarDeTransito(){ }
 
-    public HogarDeTransito(Domicilio domicilio, TipoAnimal mascotaQueAcepta, boolean poseePatio, int disponibilidad, List<Caracteristica> caracteristicasAdmitidas) {
-        this.domicilio = domicilio;
-        this.mascotaQueAcepta = mascotaQueAcepta;
-        this.poseePatio = poseePatio;
-        this.disponibilidad = disponibilidad;
-        this.caracteristicasAdmitidas = caracteristicasAdmitidas;
-    }
 
     // Metodos
-    private boolean cumpleTipoAnimalPermitido(MascotaPerdida mascotaPerdida) {
-        if(this.getMascotaQueAcepta().equals(TipoAnimal.CUALQUIERA)) {
+    public void mappearHogar(Hogar hogar) {
+        this.setNombreOrganizacion(hogar.getNombre());
+        this.setDireccion(hogar.getUbicacion().getDireccion());
+        this.setLatitud(hogar.getUbicacion().getLat());
+        this.setLongitud(hogar.getUbicacion().getLongitud());
+        this.setTelefono(hogar.getTelefono());
+        this.setAceptaPerros(hogar.getAdmisiones().admitePerros());
+        this.setAceptaGatos(hogar.getAdmisiones().admiteGatos());
+        this.setCapacidad(hogar.getCapacidad());
+        this.setLugaresDisponibles(hogar.getLugares_disponibles());
+        this.setPoseePatio(hogar.isPatio());
+        this.setCaracteristicasAdmitidas(hogar.getCaracteristicas());
+    }
+
+    public boolean cumpleTipoAnimalPermitido(MascotaPerdida mascotaPerdida) {
+        if(mascotaPerdida.getTipoAnimal().equals(TipoAnimal.PERRO) && this.aceptaPerros) {
+            return true;
+        }
+        else if(mascotaPerdida.getTipoAnimal().equals(TipoAnimal.GATO) && this.aceptaGatos) {
             return true;
         }
         else {
-            return mascotaPerdida.getTipoAnimal().equals(this.mascotaQueAcepta);
+            return false;
         }
     }
 
-    private boolean cumpleTamanioMascota(MascotaPerdida mascotaPerdida) {
+    public boolean cumpleTamanioMascota(MascotaPerdida mascotaPerdida) {
         Tamanio tamanioMascota = mascotaPerdida.getTamanio();
-        if(this.isPoseePatio()) {
+        if(this.poseePatio()) {
             return true;
         }
         else {
@@ -121,32 +151,48 @@ public class HogarDeTransito{
         }
     }
 
-    private boolean cumpleConDisponibilidad() {
-        return this.getDisponibilidad() >= 1;
+    public boolean tieneDisponibilidad() {
+        return this.getLugaresDisponibles() >= 1;
     }
 
-    private boolean cumpleCaracteristicas(MascotaPerdida mascotaPerdida) {
-        // TODO: habria que filtrar las caracteristicas de la mascota, y compararla con las caracteristicas admitidas del hogar
-        return false;       // Por ahora
+    public boolean cumpleCaracteristicas(MascotaPerdida mascotaPerdida) {
+        for(String caracteristica : caracteristicasAdmitidas) {
+            if(!mascotaPerdida.cumpleCaracteristicaHogar(caracteristica)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean cumpleCaracteristica(String caracteristicaMascota) {
+        return caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.equals(caracteristicaMascota));
     }
 
     public boolean permiteMascotaPerdida(MascotaPerdida mascotaPerdida) {
         if(this.getCaracteristicasAdmitidas().isEmpty()) {
-            return (this.cumpleTipoAnimalPermitido(mascotaPerdida) && this.cumpleTamanioMascota(mascotaPerdida) && this.cumpleConDisponibilidad());
+            return (this.cumpleTipoAnimalPermitido(mascotaPerdida) && this.cumpleTamanioMascota(mascotaPerdida) && this.tieneDisponibilidad());
         }
         else {
-            return (this.cumpleTipoAnimalPermitido(mascotaPerdida) && this.cumpleTamanioMascota(mascotaPerdida) && this.cumpleConDisponibilidad() && this.cumpleCaracteristicas(mascotaPerdida));
+            return (this.cumpleTipoAnimalPermitido(mascotaPerdida) && this.cumpleTamanioMascota(mascotaPerdida) && this.tieneDisponibilidad() && this.cumpleCaracteristicas(mascotaPerdida));
         }
     }
 
     public void cuidarMascota(MascotaPerdida mascotaPerdida) {
         if(this.permiteMascotaPerdida(mascotaPerdida)) {
-            mascotaPerdida.ocuparResidencia(this.getDomicilio());
-            this.disponibilidad--;
+            //mascotaPerdida.ocuparResidencia(this.getDireccion());
+            this.lugaresDisponibles--;
             this.agregarMascota(mascotaPerdida);
         }
     }
 
+    public double distancia(double lat1, double lng1, double lat2, double lng2) {
+        double PI = 3.14159265358979323; // pi
+        double R = 6371229; // radio de la tierra
 
-
+        double x, y, distance;
+        x = (lng2 - lng1) * PI * R * Math.cos(((lat1 + lat2) / 2) * PI / 180) / 180;
+        y = (lat2 - lat1) * PI * R / 180;
+        distance = Math.hypot(x, y);
+        return distance;
+    }
 }

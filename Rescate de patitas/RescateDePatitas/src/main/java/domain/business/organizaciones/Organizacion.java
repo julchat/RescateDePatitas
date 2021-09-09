@@ -41,19 +41,13 @@ public class Organizacion {
         return caracteristicasAdmitidas;
     }
 
-    public void setCaracteristicasAdmitidas(List<Caracteristica> caracteristicasAdmitidas) {
-        this.caracteristicasAdmitidas = caracteristicasAdmitidas;
-    }
-
     public void agregarCaracteristicaAdmitida(Caracteristica caracteristica) {
         this.caracteristicasAdmitidas.add(caracteristica);
     }
 
     public boolean quitarCaracteristicaAdmitida(String nombreCaracteristica) {
-
-        if(caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.getNombre().equals(nombreCaracteristica))){
-            Caracteristica caracteristicaBuscada = caracteristicasAdmitidas.stream().filter(caracteristica -> caracteristica.getNombre().equals(nombreCaracteristica)).collect(Collectors.toList()).get(0);
-            this.caracteristicasAdmitidas.remove(caracteristicaBuscada);
+        if(this.existeCaracteristica(nombreCaracteristica)){
+            this.caracteristicasAdmitidas.remove(this.buscarCaracteristica(nombreCaracteristica));
             return true;
         }
         else {
@@ -93,27 +87,26 @@ public class Organizacion {
     // Constructor
     public Organizacion() {}
 
-    public Organizacion(String nombreOrganizacion, LocalDate fechaDeCreacion, List<Caracteristica> caracteristicasAdmitidas, Foto logo, DimensionEstandar dimensionEstandar, List<HogarDeTransito> hogares) {
-        this.nombreOrganizacion = nombreOrganizacion;
-        this.fechaDeCreacion = fechaDeCreacion;
-        this.caracteristicasAdmitidas = caracteristicasAdmitidas;
-        this.logo = logo;
-        this.dimensionEstandar = dimensionEstandar;
-        this.hogares = hogares;
-    }
-
 
     // Metodos
-    /*
-    public void agregoSiAceptaCaracteristica(CaracteristicaMascota unaCaracteristica, List<CaracteristicaMascota> caracteristicasValidas ){
-        if(this.aceptoCaracteristica(unaCaracteristica)) {
-            caracteristicasValidas.add(unaCaracteristica);
+    public boolean aceptaCaracteristica(CaracteristicaMascota caracteristicaMascota) {
+        if(this.existeCaracteristica(caracteristicaMascota.getNombreCaracteristica())){
+            Caracteristica caracteristica = this.buscarCaracteristica(caracteristicaMascota.getNombreCaracteristica());
+            return caracteristica.getOpcionesValidas().contains(caracteristicaMascota.getValorElegido());
+        }
+        else {
+            return false;
         }
     }
 
-    public boolean aceptoCaracteristica(CaracteristicaMascota unaCaracteristica) {
-        return caracteristicasAdmitidas.contains(unaCaracteristica.getNombreCaracteristica());
-    }*/
+    private Caracteristica buscarCaracteristica(String nombreCaracteristica) {
+        return caracteristicasAdmitidas.stream().filter(caracteristica -> caracteristica.getNombre().equals(nombreCaracteristica)).collect(Collectors.toList()).get(0);
+    }
+
+    private boolean existeCaracteristica(String nombreCaracteristica) {
+        return caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.getNombre().equals(nombreCaracteristica));
+    }
+
 
     public void crearPregunta(String pregunta) {
         Pregunta nuevaPregunta = new Pregunta(pregunta);

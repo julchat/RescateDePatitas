@@ -1,10 +1,5 @@
 package domain.business;
 
-import domain.business.foto.Grande;
-import domain.business.organizaciones.Organizacion;
-
-import java.time.LocalDate;
-
 public class Domicilio {
     private String provincia;
     private String localidad;
@@ -52,14 +47,16 @@ public class Domicilio {
     public Domicilio() {}
 
     //Metodos
-    public Organizacion buscarOrganizacionMasCercana(){
-        /*List<Organizacion> organizaciones = Organizaciones.getInstance().getOrganizaciones();
+
+   /* public Organizacion buscarOrganizacionMasCercana(){
+        List<Organizacion> organizaciones = Sistema.getInstance().getOrganizaciones();
         List<HogaresDeTransito> hogares = new ArrayList<>();
         organizaciones.stream().map(unaOrganizacion->getHogaresDeTransito()).values().forEach(unaListaDeHogares -> hogares.add(unaListaDeHogares));
         hogares.stream().map()
-        no terminado*/
+        //no terminado
 
         //Logica probablemente sujeta a la API de los hogares de transito
         return new Organizacion("prueba", LocalDate.now(),null,null, new Grande(),null);
-    }
+    }*/
+
 }

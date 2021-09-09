@@ -5,7 +5,7 @@ import java.util.List;
 public class Hogar {
     public String id;
     public String nombre;
-    public Ubicacion ubicacion;
+    public Ubication ubicacion;
     public String telefono;
     public Admision admisiones;
     public int capacidad;
@@ -17,7 +17,7 @@ public class Hogar {
 
     public String getNombre() { return nombre; }
 
-    public Ubicacion getUbicacion() { return ubicacion; }
+    public Ubication getUbicacion() { return ubicacion; }
 
     public String getTelefono() { return telefono; }
 
