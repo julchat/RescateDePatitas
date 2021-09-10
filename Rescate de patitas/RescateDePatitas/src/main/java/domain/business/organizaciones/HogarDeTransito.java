@@ -129,7 +129,7 @@ public class HogarDeTransito{
         this.setCaracteristicasAdmitidas(hogar.getCaracteristicas());
     }
 
-    public boolean cumpleTipoAnimalPermitido(MascotaPerdida mascotaPerdida) {
+    private boolean cumpleTipoAnimalPermitido(MascotaPerdida mascotaPerdida) {
         if(mascotaPerdida.getTipoAnimal().equals(TipoAnimal.PERRO) && this.aceptaPerros) {
             return true;
         }
@@ -141,7 +141,7 @@ public class HogarDeTransito{
         }
     }
 
-    public boolean cumpleTamanioMascota(MascotaPerdida mascotaPerdida) {
+    private boolean cumpleTamanioMascota(MascotaPerdida mascotaPerdida) {
         Tamanio tamanioMascota = mascotaPerdida.getTamanio();
         if(this.poseePatio()) {
             return true;
@@ -151,21 +151,17 @@ public class HogarDeTransito{
         }
     }
 
-    public boolean tieneDisponibilidad() {
+    private boolean tieneDisponibilidad() {
         return this.getLugaresDisponibles() >= 1;
     }
 
-    public boolean cumpleCaracteristicas(MascotaPerdida mascotaPerdida) {
+    private boolean cumpleCaracteristicas(MascotaPerdida mascotaPerdida) {
         for(String caracteristica : caracteristicasAdmitidas) {
             if(!mascotaPerdida.cumpleCaracteristicaHogar(caracteristica)){
                 return false;
             }
         }
         return true;
-    }
-
-    public boolean cumpleCaracteristica(String caracteristicaMascota) {
-        return caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.equals(caracteristicaMascota));
     }
 
     public boolean permiteMascotaPerdida(MascotaPerdida mascotaPerdida) {
@@ -177,7 +173,7 @@ public class HogarDeTransito{
         }
     }
 
-    public void cuidarMascota(MascotaPerdida mascotaPerdida) {
+    public void alojarMascota(MascotaPerdida mascotaPerdida) {
         if(this.permiteMascotaPerdida(mascotaPerdida)) {
             //mascotaPerdida.ocuparResidencia(this.getDireccion());
             this.lugaresDisponibles--;

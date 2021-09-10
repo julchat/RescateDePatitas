@@ -1,5 +1,5 @@
 package domain.business.tests;
-/*
+
 import domain.business.*;
 import domain.business.foto.Foto;
 import domain.business.notificaciones.Notificacion;
@@ -9,7 +9,6 @@ import domain.business.notificaciones.NotificadorWhatsapp;
 import domain.business.organizaciones.apiHogares.APIhogares;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,29 +22,29 @@ public class test {
     Sistema miSistema = Sistema.getInstance();
 
     @Test
-    @DisplayName("Contraseña que no cumpla con los criterios de Seguridad, no cumple.")
     public void contraseniaInsegura() throws FileNotFoundException {
-        assertTrue(!miSistema.validarContrasenia("password"));
+        System.out.println("Contraseña que no cumpla con los criterios de Seguridad, no cumple.");
+        assertFalse(miSistema.validarContrasenia("password"));
     }
     @Test
-    @DisplayName("Contraseña que no cumple con el mínimo de 8 caracteres.")
     public void contraseniaMuyCorta() throws FileNotFoundException {
-        assertFalse(!miSistema.validarContrasenia("A12DH8"));
+        System.out.println("Contraseña que no cumple con el mínimo de 8 caracteres.");
+        assertFalse(miSistema.validarContrasenia("A12DH"));
     }
 
     @Test
-    @DisplayName("Contraseña que cumple con los criterios de Seguridad, es una contraseña válida.")
     public void validarContrasenia() throws FileNotFoundException {
+        System.out.println("Contraseña que cumple con los criterios de Seguridad, es una contraseña válida.");
         assertTrue(miSistema.validarContrasenia("password1234ABC"));
     }
 
     @Test
-    @DisplayName("Obtiene la primer página de la API de Hogares.")
     public void listadoDeHogares() throws IOException {
+        System.out.println("Obtiene la primer página de la API de Hogares.");
         APIhogares apiService = APIhogares.getInstance();
         assertTrue(apiService.conjuntoHogares(1).size() > 0 );
     }
-
+/*
     private NotificadorSms notiSMS = new NotificadorSms();
     private List<Notificacion> medios = new ArrayList<>();
     private Mascota mascotaQueSePerdio;
@@ -56,6 +55,7 @@ public class test {
     private Rescatista halladorMascota = new Rescatista();
     private NotificadorWhatsapp notiWPP = new NotificadorWhatsapp();
     private NotificadorEmail notiMail = new NotificadorEmail();
+
     @Before
     public void setUp(){
         fotos.add(new Foto());
@@ -68,24 +68,33 @@ public class test {
 
     @Test
     public void pruebaSMS(){
+        System.out.println("Utilizando SMS como medio de Notificación.");
         medios.add(notiSMS);
         duenioMascota.getFormasDeNotificacion().forEach((unMedio -> unMedio.notificarMascotaEncontrada(duenioMascota, halladorMascota, mascotaQueSePerdio, link)));
         assertTrue(true);
     } // No usar a menos que sea necesario ya que descuenta saldo.
+
     @Test
     public void pruebaWhatsapp(){
+        System.out.println("Utilizando Whatsapp como medio de Notificación.");
         duenioMascota.getFormasDeNotificacion().add(notiWPP);
         duenioMascota.getFormasDeNotificacion().forEach((unMedio -> unMedio.notificarMascotaEncontrada(duenioMascota, halladorMascota, mascotaQueSePerdio, link)));
         assertTrue(true);
     } // No usar a menos que sea necesario ya que descuenta saldo.
+
     @Test
     public void pruebaMail(){
+        System.out.println("Utilizando el Mail como medio de Notificación.");
         duenioMascota.getFormasDeNotificacion().add(notiMail);
         duenioMascota.getFormasDeNotificacion().forEach((unMedio -> unMedio.notificarMascotaEncontrada(duenioMascota, halladorMascota, mascotaQueSePerdio, link)));
         assertTrue(true);
     } // No usar a menos que sea necesario ya que descuenta saldo.
+
+    */
 }
-*/
+
+
+
 
 
 

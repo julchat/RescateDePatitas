@@ -3,6 +3,7 @@ package domain;
 import domain.business.*;
 import domain.business.organizaciones.HogarDeTransito;
 import domain.views.MenuPrueba;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
