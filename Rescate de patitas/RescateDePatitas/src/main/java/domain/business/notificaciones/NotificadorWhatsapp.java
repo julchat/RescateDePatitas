@@ -1,7 +1,7 @@
 package domain.business.notificaciones;
 import domain.business.Mascota;
 import domain.business.Persona;
-import domain.business.publicaciones.BusquedaMascotaIdeal;
+import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public class NotificadorWhatsapp extends Notificacion{
         @Override
@@ -18,7 +18,7 @@ public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona intere
         }
 
 @Override
-public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
+public void notificarRecomendaciones(Persona destinatario, PublicacionParaAdoptar publicacion, String ruta) {
         twillio.enviarWhatsapp(destinatario.getTelefono(),armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
         }
 }

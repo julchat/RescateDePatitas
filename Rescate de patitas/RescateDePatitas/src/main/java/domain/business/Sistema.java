@@ -113,4 +113,38 @@ public class Sistema {
         }
     }
 
+
+    public HogarDeTransito buscarHogarMasCercano(int radio, MascotaPerdida mascotaEncontrada) {
+
+        Ubicacion ubicacionMascota = mascotaEncontrada.getUbicacionEncontrada();
+        List<HogarDeTransito> hogaresCercanos = this.getHogaresDeTransito().stream().filter(hogarDeTransito -> hogarDeTransito.distancia(hogarDeTransito.getLatitud(), hogarDeTransito.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) <= radio*1000).collect(Collectors.toList());
+        HogarDeTransito hogarAdecuado = null;
+
+        for(HogarDeTransito hogarDeTransito : hogaresCercanos) {
+            if(hogarDeTransito.permiteMascotaPerdida(mascotaEncontrada)) {
+                hogarAdecuado = hogarDeTransito;
+            }
+        }
+
+        if(hogarAdecuado != null) {
+            System.out.println("NOMBRE: " + hogarAdecuado.getNombreOrganizacion());
+            System.out.println("UBICACION: ");
+            System.out.println("    - DIRECCION: " + hogarAdecuado.getDireccion());
+            System.out.println("    - LATITUD: " + hogarAdecuado.getLatitud());
+            System.out.println("    - LONGITUD: " + hogarAdecuado.getLongitud());
+            System.out.println("TELEFONO: " + hogarAdecuado.getTelefono());
+            System.out.println("ADMISIONES: ");
+            System.out.println("    - PERROS: " + hogarAdecuado.aceptaPerros());
+            System.out.println("    - GATOS: " + hogarAdecuado.aceptaGatos());
+            System.out.println("CAPACIDAD: " + hogarAdecuado.getCapacidad());
+            System.out.println("LUGARES DISPONIBLES: " + hogarAdecuado.getLugaresDisponibles());
+            System.out.println("TIENE PATIO: " + hogarAdecuado.poseePatio());
+            System.out.println("CARACTERISTICAS: " + hogarAdecuado.getCaracteristicasAdmitidas());
+
+            System.out.println("-------------------------------------------------------------------");
+        }
+        return hogarAdecuado;
+    }
+
+
 }

@@ -3,20 +3,14 @@ package domain.business.publicaciones;
 import domain.business.Persona;
 import domain.security.Usuario;
 
-public class Publicacion {
-    private TipoPublicacion tipoPublicacion;
+import java.time.LocalDate;
+
+public abstract class Publicacion {
     private EstadoPublicacion estadoPublicacion;
-    private Persona Autor;
+    private Persona autor;
+    private LocalDate fecha;
 
     // Getters and Setters
-    public TipoPublicacion getTipoPublicacion() {
-        return tipoPublicacion;
-    }
-
-    public void setTipoPublicacion(TipoPublicacion tipoPublicacion) {
-        this.tipoPublicacion = tipoPublicacion;
-    }
-
     public EstadoPublicacion getEstadoPublicacion() {
         return estadoPublicacion;
     }
@@ -26,18 +20,16 @@ public class Publicacion {
     }
 
     public Persona getAutor() {
-        return Autor;
+        return autor;
     }
 
     public void setAutor(Persona autor) {
-        Autor = autor;
+        this.autor = autor;
     }
 
-
-    public void crearPublicacion(TipoPublicacion tipoPublicacion, EstadoPublicacion estadoPublicacion, Persona autor) {
-        this.tipoPublicacion = tipoPublicacion;
+    public void crearPublicacion(EstadoPublicacion estadoPublicacion, Persona autor) {
         this.estadoPublicacion = estadoPublicacion;
-        Autor = autor;
+        this.fecha = LocalDate.now();
     }
 
     public void cambiarEstado(EstadoPublicacion nuevoEstado) {
@@ -48,10 +40,6 @@ public class Publicacion {
         return this.estadoPublicacion.esVisible(usuario);
     }
 
-    public void mostrarPublicacion() {
-        System.out.println("Tipo publicación: " + getTipoPublicacion());
-        System.out.println("Autor: " + getAutor().getNombre() + " " + getAutor().getApellido());
-        // Tal vez algo redundante tener el autor y despues mostrar los datos del rescatista o dueño
-        this.tipoPublicacion.mostrarDatos();
-    }
+    public abstract void mostrarPublicacion();
+
 }

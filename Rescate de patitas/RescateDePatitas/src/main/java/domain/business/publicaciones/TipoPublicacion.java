@@ -2,9 +2,9 @@ package domain.business.publicaciones;
 
 public abstract class TipoPublicacion {
 
-    public void aceptar(PuestoEnAdopcion publicacion) {};
-    public void aceptar(BusquedaMascotaIdeal publicacion) {};
-    public void aceptar(BusquedaMascotaPerdida publicacion) {};
+    public void aceptar(PublicacionMascotaEnAdopcion publicacion) {};
+    public void aceptar(PublicacionParaAdoptar publicacion) {};
+    public void aceptar(PublicacionMascotaPerdida publicacion) {};
 
     public abstract void mostrarDatos();
 }

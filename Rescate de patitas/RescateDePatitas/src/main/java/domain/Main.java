@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static MenuPrueba menuPrueba = new MenuPrueba();
+    private static Sistema miSistema = Sistema.getInstance();
 
     public static void main(String[] args) throws IOException {
         //menuPrueba.menuPrincipal();
@@ -44,7 +44,7 @@ public class Main {
         System.out.println("INGRESE UN RADIO DE BUSQUEDA: ");
         int radio = entrada.nextInt();
 
-        menuPrueba.buscarHogarMasCercano(radio, mascotaEncontrada);
+        miSistema.buscarHogarMasCercano(radio, mascotaEncontrada);
     }
 }
 

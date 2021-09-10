@@ -663,69 +663,33 @@ public class MenuPrueba {
         MascotaPerdida mascotaPerdida = this.generarFormularioMascotaPerdida(entrada);
 
         if(rescatista.isPuedeAlojarMascota()) {
-            /* TODO: el rescatista se encarga de albergar a la Mascota Perdida, por lo tanto,
-                la ubicacion de esta mascota en la Publicacion es el Domicilio del Rescatista */
-            mascotaPerdida.setLugarDeTransito(rescatista.getDomicilio());
+            rescatista.alojarMascota(mascotaPerdida);
         }
         else {
             /* TODO: en este caso, se busca al Hogar de Transito MAS cercano según ¿el Domicilio del Rescatista O de
-                la ubicacion donde fue encontrada la Mascota? */
-            // Suponiendo la Ubicacion es el Domicilio del Rescatista
+                la ubicacion donde fue encontrada la Mascota?
+                En el siguiente caso es de acuerdo a la ubicacion donde se encuentra la mascota perdida. */
 
             System.out.println("Seleccione el tipo de animal de la mascota encontrada: ");
             mascotaPerdida.setTipoAnimal(this.eleccionTipoAnimal(entrada));
             System.out.println("Seleccione el tamaño de la mascota encontrada: ");
             mascotaPerdida.setTamanio(this.eleccionTamanio(entrada));
 
-
             System.out.print("Ingrese un radio en KM para la búsqueda de los Hogares de Transito: ");
             int radio = entrada.nextInt();
-            HogarDeTransito hogarDeTransito = this.buscarHogarMasCercano(radio, mascotaPerdida);
+            HogarDeTransito hogarDeTransito = miSistema.buscarHogarMasCercano(radio, mascotaPerdida);
 
             if(hogarDeTransito == null) {
                 System.out.println("No hay ningún hogar de tránsito que pueda alojar a la mascota encontrada.");
                 // Todo: en este caso, que pasa?
                 return;
             }
-            //mascotaPerdida.setLugarDeTransito(hogarDeTransito.getDomicilio());
+            hogarDeTransito.alojarMascota(mascotaPerdida);
         }
 
-        // mascotaPerdida se agrega en la publicacion y se agrega a la lista de mascotas perdidas
+        rescatista.reportarMascotaPerdida(mascotaPerdida);
         miSistema.agregarMascotaPerdida(mascotaPerdida);
     }
-
-    public HogarDeTransito buscarHogarMasCercano(int radio, MascotaPerdida mascotaEncontrada) {
-
-        Ubicacion ubicacionMascota = mascotaEncontrada.getUbicacionEncontrada();
-        List<HogarDeTransito> hogaresCercanos = miSistema.getHogaresDeTransito().stream().filter(hogarDeTransito -> hogarDeTransito.distancia(hogarDeTransito.getLatitud(), hogarDeTransito.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) <= radio*1000).collect(Collectors.toList());
-        HogarDeTransito hogarAdecuado = null;
-
-        for(HogarDeTransito hogarDeTransito : hogaresCercanos) {
-            if(hogarDeTransito.permiteMascotaPerdida(mascotaEncontrada)) {
-                hogarAdecuado = hogarDeTransito;
-            }
-        }
-
-        if(hogarAdecuado != null) {
-            System.out.println("NOMBRE: " + hogarAdecuado.getNombreOrganizacion());
-            System.out.println("UBICACION: ");
-            System.out.println("    - DIRECCION: " + hogarAdecuado.getDireccion());
-            System.out.println("    - LATITUD: " + hogarAdecuado.getLatitud());
-            System.out.println("    - LONGITUD: " + hogarAdecuado.getLongitud());
-            System.out.println("TELEFONO: " + hogarAdecuado.getTelefono());
-            System.out.println("ADMISIONES: ");
-            System.out.println("    - PERROS: " + hogarAdecuado.aceptaPerros());
-            System.out.println("    - GATOS: " + hogarAdecuado.aceptaGatos());
-            System.out.println("CAPACIDAD: " + hogarAdecuado.getCapacidad());
-            System.out.println("LUGARES DISPONIBLES: " + hogarAdecuado.getLugaresDisponibles());
-            System.out.println("TIENE PATIO: " + hogarAdecuado.poseePatio());
-            System.out.println("CARACTERISTICAS: " + hogarAdecuado.getCaracteristicasAdmitidas());
-
-            System.out.println("-------------------------------------------------------------------");
-        }
-        return hogarAdecuado;
-    }
-
 
     private Rescatista agregarDatosRescatista(Persona persona) {
         Rescatista nuevoRescatista = new Rescatista();
@@ -738,8 +702,6 @@ public class MenuPrueba {
         nuevoRescatista.setPuedeAlojarMascota(this.confirmarAlojamiento(entrada));
         System.out.println("Ingrese los datos del Domicilio del Rescatista: ");
         nuevoRescatista.setDomicilio(this.datosDomicilio(entrada));
-
-        // TODO: si NO puede alojar a una mascota, entonces hay que buscar a un Hogar de Transito (el más cercano)
 
         return nuevoRescatista;
     }

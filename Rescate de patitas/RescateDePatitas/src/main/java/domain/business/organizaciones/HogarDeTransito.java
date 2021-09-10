@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class HogarDeTransito{
     private String nombreOrganizacion;
+    private Lugar lugar;
     private String direccion;
     private float latitud;
     private float longitud;
@@ -28,6 +29,15 @@ public class HogarDeTransito{
     public String getNombreOrganizacion() { return nombreOrganizacion; }
 
     public void setNombreOrganizacion(String nombreOrganizacion) { this.nombreOrganizacion = nombreOrganizacion; }
+
+    public Lugar getLugar() {
+        Lugar lugar = new Lugar();
+        lugar.setDireccion(this.getDireccion());
+        lugar.setLatitud(this.getLatitud());
+        lugar.setLongitud(this.getLongitud());
+
+        return lugar;
+    }
 
     public void setDireccion(String direccion) { this.direccion = direccion; }
 
@@ -175,7 +185,7 @@ public class HogarDeTransito{
 
     public void alojarMascota(MascotaPerdida mascotaPerdida) {
         if(this.permiteMascotaPerdida(mascotaPerdida)) {
-            //mascotaPerdida.ocuparResidencia(this.getDireccion());
+            mascotaPerdida.ocuparLugarDeTransito(this.getLugar());
             this.lugaresDisponibles--;
             this.agregarMascota(mascotaPerdida);
         }

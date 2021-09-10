@@ -13,9 +13,10 @@ public class MascotaPerdida {
     private String descripcion;
     private TipoAnimal tipoAnimal;
     private Tamanio tamanio;
-    private Domicilio lugarDeTransito;
+    private Lugar lugarDeTransito;
     private List<String> caracteristicaMascotas = new ArrayList<>();
     private Ubicacion ubicacionEncontrada;
+
 
     // Getters and Setters
     public List<Foto> getCarrouselFotos() {
@@ -34,29 +35,19 @@ public class MascotaPerdida {
         this.descripcion = descripcion;
     }
 
-    public TipoAnimal getTipoAnimal() {
-        return tipoAnimal;
-    }
+    public TipoAnimal getTipoAnimal() { return tipoAnimal; }
 
-    public void setTipoAnimal(TipoAnimal tipoAnimal) {
-        this.tipoAnimal = tipoAnimal;
-    }
+    public void setTipoAnimal(TipoAnimal tipoAnimal) { this.tipoAnimal = tipoAnimal; }
 
-    public Tamanio getTamanio() {
-        return tamanio;
-    }
+    public Tamanio getTamanio() { return tamanio; }
 
-    public void setTamanio(Tamanio tamanio) {
-        this.tamanio = tamanio;
-    }
+    public void setTamanio(Tamanio tamanio) { this.tamanio = tamanio; }
 
-    public Domicilio getLugarDeTransito() {
+    public Lugar getLugarDeTransito() {
         return lugarDeTransito;
     }
 
-    public void setLugarDeTransito(Domicilio lugarDeTransito) {
-        this.lugarDeTransito = lugarDeTransito;
-    }
+    public void setLugarDeTransito(Lugar lugarDeTransito) { this.lugarDeTransito = lugarDeTransito; }
 
     public Ubicacion getUbicacionEncontrada() {
         return ubicacionEncontrada;
@@ -64,22 +55,18 @@ public class MascotaPerdida {
 
     public void setUbicacionEncontrada(Ubicacion ubicacionEncontrada) { this.ubicacionEncontrada = ubicacionEncontrada; }
 
-    public void ocuparResidencia(Domicilio lugarDeTransito) {
-        this.setLugarDeTransito(lugarDeTransito);
-    }
-
     public List<String> getCaracteristicaMascotas() { return caracteristicaMascotas; }
 
     public void setCaracteristicaMascotas(List<String> caracteristicaMascotas) { this.caracteristicaMascotas = caracteristicaMascotas; }
 
 
-    // Constructor
-    public MascotaPerdida() {}
-
-
     // Metodos
     public boolean cumpleCaracteristicaHogar(String caracteristica) {
         return caracteristicaMascotas.stream().anyMatch(caracteristicaMascotas -> caracteristica.equals(caracteristica));
+    }
+
+    public void ocuparLugarDeTransito(Lugar lugarAOcupar) {
+        this.setLugarDeTransito(lugarAOcupar);
     }
 
     public void mostrarMascota() {

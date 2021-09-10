@@ -1,17 +1,20 @@
 package domain.business;
 
-import domain.business.publicaciones.BusquedaMascotaPerdida;
+import domain.business.organizaciones.HogarDeTransito;
+import domain.business.publicaciones.PublicacionMascotaPerdida;
 import domain.business.publicaciones.Pendiente;
 import domain.business.publicaciones.Publicacion;
 import domain.business.notificaciones.Notificacion;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Rescatista extends Persona{
     private boolean puedeAlojarMascota;
     private Domicilio domicilio;
+    private List<MascotaPerdida> mascotasAlojadas = new ArrayList<>();
 
     // Getters and Setters
     public boolean isPuedeAlojarMascota() {
@@ -30,35 +33,21 @@ public class Rescatista extends Persona{
         this.domicilio = domicilio;
     }
 
-    // Constructor
-    public Rescatista() { }
+    public List<MascotaPerdida> getMascotasAlojadas() { return mascotasAlojadas; }
 
-    public Rescatista(String nombre, String apellido, LocalDate fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, boolean puedeAlojarMascota, Domicilio domicilio) {
-        super(nombre, apellido, fechaDeNacimiento, tipoDocumento, numeroDocumento, telefono, email, formasDeNotificacion, contactos);
-        this.puedeAlojarMascota = puedeAlojarMascota;
-        this.domicilio = domicilio;
-    }
+    public void setMascotasAlojadas(List<MascotaPerdida> mascotasAlojadas) { this.mascotasAlojadas = mascotasAlojadas; }
 
 
     // Metodos
-    public void buscarHogarDeTransito(MascotaPerdida mascotaPerdida) {
-        if(this.isPuedeAlojarMascota()) {
-            //todo: aloja a la mascota en este domicilio
-            mascotaPerdida.setLugarDeTransito(this.getDomicilio());
-        }
-        else {
-            // Todo: buscar el Hogar de Transito mas cercano de la ubicación que encontro a la mascota
-        }
+    public void alojarMascota(MascotaPerdida mascotaPerdida) {
+        Lugar nuevoLugar = new Lugar();
+        mascotaPerdida.setLugarDeTransito(nuevoLugar.mapearLugar(this.getDomicilio()));
+        mascotasAlojadas.add(mascotaPerdida);
     }
 
-    public void crearPublicacionMascotaPerdida() {}
-
     public void reportarMascotaPerdida(MascotaPerdida mascotaPerdida) {
-        Publicacion publicacionCreada = new Publicacion();
-        publicacionCreada.setAutor(this);
-        publicacionCreada.setTipoPublicacion(new BusquedaMascotaPerdida());
-        publicacionCreada.setEstadoPublicacion(new Pendiente());
-        //publicacionCreada.getTipoPublicacion()
+        PublicacionMascotaPerdida publicacionCreada = new PublicacionMascotaPerdida();
+        publicacionCreada.crearPublicacion(new Pendiente(), this, mascotaPerdida);
     }
 
     public void mapearDatosDuenio(Persona persona) {

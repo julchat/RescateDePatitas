@@ -1,9 +1,7 @@
 package domain.business.notificaciones;
 import domain.business.Mascota;
 import domain.business.Persona;
-import domain.business.publicaciones.BusquedaMascotaIdeal;
-
-import java.io.IOException;
+import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public class NotificadorEmail extends Notificacion{
 
@@ -22,7 +20,7 @@ public class NotificadorEmail extends Notificacion{
     }
 
     @Override
-    public void notificarRecomendaciones(Persona destinatario, BusquedaMascotaIdeal publicacion, String ruta) {
+    public void notificarRecomendaciones(Persona destinatario, PublicacionParaAdoptar publicacion, String ruta) {
             mailSender.enviarEmail(destinatario.getEmail(), "Revisa estas recomendaciones para adoptar!", armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
     }
 }
