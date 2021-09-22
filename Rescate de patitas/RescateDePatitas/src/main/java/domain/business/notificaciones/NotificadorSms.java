@@ -5,7 +5,7 @@ import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public class NotificadorSms extends Notificacion{
     @Override
-    public int obtenerCodigoNotificacion() { return 2; }
+    public TipoNotificacion obtenerCodigoNotificacion() { return TipoNotificacion.SMS; }
 
     @Override
     public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta) {

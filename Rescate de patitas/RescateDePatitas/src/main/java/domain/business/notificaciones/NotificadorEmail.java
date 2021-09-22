@@ -4,10 +4,8 @@ import domain.business.Persona;
 import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public class NotificadorEmail extends Notificacion{
-
-
     @Override
-    public int obtenerCodigoNotificacion() { return 1; }
+    public TipoNotificacion obtenerCodigoNotificacion() { return TipoNotificacion.EMAIL; }
 
     @Override
     public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta){

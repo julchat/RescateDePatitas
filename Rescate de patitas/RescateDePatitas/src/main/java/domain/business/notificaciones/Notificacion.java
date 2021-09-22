@@ -4,8 +4,14 @@ import domain.business.Persona;
 import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public abstract class Notificacion {
-    public abstract int obtenerCodigoNotificacion();
+    private TipoNotificacion codigoNotificacion;
 
+// Getters and Setters
+    public TipoNotificacion obtenerCodigoNotificacion() { return codigoNotificacion; }
+
+    public void setTipoNotificacion(TipoNotificacion codigoNotificacion) { this.codigoNotificacion = codigoNotificacion; }
+
+// Metodos
     AdapterTwillio twillio = new AdapterTwillio();
     AdapterJavaMailApi mailSender = new AdapterJavaMailApi();
     public String armarMensajeMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaEncontrada, String ruta) {

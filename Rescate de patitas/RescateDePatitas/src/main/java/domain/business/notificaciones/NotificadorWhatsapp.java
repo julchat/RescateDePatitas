@@ -5,7 +5,7 @@ import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public class NotificadorWhatsapp extends Notificacion{
         @Override
-        public int obtenerCodigoNotificacion() { return 3; }
+        public TipoNotificacion obtenerCodigoNotificacion() { return TipoNotificacion.WHATSAPP; }
 
         @Override
 public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta) {

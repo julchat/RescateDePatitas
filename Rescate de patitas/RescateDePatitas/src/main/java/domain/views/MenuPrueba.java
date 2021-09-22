@@ -3,10 +3,7 @@ import domain.business.*;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
-import domain.business.notificaciones.Notificacion;
-import domain.business.notificaciones.NotificadorEmail;
-import domain.business.notificaciones.NotificadorSms;
-import domain.business.notificaciones.NotificadorWhatsapp;
+import domain.business.notificaciones.*;
 import domain.business.organizaciones.HogarDeTransito;
 import domain.business.organizaciones.Organizacion;
 import domain.business.organizaciones.apiHogares.APIhogares;
@@ -310,7 +307,7 @@ public class MenuPrueba {
 
             switch(opcionElegida) {
                 case 1:
-                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == 1)) {
+                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == TipoNotificacion.EMAIL)) {
                         System.out.println("No puede agregar un medio que ya está agregado.");
                     }
                     else {
@@ -320,7 +317,7 @@ public class MenuPrueba {
                     }
                     break;
                 case 2:
-                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == 2)) {
+                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == TipoNotificacion.SMS)) {
                         System.out.println("No puede agregar un medio que ya está agregado.");
                     }
                     else {
@@ -330,7 +327,7 @@ public class MenuPrueba {
                     }
                     break;
                 case 3:
-                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == 3)) {
+                    if(notificacionesElegidas.stream().anyMatch(notificacion -> notificacion.obtenerCodigoNotificacion() == TipoNotificacion.WHATSAPP)) {
                         System.out.println("No puede agregar un medio que ya está agregado.");
                     }
                     else {
