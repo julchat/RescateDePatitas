@@ -35,7 +35,7 @@ public class PublicacionMascotaEnAdopcion extends Publicacion{
 
     // Métodos
     public void crearPublicacion(EstadoPublicacion estadoPublicacion, Persona autor, Mascota mascotaElegida, List<Respuesta> respuestasOrganizacion) {
-        super.crearPublicacion(estadoPublicacion, autor);
+        super.crearPublicacion(estadoPublicacion);
         this.setAutor(autor);
         this.setMascotaElegida(mascotaElegida);
         this.setRespuestasOrganizacion(respuestasOrganizacion);

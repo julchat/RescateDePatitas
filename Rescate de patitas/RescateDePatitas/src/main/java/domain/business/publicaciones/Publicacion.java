@@ -15,9 +15,7 @@ public abstract class Publicacion {
         return estadoPublicacion;
     }
 
-    public void setEstadoPublicacion(EstadoPublicacion estadoPublicacion) {
-        this.estadoPublicacion = estadoPublicacion;
-    }
+    public void setEstadoPublicacion(EstadoPublicacion estadoPublicacion) { this.estadoPublicacion = estadoPublicacion; }
 
     public Persona getAutor() {
         return autor;
@@ -27,7 +25,9 @@ public abstract class Publicacion {
         this.autor = autor;
     }
 
-    public void crearPublicacion(EstadoPublicacion estadoPublicacion, Persona autor) {
+
+    // Metodos
+    public void crearPublicacion(EstadoPublicacion estadoPublicacion) {
         this.estadoPublicacion = estadoPublicacion;
         this.fecha = LocalDate.now();
     }

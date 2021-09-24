@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "Usuario")
 public class UserDB extends EntidadPersistente{
 
-    @Column(name = "Nombre Usuario")
+    @Column(name = "Nombre usuario")
     private String usuario;
 
     @Column(name = "Contraseña")
@@ -16,8 +16,8 @@ public class UserDB extends EntidadPersistente{
     @JoinColumn(name = "Rol")
     private RolDB rol;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "Persona ID")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "Persona")
     private PersonaDB persona;
 
 // Getters and Setters

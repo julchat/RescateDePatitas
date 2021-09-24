@@ -1,12 +1,11 @@
 package persistence.entities;
 
-import domain.business.Persona;
 import domain.business.SexoMascota;
 import domain.business.TipoAnimal;
-import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,13 +32,13 @@ public class MascotaDB extends EntidadPersistente {
     @Column(name = "Descripcion")
     private String descripcionMascota;
 
-    @OneToMany(mappedBy = "Mascota")
+    @OneToMany(cascade = CascadeType.PERSIST)
     @Column(name = "Fotos")
-    private List<Foto> fotos;
+    private List<Foto> fotos = new ArrayList<Foto>();
 
-    @OneToMany(mappedBy = "Mascota")
+    @OneToMany(cascade = CascadeType.PERSIST)
     @Column(name = "Caracteristicas")
-    private List<CaracteristicaMascota> caracteristicasMascota;
+    private List<CaracteristicaDB> caracteristicasMascota = new ArrayList<CaracteristicaDB>();
 
     @Column(name = "¿Esta perdida?")
     private boolean estaPerdida;
@@ -48,8 +47,53 @@ public class MascotaDB extends EntidadPersistente {
     @Column(name = "Disponible para adoptar")
     private boolean estaAdoptada;
 
-    @ManyToOne
-    @JoinColumn(name = "Encargado", referencedColumnName = "id")
+    @OneToOne
+    @JoinColumn(name = "Encargado")
     private PersonaDB encargado;
 
+
+// Getters and Setters
+    public String getNombreMascota() { return nombreMascota; }
+
+    public void setNombreMascota(String nombreMascota) { this.nombreMascota = nombreMascota; }
+
+    public TipoAnimal getTipoAnimal() { return tipoAnimal; }
+
+    public void setTipoAnimal(TipoAnimal tipoAnimal) { this.tipoAnimal = tipoAnimal; }
+
+    public String getApodoMascota() { return apodoMascota; }
+
+    public void setApodoMascota(String apodoMascota) { this.apodoMascota = apodoMascota; }
+
+    public int getEdadMascota() { return edadMascota; }
+
+    public void setEdadMascota(int edadMascota) { this.edadMascota = edadMascota; }
+
+    public SexoMascota getSexoMascota() { return sexoMascota; }
+
+    public void setSexoMascota(SexoMascota sexoMascota) { this.sexoMascota = sexoMascota; }
+
+    public String getDescripcionMascota() { return descripcionMascota; }
+
+    public void setDescripcionMascota(String descripcionMascota) { this.descripcionMascota = descripcionMascota; }
+
+    public List<Foto> getFotos() { return fotos; }
+
+    public void setFotos(List<Foto> fotos) { this.fotos = fotos; }
+
+    public List<CaracteristicaDB> getCaracteristicasMascota() { return caracteristicasMascota; }
+
+    public void setCaracteristicasMascota(List<CaracteristicaDB> caracteristicasMascota) { this.caracteristicasMascota = caracteristicasMascota; }
+
+    public boolean isEstaPerdida() { return estaPerdida; }
+
+    public void setEstaPerdida(boolean estaPerdida) { this.estaPerdida = estaPerdida; }
+
+    public boolean isEstaAdoptada() { return estaAdoptada; }
+
+    public void setEstaAdoptada(boolean estaAdoptada) { this.estaAdoptada = estaAdoptada; }
+
+    public PersonaDB getEncargado() { return encargado; }
+
+    public void setEncargado(PersonaDB encargado) { this.encargado = encargado; }
 }

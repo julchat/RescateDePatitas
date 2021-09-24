@@ -23,7 +23,7 @@ public class PublicacionMascotaPerdida extends Publicacion {
 
     // Metodos
     public void crearPublicacion(EstadoPublicacion estadoPublicacion, Rescatista autor, MascotaPerdida mascotaRescatada) {
-        super.crearPublicacion(estadoPublicacion, autor);
+        super.crearPublicacion(estadoPublicacion);
         this.setAutor(autor);
         this.setMascotaRescatada(mascotaRescatada);
         this.setLugarDeTransito(mascotaRescatada.getLugarDeTransito());

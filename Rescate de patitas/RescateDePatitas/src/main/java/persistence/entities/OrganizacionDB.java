@@ -1,10 +1,8 @@
 package persistence.entities;
 
 import domain.business.Pregunta;
-import domain.business.caracteristicas.Caracteristica;
 import domain.business.foto.DimensionEstandar;
 import domain.business.foto.Foto;
-import domain.business.organizaciones.HogarDeTransito;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,33 +19,33 @@ public class OrganizacionDB extends EntidadPersistente {
     @Column(name = "Fecha de Creacion", columnDefinition = "DATE")
     private LocalDate fechaDeCreacion;
 
-    @OneToMany(mappedBy = "Organizacion")
-    @Column(name = "Caracteristicas admitidas")
-    private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @Column(name = "Caracteristicas Admitidas")
+    private List<CaracteristicaDB> caracteristicasAdmitidas = new ArrayList<>();
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "Foto ID")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "Logo")
     private Foto logo;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "Dimension estandar")
+    @Column(name = "Dimension estandar")
+    @Convert(converter = DimensionEstandar.class)
     private DimensionEstandar dimensionEstandar;
 
-    @OneToMany(mappedBy = "Organizacion")
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Hogares")
-    private List<HogarDeTransito> hogares = new ArrayList<>();
+    private List<HogarDeTransitoDB> hogares = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Organizacion")
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Preguntas")
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Organizacion")
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Voluntarios")
-    private List<VoluntarioDB> voluntarios;
+    private List<VoluntarioDB> voluntarios = new ArrayList<VoluntarioDB>();
 
-    @OneToMany(mappedBy = "Organizacion")
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Administradores")
-    private List<AdminDB> administradores;
+    private List<AdminDB> administradores = new ArrayList<AdminDB>();
 
 // Getters and Setters
     public String getNombreOrganizacion() { return nombreOrganizacion; }
@@ -58,9 +56,9 @@ public class OrganizacionDB extends EntidadPersistente {
 
     public void setFechaDeCreacion(LocalDate fechaDeCreacion) { this.fechaDeCreacion = fechaDeCreacion; }
 
-    public List<Caracteristica> getCaracteristicasAdmitidas() { return caracteristicasAdmitidas; }
+    public List<CaracteristicaDB> getCaracteristicasAdmitidas() { return caracteristicasAdmitidas; }
 
-    public void setCaracteristicasAdmitidas(List<Caracteristica> caracteristicasAdmitidas) { this.caracteristicasAdmitidas = caracteristicasAdmitidas; }
+    public void setCaracteristicasAdmitidas(List<CaracteristicaDB> caracteristicasAdmitidas) { this.caracteristicasAdmitidas = caracteristicasAdmitidas; }
 
     public Foto getLogo() { return logo; }
 
@@ -70,9 +68,9 @@ public class OrganizacionDB extends EntidadPersistente {
 
     public void setDimensionEstandar(DimensionEstandar dimensionEstandar) { this.dimensionEstandar = dimensionEstandar; }
 
-    public List<HogarDeTransito> getHogares() { return hogares; }
+    public List<HogarDeTransitoDB> getHogares() { return hogares; }
 
-    public void setHogares(List<HogarDeTransito> hogares) { this.hogares = hogares; }
+    public void setHogares(List<HogarDeTransitoDB> hogares) { this.hogares = hogares; }
 
     public List<Pregunta> getPreguntasOrganizacion() { return preguntasOrganizacion; }
 

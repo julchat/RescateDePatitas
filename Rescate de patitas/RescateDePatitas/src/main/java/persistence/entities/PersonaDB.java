@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Persona")
-public class PersonaDB extends EntidadPersistente{
+public class PersonaDB extends EntidadPersistente {
 
     @Column(name = "Nombre")
     private String nombre;
@@ -17,7 +17,8 @@ public class PersonaDB extends EntidadPersistente{
     @Column(name = "Apellido")
     private String apellido;
 
-    @Column(name = "Fecha de Nacimiento", columnDefinition = "DATE")
+    @Column(name = "Fecha de Nacimiento")
+    @Convert(converter = LocalDate.class)
     private LocalDate fechaDeNacimiento;
 
     @Column(name = "Tipo Documento")
@@ -32,12 +33,12 @@ public class PersonaDB extends EntidadPersistente{
     @Column(name = "Email")
     private String email;
 
-    @OneToMany(mappedBy = "Persona", cascade = {CascadeType.ALL})
-    @Column(name = "Notificaciones")
-    private List<NotificacionDB> formasDeNotificacion;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "Notificaciones")
+    private List<NotificacionDB> formasDeNotificacion = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Persona", cascade = {CascadeType.ALL})
-    @Column(name = "Contactos")
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "Contactos")
     private List<ContactoDB> contactos = new ArrayList<>();
 
     @Column(name = "Suscripcion")

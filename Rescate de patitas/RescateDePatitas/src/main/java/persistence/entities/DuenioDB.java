@@ -1,19 +1,20 @@
 package persistence.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Duenio")
-public class DuenioDB extends PersonaDB{
+public class DuenioDB extends PersonaDB {
 
     @OneToOne
-    @Column(name = "Domicilio")
+    @JoinColumn(name = "Domicilio")
     private DomicilioDB domicilio;
 
-    @OneToMany(mappedBy = "Duenio", cascade = {CascadeType.ALL})
-    @Column(name = "Mascotas")
-    private List<MascotaDB> mascotas;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "Mascotas")
+    private List<MascotaDB> mascotas = new ArrayList<MascotaDB>();
 
 // Getters and Setters
     public DomicilioDB getDomicilio() { return domicilio; }

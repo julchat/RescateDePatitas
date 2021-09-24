@@ -19,13 +19,9 @@ public class ContactoDB extends EntidadPersistente{
     @Column(name = "Email")
     private String emailContacto;
 
-    @OneToMany(mappedBy = "Contacto", cascade = {CascadeType.ALL})
-    @Column(name = "Notificaciones")
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "Notificaciones")
     private List<NotificacionDB> formasDeNotificacionContacto;
-
-    @ManyToOne
-    @JoinColumn(name = "Persona_ID", referencedColumnName = "id")
-    private PersonaDB personaDB;
 
 // Getters and Setters
     public String getNombreContacto() { return nombreContacto; }

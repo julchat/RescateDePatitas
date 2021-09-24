@@ -7,11 +7,12 @@ import javax.persistence.*;
 @Entity
 public class NotificacionDB extends EntidadPersistente{
 
-    @ManyToOne
-    @JoinColumn(name = "Tipo de Notifcacion", referencedColumnName = "id")
     @Enumerated(EnumType.STRING)
+    @Column(name = "Tipo de Notificación")
     private TipoNotificacion tipoDeNotificacion;
 
 // Getters and Setters
     public TipoNotificacion getTipoDeNotificacion() { return tipoDeNotificacion; }
+
+    public void setTipoDeNotificacion(TipoNotificacion tipoDeNotificacion) { this.tipoDeNotificacion = tipoDeNotificacion; }
 }
