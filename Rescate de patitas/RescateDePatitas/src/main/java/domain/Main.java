@@ -5,6 +5,7 @@ import domain.business.organizaciones.HogarDeTransito;
 import domain.views.MenuPrueba;
 import org.junit.Test;
 
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,6 +15,8 @@ public class Main {
     private static Sistema miSistema = Sistema.getInstance();
 
     public static void main(String[] args) throws IOException {
+      //  PerThreadEntityManagers.getEntityManager();
+        // PerThreadEntityManagers.closeEntityManager();
         //menuPrueba.menuPrincipal();
 
         HogarDeTransito hogarDeTransito = new HogarDeTransito();

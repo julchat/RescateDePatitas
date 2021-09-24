@@ -5,15 +5,16 @@
     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-<persistence-unit name="rescateDePatitasBD" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+<persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>domain.business.Mascota</class>
     <properties>
         <property name="hibernate.archive.autodetection" value="class"/>
 
         <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-        <property name="hibernate.connection.url" value="jdbc:mysql://localhost/mascotas" />
+        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/RescateDePatitas" />
         <property name="hibernate.connection.username" value="root" />
-        <property name="hibernate.connection.password" value="123456" />
+        <property name="hibernate.connection.password" value="root" />
 
         <property name="hibernate.show_sql" value="true" />
         <!-- Enable the logging of all the generated SQL statements to the console -->
@@ -24,7 +25,7 @@
         <property name="use_sql_comments" value="true" />
         <!-- Hibernate will put comments inside all generated SQL statements to hint what’s the generated SQL trying to do -->
 
-        <property name="hibernate.hbm2ddl.auto" value="update" />
+        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         <!--
             - validate: validate the schema, makes no changes to the database.
             - update: update the schema.
