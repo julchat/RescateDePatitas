@@ -688,6 +688,8 @@ public class MenuPrueba {
         miSistema.agregarMascotaPerdida(mascotaPerdida);
     }
 
+    // SI TIENE CODIGO QR DIRECTAMENTE BUSCA AL DUEÑO MEDIANTE LA CHAPITA Y NOTIFICA AL DUEÑO
+
     private Rescatista agregarDatosRescatista(Persona persona) {
         Rescatista nuevoRescatista = new Rescatista();
         Scanner entrada = new Scanner(System.in);

@@ -32,10 +32,6 @@ public class OrganizacionDB extends EntidadPersistente {
     private DimensionEstandar dimensionEstandar;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Hogares")
-    private List<HogarDeTransitoDB> hogares = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Preguntas")
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
 
@@ -67,10 +63,6 @@ public class OrganizacionDB extends EntidadPersistente {
     public DimensionEstandar getDimensionEstandar() { return dimensionEstandar; }
 
     public void setDimensionEstandar(DimensionEstandar dimensionEstandar) { this.dimensionEstandar = dimensionEstandar; }
-
-    public List<HogarDeTransitoDB> getHogares() { return hogares; }
-
-    public void setHogares(List<HogarDeTransitoDB> hogares) { this.hogares = hogares; }
 
     public List<Pregunta> getPreguntasOrganizacion() { return preguntasOrganizacion; }
 

@@ -201,4 +201,8 @@ public class HogarDeTransito{
         distance = Math.hypot(x, y);
         return distance;
     }
+
+    public boolean masCercanoQue(HogarDeTransito otroHogar, Ubicacion ubicacionMascota) {
+        return this.distancia(this.getLatitud(), this.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) >= otroHogar.distancia(otroHogar.getLatitud(), otroHogar.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud());
+    }
 }

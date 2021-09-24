@@ -17,7 +17,6 @@ public class Organizacion {
     private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
     private Foto logo;
     private DimensionEstandar dimensionEstandar;
-    private List<HogarDeTransito> hogares = new ArrayList<>();
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
 
     // Getters and Setters
@@ -70,19 +69,6 @@ public class Organizacion {
     public void setDimensionEstandar(DimensionEstandar dimensionEstandar) {
         this.dimensionEstandar = dimensionEstandar;
     }
-
-    public List<HogarDeTransito> getHogares() {
-        return hogares;
-    }
-
-    public void setHogares(List<HogarDeTransito> hogares) {
-        this.hogares = hogares;
-    }
-
-    public void agregarHogarDeTransito(HogarDeTransito hogar) {
-        this.hogares.add(hogar);
-    }
-
 
     // Constructor
     public Organizacion() {}
