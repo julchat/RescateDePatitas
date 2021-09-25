@@ -2,8 +2,6 @@ package domain;
 
 import domain.business.*;
 import domain.business.organizaciones.HogarDeTransito;
-import domain.views.MenuPrueba;
-import org.junit.Test;
 import persistence.database.EntityManagerHelper;
 import persistence.entities.HogarDeTransitoDB;
 
@@ -44,7 +42,6 @@ public class Main {
         HogarDeTransito hogarMasCercano = miSistema.buscarHogarMasCercano(radio, mascotaEncontrada);
 
         System.out.println("Distancia final: " + hogarDeTransito.distancia(nuevaUbicacion.getLatitud(), nuevaUbicacion.getLongitud(), hogarMasCercano.getLatitud(), hogarMasCercano.getLongitud()));
-
 
         HogarDeTransitoDB unHogar = new HogarDeTransitoDB();
         unHogar.setAceptaGatos(hogarMasCercano.aceptaGatos());

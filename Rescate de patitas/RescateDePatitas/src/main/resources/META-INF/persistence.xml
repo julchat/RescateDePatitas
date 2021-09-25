@@ -5,8 +5,9 @@
     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-<persistence-unit name="rescateDePatitasBD" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+<persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>domain.business.Mascota</class>
     <properties>
         <property name="hibernate.archive.autodetection" value="class"/>
 

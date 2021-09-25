@@ -120,11 +120,9 @@ public class Sistema {
         List<HogarDeTransito> hogaresCercanos = this.getHogaresDeTransito().stream().filter(hogarDeTransito -> hogarDeTransito.distancia(hogarDeTransito.getLatitud(), hogarDeTransito.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) <= radio*1000).collect(Collectors.toList());
         HogarDeTransito hogarAdecuado = null;
 
-        for(HogarDeTransito hogarDeTransito : hogaresCercanos) {
-            if(hogarDeTransito.permiteMascotaPerdida(mascotaEncontrada)) {
-                hogarAdecuado = hogarDeTransito;
-            }
-        }
+        OrdenarPorCercania ordenador = new OrdenarPorCercania(ubicacionMascota);
+        List<HogarDeTransito> hogaresFiltrados = hogaresCercanos.stream().filter(hogarDeTransito -> hogarDeTransito.permiteMascotaPerdida(mascotaEncontrada)).collect(Collectors.toList());
+        hogarAdecuado = hogaresFiltrados.stream().sorted((o1, o2) -> (ordenador.compare(o1,o2))).collect(Collectors.toList()).get(0);
 
         if(hogarAdecuado != null) {
             System.out.println("NOMBRE: " + hogarAdecuado.getNombreOrganizacion());
