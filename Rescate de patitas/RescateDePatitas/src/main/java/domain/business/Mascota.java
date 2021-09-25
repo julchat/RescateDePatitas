@@ -9,6 +9,30 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Mascota {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public boolean isEstaPerdida() {
+        return estaPerdida;
+    }
+
+    public void setEstaPerdida(boolean estaPerdida) {
+        this.estaPerdida = estaPerdida;
+    }
+
+    public boolean isEstaAdoptada() {
+        return estaAdoptada;
+    }
+
+    public void setEstaAdoptada(boolean estaAdoptada) {
+        this.estaAdoptada = estaAdoptada;
+    }
+
     @Id
     @GeneratedValue
     long id;
@@ -17,6 +41,7 @@ public class Mascota {
     private TipoAnimal tipoAnimal;
     private String apodoMascota;
     private int edadMascota;
+    @Enumerated(EnumType.STRING)
     private SexoMascota sexoMascota;                   // M o H, o un Enum con MACHO, HEMBRA? // Enum, para evitar problemas como "no me toma la m porque esta en minuscula"
     private String descripcionMascota;
     @Transient

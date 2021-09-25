@@ -3,9 +3,13 @@ package domain;
 import domain.business.*;
 import domain.business.organizaciones.HogarDeTransito;
 import domain.views.MenuPrueba;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import persistence.database.EntityManagerHelper;
+
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,8 +19,9 @@ public class Main {
     private static Sistema miSistema = Sistema.getInstance();
 
     public static void main(String[] args) throws IOException {
-      //  PerThreadEntityManagers.getEntityManager();
-        // PerThreadEntityManagers.closeEntityManager();
+        BasicConfigurator.configure(); // configura el logger
+        EntityManagerHelper.getEntityManager(); //Esta y la de abajo es lo del ORM
+        EntityManagerHelper.closeEntityManager();
         //menuPrueba.menuPrincipal();
 
         HogarDeTransito hogarDeTransito = new HogarDeTransito();
