@@ -8,6 +8,7 @@ import java.util.List;
 public class PublicacionParaAdoptar extends Publicacion{
     private List<String> comodidades;
     private List<String> preferencias;
+    //private Persona autor;
 
 
     // Getters and Setters
@@ -33,8 +34,8 @@ public class PublicacionParaAdoptar extends Publicacion{
 
 
     // Métodos
-    public void crearPublicacion(EstadoPublicacion estadoPublicacion, Persona autor, List<String> comodidades, List<String> preferencias) {
-        super.crearPublicacion(estadoPublicacion);
+    public void crearPublicacion(Persona autor, List<String> comodidades, List<String> preferencias) {
+        super.crearPublicacion(new Pendiente());
         this.setAutor(autor);
         this.setComodidades(comodidades);
         this.setPreferencias(preferencias);

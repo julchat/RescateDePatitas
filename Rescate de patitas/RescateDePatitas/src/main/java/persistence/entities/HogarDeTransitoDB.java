@@ -5,49 +5,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Hogar de Tránsito")
+@Table(name = "hogar_de_transito")
 public class HogarDeTransitoDB extends EntidadPersistente {
 
-    @Column(name = "Nombre de la Organizacion")
+    @Column(name = "nombre_de_organizacion")
     private String nombreOrganizacion;
 
-    @Column(name = "Direccion")
+    @Column(name = "direccion")
     private String direccion;
 
-    @Column(name = "Latitud")
+    @Column(name = "latitud")
     private float latitud;
 
-    @Column(name = "Longitud")
+    @Column(name = "longitud")
     private float longitud;
 
-    @Column(name = "Telefono")
+    @Column(name = "telefono")
     private String telefono;
 
-    @Column(name = "¿Acepta Perros?")
+    @Column(name = "acepta_perros")
     private boolean aceptaPerros;
 
-    @Column(name = "¿Acepta Gatos?")
+    @Column(name = "acepta_gatos")
     private boolean aceptaGatos;
 
-    @Column(name = "¿Tiene Patio?")
+    @Column(name = "tiene_patio")
     private boolean poseePatio;
 
-    @Column(name = "Capacidad")
+    @Column(name = "capacidad")
     private int capacidad;
 
-    @Column(name = "Lugares disponibles")
+    @Column(name = "lugares_disponibles")
     private int lugaresDisponibles;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Caracteristicas Admitidas")
+    @JoinColumn(name = "caracteristicas_admitidas")
     private List<CaracteristicaDB> caracteristicasAdmitidas = new ArrayList<CaracteristicaDB>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Mascotas Actuales")
+    @JoinColumn(name = "mascotas_actuales")
     private List<MascotaPerdidaDB> mascotasActuales = new ArrayList<MascotaPerdidaDB>();
 
 
-// Getters and Setters
+    // Getters and Setters
     public String getNombreOrganizacion() { return nombreOrganizacion; }
 
     public void setNombreOrganizacion(String nombreOrganizacion) { this.nombreOrganizacion = nombreOrganizacion; }

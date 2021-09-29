@@ -1,10 +1,12 @@
 package persistence.entities;
 
+
 import domain.business.Ubicacion;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Domicilio")
@@ -31,6 +33,6 @@ public class DomicilioDB extends EntidadPersistente {
     @Column(name = "Piso")
     private int piso;
 
-    @Column(name = "Ubicacion")
+    @Transient
     private Ubicacion ubicacion;
 }

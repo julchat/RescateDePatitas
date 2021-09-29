@@ -105,7 +105,7 @@ public class MenuPrueba {
                 case 7: // Registrar una Mascota
                     Duenio nuevoDuenio = this.generarFormularioUsuario(entrada);
                     Mascota nuevaMascota = this.generarFormularioNuevaMascota(entrada);
-                    nuevaMascota.setEncargado(nuevoDuenio);
+                    //nuevaMascota.setEncargado(nuevoDuenio);
                     nuevoDuenio.registrarMascota(nuevaMascota);
                     System.out.println("Ingrese los datos de su Domicilio: ");
                     nuevoDuenio.cambiarDomicilio(this.datosDomicilio(entrada));
@@ -438,7 +438,7 @@ public class MenuPrueba {
                 case 5:
                     if(usuario.getRol().puedoRegistrarMascota()) {
                         Mascota mascota = this.generarFormularioNuevaMascota(entrada);
-                        mascota.setEncargado(usuario.getPersona());
+                        //mascota.setEncargado(usuario.getPersona());
                         ((Duenio) usuario.getPersona()).registrarMascota(mascota);
 
                         if(((Duenio) usuario.getPersona()).getDomicilio() == null) {
@@ -914,7 +914,7 @@ public class MenuPrueba {
                 case 5:
                     if(usuario.getRol().puedoRegistrarMascota()) {
                         Mascota mascota = this.generarFormularioNuevaMascota(entrada);
-                        mascota.setEncargado(usuario.getPersona());
+                        //mascota.setEncargado(usuario.getPersona());
                         ((Duenio) usuario.getPersona()).registrarMascota(mascota);
 
                         if(((Duenio) usuario.getPersona()).getDomicilio() == null) {
@@ -1118,7 +1118,7 @@ public class MenuPrueba {
                 case 5:
                     if(usuario.getRol().puedoRegistrarMascota()) {
                         Mascota mascota = this.generarFormularioNuevaMascota(entrada);
-                        mascota.setEncargado(usuario.getPersona());
+                        //mascota.setEncargado(usuario.getPersona());
                         ((Duenio) usuario.getPersona()).registrarMascota(mascota);
 
                         if(((Duenio) usuario.getPersona()).getDomicilio() == null) {

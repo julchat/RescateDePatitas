@@ -9,6 +9,9 @@ import java.util.List;
 public class Duenio extends Persona {
     private Domicilio domicilio;
     private List<Mascota> mascotas = new ArrayList<>();
+
+    // Otra opcion, que el Dueño este ligado a las Chapitas directamente
+    private List<Chapa> mascotasACargo = new ArrayList<>();
     //TODO consultar si un dueño tiene que tener una organizacion
     private Organizacion organizacion;
 
@@ -81,13 +84,13 @@ public class Duenio extends Persona {
         this.setOrganizacion(nuevaOrganizacion);
     }*/
 
-    public void mascotaEncontrada(Mascota mascotaEncontrada) {
+    /*public void mascotaEncontrada(Mascota mascotaEncontrada) {
         if(mascotas.contains(mascotaEncontrada)) {
             mascotaEncontrada.serEncontrada();
         }
         else {
             System.out.println("No es la mascota que esta buscando este dueño.");
         }
-    }
+    }*/
 
 }

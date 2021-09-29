@@ -1,10 +1,10 @@
 package domain.security;
 
 public interface Rol {
-    boolean puedoRegistrarMascota();
-    boolean puedoDarEnAdopcion();
-    boolean puedoReportarMascotaPerdida();
-    boolean puedoAprobarPublicaciones();
-    boolean puedoCrearAdministradores();
-    boolean puedoCambiarEstandares();
+    abstract boolean puedoRegistrarMascota();
+    abstract boolean puedoDarEnAdopcion();
+    abstract boolean puedoReportarMascotaPerdida();
+    abstract boolean puedoAprobarPublicaciones();
+    abstract boolean puedoCrearAdministradores();
+    abstract boolean puedoCambiarEstandares();
 }

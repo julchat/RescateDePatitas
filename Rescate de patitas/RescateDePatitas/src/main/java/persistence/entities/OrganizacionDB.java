@@ -10,40 +10,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Organizacion")
+@Table(name = "organizacion")
 public class OrganizacionDB extends EntidadPersistente {
 
-    @Column(name = "Nombre")
+    @Column(name = "nombre_organizacion")
     private String nombreOrganizacion;
 
-    @Column(name = "Fecha de Creacion", columnDefinition = "DATE")
+    @Column(name = "fecha_de_creacion", columnDefinition = "DATE")
     private LocalDate fechaDeCreacion;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name = "Caracteristicas Admitidas")
+    @Column(name = "caracteristicas admitidas")
     private List<CaracteristicaDB> caracteristicasAdmitidas = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Logo")
+    //@OneToOne(cascade = CascadeType.PERSIST)
+    //@JoinColumn(name = "Logo")
+    @Transient
     private Foto logo;
 
-    @Column(name = "Dimension estandar")
-    @Convert(converter = DimensionEstandar.class)
+    //@Column(name = "Dimension estandar")
+    //@Convert(converter = DimensionEstandar.class)
+    @Transient
     private DimensionEstandar dimensionEstandar;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Preguntas")
+    @JoinColumn(name = "hogares")
+    private List<HogarDeTransitoDB> hogares = new ArrayList<>();
+
+    //@OneToMany(cascade = CascadeType.PERSIST)
+    //@JoinColumn(name = "Preguntas")
+    @Transient
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Voluntarios")
-    private List<VoluntarioDB> voluntarios = new ArrayList<VoluntarioDB>();
+    @JoinColumn(name = "voluntarios")
+    private List<PersonaDB> voluntarios = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Administradores")
-    private List<AdminDB> administradores = new ArrayList<AdminDB>();
+    @JoinColumn(name = "administradores")
+    private List<PersonaDB> administradores = new ArrayList<>();
 
-// Getters and Setters
+    // Getters and Setters
     public String getNombreOrganizacion() { return nombreOrganizacion; }
 
     public void setNombreOrganizacion(String nombreOrganizacion) { this.nombreOrganizacion = nombreOrganizacion; }
@@ -64,15 +71,12 @@ public class OrganizacionDB extends EntidadPersistente {
 
     public void setDimensionEstandar(DimensionEstandar dimensionEstandar) { this.dimensionEstandar = dimensionEstandar; }
 
+    public List<HogarDeTransitoDB> getHogares() { return hogares; }
+
+    public void setHogares(List<HogarDeTransitoDB> hogares) { this.hogares = hogares; }
+
     public List<Pregunta> getPreguntasOrganizacion() { return preguntasOrganizacion; }
 
     public void setPreguntasOrganizacion(List<Pregunta> preguntasOrganizacion) { this.preguntasOrganizacion = preguntasOrganizacion; }
 
-    public List<VoluntarioDB> getVoluntarios() { return voluntarios; }
-
-    public void setVoluntarios(List<VoluntarioDB> voluntarios) { this.voluntarios = voluntarios; }
-
-    public List<AdminDB> getAdministradores() { return administradores; }
-
-    public void setAdministradores(List<AdminDB> administradores) { this.administradores = administradores; }
 }

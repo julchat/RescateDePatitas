@@ -1,17 +1,15 @@
 package persistence.entities;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class EntidadPersistente {
+public class EntidadPersistente {
 
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
+    //@GeneratedValue
     private int id;
 
     public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }

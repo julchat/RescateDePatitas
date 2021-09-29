@@ -4,12 +4,8 @@ import domain.business.Persona;
 import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public abstract class Notificacion {
-    private TipoNotificacion codigoNotificacion;
-
 // Getters and Setters
-    public TipoNotificacion obtenerCodigoNotificacion() { return codigoNotificacion; }
-
-    public void setTipoNotificacion(TipoNotificacion codigoNotificacion) { this.codigoNotificacion = codigoNotificacion; }
+    public abstract TipoNotificacion obtenerCodigoNotificacion();
 
 // Metodos
     AdapterTwillio twillio = new AdapterTwillio();

@@ -2,32 +2,18 @@ package domain.business;
 
 import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
-import domain.business.organizaciones.Organizacion;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-@Entity
+
 public class Mascota {
-    @Id
-    @GeneratedValue
-    long id;
     private String nombreMascota;
-    @Enumerated(EnumType.STRING)
     private TipoAnimal tipoAnimal;
     private String apodoMascota;
     private int edadMascota;
     private SexoMascota sexoMascota;                   // M o H, o un Enum con MACHO, HEMBRA? // Enum, para evitar problemas como "no me toma la m porque esta en minuscula"
     private String descripcionMascota;
-    @Transient
     private List<Foto> fotos;
-    @Transient
     private List<CaracteristicaMascota> caracteristicasMascota;
-    private boolean estaPerdida;
-    private boolean estaAdoptada;
-    @Transient
-    private Persona encargado;
-
 
     // Constructor
     public Mascota() {}
@@ -40,9 +26,6 @@ public class Mascota {
         this.descripcionMascota = descripcionMascota;
         this.fotos = fotos;
         this.caracteristicasMascota = caracteristicasMascota;
-        this.estaAdoptada = adoptada;
-        this.estaPerdida = perdida;
-        this.encargado = encargado;
     }
 
     // Getters and Setters
@@ -120,22 +103,6 @@ public class Mascota {
     }
 
     public void agregarCaracteristica(CaracteristicaMascota caracteristica) { this.caracteristicasMascota.add(caracteristica); }
-
-    public void serEncontrada() {
-        this.estaPerdida = false;
-    }
-
-    public void serAdoptada() {
-        this.estaAdoptada = true;
-    }
-
-    public Persona getEncargado() {
-        return encargado;
-    }
-
-    public void setEncargado(Persona encargado) {
-        this.encargado = encargado;
-    }
 
 
     // Metodos

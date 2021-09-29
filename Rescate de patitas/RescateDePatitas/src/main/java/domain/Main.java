@@ -1,21 +1,29 @@
 package domain;
 
 import domain.business.*;
-import domain.business.organizaciones.HogarDeTransito;
-import persistence.database.EntityManagerHelper;
-import persistence.entities.HogarDeTransitoDB;
+
+import persistence.database.BDUtils;
+import org.apache.log4j.BasicConfigurator;
+import domain.views.MenuPrueba;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
 
     private static Sistema miSistema = Sistema.getInstance();
 
+    private static MenuPrueba menuPrueba = new MenuPrueba();
+
     public static void main(String[] args) throws IOException {
-        //menuPrueba.menuPrincipal();
+
+        //BasicConfigurator.configure(); // configura el logger
+        EntityManager em = BDUtils.getEntityManager();
+        //BDUtils.comenzarTransaccion(em);
+
+        menuPrueba.menuPrincipal();
+
+        /*
 
         HogarDeTransito hogarDeTransito = new HogarDeTransito();
         Ubicacion nuevaUbicacion = new Ubicacion();
@@ -34,7 +42,7 @@ public class Main {
         mascotaEncontrada.setDescripcion("Linda mascota");
         mascotaEncontrada.setTipoAnimal(TipoAnimal.PERRO);
         mascotaEncontrada.setTamanio(Tamanio.GRANDE);
-        mascotaEncontrada.setCarrouselFotos(null);
+        mascotaEncontrada.setCarrouselFotos(new ArrayList<>());
 
         System.out.print("INGRESE UN RADIO DE BUSQUEDA: ");
         int radio = entrada.nextInt();
@@ -42,8 +50,8 @@ public class Main {
         HogarDeTransito hogarMasCercano = miSistema.buscarHogarMasCercano(radio, mascotaEncontrada);
 
         System.out.println("Distancia final: " + hogarDeTransito.distancia(nuevaUbicacion.getLatitud(), nuevaUbicacion.getLongitud(), hogarMasCercano.getLatitud(), hogarMasCercano.getLongitud()));
-
-        HogarDeTransitoDB unHogar = new HogarDeTransitoDB();
+*/
+       /* HogarDeTransitoDB unHogar = new HogarDeTransitoDB();
         unHogar.setAceptaGatos(hogarMasCercano.aceptaGatos());
         unHogar.setAceptaPerros(hogarMasCercano.aceptaPerros());
         unHogar.setCapacidad(hogarMasCercano.getCapacidad());
@@ -55,17 +63,9 @@ public class Main {
         unHogar.setTelefono(hogarMasCercano.getTelefono());
         unHogar.setPoseePatio(hogarMasCercano.poseePatio());
         unHogar.setCaracteristicasAdmitidas(new ArrayList<>());
-        unHogar.setMascotasActuales(new ArrayList<>());
-        agregarObjeto(unHogar);
-
+        unHogar.setMascotasActuales(new ArrayList<>());*/
     }
 
-    public static void agregarObjeto(Object unObjeto) {
-        EntityManager em = EntityManagerHelper.getEntityManager();
-        EntityManagerHelper.beginTransaction();
-        em.persist(unObjeto);
-        EntityManagerHelper.commit();
-    }
 }
 
 /*

@@ -1,5 +1,6 @@
 package persistence.entities;
 
+
 import domain.business.Tamanio;
 import domain.business.TipoAnimal;
 import domain.business.Ubicacion;
@@ -10,38 +11,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Mascota Perdida")
+@Table(name = "mascota_perdida")
 public class MascotaPerdidaDB extends EntidadPersistente {
 
-    @Column(name = "Descripcion")
+    @Column(name = "descripcion")
     private String descripcion;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Tipo de Animal")
+    @Column(name = "tipo_animal")
     private TipoAnimal tipoAnimal;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Tamaño de Animal")
+    @Column(name = "tamanio")
     private Tamanio tamanio;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Lugar de Tránsito")
+    @JoinColumn(name = "lugar_de_transito")
     private LugarDB lugarDeTransito;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Caracteristicas de la Mascota")
-    private List<CaracteristicaDB> caracteristicaMascotas = new ArrayList<CaracteristicaDB>();
+    @JoinColumn(name = "caracteristicas_mascotas_perdida")
+    private List<CaracteristicaDB> caracteristicaMascotasPerdida = new ArrayList<>();
 
-    @Column(name = "Ubicacion encontrada")
-    @Convert(converter = Ubicacion.class)
+    //@Column(name = "Ubicacion encontrada")
+    //@Convert(converter = Ubicacion.class)
+    @Transient
     private Ubicacion ubicacionEncontrada;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name = "Carrousel de Fotos")
+    @Transient
     private List<Foto> carrouselFotos = new ArrayList<Foto>();
 
 
-// Getters and Setters
+    // Getters and Setters
     public String getDescripcion() { return descripcion; }
 
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
@@ -58,9 +59,9 @@ public class MascotaPerdidaDB extends EntidadPersistente {
 
     public void setLugarDeTransito(LugarDB lugarDeTransito) { this.lugarDeTransito = lugarDeTransito; }
 
-    public List<CaracteristicaDB> getCaracteristicaMascotas() { return caracteristicaMascotas; }
+    public List<CaracteristicaDB> getCaracteristicaMascotas() { return caracteristicaMascotasPerdida; }
 
-    public void setCaracteristicaMascotas(List<CaracteristicaDB> caracteristicaMascotas) { this.caracteristicaMascotas = caracteristicaMascotas; }
+    public void setCaracteristicaMascotas(List<CaracteristicaDB> caracteristicaMascotas) { this.caracteristicaMascotasPerdida = caracteristicaMascotas; }
 
     public Ubicacion getUbicacionEncontrada() { return ubicacionEncontrada; }
 

@@ -47,7 +47,7 @@ public class Rescatista extends Persona{
 
     public void reportarMascotaPerdida(MascotaPerdida mascotaPerdida) {
         PublicacionMascotaPerdida publicacionCreada = new PublicacionMascotaPerdida();
-        publicacionCreada.crearPublicacion(new Pendiente(), this, mascotaPerdida);
+        publicacionCreada.crearPublicacion(this, mascotaPerdida);
     }
 
     public void mapearDatosDuenio(Persona persona) {

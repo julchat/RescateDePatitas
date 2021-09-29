@@ -1,31 +1,32 @@
 package persistence.entities;
 
-import domain.business.publicaciones.EstadoPublicacion;
+import domain.business.publicaciones.Estados;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Publicaciones")
+@Table(name = "publicacion")
 public class PublicacionDB extends EntidadPersistente {
 
-    @Column(name = "Estado Publicacion")
-    @Convert(converter = EstadoPublicacion.class)
-    private EstadoPublicacion estadoPublicacion;
+    @Column(name = "estado_publicacion")
+    @Enumerated(EnumType.STRING)
+    private Estados estadoPublicacion;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Autor")
+    @JoinColumn(name = "autor")
     private PersonaDB autor;
 
-    @Column(name = "Fecha de Publicacion")
-    @Convert(converter = LocalDate.class)
+    //@Column(name = "Fecha de Publicacion")
+    //@Convert(converter = LocalDate.class)
+    @Transient
     private LocalDate fecha;
 
 
-// Getters and Setters
-    public EstadoPublicacion getEstadoPublicacion() { return estadoPublicacion; }
+    // Getters and Setters
+    public Estados getEstadoPublicacion() { return estadoPublicacion; }
 
-    public void setEstadoPublicacion(EstadoPublicacion estadoPublicacion) { this.estadoPublicacion = estadoPublicacion; }
+    public void setEstadoPublicacion(Estados estadoPublicacion) { this.estadoPublicacion = estadoPublicacion; }
 
     public PersonaDB getAutor() { return autor; }
 

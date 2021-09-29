@@ -9,50 +9,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Mascota")
+@Table(name = "mascota")
 public class MascotaDB extends EntidadPersistente {
 
-    @Column(name = "Nombre")
+    @Column(name = "nombre")
     private String nombreMascota;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Tipo Animal")
+    @Column(name = "tipo_animal")
     private TipoAnimal tipoAnimal;
 
-    @Column(name = "Apodo")
+    @Column(name = "apodo")
     private String apodoMascota;
 
-    @Column(name = "Edad")
+    @Column(name = "edad")
     private int edadMascota;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Sexo Animal")
+    @Column(name = "sexo")
     private SexoMascota sexoMascota;
 
-    @Column(name = "Descripcion")
+    @Column(name = "descripcion")
     private String descripcionMascota;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name = "Fotos")
+    //@OneToMany(cascade = CascadeType.PERSIST)
+    //@Column(name = "Fotos")
+    @Transient
     private List<Foto> fotos = new ArrayList<Foto>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name = "Caracteristicas")
-    private List<CaracteristicaDB> caracteristicasMascota = new ArrayList<CaracteristicaDB>();
-
-    @Column(name = "¿Esta perdida?")
-    private boolean estaPerdida;
-
-    // TODO: duda en esta, si es estaAdoptada o estaDisponibleParaAdoptar
-    @Column(name = "Disponible para adoptar")
-    private boolean estaAdoptada;
-
-    @OneToOne
-    @JoinColumn(name = "Encargado")
-    private PersonaDB encargado;
+    @JoinColumn(name = "caracteristicas_mascotas")
+    private List<CaracteristicaDB> caracteristicasMascota = new ArrayList<>();
 
 
-// Getters and Setters
+    // Getters and Setters
     public String getNombreMascota() { return nombreMascota; }
 
     public void setNombreMascota(String nombreMascota) { this.nombreMascota = nombreMascota; }
@@ -84,16 +74,4 @@ public class MascotaDB extends EntidadPersistente {
     public List<CaracteristicaDB> getCaracteristicasMascota() { return caracteristicasMascota; }
 
     public void setCaracteristicasMascota(List<CaracteristicaDB> caracteristicasMascota) { this.caracteristicasMascota = caracteristicasMascota; }
-
-    public boolean isEstaPerdida() { return estaPerdida; }
-
-    public void setEstaPerdida(boolean estaPerdida) { this.estaPerdida = estaPerdida; }
-
-    public boolean isEstaAdoptada() { return estaAdoptada; }
-
-    public void setEstaAdoptada(boolean estaAdoptada) { this.estaAdoptada = estaAdoptada; }
-
-    public PersonaDB getEncargado() { return encargado; }
-
-    public void setEncargado(PersonaDB encargado) { this.encargado = encargado; }
 }

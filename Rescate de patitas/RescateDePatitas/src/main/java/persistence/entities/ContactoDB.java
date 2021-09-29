@@ -4,24 +4,18 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Contacto")
+@Table(name = "contacto")
 public class ContactoDB extends EntidadPersistente{
 
-    @Column(name = "Nombre")
     private String nombreContacto;
-
-    @Column(name = "Apellido")
     private String apellidoContacto;
-
-    @Column(name = "Telefono")
     private int telefonoContacto;
-
-    @Column(name = "Email")
     private String emailContacto;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Notificaciones")
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "notificaciones")
     private List<NotificacionDB> formasDeNotificacionContacto;
+
 
 // Getters and Setters
     public String getNombreContacto() { return nombreContacto; }

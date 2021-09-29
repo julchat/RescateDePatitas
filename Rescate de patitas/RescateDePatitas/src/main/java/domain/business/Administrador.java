@@ -12,4 +12,6 @@ public class Administrador extends Persona{
 
     // Constructor
     public Administrador() { }
+
+    public void administrarOrganizacion() {}
 }

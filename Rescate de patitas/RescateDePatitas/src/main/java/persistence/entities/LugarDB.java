@@ -18,7 +18,7 @@ public class LugarDB extends EntidadPersistente{
     private double latitud;
 
 
-// Getters and Setters
+    // Getters and Setters
     public String getDireccion() { return direccion; }
 
     public void setDireccion(String direccion) { this.direccion = direccion; }

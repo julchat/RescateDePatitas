@@ -5,12 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Caracteristicas")
+@Table(name = "caracteristica")
 public class CaracteristicaDB extends EntidadPersistente {
 
-    @Column(name = "Nombre Característica")
-    private String nombreCaracteristica;
+    @Column(name = "nombre_caracteristica")
+    private String caracteristica;
 
-    @Column(name = "Descripción")
-    private String valorElegido;
+// Getters and Setters
+    public String getCaracteristica() { return caracteristica; }
+
+    public void setCaracteristica(String caracteristica) { this.caracteristica = caracteristica; }
 }

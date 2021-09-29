@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Crear una tabla nueva de Dueño, que conoce a una persona y tiene los nuevos datos
+// Relacion 1 a 1 entre Dueño y Persona
+
 @Entity
 @Table(name = "Duenio")
 public class DuenioDB extends PersonaDB {
@@ -16,7 +19,7 @@ public class DuenioDB extends PersonaDB {
     @JoinColumn(name = "Mascotas")
     private List<MascotaDB> mascotas = new ArrayList<MascotaDB>();
 
-// Getters and Setters
+    // Getters and Setters
     public DomicilioDB getDomicilio() { return domicilio; }
 
     public void setDomicilio(DomicilioDB domicilio) { this.domicilio = domicilio; }

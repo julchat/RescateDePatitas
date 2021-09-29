@@ -10,9 +10,11 @@ import java.util.List;
 
 public class PublicacionMascotaEnAdopcion extends Publicacion{
     private List<Respuesta> respuestasOrganizacion;
+    // TODO: medio redundante ya que el Autor de la Publicacion es el Dueño de la Mascota
     private Duenio duenioActual;
     private Mascota mascotaElegida;
     private List<Persona> personasInteresadas;
+    //private Duenio autor;
 
 
     // Getters and Setters
@@ -34,8 +36,8 @@ public class PublicacionMascotaEnAdopcion extends Publicacion{
 
 
     // Métodos
-    public void crearPublicacion(EstadoPublicacion estadoPublicacion, Persona autor, Mascota mascotaElegida, List<Respuesta> respuestasOrganizacion) {
-        super.crearPublicacion(estadoPublicacion);
+    public void crearPublicacion(Persona autor, Mascota mascotaElegida, List<Respuesta> respuestasOrganizacion) {
+        super.crearPublicacion(new Pendiente());
         this.setAutor(autor);
         this.setMascotaElegida(mascotaElegida);
         this.setRespuestasOrganizacion(respuestasOrganizacion);

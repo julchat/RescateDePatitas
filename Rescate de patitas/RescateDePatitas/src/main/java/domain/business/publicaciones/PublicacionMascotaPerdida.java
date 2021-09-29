@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class PublicacionMascotaPerdida extends Publicacion {
     private MascotaPerdida mascotaRescatada;
     private Lugar lugarDeTransito;
+    //private Persona autor;
 
 
     // Getters and Setters
@@ -22,8 +23,8 @@ public class PublicacionMascotaPerdida extends Publicacion {
 
 
     // Metodos
-    public void crearPublicacion(EstadoPublicacion estadoPublicacion, Rescatista autor, MascotaPerdida mascotaRescatada) {
-        super.crearPublicacion(estadoPublicacion);
+    public void crearPublicacion(Rescatista autor, MascotaPerdida mascotaRescatada) {
+        super.crearPublicacion(new Pendiente());
         this.setAutor(autor);
         this.setMascotaRescatada(mascotaRescatada);
         this.setLugarDeTransito(mascotaRescatada.getLugarDeTransito());
