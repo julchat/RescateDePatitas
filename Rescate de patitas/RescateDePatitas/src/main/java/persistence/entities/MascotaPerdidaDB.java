@@ -14,7 +14,6 @@ import java.util.List;
 @Table(name = "mascota_perdida")
 public class MascotaPerdidaDB extends EntidadPersistente {
 
-    @Column(name = "descripcion")
     private String descripcion;
 
     @Enumerated(EnumType.STRING)
@@ -29,20 +28,19 @@ public class MascotaPerdidaDB extends EntidadPersistente {
     @JoinColumn(name = "lugar_de_transito")
     private LugarDB lugarDeTransito;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "caracteristicas_mascotas_perdida")
-    private List<CaracteristicaDB> caracteristicaMascotasPerdida = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "caracteristicas_mascota_perdida")
+    private List<CaracteristicaDB> caracteristicaMascotaPerdida = new ArrayList<>();
 
-    //@Column(name = "Ubicacion encontrada")
-    //@Convert(converter = Ubicacion.class)
+    @OneToOne
+    @JoinColumn(name = "ubicacion_id")
+    private UbicacionDB ubicacionEncontrada;
+
     @Transient
-    private Ubicacion ubicacionEncontrada;
-
-    @Transient
-    private List<Foto> carrouselFotos = new ArrayList<Foto>();
+    private List<Foto> carrouselFotos = new ArrayList<>();
 
 
-    // Getters and Setters
+// Getters and Setters
     public String getDescripcion() { return descripcion; }
 
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
@@ -59,13 +57,9 @@ public class MascotaPerdidaDB extends EntidadPersistente {
 
     public void setLugarDeTransito(LugarDB lugarDeTransito) { this.lugarDeTransito = lugarDeTransito; }
 
-    public List<CaracteristicaDB> getCaracteristicaMascotas() { return caracteristicaMascotasPerdida; }
+    public List<CaracteristicaDB> getCaracteristicaMascotas() { return caracteristicaMascotaPerdida; }
 
-    public void setCaracteristicaMascotas(List<CaracteristicaDB> caracteristicaMascotas) { this.caracteristicaMascotasPerdida = caracteristicaMascotas; }
-
-    public Ubicacion getUbicacionEncontrada() { return ubicacionEncontrada; }
-
-    public void setUbicacionEncontrada(Ubicacion ubicacionEncontrada) { this.ubicacionEncontrada = ubicacionEncontrada; }
+    public void setCaracteristicaMascotas(List<CaracteristicaDB> caracteristicaMascotas) { this.caracteristicaMascotaPerdida = caracteristicaMascotas; }
 
     public List<Foto> getCarrouselFotos() { return carrouselFotos; }
 

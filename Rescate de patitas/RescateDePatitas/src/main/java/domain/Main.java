@@ -11,9 +11,9 @@ import java.io.IOException;
 
 public class Main {
 
-    private static Sistema miSistema = Sistema.getInstance();
+    //private static Sistema miSistema = Sistema.getInstance();
 
-    private static MenuPrueba menuPrueba = new MenuPrueba();
+    //private static MenuPrueba menuPrueba = new MenuPrueba();
 
     public static void main(String[] args) throws IOException {
 
@@ -21,7 +21,7 @@ public class Main {
         EntityManager em = BDUtils.getEntityManager();
         //BDUtils.comenzarTransaccion(em);
 
-        menuPrueba.menuPrincipal();
+        //menuPrueba.menuPrincipal();
 
         /*
 

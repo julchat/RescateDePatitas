@@ -6,20 +6,19 @@ import javax.persistence.*;
 @Table(name = "chapa")
 public class ChapaDB extends EntidadPersistente {
 
-    // Tal vez esto es medio redundante, y nos quedamos solamente con el ID de base
-    @Column(name = "id_chapa")
+    @Column(name = "chapa_id")
     private int idChapa;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "mascota_id")
     private MascotaDB mascota;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "duenio_id")
     private DuenioDB duenio;
 
 
-    // Getters and Setters
+// Getters and Setters
     public int getIdChapa() { return idChapa; }
 
     public void setIdChapa(int idChapa) { this.idChapa = idChapa; }

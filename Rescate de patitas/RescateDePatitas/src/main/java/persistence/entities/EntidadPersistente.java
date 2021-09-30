@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class EntidadPersistente {
 
     @Id
-    //@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     public int getId() { return id; }

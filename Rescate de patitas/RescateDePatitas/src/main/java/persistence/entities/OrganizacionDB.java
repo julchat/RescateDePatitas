@@ -13,10 +13,7 @@ import java.util.List;
 @Table(name = "organizacion")
 public class OrganizacionDB extends EntidadPersistente {
 
-    @Column(name = "nombre_organizacion")
     private String nombreOrganizacion;
-
-    @Column(name = "fecha_de_creacion", columnDefinition = "DATE")
     private LocalDate fechaDeCreacion;
 
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -42,15 +39,8 @@ public class OrganizacionDB extends EntidadPersistente {
     @Transient
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "voluntarios")
-    private List<PersonaDB> voluntarios = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "administradores")
-    private List<PersonaDB> administradores = new ArrayList<>();
-
-    // Getters and Setters
+// Getters and Setters
     public String getNombreOrganizacion() { return nombreOrganizacion; }
 
     public void setNombreOrganizacion(String nombreOrganizacion) { this.nombreOrganizacion = nombreOrganizacion; }

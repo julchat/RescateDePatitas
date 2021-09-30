@@ -14,8 +14,8 @@ public class HogarDeTransito{
     private String nombreOrganizacion;
     private Lugar lugar;
     private String direccion;
-    private float latitud;
-    private float longitud;
+    private double latitud;
+    private double longitud;
     private String telefono;
     private boolean aceptaPerros;
     private boolean aceptaGatos;
@@ -45,13 +45,13 @@ public class HogarDeTransito{
         return direccion;
     }
 
-    public float getLatitud() { return latitud; }
+    public double getLatitud() { return latitud; }
 
-    public void setLatitud(float latitud) { this.latitud = latitud; }
+    public void setLatitud(double latitud) { this.latitud = latitud; }
 
-    public float getLongitud() { return longitud; }
+    public double getLongitud() { return longitud; }
 
-    public void setLongitud(float longitud) { this.longitud = longitud; }
+    public void setLongitud(double longitud) { this.longitud = longitud; }
 
     public String getTelefono() { return telefono; }
 

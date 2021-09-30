@@ -12,37 +12,32 @@ import java.util.List;
 @Table(name = "mascota")
 public class MascotaDB extends EntidadPersistente {
 
-    @Column(name = "nombre")
     private String nombreMascota;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_animal")
     private TipoAnimal tipoAnimal;
 
-    @Column(name = "apodo")
     private String apodoMascota;
-
-    @Column(name = "edad")
     private int edadMascota;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sexo")
     private SexoMascota sexoMascota;
 
-    @Column(name = "descripcion")
     private String descripcionMascota;
 
     //@OneToMany(cascade = CascadeType.PERSIST)
     //@Column(name = "Fotos")
     @Transient
-    private List<Foto> fotos = new ArrayList<Foto>();
+    private List<Foto> fotos = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "caracteristicas_mascotas")
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "caracteristicas_mascota")
     private List<CaracteristicaDB> caracteristicasMascota = new ArrayList<>();
 
 
-    // Getters and Setters
+// Getters and Setters
     public String getNombreMascota() { return nombreMascota; }
 
     public void setNombreMascota(String nombreMascota) { this.nombreMascota = nombreMascota; }

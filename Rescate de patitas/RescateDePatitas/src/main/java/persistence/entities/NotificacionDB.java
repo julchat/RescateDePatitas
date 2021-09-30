@@ -12,7 +12,8 @@ public class NotificacionDB extends EntidadPersistente{
     @Column(name = "tipo_notificacion")
     private TipoNotificacion tipoDeNotificacion;
 
-    // Getters and Setters
+
+// Getters and Setters
     public TipoNotificacion getTipoDeNotificacion() { return tipoDeNotificacion; }
 
     public void setTipoDeNotificacion(TipoNotificacion tipoDeNotificacion) { this.tipoDeNotificacion = tipoDeNotificacion; }

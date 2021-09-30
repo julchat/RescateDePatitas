@@ -1,6 +1,5 @@
 package persistence.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -8,8 +7,8 @@ import javax.persistence.Table;
 @Table(name = "caracteristica")
 public class CaracteristicaDB extends EntidadPersistente {
 
-    @Column(name = "nombre_caracteristica")
     private String caracteristica;
+
 
 // Getters and Setters
     public String getCaracteristica() { return caracteristica; }

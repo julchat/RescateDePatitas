@@ -8,46 +8,28 @@ import java.util.List;
 @Table(name = "hogar_de_transito")
 public class HogarDeTransitoDB extends EntidadPersistente {
 
-    @Column(name = "nombre_de_organizacion")
     private String nombreOrganizacion;
-
-    @Column(name = "direccion")
     private String direccion;
-
-    @Column(name = "latitud")
-    private float latitud;
-
-    @Column(name = "longitud")
-    private float longitud;
-
-    @Column(name = "telefono")
+    private double latitud;
+    private double longitud;
     private String telefono;
-
-    @Column(name = "acepta_perros")
     private boolean aceptaPerros;
-
-    @Column(name = "acepta_gatos")
     private boolean aceptaGatos;
-
-    @Column(name = "tiene_patio")
     private boolean poseePatio;
-
-    @Column(name = "capacidad")
     private int capacidad;
-
-    @Column(name = "lugares_disponibles")
     private int lugaresDisponibles;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "caracteristicas_admitidas")
-    private List<CaracteristicaDB> caracteristicasAdmitidas = new ArrayList<CaracteristicaDB>();
+    private List<CaracteristicaDB> caracteristicasAdmitidas = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "mascotas_actuales")
-    private List<MascotaPerdidaDB> mascotasActuales = new ArrayList<MascotaPerdidaDB>();
+    // TODO: Como una mascota tiene LugarDB, entonces puede meterse el Lugar de este HogarDeTransito, y no hace falta tener la lista aca
+    //@OneToMany(cascade = CascadeType.PERSIST)
+    //@JoinColumn(name = "mascotas_actuales")
+    //private List<MascotaPerdidaDB> mascotasActuales = new ArrayList<>();
 
 
-    // Getters and Setters
+// Getters and Setters
     public String getNombreOrganizacion() { return nombreOrganizacion; }
 
     public void setNombreOrganizacion(String nombreOrganizacion) { this.nombreOrganizacion = nombreOrganizacion; }
@@ -56,13 +38,13 @@ public class HogarDeTransitoDB extends EntidadPersistente {
 
     public void setDireccion(String direccion) { this.direccion = direccion; }
 
-    public float getLatitud() { return latitud; }
+    public double getLatitud() { return latitud; }
 
-    public void setLatitud(float latitud) { this.latitud = latitud; }
+    public void setLatitud(double latitud) { this.latitud = latitud; }
 
-    public float getLongitud() { return longitud; }
+    public double getLongitud() { return longitud; }
 
-    public void setLongitud(float longitud) { this.longitud = longitud; }
+    public void setLongitud(double longitud) { this.longitud = longitud; }
 
     public String getTelefono() { return telefono; }
 
@@ -91,8 +73,4 @@ public class HogarDeTransitoDB extends EntidadPersistente {
     public List<CaracteristicaDB> getCaracteristicasAdmitidas() { return caracteristicasAdmitidas; }
 
     public void setCaracteristicasAdmitidas(List<CaracteristicaDB> caracteristicasAdmitidas) { this.caracteristicasAdmitidas = caracteristicasAdmitidas; }
-
-    public List<MascotaPerdidaDB> getMascotasActuales() { return mascotasActuales; }
-
-    public void setMascotasActuales(List<MascotaPerdidaDB> mascotasActuales) { this.mascotasActuales = mascotasActuales; }
 }

@@ -7,23 +7,22 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "publicacion")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
 public class PublicacionDB extends EntidadPersistente {
 
     @Column(name = "estado_publicacion")
     @Enumerated(EnumType.STRING)
     private Estados estadoPublicacion;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "autor")
+    @OneToOne
+    @JoinColumn(name = "persona_id")
     private PersonaDB autor;
 
-    //@Column(name = "Fecha de Publicacion")
-    //@Convert(converter = LocalDate.class)
-    @Transient
-    private LocalDate fecha;
+    private LocalDate fechaDePublicacion;
 
 
-    // Getters and Setters
+// Getters and Setters
     public Estados getEstadoPublicacion() { return estadoPublicacion; }
 
     public void setEstadoPublicacion(Estados estadoPublicacion) { this.estadoPublicacion = estadoPublicacion; }
@@ -32,7 +31,7 @@ public class PublicacionDB extends EntidadPersistente {
 
     public void setAutor(PersonaDB autor) { this.autor = autor; }
 
-    public LocalDate getFecha() { return fecha; }
+    public LocalDate getFechaDePublicacion() { return fechaDePublicacion; }
 
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+    public void setFechaDePublicacion(LocalDate fecha) { this.fechaDePublicacion = fecha; }
 }
