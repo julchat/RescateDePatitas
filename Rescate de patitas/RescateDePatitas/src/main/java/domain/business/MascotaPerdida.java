@@ -3,7 +3,6 @@ package domain.business;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
-import domain.business.organizaciones.HogarDeTransito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ public class MascotaPerdida {
     private TipoAnimal tipoAnimal;
     private Tamanio tamanio;
     private Lugar lugarDeTransito;
-    private List<String> caracteristicaMascotas = new ArrayList<>();
+    private List<String> caracteristicas = new ArrayList<>();
     private Ubicacion ubicacionEncontrada;
 
 
@@ -55,14 +54,14 @@ public class MascotaPerdida {
 
     public void setUbicacionEncontrada(Ubicacion ubicacionEncontrada) { this.ubicacionEncontrada = ubicacionEncontrada; }
 
-    public List<String> getCaracteristicaMascotas() { return caracteristicaMascotas; }
+    public List<String> getCaracteristicaMascotas() { return caracteristicas; }
 
-    public void setCaracteristicaMascotas(List<String> caracteristicaMascotas) { this.caracteristicaMascotas = caracteristicaMascotas; }
+    public void setCaracteristicaMascotas(List<String> caracteristicaMascotas) { this.caracteristicas = caracteristicaMascotas; }
 
 
     // Metodos
     public boolean cumpleCaracteristicaHogar(String caracteristica) {
-        return caracteristicaMascotas.stream().anyMatch(caracteristicaMascotas -> caracteristica.equals(caracteristica));
+        return caracteristicas.stream().anyMatch(caracteristicaMascotas -> caracteristica.equals(caracteristica));
     }
 
     public void ocuparLugarDeTransito(Lugar lugarAOcupar) {

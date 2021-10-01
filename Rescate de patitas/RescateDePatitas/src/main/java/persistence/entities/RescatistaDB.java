@@ -12,9 +12,10 @@ public class RescatistaDB extends EntidadPersistente {
 
     private boolean puedeAlojarMascota;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio")
     private DomicilioDB domicilio;
+
 
 // Getters and Setters
     public PersonaDB getPersonaDB() { return personaDB; }

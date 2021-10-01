@@ -22,17 +22,16 @@ public class MascotaDB extends EntidadPersistente {
     private int edadMascota;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sexo")
+    @Column(name = "sexo_mascota")
     private SexoMascota sexoMascota;
 
     private String descripcionMascota;
 
-    //@OneToMany(cascade = CascadeType.PERSIST)
-    //@Column(name = "Fotos")
-    @Transient
-    private List<Foto> fotos = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fotos_mascota")
+    private List<FotoDB> fotos = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "caracteristicas_mascota")
     private List<CaracteristicaDB> caracteristicasMascota = new ArrayList<>();
 
@@ -62,9 +61,9 @@ public class MascotaDB extends EntidadPersistente {
 
     public void setDescripcionMascota(String descripcionMascota) { this.descripcionMascota = descripcionMascota; }
 
-    public List<Foto> getFotos() { return fotos; }
+    public List<FotoDB> getFotos() { return fotos; }
 
-    public void setFotos(List<Foto> fotos) { this.fotos = fotos; }
+    public void setFotos(List<FotoDB> fotos) { this.fotos = fotos; }
 
     public List<CaracteristicaDB> getCaracteristicasMascota() { return caracteristicasMascota; }
 

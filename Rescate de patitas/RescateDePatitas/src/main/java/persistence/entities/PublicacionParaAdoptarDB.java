@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "publicacion_para_adopcion")
-@DiscriminatorColumn(name = "para_adoptar")
+@DiscriminatorColumn(name = "publicacion_para_adopcion")
 public class PublicacionParaAdoptarDB extends PublicacionDB {
 
     @ElementCollection

@@ -1,7 +1,5 @@
 package persistence.entities;
 
-import domain.business.Pregunta;
-import domain.business.foto.DimensionEstandar;
 import domain.business.foto.Foto;
 
 import javax.persistence.*;
@@ -16,28 +14,21 @@ public class OrganizacionDB extends EntidadPersistente {
     private String nombreOrganizacion;
     private LocalDate fechaDeCreacion;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     @Column(name = "caracteristicas admitidas")
     private List<CaracteristicaDB> caracteristicasAdmitidas = new ArrayList<>();
 
-    //@OneToOne(cascade = CascadeType.PERSIST)
-    //@JoinColumn(name = "Logo")
-    @Transient
-    private Foto logo;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "logo_organizacion")
+    private FotoDB logo;
 
-    //@Column(name = "Dimension estandar")
-    //@Convert(converter = DimensionEstandar.class)
-    @Transient
-    private DimensionEstandar dimensionEstandar;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "dimension_organizacion")
+    private DimensionesDB dimensionEstandar;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "hogares")
-    private List<HogarDeTransitoDB> hogares = new ArrayList<>();
-
-    //@OneToMany(cascade = CascadeType.PERSIST)
-    //@JoinColumn(name = "Preguntas")
-    @Transient
-    private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "preguntas_organizacion")
+    private List<PreguntaDB> preguntasOrganizacion = new ArrayList<>();
 
 
 // Getters and Setters
@@ -53,20 +44,15 @@ public class OrganizacionDB extends EntidadPersistente {
 
     public void setCaracteristicasAdmitidas(List<CaracteristicaDB> caracteristicasAdmitidas) { this.caracteristicasAdmitidas = caracteristicasAdmitidas; }
 
-    public Foto getLogo() { return logo; }
+    public FotoDB getLogo() { return logo; }
 
-    public void setLogo(Foto logo) { this.logo = logo; }
+    public void setLogo(FotoDB logo) { this.logo = logo; }
 
-    public DimensionEstandar getDimensionEstandar() { return dimensionEstandar; }
+    public DimensionesDB getDimensionEstandar() { return dimensionEstandar; }
 
-    public void setDimensionEstandar(DimensionEstandar dimensionEstandar) { this.dimensionEstandar = dimensionEstandar; }
+    public void setDimensionEstandar(DimensionesDB dimensionEstandar) { this.dimensionEstandar = dimensionEstandar; }
 
-    public List<HogarDeTransitoDB> getHogares() { return hogares; }
+    public List<PreguntaDB> getPreguntasOrganizacion() { return preguntasOrganizacion; }
 
-    public void setHogares(List<HogarDeTransitoDB> hogares) { this.hogares = hogares; }
-
-    public List<Pregunta> getPreguntasOrganizacion() { return preguntasOrganizacion; }
-
-    public void setPreguntasOrganizacion(List<Pregunta> preguntasOrganizacion) { this.preguntasOrganizacion = preguntasOrganizacion; }
-
+    public void setPreguntasOrganizacion(List<PreguntaDB> preguntasOrganizacion) { this.preguntasOrganizacion = preguntasOrganizacion; }
 }

@@ -9,11 +9,11 @@ public class ChapaDB extends EntidadPersistente {
     @Column(name = "chapa_id")
     private int idChapa;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mascota_id")
     private MascotaDB mascota;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "duenio_id")
     private DuenioDB duenio;
 

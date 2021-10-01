@@ -1,6 +1,7 @@
 package domain.business.organizaciones;
 
 import domain.business.Pregunta;
+import domain.business.Voluntario;
 import domain.business.foto.DimensionEstandar;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.caracteristicas.CaracteristicaMascota;
@@ -18,6 +19,7 @@ public class Organizacion {
     private Foto logo;
     private DimensionEstandar dimensionEstandar;
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
+    private List<Voluntario> voluntarios = new ArrayList<>();
 
     // Getters and Setters
     public String getNombreOrganizacion() {
@@ -40,9 +42,7 @@ public class Organizacion {
         return caracteristicasAdmitidas;
     }
 
-    public void agregarCaracteristicaAdmitida(Caracteristica caracteristica) {
-        this.caracteristicasAdmitidas.add(caracteristica);
-    }
+    public void agregarCaracteristicaAdmitida(Caracteristica caracteristica) { this.caracteristicasAdmitidas.add(caracteristica); }
 
     public boolean quitarCaracteristicaAdmitida(String nombreCaracteristica) {
         if(this.existeCaracteristica(nombreCaracteristica)){
@@ -66,9 +66,12 @@ public class Organizacion {
         return dimensionEstandar;
     }
 
-    public void setDimensionEstandar(DimensionEstandar dimensionEstandar) {
-        this.dimensionEstandar = dimensionEstandar;
-    }
+    public void setDimensionEstandar(DimensionEstandar dimensionEstandar) { this.dimensionEstandar = dimensionEstandar; }
+
+    public List<Voluntario> getVoluntarios() { return voluntarios; }
+
+    public void setVoluntarios(List<Voluntario> voluntarios) { this.voluntarios = voluntarios; }
+
 
     // Constructor
     public Organizacion() {}

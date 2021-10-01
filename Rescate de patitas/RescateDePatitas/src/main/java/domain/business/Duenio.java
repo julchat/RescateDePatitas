@@ -13,7 +13,7 @@ public class Duenio extends Persona {
     // Otra opcion, que el Dueño este ligado a las Chapitas directamente
     private List<Chapa> mascotasACargo = new ArrayList<>();
     //TODO consultar si un dueño tiene que tener una organizacion
-    private Organizacion organizacion;
+    //private Organizacion organizacion;
 
 
     // Getters and Setters
@@ -23,14 +23,6 @@ public class Duenio extends Persona {
 
     public void setDomicilio(Domicilio domicilio) {
         this.domicilio = domicilio;
-    }
-
-    public Organizacion getOrganizacion() {
-        return organizacion;
-    }
-
-    public void setOrganizacion(Organizacion organizacion) {
-        this.organizacion = organizacion;
     }
 
     public List<Mascota> getMascotas(){

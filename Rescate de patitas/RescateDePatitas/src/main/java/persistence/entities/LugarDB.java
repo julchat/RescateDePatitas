@@ -17,4 +17,8 @@ public class LugarDB extends EntidadPersistente{
     public String getDireccion() { return direccion; }
 
     public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public UbicacionDB getUbicacion() { return ubicacion; }
+
+    public void setUbicacion(UbicacionDB ubicacion) { this.ubicacion = ubicacion; }
 }

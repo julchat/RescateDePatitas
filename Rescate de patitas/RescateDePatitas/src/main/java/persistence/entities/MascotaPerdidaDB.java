@@ -24,11 +24,11 @@ public class MascotaPerdidaDB extends EntidadPersistente {
     @Column(name = "tamanio")
     private Tamanio tamanio;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lugar_de_transito")
     private LugarDB lugarDeTransito;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "caracteristicas_mascota_perdida")
     private List<CaracteristicaDB> caracteristicaMascotaPerdida = new ArrayList<>();
 
@@ -36,8 +36,9 @@ public class MascotaPerdidaDB extends EntidadPersistente {
     @JoinColumn(name = "ubicacion_id")
     private UbicacionDB ubicacionEncontrada;
 
-    @Transient
-    private List<Foto> carrouselFotos = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fotos_mascota_perdida")
+    private List<FotoDB> carrouselFotos = new ArrayList<>();
 
 
 // Getters and Setters
@@ -61,7 +62,7 @@ public class MascotaPerdidaDB extends EntidadPersistente {
 
     public void setCaracteristicaMascotas(List<CaracteristicaDB> caracteristicaMascotas) { this.caracteristicaMascotaPerdida = caracteristicaMascotas; }
 
-    public List<Foto> getCarrouselFotos() { return carrouselFotos; }
+    public List<FotoDB> getCarrouselFotos() { return carrouselFotos; }
 
-    public void setCarrouselFotos(List<Foto> carrouselFotos) { this.carrouselFotos = carrouselFotos; }
+    public void setCarrouselFotos(List<FotoDB> carrouselFotos) { this.carrouselFotos = carrouselFotos; }
 }

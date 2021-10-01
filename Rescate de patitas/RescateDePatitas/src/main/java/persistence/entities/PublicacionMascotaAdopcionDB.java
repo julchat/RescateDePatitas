@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "publicacion mascota en adopcion")
-@DiscriminatorColumn(name = "en_adopcion")
+@Table(name = "publicacion_mascota_en_adopcion")
+@DiscriminatorColumn(name = "publicacion_mascota_en_adopcion")
 public class PublicacionMascotaAdopcionDB extends PublicacionDB {
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -21,11 +21,11 @@ public class PersonaDB extends EntidadPersistente {
     private String telefono;
     private String email;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "notificaciones")
     private List<NotificacionDB> formasDeNotificacion = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "contactos")
     private List<ContactoDB> contactos = new ArrayList<>();
 

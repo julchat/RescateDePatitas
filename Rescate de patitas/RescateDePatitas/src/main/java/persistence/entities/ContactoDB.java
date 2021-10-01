@@ -12,7 +12,7 @@ public class ContactoDB extends EntidadPersistente{
     private int telefonoContacto;
     private String emailContacto;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "notificaciones")
     private List<NotificacionDB> formasDeNotificacionContacto;
 

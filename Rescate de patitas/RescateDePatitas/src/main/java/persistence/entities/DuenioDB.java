@@ -10,7 +10,7 @@ public class DuenioDB extends EntidadPersistente {
     @JoinColumn(name = "persona_id")
     private PersonaDB personaDB;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio")
     private DomicilioDB domicilio;
 

@@ -18,6 +18,7 @@ public class DomicilioDB extends EntidadPersistente {
     @JoinColumn(name = "ubicacion_id")
     private UbicacionDB ubicacion;
 
+
 // Getters and Setters
     public String getProvincia() { return provincia; }
 

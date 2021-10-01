@@ -7,16 +7,16 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "publicacion")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo")
-public class PublicacionDB extends EntidadPersistente {
+public abstract class PublicacionDB extends EntidadPersistente {
 
     @Column(name = "estado_publicacion")
     @Enumerated(EnumType.STRING)
     private Estados estadoPublicacion;
 
     @OneToOne
-    @JoinColumn(name = "persona_id")
+    @JoinColumn(name = "autor_id")
     private PersonaDB autor;
 
     private LocalDate fechaDePublicacion;

@@ -30,10 +30,6 @@ public class PublicacionMascotaEnAdopcion extends Publicacion{
 
     public void setMascotaElegida(Mascota mascotaElegida) { this.mascotaElegida = mascotaElegida; }
 
-    public void nuevoInteresado(Persona interesado) {
-        this.personasInteresadas.add(interesado);
-    }
-
 
     // Métodos
     public void crearPublicacion(Persona autor, Mascota mascotaElegida, List<Respuesta> respuestasOrganizacion) {
@@ -43,6 +39,11 @@ public class PublicacionMascotaEnAdopcion extends Publicacion{
         this.setRespuestasOrganizacion(respuestasOrganizacion);
         this.personasInteresadas = new ArrayList<>();
     }
+
+    public void nuevoInteresado(Persona interesado) {
+        this.personasInteresadas.add(interesado);
+    }
+
 
     @Override
     public void mostrarPublicacion() {
