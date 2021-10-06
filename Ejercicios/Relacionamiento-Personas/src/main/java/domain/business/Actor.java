@@ -1,5 +1,7 @@
 package domain.business;
 
+import domain.business.api.entities.UserData;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,5 +75,11 @@ public abstract class Actor extends EntidadPersistente {
 
     public void autorizarPersona(Persona autorizado) {
 
+    }
+
+    public void mapearUsuario(UserData userData) {
+        this.setNombre(userData.getNombre());
+        this.setApellido(userData.getApellido());
+        this.setNroDocumento(userData.getDni());
     }
 }

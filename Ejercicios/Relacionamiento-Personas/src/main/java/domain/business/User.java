@@ -1,5 +1,7 @@
 package domain.business;
 
+import domain.business.api.entities.UserData;
+
 import javax.persistence.*;
 
 @Entity
@@ -35,4 +37,5 @@ public class User extends EntidadPersistente {
     public void setActor(Actor actor) { this.actor = actor; }
 
     public User() {}
+
 }

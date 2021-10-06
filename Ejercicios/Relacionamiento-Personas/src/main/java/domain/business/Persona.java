@@ -46,4 +46,5 @@ public class Persona extends EntidadPersistente {
         System.out.println("Ciudad: " + this.getCiudad());
         System.out.println("Localidad de Residencia: " + this.getLocalidadResidencia());
     }
+
 }
