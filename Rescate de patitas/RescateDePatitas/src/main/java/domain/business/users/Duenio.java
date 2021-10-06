@@ -1,7 +1,9 @@
-package domain.business;
+package domain.business.users;
 
+import domain.business.*;
+import domain.business.mascota.Mascota;
 import domain.business.notificaciones.Notificacion;
-import domain.business.organizaciones.Organizacion;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

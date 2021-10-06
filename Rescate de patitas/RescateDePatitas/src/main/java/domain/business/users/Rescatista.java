@@ -1,17 +1,15 @@
-package domain.business;
+package domain.business.users;
 
-import domain.business.organizaciones.HogarDeTransito;
+import domain.business.Domicilio;
+import domain.business.Lugar;
+import domain.business.Persona;
+import domain.business.mascota.MascotaPerdida;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
-import domain.business.publicaciones.Pendiente;
-import domain.business.publicaciones.Publicacion;
-import domain.business.notificaciones.Notificacion;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Rescatista extends Persona{
+public class Rescatista extends Persona {
     private boolean puedeAlojarMascota;
     private Domicilio domicilio;
     private List<MascotaPerdida> mascotasAlojadas = new ArrayList<>();

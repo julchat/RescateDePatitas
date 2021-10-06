@@ -1,8 +1,9 @@
-package domain.business;
+package domain.business.users;
 
+import domain.business.Persona;
 import domain.business.organizaciones.Organizacion;
 
-public class Administrador extends Persona{
+public class Administrador extends Persona {
     private Organizacion organizacion;
 
     // Getters and Setters

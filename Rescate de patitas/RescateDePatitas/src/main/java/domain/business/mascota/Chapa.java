@@ -1,5 +1,8 @@
 package domain.business;
 
+import domain.business.mascota.Mascota;
+import domain.business.users.Duenio;
+
 public class Chapa {
     private int idChapa;
     private Mascota mascota;
