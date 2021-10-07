@@ -1,10 +1,8 @@
 package domain.business.organizaciones;
 
-import domain.business.Pregunta;
-import domain.business.Voluntario;
+import domain.business.publicaciones.Pregunta;
+import domain.business.users.Voluntario;
 import domain.business.foto.DimensionEstandar;
-import domain.business.caracteristicas.Caracteristica;
-import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
 
 import java.time.LocalDate;
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
 public class Organizacion {
     private String nombreOrganizacion;
     private LocalDate fechaDeCreacion;
-    private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
+    private List<String> caracteristicasAdmitidas = new ArrayList<>();
     private Foto logo;
     private DimensionEstandar dimensionEstandar;
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
@@ -38,11 +36,11 @@ public class Organizacion {
         this.fechaDeCreacion = fechaDeCreacion;
     }
 
-    public List<Caracteristica> getCaracteristicasAdmitidas() {
+    public List<String> getCaracteristicasAdmitidas() {
         return caracteristicasAdmitidas;
     }
 
-    public void agregarCaracteristicaAdmitida(Caracteristica caracteristica) { this.caracteristicasAdmitidas.add(caracteristica); }
+    public void agregarCaracteristicaAdmitida(String caracteristica) { this.caracteristicasAdmitidas.add(caracteristica); }
 
     public boolean quitarCaracteristicaAdmitida(String nombreCaracteristica) {
         if(this.existeCaracteristica(nombreCaracteristica)){
@@ -72,30 +70,32 @@ public class Organizacion {
 
     public void setVoluntarios(List<Voluntario> voluntarios) { this.voluntarios = voluntarios; }
 
+    public List<Pregunta> getPreguntasOrganizacion() { return preguntasOrganizacion; }
+
+    public void setPreguntasOrganizacion(List<Pregunta> preguntasOrganizacion) { this.preguntasOrganizacion = preguntasOrganizacion; }
 
     // Constructor
     public Organizacion() {}
 
 
     // Metodos
-    public boolean aceptaCaracteristica(CaracteristicaMascota caracteristicaMascota) {
-        if(this.existeCaracteristica(caracteristicaMascota.getNombreCaracteristica())){
-            Caracteristica caracteristica = this.buscarCaracteristica(caracteristicaMascota.getNombreCaracteristica());
-            return caracteristica.getOpcionesValidas().contains(caracteristicaMascota.getValorElegido());
+    public boolean aceptaCaracteristica(String caracteristicaMascota) {
+        if(this.existeCaracteristica(caracteristicaMascota)){
+            String caracteristica = this.buscarCaracteristica(caracteristicaMascota);
+            return caracteristica.equals(caracteristicaMascota);
         }
         else {
             return false;
         }
     }
 
-    private Caracteristica buscarCaracteristica(String nombreCaracteristica) {
-        return caracteristicasAdmitidas.stream().filter(caracteristica -> caracteristica.getNombre().equals(nombreCaracteristica)).collect(Collectors.toList()).get(0);
+    private String buscarCaracteristica(String nombreCaracteristica) {
+        return caracteristicasAdmitidas.stream().filter(caracteristica -> caracteristica.equals(nombreCaracteristica)).collect(Collectors.toList()).get(0);
     }
 
     private boolean existeCaracteristica(String nombreCaracteristica) {
-        return caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.getNombre().equals(nombreCaracteristica));
+        return caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.equals(nombreCaracteristica));
     }
-
 
     public void crearPregunta(String pregunta) {
         Pregunta nuevaPregunta = new Pregunta(pregunta);

@@ -2,7 +2,7 @@ package domain.security.password;
 
 public class ValidadorPasswordTamanio implements Validador{
     @Override
-    public boolean esValida(String password) {
+    public boolean esValida(String usuario, String password) {
         int tamanioPassword = password.length();
 
         if (tamanioPassword > 8) {

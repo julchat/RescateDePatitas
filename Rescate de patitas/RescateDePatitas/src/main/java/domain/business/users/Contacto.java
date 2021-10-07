@@ -1,4 +1,4 @@
-package domain.business;
+package domain.business.users;
 
 import domain.business.notificaciones.Notificacion;
 

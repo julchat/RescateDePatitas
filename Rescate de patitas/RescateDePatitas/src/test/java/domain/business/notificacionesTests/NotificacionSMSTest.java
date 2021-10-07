@@ -3,15 +3,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-import domain.business.*;
-import org.apache.avro.generic.GenericData;
+import domain.business.mascota.Mascota;
+import domain.business.mascota.SexoMascota;
+import domain.business.mascota.TipoAnimal;
+import domain.business.users.Duenio;
+import domain.business.users.Rescatista;
+import domain.business.users.TipoDoc;
 import org.junit.Before;
-import org.junit.Test;
 import domain.business.notificaciones.*;
 import domain.business.foto.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class NotificacionSMSTest {

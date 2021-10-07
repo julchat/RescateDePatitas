@@ -1,8 +1,10 @@
 package domain.business.users;
 
-import domain.business.*;
+import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
+import domain.business.mascota.MascotaPerdida;
 import domain.business.notificaciones.Notificacion;
+import domain.business.ubicacion.Domicilio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -71,6 +73,11 @@ public class Duenio extends Persona {
         //this.cambiarOrganizacion(domicilio.buscarOrganizacionMasCercana());
         this.setDomicilio(nuevoDomicilio);
     }
+
+    public void notificarDuenio(Rescatista rescatista, Mascota mascotaPerdida) {
+        this.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida));
+    }
+
 
     /*
     public void cambiarOrganizacion(Organizacion nuevaOrganizacion){

@@ -2,7 +2,7 @@ package domain.business.caracteristicas;
 
 import domain.business.organizaciones.HogarDeTransito;
 import domain.business.organizaciones.Organizacion;
-
+/*
 public class CaracteristicaMascota {
     private String nombreCaracteristica;
     private String valorElegido;
@@ -39,7 +39,7 @@ public class CaracteristicaMascota {
         return organizacion.aceptaCaracteristica(this);
     }
 
-    /*
+
     public boolean cumpleCaracteristicaHogar(String caracteristica) {
         if(caracteristica.().equals(getNombreCaracteristica())) {
             if(caracteristica.getOpcionesValidas().stream().anyMatch(opcionValida -> opcionValida.equals(valorElegido))){
@@ -47,5 +47,6 @@ public class CaracteristicaMascota {
             }
         }
         return false;
-    }*/
+    }
 }
+*/

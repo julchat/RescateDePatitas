@@ -1,4 +1,4 @@
-package domain.business;
+package domain.business.publicaciones;
 
 public class Respuesta {
     private Pregunta pregunta;

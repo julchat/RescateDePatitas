@@ -1,8 +1,7 @@
 package domain.business.users;
 
-import domain.business.Domicilio;
-import domain.business.Lugar;
-import domain.business.Persona;
+import domain.business.ubicacion.Domicilio;
+import domain.business.ubicacion.Lugar;
 import domain.business.mascota.MascotaPerdida;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
 
@@ -46,6 +45,7 @@ public class Rescatista extends Persona {
     public void reportarMascotaPerdida(MascotaPerdida mascotaPerdida) {
         PublicacionMascotaPerdida publicacionCreada = new PublicacionMascotaPerdida();
         publicacionCreada.crearPublicacion(this, mascotaPerdida);
+        // TODO: agregar la publicacion al Repositorio de Publicaciones
     }
 
     public void mapearDatosDuenio(Persona persona) {

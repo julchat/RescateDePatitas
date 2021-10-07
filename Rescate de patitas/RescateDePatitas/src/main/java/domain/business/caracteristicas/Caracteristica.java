@@ -1,6 +1,6 @@
 package domain.business.caracteristicas;
 
-
+/*
 public class Caracteristica {
     private String caracteristica;
 
@@ -12,4 +12,4 @@ public class Caracteristica {
     // Constructor
     public Caracteristica() {}
 
-}
+}*/

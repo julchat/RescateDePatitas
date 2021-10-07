@@ -1,6 +1,6 @@
 package domain.business.publicaciones;
 
-import domain.business.Persona;
+import domain.business.users.Persona;
 import domain.security.Usuario;
 
 import java.time.LocalDate;
@@ -9,6 +9,7 @@ public abstract class Publicacion {
     private EstadoPublicacion estadoPublicacion;
     private Persona autor;
     private LocalDate fecha;
+    private String ruta;
 
     // Getters and Setters
     public EstadoPublicacion getEstadoPublicacion() {
@@ -25,6 +26,9 @@ public abstract class Publicacion {
         this.autor = autor;
     }
 
+    public String getRuta() { return ruta; }
+
+    public void setRuta(String ruta) { this.ruta = ruta; }
 
     // Metodos
     public void crearPublicacion(EstadoPublicacion estadoPublicacion) {

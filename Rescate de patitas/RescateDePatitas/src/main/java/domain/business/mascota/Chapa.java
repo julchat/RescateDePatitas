@@ -1,20 +1,11 @@
-package domain.business;
+package domain.business.mascota;
 
-import domain.business.mascota.Mascota;
 import domain.business.users.Duenio;
+import domain.business.users.Rescatista;
 
 public class Chapa {
-    private int idChapa;
     private Mascota mascota;
     private Duenio duenio;
-
-    public int getIdChapa() {
-        return idChapa;
-    }
-
-    public void setIdChapa(int idChapa) {
-        this.idChapa = idChapa;
-    }
 
     public Mascota getMascota() {
         return mascota;
@@ -34,13 +25,20 @@ public class Chapa {
 
     public Chapa() {}
 
-    public Chapa(int idChapa, Mascota mascota, Duenio duenio) {
-        this.idChapa = idChapa;
+    public Chapa(Mascota mascota, Duenio duenio) {
         this.mascota = mascota;
         this.duenio = duenio;
     }
 
 
-    public void generarQR() {}
+    public void generarQR() {
+        // TODO: genera formulario del Rescatista
+        // Rescatista rescatista = new Rescatista();
+       // this.notificarDuenio(rescatista);
+    }
+
+    public void notificarDuenio(Rescatista rescatista) {
+        this.duenio.notificarDuenio(rescatista, mascota);
+    }
 
 }

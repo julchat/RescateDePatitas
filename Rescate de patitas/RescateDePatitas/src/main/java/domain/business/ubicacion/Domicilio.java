@@ -1,4 +1,4 @@
-package domain.business;
+package domain.business.ubicacion;
 
 public class Domicilio {
     private String provincia;

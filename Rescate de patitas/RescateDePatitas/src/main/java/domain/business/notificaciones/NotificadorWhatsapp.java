@@ -1,6 +1,6 @@
 package domain.business.notificaciones;
-import domain.business.Mascota;
-import domain.business.Persona;
+import domain.business.mascota.Mascota;
+import domain.business.users.Persona;
 import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public class NotificadorWhatsapp extends Notificacion{
@@ -8,8 +8,8 @@ public class NotificadorWhatsapp extends Notificacion{
         public TipoNotificacion obtenerCodigoNotificacion() { return TipoNotificacion.WHATSAPP; }
 
         @Override
-public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta) {
-        twillio.enviarWhatsapp(destinatario.getTelefono(),armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida,ruta));
+public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida) {
+        twillio.enviarWhatsapp(destinatario.getTelefono(), armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida));
         }
 
 @Override

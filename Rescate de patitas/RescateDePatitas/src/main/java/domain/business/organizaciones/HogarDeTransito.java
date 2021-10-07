@@ -1,14 +1,14 @@
 package domain.business.organizaciones;
 
-import domain.business.*;
-import domain.business.caracteristicas.Caracteristica;
-import domain.business.caracteristicas.CaracteristicaMascota;
+import domain.business.mascota.MascotaPerdida;
+import domain.business.mascota.Tamanio;
+import domain.business.mascota.TipoAnimal;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
-import domain.business.organizaciones.apiHogares.entidades.Ubication;
+import domain.business.ubicacion.Lugar;
+import domain.business.ubicacion.Ubicacion;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HogarDeTransito{
     private String nombreOrganizacion;

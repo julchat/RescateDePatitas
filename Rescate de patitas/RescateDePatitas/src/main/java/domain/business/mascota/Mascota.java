@@ -1,9 +1,10 @@
-package domain.business;
+package domain.business.mascota;
 
-import domain.business.caracteristicas.CaracteristicaMascota;
+import domain.business.users.Persona;
 import domain.business.foto.Foto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Mascota {
     private String nombreMascota;
@@ -13,12 +14,12 @@ public class Mascota {
     private SexoMascota sexoMascota;                   // M o H, o un Enum con MACHO, HEMBRA? // Enum, para evitar problemas como "no me toma la m porque esta en minuscula"
     private String descripcionMascota;
     private List<Foto> fotos;
-    private List<CaracteristicaMascota> caracteristicasMascota;
+    private List<String> caracteristicasMascota;
 
     // Constructor
     public Mascota() {}
 
-    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<CaracteristicaMascota> caracteristicasMascota, boolean perdida, boolean adoptada, Persona encargado){
+    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<String> caracteristicasMascota, boolean perdida, boolean adoptada, Persona encargado){
         this.nombreMascota = nombre;
         this.tipoAnimal = tipo;
         this.edadMascota = edadMascota;
@@ -85,24 +86,21 @@ public class Mascota {
         this.fotos = fotos;
     }
 
-    public List<CaracteristicaMascota> getCaracteristicasMascota() {
+    public List<String> getCaracteristicasMascota() {
         return caracteristicasMascota;
     }
 
-    public void setCaracteristicasMascota(List<CaracteristicaMascota> caracteristicasMascota) {
+    public void setCaracteristicasMascota(List<String> caracteristicasMascota) {
         this.caracteristicasMascota = caracteristicasMascota;
     }
 
-    public void quitarCaracteristica(CaracteristicaMascota caracteristica) {
-        if(this.caracteristicasMascota.contains(caracteristica)) {
-            this.caracteristicasMascota.remove(caracteristica);
-        }
-        else {
-            System.out.println("La mascota no posee dicha caracteristica.");
+    public void quitarCaracteristica(String caracteristicaAQuitar) {
+        if(this.caracteristicasMascota.stream().anyMatch(caracteristica -> caracteristica.equals(caracteristicaAQuitar))) {
+            this.caracteristicasMascota.remove(this.caracteristicasMascota.stream().filter(caracteristica -> caracteristica.equals(caracteristicaAQuitar)).collect(Collectors.toList()).get(0));
         }
     }
 
-    public void agregarCaracteristica(CaracteristicaMascota caracteristica) { this.caracteristicasMascota.add(caracteristica); }
+    public void agregarCaracteristica(String caracteristica) { this.caracteristicasMascota.add(caracteristica); }
 
 
     // Metodos

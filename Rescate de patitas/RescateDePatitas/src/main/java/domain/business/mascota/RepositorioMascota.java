@@ -1,6 +1,6 @@
-package domain.business;
+package domain.business.mascota;
 
-import domain.business.Mascota;
+import domain.business.mascota.Mascota;
 
 import java.util.List;
 

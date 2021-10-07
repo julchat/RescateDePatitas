@@ -1,7 +1,7 @@
-package domain.business;
+package domain.business.mascota;
 
-import domain.business.caracteristicas.Caracteristica;
-import domain.business.caracteristicas.CaracteristicaMascota;
+import domain.business.ubicacion.Lugar;
+import domain.business.ubicacion.Ubicacion;
 import domain.business.foto.Foto;
 
 import java.util.ArrayList;

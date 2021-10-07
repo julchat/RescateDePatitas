@@ -1,11 +1,15 @@
-package domain.business;
+package domain.business.users;
 
+import domain.business.Sistema;
+import domain.business.mascota.Mascota;
 import domain.business.notificaciones.Notificacion;
+import domain.business.publicaciones.*;
+import org.apache.commons.collections.ArrayStack;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Persona {
     private String nombre;
@@ -104,8 +108,46 @@ public class Persona {
 
     // Metodos
     public void crearPublicacionParaAdoptar() {
+        List<String> comodidades = new ArrayList<>();
+        List<String> preferencias = new ArrayList<>();
+
+        PublicacionParaAdoptar publicacionParaAdoptar = new PublicacionParaAdoptar();
+        publicacionParaAdoptar.crearPublicacion(this, comodidades, preferencias);
+        // TODO: agregar la publicacion al Repositorio de Publicaciones
     }
 
+    public void crearPublicacionParaDarAdopcion() {
+        PublicacionMascotaEnAdopcion publicacionCreada = new PublicacionMascotaEnAdopcion();
+        Mascota mascotaElegida = new Mascota();
+
+        List<Respuesta> respuestas = new ArrayList<>();
+
+        publicacionCreada.crearPublicacion(this, mascotaElegida, respuestas);
+        // TODO: agregar la publicacion al Repositorio de Publicaciones
+    }
+
+    // Todo: no es la parte final
+    public void buscarPublicacionesMascotaEnAdopcion(){
+        Sistema miSistema = Sistema.getInstance();
+        miSistema.getPublicaciones().stream().filter(publicacion -> publicacion.getClass().equals(PublicacionMascotaEnAdopcion.class)).collect(Collectors.toList());
+
+        PublicacionMascotaEnAdopcion publicacionElegida = new PublicacionMascotaEnAdopcion();
+        this.mostrarInteresEnPublicacion(publicacionElegida);
+    }
+
+    private void mostrarInteresEnPublicacion(PublicacionMascotaEnAdopcion publicacionElegida) {
+        publicacionElegida.nuevoInteresado(this);
+        publicacionElegida.getAutor().getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarHayInteresadoEnAdoptar(publicacionElegida.getAutor(), this, publicacionElegida.getMascotaElegida(), publicacionElegida.getRuta()));
+    }
+
+    public List<Publicacion> buscarPublicacionesMascotaPerdida(){
+        Sistema miSistema = Sistema.getInstance();
+        return miSistema.getPublicaciones().stream().filter(publicacion -> publicacion.getClass().equals(PublicacionMascotaPerdida.class)).collect(Collectors.toList());
+    }
+
+    public void comunicarseConAutor(Publicacion publicacion) {
+        publicacion.getAutor().mostrarDatosNoSensibles();
+    }
 
 
     public void mostrarDatosNoSensibles() {
