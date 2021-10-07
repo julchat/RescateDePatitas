@@ -3,7 +3,6 @@ package domain.repositories.factories;
 import config.Config;
 import domain.repositories.Repositorio;
 import domain.repositories.daos.*;
-import domain.repositories.testMemoData.Data;
 
 import java.util.HashMap;
 
@@ -25,7 +24,7 @@ public class FactoryRepositorio {
                 repo = new Repositorio<>(dao);
             }
             else{
-                repo = new Repositorio<>(new DAOMemoria<>(Data.getData(type)));
+                repo = new Repositorio<>(null);
             }
             repos.put(type.toString(), repo);
         }

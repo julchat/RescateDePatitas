@@ -1,4 +1,4 @@
-package domain.business;
+package domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

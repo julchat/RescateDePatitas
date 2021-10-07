@@ -1,6 +1,6 @@
-package domain.business.api;
+package domain.model.api;
 
-import domain.business.api.entities.UserData;
+import domain.model.api.entities.UserData;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

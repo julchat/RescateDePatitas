@@ -1,9 +1,8 @@
-package domain.business.api;
+package domain.model.api;
 
-import domain.business.Administrador;
-import domain.business.User;
-import domain.business.Usuario;
-import domain.business.api.entities.UserData;
+import domain.model.Administrador;
+import domain.model.Usuario;
+import domain.model.api.entities.UserData;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;

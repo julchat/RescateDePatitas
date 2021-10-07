@@ -1,7 +1,6 @@
 package domain.repositories;
 
-import domain.business.User;
-import domain.business.Usuario;
+import domain.model.User;
 import domain.repositories.daos.DAO;
 
 import javax.persistence.criteria.CriteriaBuilder;

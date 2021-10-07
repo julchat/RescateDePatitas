@@ -1,6 +1,6 @@
 package domain.repositories.daos;
 
-import domain.business.EntidadPersistente;
+import domain.model.EntidadPersistente;
 import domain.repositories.BusquedaCondicional;
 
 import java.util.List;

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualización de Datos Personales</title>
+    <link rel="stylesheet" href="/css/update-personal-data.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+   
+</head>
+
+<body>
+    <div class="container"  align="center">
+        <h1 class="titulo">RELACIONAMIENTO DE PERSONAS</h1>
+        <h2 class="subtitulo">Acrualización de datos personales</h2>
+
+        <form class"form1">
+            <table class="tabla" align="center">
+                <tr>
+                    <td>
+                        <div class="grid-item">
+                            <label for="start">Fecha de nacimiento<br></label>
+                            <input 
+                                type="date" 
+                                id="start" 
+                                name="trip-start" 
+                                class="fecha"
+                                value="aa-mm-dd" 
+                                min="1930-01-01"
+                                max="2004-01-01">
+                        </div>
+                    </td>
+                    
+                    <td>
+                        <div class="grid-item">
+                            <label for="">Agregar foto<br></label>
+                            <input 
+                                class="subir-imagen"
+                                type="image"
+                                    <img 
+                                        src="/plus-sign.png"  
+                                        height="30"
+                                        width="30"
+                                    >
+                            </input>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="grid-item">
+                            <label for="">Ciudad<br></label>
+                            <input type="text" name="" value="" class="text-input">
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="grid-item">
+                            <label for="">Localidad de residencia<br></label>
+                            <input type="text" name="" value="" class="text-input">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <button class="boton" type="submit">ACTUALIZAR</button>
+
+    </div>
+</body>
+</html>

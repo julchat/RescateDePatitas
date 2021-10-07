@@ -1,6 +1,6 @@
 package domain.repositories.factories;
 
-import domain.business.Persona;
+import domain.model.Persona;
 import domain.repositories.Repositorio;
 import domain.repositories.daos.DAO;
 

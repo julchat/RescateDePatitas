@@ -1,4 +1,4 @@
-package domain.business;
+package domain.model;
 
 public enum EstadoSesion {
     INICIADA,

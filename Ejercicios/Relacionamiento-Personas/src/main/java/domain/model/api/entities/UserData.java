@@ -1,4 +1,4 @@
-package domain.business.api.entities;
+package domain.model.api.entities;
 
 public class UserData {
     int dni;

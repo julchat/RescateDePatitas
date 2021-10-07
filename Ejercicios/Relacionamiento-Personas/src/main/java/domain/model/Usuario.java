@@ -1,6 +1,4 @@
-package domain.business;
-
-import domain.business.api.entities.UserData;
+package domain.model;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
