@@ -3,6 +3,7 @@ package domain.business.mascota;
 import domain.business.EntidadPersistente;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.foto.Foto;
+import domain.business.users.Duenio;
 
 import javax.persistence.*;
 import java.util.ArrayList;

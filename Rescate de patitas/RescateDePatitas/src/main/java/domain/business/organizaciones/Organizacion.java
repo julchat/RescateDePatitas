@@ -4,9 +4,11 @@ import domain.business.EntidadPersistente;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.publicaciones.Pregunta;
 import domain.business.users.Administrador;
+import domain.business.users.Persona;
 import domain.business.users.Voluntario;
 import domain.business.foto.DimensionEstandar;
 import domain.business.foto.Foto;
+import domain.security.Usuario;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -46,6 +48,9 @@ public class Organizacion extends EntidadPersistente {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "administradores")
     private List<Administrador> administradores = new ArrayList<>();
+
+    @Transient
+    private List<Persona> potencialesVoluntarios = new ArrayList<>();
 
 
     // Getters and Setters
@@ -113,6 +118,18 @@ public class Organizacion extends EntidadPersistente {
 
 
     // Metodos
+    public void aceptarVoluntario(Persona nuevoVoluntario) {
+        if(this.potencialesVoluntarios.contains(nuevoVoluntario)){
+            this.potencialesVoluntarios.remove(nuevoVoluntario);
+
+            // Todo: ver si se puede hacer un cambio de clase entre Persona a Voluntario
+            // Todo: la otra forma es pasar TODOS los datos de una Persona a Voluntario, incluyendo todo lo que se encuentar en la BD
+            ((Voluntario)nuevoVoluntario).setOrganizacion(this);
+            this.voluntarios.add((Voluntario) nuevoVoluntario);
+        }
+    }
+
+
     public boolean aceptaCaracteristica(Caracteristica caracteristicaMascota) {
         if(this.existeCaracteristica(caracteristicaMascota)){
             Caracteristica caracteristica = this.buscarCaracteristica(caracteristicaMascota);

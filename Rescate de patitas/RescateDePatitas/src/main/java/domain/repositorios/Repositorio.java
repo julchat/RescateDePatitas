@@ -38,7 +38,7 @@ public class Repositorio<T> {
         return this.dao.buscar(id);
     }
 
-    public CriteriaBuilder criteriaBuilder(){
+    public static CriteriaBuilder criteriaBuilder(){
         return EntityManagerHelper.getEntityManager().getCriteriaBuilder();
     }
 }

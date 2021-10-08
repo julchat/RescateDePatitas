@@ -9,7 +9,7 @@ public class NotificadorEmail extends Notificacion{
 
     @Override
     public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida){
-            mailSender.enviarEmail(destinatario.getEmail(),"Tu mascota ha sido encontrada",armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida));
+            mailSender.enviarEmail(destinatario.getEmail(),"Tu mascota ha sido encontrada", armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida));
     }
 
     @Override

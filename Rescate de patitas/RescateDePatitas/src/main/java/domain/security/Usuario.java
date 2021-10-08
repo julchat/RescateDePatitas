@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "usuario")
 public class Usuario extends EntidadPersistente {
 
-    private String usuario;
+    private String nombreUsuario;
     private String contrasenia;
 
     @Enumerated(EnumType.STRING)
@@ -28,12 +28,12 @@ public class Usuario extends EntidadPersistente {
 
 
     // Getters and Setters
-    public String getUsuario() {
-        return usuario;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNombreUsuario(String usuario) {
+        this.nombreUsuario = usuario;
     }
 
     public String getContrasenia() {
@@ -41,7 +41,7 @@ public class Usuario extends EntidadPersistente {
     }
 
     public void setContrasenia(String contrasenia) {
-        if(new ValidadorPassword().esValida(usuario, contrasenia)){
+        if(new ValidadorPassword().esValida(nombreUsuario, contrasenia)){
             this.contrasenia = contrasenia;
         }
     }
@@ -79,7 +79,7 @@ public class Usuario extends EntidadPersistente {
     public boolean validarLogin(String usuario, String password) {
         if (StringUtils.isNotEmpty(usuario) && StringUtils.isNotEmpty(password)) {
             String passwordDesencriptado = AESEncryptionDecryption.decrypt(this.contrasenia);
-            return usuario.equals(this.usuario) && password.equals(passwordDesencriptado);
+            return usuario.equals(this.nombreUsuario) && password.equals(passwordDesencriptado);
         }
         else {
             return false;
