@@ -1,10 +1,16 @@
 package domain.business;
 
+import domain.business.mascota.Mascota;
+import domain.business.mascota.MascotaPerdida;
 import domain.business.organizaciones.HogarDeTransito;
+import domain.business.organizaciones.OrdenarPorCercania;
 import domain.business.organizaciones.Organizacion;
 import domain.business.organizaciones.apiHogares.APIhogares;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import domain.business.publicaciones.Publicacion;
+import domain.business.publicaciones.PublicacionParaAdoptar;
+import domain.business.ubicacion.Ubicacion;
+import domain.business.users.Persona;
 import domain.security.password.ValidadorPassword;
 import domain.security.Usuario;
 
@@ -100,8 +106,8 @@ public class Sistema {
         return this.usuarios.stream().map(usuario -> usuario.getUsuario()).collect(Collectors.toList()).contains(usuarioBuscado);
     }
 
-    public boolean validarContrasenia(String contrasenia) {
-        return validador.esValida(contrasenia);
+    public boolean validarContrasenia(String usuario, String contrasenia) {
+        return validador.esValida(usuario, contrasenia);
     }
 
     public void reclamarMascotaEncontrada(MascotaPerdida mascota) {
@@ -143,6 +149,14 @@ public class Sistema {
         }
         return hogarAdecuado;
     }
+/*
+    public List<Persona> notificarPersonasAdoptantes() {
+        // Todo: hecho asi nomas
 
+        List<Publicacion> publicaciones = this.getPublicaciones().stream().filter(publicacion -> publicacion.getClass().equals(PublicacionParaAdoptar.class)).collect(Collectors.toList());
 
+        List<Persona> autores = publicaciones.stream().map(publicacion -> publicacion.getAutor()).collect(Collectors.toList());
+
+        // Todo: por cada autor, enviar una notificacion de una publicacion de mascota que se ajusta a sus preferencias y comodidades
+    }*/
 }

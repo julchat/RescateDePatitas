@@ -1,6 +1,6 @@
-package domain.business;
+package domain.business.organizaciones;
 
-import domain.business.organizaciones.HogarDeTransito;
+import domain.business.ubicacion.Ubicacion;
 
 import java.util.Comparator;
 

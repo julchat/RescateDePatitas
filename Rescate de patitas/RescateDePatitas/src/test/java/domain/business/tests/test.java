@@ -24,18 +24,24 @@ public class test {
     @Test
     public void contraseniaInsegura() throws FileNotFoundException {
         System.out.println("Contraseña que no cumpla con los criterios de Seguridad, no cumple.");
-        assertFalse(miSistema.validarContrasenia("password"));
+        assertFalse(miSistema.validarContrasenia("admin123", "password"));
     }
     @Test
     public void contraseniaMuyCorta() throws FileNotFoundException {
         System.out.println("Contraseña que no cumple con el mínimo de 8 caracteres.");
-        assertFalse(miSistema.validarContrasenia("A12DH"));
+        assertFalse(miSistema.validarContrasenia("admin123", "A12DH"));
+    }
+
+    @Test
+    public void contraseniaDiferenteUsuario() throws FileNotFoundException {
+        System.out.println("Contraseña que cumple con los criterios de Seguridad, es una contraseña válida.");
+        assertFalse(miSistema.validarContrasenia("admin", "admin"));
     }
 
     @Test
     public void validarContrasenia() throws FileNotFoundException {
         System.out.println("Contraseña que cumple con los criterios de Seguridad, es una contraseña válida.");
-        assertTrue(miSistema.validarContrasenia("password1234ABC"));
+        assertTrue(miSistema.validarContrasenia("admin123", "password1234ABC"));
     }
 
     @Test

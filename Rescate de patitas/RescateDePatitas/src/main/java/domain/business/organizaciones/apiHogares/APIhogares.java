@@ -1,7 +1,5 @@
 package domain.business.organizaciones.apiHogares;
 
-import domain.business.TipoAnimal;
-import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.organizaciones.apiHogares.entidades.ConjuntoHogares;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import retrofit2.Call;
@@ -10,7 +8,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class APIhogares {

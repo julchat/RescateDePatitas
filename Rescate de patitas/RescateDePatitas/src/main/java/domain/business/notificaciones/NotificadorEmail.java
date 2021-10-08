@@ -1,6 +1,6 @@
 package domain.business.notificaciones;
-import domain.business.Mascota;
-import domain.business.Persona;
+import domain.business.mascota.Mascota;
+import domain.business.users.Persona;
 import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public class NotificadorEmail extends Notificacion{
@@ -8,8 +8,8 @@ public class NotificadorEmail extends Notificacion{
     public TipoNotificacion obtenerCodigoNotificacion() { return TipoNotificacion.EMAIL; }
 
     @Override
-    public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida, String ruta){
-            mailSender.enviarEmail(destinatario.getEmail(),"Tu mascota ha sido encontrada",armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida,ruta));
+    public void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida){
+            mailSender.enviarEmail(destinatario.getEmail(),"Tu mascota ha sido encontrada",armarMensajeMascotaEncontrada(destinatario,hallador, mascotaPerdida));
     }
 
     @Override

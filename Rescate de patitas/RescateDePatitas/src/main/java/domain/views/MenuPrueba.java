@@ -1,18 +1,17 @@
 package domain.views;
 import domain.business.*;
-import domain.business.caracteristicas.Caracteristica;
-import domain.business.caracteristicas.CaracteristicaMascota;
 import domain.business.foto.Foto;
+import domain.business.mascota.*;
 import domain.business.notificaciones.*;
 import domain.business.organizaciones.HogarDeTransito;
-import domain.business.organizaciones.Organizacion;
 import domain.business.organizaciones.apiHogares.APIhogares;
-import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import domain.business.publicaciones.Aprobada;
 import domain.business.publicaciones.Pendiente;
 import domain.business.publicaciones.Publicacion;
 import domain.business.publicaciones.Rechazada;
-import domain.security.Admin;
+import domain.business.ubicacion.Domicilio;
+import domain.business.ubicacion.Ubicacion;
+import domain.business.users.*;
 import domain.security.Usuario;
 
 import java.io.IOException;
@@ -196,7 +195,7 @@ public class MenuPrueba {
 
                     System.out.print("Ingrese una contraseña: ");
                     String contrasenia = datosUsuario.next();
-                    while(!miSistema.validarContrasenia(contrasenia)) {
+                    while(!miSistema.validarContrasenia(nombreUsuario, contrasenia)) {
                         System.out.print("La contraseña no es válida, ingrese otra: ");
                         contrasenia = datosUsuario.next();
                     }
@@ -613,8 +612,8 @@ public class MenuPrueba {
         return fotos;
     }
 
-    private List<CaracteristicaMascota> eleccionCaracteristicas(Scanner entrada) {
-        List<CaracteristicaMascota> caracteristicasMascota = new ArrayList<>();
+    private List<String> eleccionCaracteristicas(Scanner entrada) {
+        List<String> caracteristicasMascota = new ArrayList<>();
 
         /*
         for(Caracteristica unaCaracteristica : listaCaracteristicas) {
@@ -678,7 +677,7 @@ public class MenuPrueba {
 
             if(hogarDeTransito == null) {
                 System.out.println("No hay ningún hogar de tránsito que pueda alojar a la mascota encontrada.");
-                // Todo: en este caso, que pasa?
+                // Todo: "En este radio no se encontraron hogares, busca por un radio mayor"
                 return;
             }
             hogarDeTransito.alojarMascota(mascotaPerdida);
@@ -996,8 +995,8 @@ public class MenuPrueba {
         Scanner entrada = new Scanner(System.in);
         int opcionElegida;
 
-        for(Caracteristica caracteristica : admin.getOrganizacion().getCaracteristicasAdmitidas()) {
-            System.out.println(caracteristica.getNombre());
+        for(String caracteristica : admin.getOrganizacion().getCaracteristicasAdmitidas()) {
+            System.out.println(caracteristica);
         }
 
         while(!salir) {
@@ -1011,38 +1010,23 @@ public class MenuPrueba {
             switch(opcionElegida) {
                 case 1:
                     boolean terminar = false;
-                    Caracteristica nuevaCaracteristica = new Caracteristica();
-                    System.out.println("    - Ingrese el nombre de la Característica: ");
-                    nuevaCaracteristica.setNombre(entrada.next());
-                    System.out.println("    - Ingrese las opciones válidas: ");
-                    List<String> opcionesValidas = new ArrayList<>();
-                    while(!terminar) {
-                        System.out.println("Ingrese una opción válida: ");
-                        System.out.print("> ");
-                        String valor = entrada.nextLine();
+                    System.out.println("    - Ingrese la nueva característica: ");
+                    String nuevaCaracteristica = entrada.next();
 
-                        System.out.println("Usted ingresó: " + valor + ". Si está seguro de la elección, ingrese 1.");
+                    while(!terminar) {
+
+                        System.out.println("Usted ingresó: " + nuevaCaracteristica + ". Si está seguro de la elección, ingrese 1.");
                         System.out.print("> ");
                         opcionElegida = entrada.nextInt();
 
                         if(opcionElegida == 1) {
-                            opcionesValidas.add(valor);
-                        }
-
-                        System.out.println("Si desea finalizar con la carga de opciones válidas, ingrese 2.");
-                        System.out.println("De lo contrario, ingrese cualquier valor.");
-                        System.out.print("> ");
-                        opcionElegida = entrada.nextInt();
-
-                        if(opcionElegida == 2) {
                             terminar = true;
                         }
                     }
 
-                    nuevaCaracteristica.setOpcionesValidas(opcionesValidas);
                     admin.getOrganizacion().agregarCaracteristicaAdmitida(nuevaCaracteristica);
 
-                    System.out.println("Se agregó la característica " + nuevaCaracteristica.getNombre() + " a la Organizacion " + admin.getOrganizacion().getNombreOrganizacion());
+                    System.out.println("Se agregó la característica " + nuevaCaracteristica + " a la Organizacion " + admin.getOrganizacion().getNombreOrganizacion());
                     break;
 
                 case 2:

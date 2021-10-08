@@ -1,8 +1,8 @@
 package domain.business.publicaciones;
 
-import domain.business.*;
-
-import java.time.LocalDate;
+import domain.business.mascota.MascotaPerdida;
+import domain.business.ubicacion.Lugar;
+import domain.business.users.Rescatista;
 
 public class PublicacionMascotaPerdida extends Publicacion {
     private MascotaPerdida mascotaRescatada;

@@ -1,6 +1,5 @@
 package domain.business.publicaciones;
 
-import domain.business.Voluntario;
 import domain.security.Moderador;
 import domain.security.Usuario;
 

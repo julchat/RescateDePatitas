@@ -1,10 +1,6 @@
 package domain;
 
-import domain.business.*;
-
-import persistence.database.BDUtils;
-import org.apache.log4j.BasicConfigurator;
-import domain.views.MenuPrueba;
+import database.EntityManagerHelper;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -18,8 +14,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         //BasicConfigurator.configure(); // configura el logger
-        EntityManager em = BDUtils.getEntityManager();
-        //BDUtils.comenzarTransaccion(em);
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        //EntityManagerHelper.comenzarTransaccion(em);
 
         //menuPrueba.menuPrincipal();
 

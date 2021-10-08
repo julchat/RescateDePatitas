@@ -1,5 +1,5 @@
 package domain.security.password;
 
 public interface Validador {
-    boolean esValida(String password);
+    boolean esValida(String usuario, String password);
 }

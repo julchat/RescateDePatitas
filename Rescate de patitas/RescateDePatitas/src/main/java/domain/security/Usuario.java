@@ -1,6 +1,6 @@
 package domain.security;
 
-import domain.business.Persona;
+import domain.business.users.Persona;
 import domain.security.password.ValidadorPassword;
 import excepciones.PermisosInvalidosException;
 
@@ -24,7 +24,7 @@ public class Usuario {
     }
 
     public void setContrasenia(String contrasenia) {
-        if(new ValidadorPassword().esValida(contrasenia)){
+        if(new ValidadorPassword().esValida(usuario, contrasenia)){
             this.contrasenia = contrasenia;
         }
     }
@@ -46,10 +46,12 @@ public class Usuario {
     }
 
     // Constructor
+    public Usuario() {}
+
     public Usuario(String usuario, String contrasenia){
             this.usuario = usuario;
             this.rol = new User();
-            if(new ValidadorPassword().esValida(contrasenia)){
+            if(new ValidadorPassword().esValida(usuario, contrasenia)){
                     this.contrasenia = contrasenia;
             } //Si no tira excepcion creo
     }

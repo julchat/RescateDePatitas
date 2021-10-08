@@ -1,15 +1,12 @@
 package domain.business.publicaciones;
 
-import domain.business.MascotaPerdida;
-import domain.business.Persona;
+import domain.business.users.Persona;
 
 import java.util.List;
 
 public class PublicacionParaAdoptar extends Publicacion{
     private List<String> comodidades;
     private List<String> preferencias;
-    //private Persona autor;
-
 
     // Getters and Setters
     public void setComodidades(List<String> comodidades) { this.comodidades = comodidades; }
@@ -43,6 +40,7 @@ public class PublicacionParaAdoptar extends Publicacion{
 
     @Override
     public void mostrarPublicacion() {
+        this.getAutor().mostrarDatosNoSensibles();
         System.out.println("Comodidades: " + obtenerComodidades());
         System.out.println("Preferencias: " + obtenerPreferencias());
     }
