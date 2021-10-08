@@ -1,31 +1,27 @@
 package domain.repositorios.factories;
 
 import config.Config;
-import domain.repositorios.RepositorioDeUsuarios;
+import domain.repositorios.RepositorioUsuarios;
 import domain.repositorios.daos.DAO;
 import domain.repositorios.daos.DAOHibernate;
-import domain.repositorios.daos.DAOMemoria;
 import domain.security.Usuario;
 
-
-import javax.xml.crypto.Data;
-
 public class FactoryRepositorioUsuarios {
-    private static RepositorioDeUsuarios repo;
+    private static RepositorioUsuarios repo;
 
     static {
         repo = null;
     }
 
-    public static RepositorioDeUsuarios get(){
+    public static RepositorioUsuarios get(){
         if(repo == null){
             if(Config.useDataBase){
                 DAO<Usuario> dao = new DAOHibernate<>(Usuario.class);
-                repo = new RepositorioDeUsuarios(dao);
+                repo = new RepositorioUsuarios(dao);
             }
             else{
-               // repo = new RepositorioDeUsuarios(new DAOMemoria<>(Data.getData(Usuario.class)));
-                repo = new RepositorioDeUsuarios(null);
+               // repo = new RepositorioUsuarios(new DAOMemoria<>(Data.getData(Usuario.class)));
+                repo = new RepositorioUsuarios(null);
             }
         }
         return repo;

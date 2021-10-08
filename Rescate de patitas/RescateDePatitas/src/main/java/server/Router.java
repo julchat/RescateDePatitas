@@ -1,11 +1,11 @@
 package server;
 
+import domain.controllers.HomeController;
 import domain.controllers.LoginController;
 import domain.middleware.AuthMiddleware;
 
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import spark.utils.BooleanHelper;
 import spark.utils.HandlebarsTemplateEngineBuilder;
 
 public class Router {
@@ -15,10 +15,8 @@ public class Router {
         Router.engine = HandlebarsTemplateEngineBuilder
                 .create()
                 .withDefaultHelpers()
-                .withHelper("isTrue", BooleanHelper.isTrue)
                 .build();
     }
-
 
     // todos los archivos estaticos y publicos (js, css, img) estan en la carpeta /public
     public static void init() {
@@ -29,11 +27,13 @@ public class Router {
 
     private static void configure(){
         LoginController loginController = new LoginController();
+        HomeController homeController = new HomeController();
         AuthMiddleware authMiddleware = new AuthMiddleware();
 
-        Spark.get("/", loginController::inicio, Router.engine);
-
+        Spark.get("/", homeController::home, Router.engine);
         Spark.before("/", authMiddleware::verificarSesion);
-
+        Spark.get("/login", loginController::showLogin, Router.engine);
+        Spark.post("/login", loginController::login);
+        Spark.get("/logout", loginController::logout, Router.engine);
     }
 }

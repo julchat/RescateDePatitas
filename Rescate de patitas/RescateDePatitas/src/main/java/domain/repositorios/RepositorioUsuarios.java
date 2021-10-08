@@ -8,9 +8,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class RepositorioDeUsuarios extends Repositorio<Usuario> {
+public class RepositorioUsuarios extends Repositorio<Usuario> {
 
-    public RepositorioDeUsuarios(DAO<Usuario> dao) {
+    public RepositorioUsuarios(DAO<Usuario> dao) {
         super(dao);
     }
 

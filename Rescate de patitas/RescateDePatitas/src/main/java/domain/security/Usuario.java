@@ -2,8 +2,10 @@ package domain.security;
 
 import domain.business.EntidadPersistente;
 import domain.business.users.Persona;
+import domain.security.password.AESEncryptionDecryption;
 import domain.security.password.ValidadorPassword;
 import excepciones.PermisosInvalidosException;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 
@@ -63,17 +65,8 @@ public class Usuario extends EntidadPersistente {
     // Constructor
     public Usuario() {}
 
-    public Usuario(String usuario, String contrasenia){
-            this.usuario = usuario;
-            this.rol = new User();
-            if(new ValidadorPassword().esValida(usuario, contrasenia)){
-                    this.contrasenia = contrasenia;
-            } //Si no tira excepcion creo
-    }
-
 
     // Metodos
-    // Solamente si uno es Admin
     public void hacerAdministrador(Usuario otroUsuario){
             if(rol.puedoCrearAdministradores()){
                     otroUsuario.rol = new Admin();
@@ -81,6 +74,16 @@ public class Usuario extends EntidadPersistente {
             else{
                 throw new PermisosInvalidosException();
             }
+    }
+
+    public boolean validarLogin(String usuario, String password) {
+        if (StringUtils.isNotEmpty(usuario) && StringUtils.isNotEmpty(password)) {
+            String passwordDesencriptado = AESEncryptionDecryption.decrypt(this.contrasenia);
+            return usuario.equals(this.usuario) && password.equals(passwordDesencriptado);
+        }
+        else {
+            return false;
+        }
     }
 
 }
