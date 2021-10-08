@@ -14,4 +14,29 @@ public class HomeController {
         return new ModelAndView(viewModel,"home.hbs");
     }
 
+    public ModelAndView registrarMascota(Request request, Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"registrar-mascota.hbs");
+    }
+
+    public ModelAndView reportarMascota(Request request, Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"reportar-mascota.hbs");
+    }
+
+    public ModelAndView adoptarMascota(Request request, Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"adoptar-mascota.hbs");
+    }
+
+    public ModelAndView darMascotaAdopcion(Request request, Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"mascota-adopcion.hbs");
+    }
+
+    public ModelAndView mascotasPerdidas(Request request, Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"mascotas-perdidas.hbs");
+    }
+
 }

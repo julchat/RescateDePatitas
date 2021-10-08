@@ -41,6 +41,7 @@ public class EntityManagerHelper {
         }
     }
 
+
     public static boolean usuarioDisponible(String nombreBuscado){
         EntityManager em = EntityManagerHelper.getEntityManager();
 
