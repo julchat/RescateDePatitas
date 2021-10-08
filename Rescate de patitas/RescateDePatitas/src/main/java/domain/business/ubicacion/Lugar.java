@@ -1,30 +1,31 @@
 package domain.business.ubicacion;
 
-public class Lugar {
+
+import domain.business.EntidadPersistente;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "lugar")
+public class Lugar extends EntidadPersistente {
+
     private String direccion;
-    private double longitud;
-    private double latitud;
+
+    @OneToOne
+    @JoinColumn(name = "ubicacion_id")
+    private Ubicacion ubicacion;
+
 
     public String getDireccion() { return direccion; }
 
     public void setDireccion(String direccion) { this.direccion = direccion; }
 
-    public double getLongitud() {
-        return longitud;
-    }
+    public Ubicacion getUbicacion() { return ubicacion; }
 
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
+    public void setUbicacion(Ubicacion ubicacion) { this.ubicacion = ubicacion; }
 
     // Constructor
     public Lugar() {}
@@ -34,8 +35,9 @@ public class Lugar {
     public Lugar mapearLugar(Domicilio domicilio) {
         String direccion = domicilio.getCalle() + " " + domicilio.getNumero() + ", " + domicilio.getLocalidad() + ", " + domicilio.getProvincia();
         this.setDireccion(direccion);
-        this.setLatitud(domicilio.getUbicacion().getLatitud());
-        this.setLongitud(domicilio.getUbicacion().getLongitud());
+        this.setUbicacion(new Ubicacion());
+        this.getUbicacion().setLatitud(domicilio.getUbicacion().getLatitud());
+        this.getUbicacion().setLongitud(domicilio.getUbicacion().getLongitud());
         return this;
     }
 }

@@ -13,21 +13,10 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
+
+        <!-- Twilio -->
         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
@@ -39,10 +28,21 @@
             <version>2.3.2</version>
         </dependency>
         <dependency>
-            <groupId> org.apache.cassandra</groupId>
-            <artifactId>cassandra-all</artifactId>
-            <version>0.8.1</version>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
         </dependency>
+
+
+        <!-- JUNIT -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
+        </dependency>
+
+
+        <!-- API -->
         <dependency>
             <groupId>com.sendgrid</groupId>
             <artifactId>sendgrid-java</artifactId>
@@ -58,33 +58,18 @@
             <artifactId>converter-gson</artifactId>
             <version>2.9.0</version>
         </dependency>
+
+
+        <!-- SQL e Hibernate -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.26</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.4.18.Final</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.uqbar-project</groupId>
@@ -92,16 +77,22 @@
             <version>1.0-alpha-1</version>
         </dependency>
         <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+
+        <!-- Spark -->
+        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-
-        <!-- Spark -->
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.4.0</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.21</version>
         </dependency>
         <dependency>
             <groupId>com.sparkjava</groupId>
@@ -128,5 +119,7 @@
             <artifactId>handlebars-humanize</artifactId>
             <version>4.2.0</version>
         </dependency>
+
+
     </dependencies>
 </project>

@@ -1,17 +1,38 @@
 package domain.business.publicaciones;
 
+import domain.business.EntidadPersistente;
 import domain.business.users.Persona;
 import domain.security.Usuario;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
-public abstract class Publicacion {
+@Entity
+@Table(name = "publicacion")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo")
+public abstract class Publicacion extends EntidadPersistente {
+
+    @Column(name = "estado_publicacion")
+    @Enumerated(EnumType.STRING)
+    private Estados estado;
+
+    @Transient
     private EstadoPublicacion estadoPublicacion;
+
+    @OneToOne
+    @JoinColumn(name = "autor_id")
     private Persona autor;
-    private LocalDate fecha;
+
+    private LocalDate fechaDePublicacion;
     private String ruta;
 
+
     // Getters and Setters
+    public Estados getEstado() { return estado; }
+
+    public void setEstado(Estados estado) { this.estado = estado; }
+
     public EstadoPublicacion getEstadoPublicacion() {
         return estadoPublicacion;
     }
@@ -26,14 +47,20 @@ public abstract class Publicacion {
         this.autor = autor;
     }
 
+    public LocalDate getFechaDePublicacion() { return fechaDePublicacion; }
+
+    public void setFechaDePublicacion(LocalDate fechaDePublicacion) { this.fechaDePublicacion = fechaDePublicacion; }
+
     public String getRuta() { return ruta; }
 
     public void setRuta(String ruta) { this.ruta = ruta; }
 
+
     // Metodos
     public void crearPublicacion(EstadoPublicacion estadoPublicacion) {
-        this.estadoPublicacion = estadoPublicacion;
-        this.fecha = LocalDate.now();
+        this.setEstadoPublicacion(estadoPublicacion);
+        this.setFechaDePublicacion(LocalDate.now());
+        this.setRuta(ruta);
     }
 
     public void cambiarEstado(EstadoPublicacion nuevoEstado) {

@@ -2,11 +2,23 @@ package domain.business.publicaciones;
 
 import domain.business.users.Persona;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
-public class PublicacionParaAdoptar extends Publicacion{
+@Entity
+@Table(name = "publicacion_para_adopcion")
+@DiscriminatorColumn(name = "publicacion_para_adopcion")
+public class PublicacionParaAdoptar extends Publicacion {
+
+    @ElementCollection
     private List<String> comodidades;
+
+    @ElementCollection
     private List<String> preferencias;
+
 
     // Getters and Setters
     public void setComodidades(List<String> comodidades) { this.comodidades = comodidades; }

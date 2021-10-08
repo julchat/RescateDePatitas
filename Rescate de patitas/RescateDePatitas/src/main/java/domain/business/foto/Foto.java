@@ -1,13 +1,24 @@
 package domain.business.foto;
 
+import domain.business.EntidadPersistente;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.HashMap;
 
-public class Foto {
+@Entity
+@Table(name = "foto")
+public class Foto extends EntidadPersistente {
     private int alto;
     private int ancho;
+    private String ubicacion_foto;
+
+    @Transient
     private HashMap<Posicion, Color> pixeles = new HashMap<>();
 
-// Getters and Setters
+
+    // Getters and Setters
     public int getAlto() {
         return alto;
     }
@@ -28,7 +39,9 @@ public class Foto {
 
     public void setPixeles(HashMap<Posicion, Color> pixeles) { this.pixeles = pixeles; }
 
-// Metodos
+    public Foto() {}
+
+    // Metodos
     public void normalizarA(DimensionEstandar dimension) {}
 
     public void resetearPixeles(){ pixeles = new HashMap<>(); }

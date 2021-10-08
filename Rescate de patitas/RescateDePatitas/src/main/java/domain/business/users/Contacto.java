@@ -1,15 +1,24 @@
 package domain.business.users;
 
+import domain.business.EntidadPersistente;
 import domain.business.notificaciones.Notificacion;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Contacto {
+@Entity
+@Table(name = "contacto")
+public class Contacto extends EntidadPersistente {
+
     private String nombreContacto;
     private String apellidoContacto;
     private int telefonoContacto;
     private String emailContacto;
-    private List<Notificacion> formasDeNotificacionContacto;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "notificaciones")
+    private List<Notificacion> formasDeNotificacionContacto = new ArrayList<>();
 
 
     // Getters and Setters
@@ -63,10 +72,4 @@ public class Contacto {
     // Constructor
     public Contacto() {}
 
-    public Contacto(String nombreContacto, String apellidoContacto, int telefonoContacto, String emailContacto) {
-        this.nombreContacto = nombreContacto;
-        this.apellidoContacto = apellidoContacto;
-        this.telefonoContacto = telefonoContacto;
-        this.emailContacto = emailContacto;
-    }
 }

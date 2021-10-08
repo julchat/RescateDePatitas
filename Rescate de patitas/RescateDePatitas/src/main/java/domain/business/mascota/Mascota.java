@@ -1,33 +1,47 @@
 package domain.business.mascota;
 
-import domain.business.users.Persona;
+import domain.business.EntidadPersistente;
+import domain.business.caracteristicas.Caracteristica;
 import domain.business.foto.Foto;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Mascota {
+
+
+@Entity
+@Table(name = "mascota")
+public class Mascota extends EntidadPersistente {
+
     private String nombreMascota;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_animal")
     private TipoAnimal tipoAnimal;
+
     private String apodoMascota;
     private int edadMascota;
-    private SexoMascota sexoMascota;                   // M o H, o un Enum con MACHO, HEMBRA? // Enum, para evitar problemas como "no me toma la m porque esta en minuscula"
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sexo_mascota")
+    private SexoMascota sexoMascota;
+
     private String descripcionMascota;
-    private List<Foto> fotos;
-    private List<String> caracteristicasMascota;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fotos_mascota")
+    private List<Foto> fotos = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "caracteristicas_mascota")
+    private List<Caracteristica> caracteristicasMascota = new ArrayList<>();
+
 
     // Constructor
     public Mascota() {}
 
-    public Mascota(String nombre, TipoAnimal tipo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, List<String> caracteristicasMascota, boolean perdida, boolean adoptada, Persona encargado){
-        this.nombreMascota = nombre;
-        this.tipoAnimal = tipo;
-        this.edadMascota = edadMascota;
-        this.sexoMascota = sexo;
-        this.descripcionMascota = descripcionMascota;
-        this.fotos = fotos;
-        this.caracteristicasMascota = caracteristicasMascota;
-    }
 
     // Getters and Setters
     public String getNombreMascota() {
@@ -86,21 +100,22 @@ public class Mascota {
         this.fotos = fotos;
     }
 
-    public List<String> getCaracteristicasMascota() {
+    public List<Caracteristica> getCaracteristicasMascota() {
         return caracteristicasMascota;
     }
 
-    public void setCaracteristicasMascota(List<String> caracteristicasMascota) {
+    public void setCaracteristicasMascota(List<Caracteristica> caracteristicasMascota) {
         this.caracteristicasMascota = caracteristicasMascota;
     }
 
+    // TODO: arreglar
     public void quitarCaracteristica(String caracteristicaAQuitar) {
         if(this.caracteristicasMascota.stream().anyMatch(caracteristica -> caracteristica.equals(caracteristicaAQuitar))) {
             this.caracteristicasMascota.remove(this.caracteristicasMascota.stream().filter(caracteristica -> caracteristica.equals(caracteristicaAQuitar)).collect(Collectors.toList()).get(0));
         }
     }
 
-    public void agregarCaracteristica(String caracteristica) { this.caracteristicasMascota.add(caracteristica); }
+    public void agregarCaracteristica(Caracteristica caracteristica) { this.caracteristicasMascota.add(caracteristica); }
 
 
     // Metodos

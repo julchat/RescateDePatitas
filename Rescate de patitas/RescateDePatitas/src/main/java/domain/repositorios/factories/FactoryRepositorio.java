@@ -4,9 +4,7 @@ import config.Config;
 import domain.repositorios.Repositorio;
 import domain.repositorios.daos.DAO;
 import domain.repositorios.daos.DAOHibernate;
-import domain.repositorios.daos.DAOMemoria;
 
-import javax.xml.crypto.Data;
 import java.util.HashMap;
 
 public class FactoryRepositorio {

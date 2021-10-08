@@ -1,14 +1,29 @@
 package domain.security;
 
+import domain.business.EntidadPersistente;
 import domain.business.users.Persona;
 import domain.security.password.ValidadorPassword;
 import excepciones.PermisosInvalidosException;
 
-public class Usuario {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "usuario")
+public class Usuario extends EntidadPersistente {
+
     private String usuario;
     private String contrasenia;
+
+    @Enumerated(EnumType.STRING)
+    private TipoRol tipoRol;
+
+    @Transient
     private Rol rol;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "persona_id")
     private Persona persona;
+
 
     // Getters and Setters
     public String getUsuario() {
@@ -68,7 +83,4 @@ public class Usuario {
             }
     }
 
-    public void banearUsuario(Usuario usuarioBaneado) {
-        // TODO: que hace aca? Lo elimina de la base de datos por un tiempo? o bloquea su inicio de sesion por X tiempo?
-    }
 }

@@ -5,8 +5,8 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.HumanizeHelper;
-import com.github.jknack.handlebars.helper.NumberHelper;
 import com.github.jknack.handlebars.helper.I18nHelper;
+import com.github.jknack.handlebars.helper.NumberHelper;
 import com.github.jknack.handlebars.helper.StringHelpers;
 
 public class HandlebarsTemplateEngineBuilder {

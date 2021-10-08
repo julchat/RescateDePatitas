@@ -1,9 +1,22 @@
 package domain.business.publicaciones;
 
-public class Respuesta {
+
+import domain.business.EntidadPersistente;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "respuesta")
+public class Respuesta extends EntidadPersistente {
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pregunta")
     private Pregunta pregunta;
+
     private String respuesta;
 
+
+    // Getters and Setters
     public Pregunta getPregunta() {
         return pregunta;
     }
@@ -20,11 +33,15 @@ public class Respuesta {
         this.respuesta = respuesta;
     }
 
+    public Respuesta() { }
+
     public Respuesta(Pregunta pregunta, String respuesta) {
         this.pregunta = pregunta;
         this.respuesta = respuesta;
     }
 
+
+    // Metodos
     public void responderPregunta(String respuesta) {
         this.respuesta = respuesta;
     }

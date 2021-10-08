@@ -1,8 +1,16 @@
 package domain.business.foto;
 
-public abstract class DimensionEstandar{
+import domain.business.EntidadPersistente;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "dimensiones_foto")
+public abstract class DimensionEstandar extends EntidadPersistente {
     private int ancho;
     private int alto;
+
 
     // Getters and Setters
     public int getAncho() {

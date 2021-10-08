@@ -1,7 +1,16 @@
 package domain.business.publicaciones;
 
-public class Pregunta {
+import domain.business.EntidadPersistente;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "pregunta")
+public class Pregunta extends EntidadPersistente {
+
     private String pregunta;
+
 
     // Getters and Setters
     public String getPregunta() {
@@ -15,4 +24,6 @@ public class Pregunta {
     public Pregunta(String pregunta) {
         this.pregunta = pregunta;
     }
+
+    public Pregunta() { }
 }

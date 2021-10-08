@@ -1,12 +1,25 @@
 package domain.business.mascota;
 
+import domain.business.EntidadPersistente;
 import domain.business.users.Duenio;
 import domain.business.users.Rescatista;
 
-public class Chapa {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "chapa")
+public class Chapa extends EntidadPersistente {
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "mascota_id")
     private Mascota mascota;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "duenio_id")
     private Duenio duenio;
 
+
+    // Getters and Setters
     public Mascota getMascota() {
         return mascota;
     }
@@ -23,13 +36,9 @@ public class Chapa {
         this.duenio = duenio;
     }
 
+
+    // Metodos
     public Chapa() {}
-
-    public Chapa(Mascota mascota, Duenio duenio) {
-        this.mascota = mascota;
-        this.duenio = duenio;
-    }
-
 
     public void generarQR() {
         // TODO: genera formulario del Rescatista

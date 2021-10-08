@@ -4,10 +4,20 @@ import domain.business.mascota.MascotaPerdida;
 import domain.business.ubicacion.Lugar;
 import domain.business.users.Rescatista;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "publicacion_mascota_perdida")
+@DiscriminatorColumn(name = "publicacion_mascota_perdida")
 public class PublicacionMascotaPerdida extends Publicacion {
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mascota_perdida_id")
     private MascotaPerdida mascotaRescatada;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lugar_de_transito_id")
     private Lugar lugarDeTransito;
-    //private Persona autor;
 
 
     // Getters and Setters
@@ -35,6 +45,5 @@ public class PublicacionMascotaPerdida extends Publicacion {
         this.mascotaRescatada.mostrarMascota();
         this.getAutor().mostrarDatosNoSensibles();
     }
-
 
 }

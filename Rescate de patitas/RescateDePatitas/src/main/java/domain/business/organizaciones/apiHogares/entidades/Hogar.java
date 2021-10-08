@@ -1,5 +1,8 @@
 package domain.business.organizaciones.apiHogares.entidades;
 
+import domain.business.caracteristicas.Caracteristica;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Hogar {
@@ -29,5 +32,17 @@ public class Hogar {
 
     public boolean isPatio() { return patio; }
 
-    public List<String> getCaracteristicas() { return caracteristicas; }
+    public List<Caracteristica> getCaracteristicas() {
+        List<Caracteristica> caracteristicasLista = new ArrayList<>();
+
+        for(String caracteristca : caracteristicas){
+            Caracteristica nuevaCaracteristica = new Caracteristica();
+            nuevaCaracteristica.setCaracteristica(caracteristca);
+            caracteristicasLista.add(nuevaCaracteristica);
+        }
+
+        return caracteristicasLista;
+    }
+
+
 }

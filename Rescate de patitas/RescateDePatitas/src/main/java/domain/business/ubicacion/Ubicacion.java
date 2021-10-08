@@ -1,8 +1,18 @@
 package domain.business.ubicacion;
 
-public class Ubicacion {
+
+import domain.business.EntidadPersistente;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ubicacion")
+public class Ubicacion extends EntidadPersistente {
+
     private double longitud;
     private double latitud;
+
 
     public double getLongitud() {
         return longitud;

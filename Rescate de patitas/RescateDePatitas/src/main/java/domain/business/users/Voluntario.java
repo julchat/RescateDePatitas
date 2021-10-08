@@ -1,24 +1,17 @@
 package domain.business.users;
 
-import domain.business.organizaciones.Organizacion;
 import domain.business.publicaciones.EstadoPublicacion;
-import domain.business.publicaciones.Publicacion;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
 
-public class Voluntario extends Persona {
-    private Organizacion organizacion;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-    // Getters and Setters
-    public Organizacion getOrganizacion() {
-        return organizacion;
-    }
+@Entity
+@Table(name = "voluntario")
+@DiscriminatorColumn(name = "voluntario")
+public class Voluntario extends PersonaOrganizacion {
 
-    public void setOrganizacion(Organizacion organizacion) {
-        this.organizacion = organizacion;
-    }
-
-
-    // Metodos
     public Voluntario() {}
 
     public void verificarPublicacion(PublicacionMascotaPerdida publicacion, EstadoPublicacion estadoPublicacion) {

@@ -2,22 +2,26 @@ package domain.business.users;
 
 import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
-import domain.business.mascota.MascotaPerdida;
-import domain.business.notificaciones.Notificacion;
 import domain.business.ubicacion.Domicilio;
 
-import java.time.LocalDate;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Duenio extends Persona {
-    private Domicilio domicilio;
-    private List<Mascota> mascotas = new ArrayList<>();
 
-    // Otra opcion, que el Dueño este ligado a las Chapitas directamente
+@Entity
+@Table(name = "duenio")
+@DiscriminatorValue("duenio")
+public class Duenio extends Persona {
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "domicilio")
+    private Domicilio domicilio;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "mascotas_a_cargo")
+    @Transient
     private List<Chapa> mascotasACargo = new ArrayList<>();
-    //TODO consultar si un dueño tiene que tener una organizacion
-    //private Organizacion organizacion;
 
 
     // Getters and Setters
@@ -29,32 +33,25 @@ public class Duenio extends Persona {
         this.domicilio = domicilio;
     }
 
-    public List<Mascota> getMascotas(){
-        return this.mascotas;
-    }
+    public List<Chapa> getMascotasACargo() { return mascotasACargo; }
 
+    public void setMascotasACargo(List<Chapa> mascotasACargo) { this.mascotasACargo = mascotasACargo; }
 
-    // Constructor
     public Duenio() {}
 
-    public Duenio(String nombre, String apellido, LocalDate fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos, Domicilio domicilio, List<Mascota> mascotas) {
-        super(nombre, apellido, fechaDeNacimiento, tipoDocumento, numeroDocumento, telefono, email, formasDeNotificacion, contactos);
-        this.domicilio = domicilio;
-        this.mascotas = mascotas;
-    }
-
-
-    // TODO queda pendiente saber si un dueño depende de una organizacion, si no depende de eso, entonces hay que cambiar los metodos de registrar mascota y lo relacionado a una Organizacion
     // Metodos
     public void registrarMascota(Mascota nuevaMascota) {
-        this.mascotas.add(nuevaMascota);
+        Chapa nuevaChapa = new Chapa();
+        nuevaChapa.setMascota(nuevaMascota);
+        nuevaChapa.setDuenio(this);
+        this.getMascotasACargo().add(nuevaChapa);
     }
 
     public void mostrarMascotas() {
         int contador = 0;
-        for(Mascota mascota: getMascotas()) {
+        for(Chapa chapaMascota: getMascotasACargo()) {
             System.out.println("Mascota: " + contador);
-            mascota.mostrarDatosMascota();
+            chapaMascota.getMascota().mostrarDatosMascota();
             contador++;
         }
     }
@@ -74,24 +71,18 @@ public class Duenio extends Persona {
         this.setDomicilio(nuevoDomicilio);
     }
 
+    @Override
+    public void mostrarDatosNoSensibles() {
+        super.mostrarDatosNoSensibles();
+        System.out.println("Domicilio: ");
+        System.out.println("    - Provincia: " + getDomicilio().getProvincia());
+        System.out.println("    - Localidad: " + getDomicilio().getLocalidad());
+        System.out.println("    - Calle: " + getDomicilio().getCalle());
+        System.out.println("    - Numeración: " + getDomicilio().getNumero());
+        this.mostrarMascotas();
+    }
+
     public void notificarDuenio(Rescatista rescatista, Mascota mascotaPerdida) {
         this.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida));
     }
-
-
-    /*
-    public void cambiarOrganizacion(Organizacion nuevaOrganizacion){
-        mascotas.forEach(unaMascota -> unaMascota.ajustarseAOrganizacion(nuevaOrganizacion));
-        this.setOrganizacion(nuevaOrganizacion);
-    }*/
-
-    /*public void mascotaEncontrada(Mascota mascotaEncontrada) {
-        if(mascotas.contains(mascotaEncontrada)) {
-            mascotaEncontrada.serEncontrada();
-        }
-        else {
-            System.out.println("No es la mascota que esta buscando este dueño.");
-        }
-    }*/
-
 }

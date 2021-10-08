@@ -1,23 +1,52 @@
 package domain.business.organizaciones;
 
+import domain.business.EntidadPersistente;
+import domain.business.caracteristicas.Caracteristica;
 import domain.business.publicaciones.Pregunta;
+import domain.business.users.Administrador;
 import domain.business.users.Voluntario;
 import domain.business.foto.DimensionEstandar;
 import domain.business.foto.Foto;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Organizacion {
+
+
+@Entity
+@Table(name = "organizacion")
+public class Organizacion extends EntidadPersistente {
+
     private String nombreOrganizacion;
     private LocalDate fechaDeCreacion;
-    private List<String> caracteristicasAdmitidas = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @Column(name = "caracteristicas admitidas")
+    private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "logo_organizacion")
     private Foto logo;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "dimension_organizacion")
     private DimensionEstandar dimensionEstandar;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "preguntas_organizacion")
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "voluntarios")
     private List<Voluntario> voluntarios = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "administradores")
+    private List<Administrador> administradores = new ArrayList<>();
+
 
     // Getters and Setters
     public String getNombreOrganizacion() {
@@ -36,13 +65,13 @@ public class Organizacion {
         this.fechaDeCreacion = fechaDeCreacion;
     }
 
-    public List<String> getCaracteristicasAdmitidas() {
+    public List<Caracteristica> getCaracteristicasAdmitidas() {
         return caracteristicasAdmitidas;
     }
 
-    public void agregarCaracteristicaAdmitida(String caracteristica) { this.caracteristicasAdmitidas.add(caracteristica); }
+    public void agregarCaracteristicaAdmitida(Caracteristica caracteristica) { this.caracteristicasAdmitidas.add(caracteristica); }
 
-    public boolean quitarCaracteristicaAdmitida(String nombreCaracteristica) {
+    public boolean quitarCaracteristicaAdmitida(Caracteristica nombreCaracteristica) {
         if(this.existeCaracteristica(nombreCaracteristica)){
             this.caracteristicasAdmitidas.remove(this.buscarCaracteristica(nombreCaracteristica));
             return true;
@@ -66,22 +95,27 @@ public class Organizacion {
 
     public void setDimensionEstandar(DimensionEstandar dimensionEstandar) { this.dimensionEstandar = dimensionEstandar; }
 
+    public List<Pregunta> getPreguntasOrganizacion() { return preguntasOrganizacion; }
+
+    public void setPreguntasOrganizacion(List<Pregunta> preguntasOrganizacion) { this.preguntasOrganizacion = preguntasOrganizacion; }
+
     public List<Voluntario> getVoluntarios() { return voluntarios; }
 
     public void setVoluntarios(List<Voluntario> voluntarios) { this.voluntarios = voluntarios; }
 
-    public List<Pregunta> getPreguntasOrganizacion() { return preguntasOrganizacion; }
+    public List<Administrador> getAdministradores() { return administradores; }
 
-    public void setPreguntasOrganizacion(List<Pregunta> preguntasOrganizacion) { this.preguntasOrganizacion = preguntasOrganizacion; }
+    public void setAdministradores(List<Administrador> administradores) { this.administradores = administradores; }
+
 
     // Constructor
     public Organizacion() {}
 
 
     // Metodos
-    public boolean aceptaCaracteristica(String caracteristicaMascota) {
+    public boolean aceptaCaracteristica(Caracteristica caracteristicaMascota) {
         if(this.existeCaracteristica(caracteristicaMascota)){
-            String caracteristica = this.buscarCaracteristica(caracteristicaMascota);
+            Caracteristica caracteristica = this.buscarCaracteristica(caracteristicaMascota);
             return caracteristica.equals(caracteristicaMascota);
         }
         else {
@@ -89,11 +123,11 @@ public class Organizacion {
         }
     }
 
-    private String buscarCaracteristica(String nombreCaracteristica) {
-        return caracteristicasAdmitidas.stream().filter(caracteristica -> caracteristica.equals(nombreCaracteristica)).collect(Collectors.toList()).get(0);
+    private Caracteristica buscarCaracteristica(Caracteristica caracteristicaBuscada) {
+        return caracteristicasAdmitidas.stream().filter(caracteristica -> caracteristica.equals(caracteristicaBuscada)).collect(Collectors.toList()).get(0);
     }
 
-    private boolean existeCaracteristica(String nombreCaracteristica) {
+    private boolean existeCaracteristica(Caracteristica nombreCaracteristica) {
         return caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.equals(nombreCaracteristica));
     }
 

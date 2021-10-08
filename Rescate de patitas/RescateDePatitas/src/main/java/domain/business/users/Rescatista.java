@@ -5,13 +5,26 @@ import domain.business.ubicacion.Lugar;
 import domain.business.mascota.MascotaPerdida;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
+@Table(name = "rescatista")
+@DiscriminatorValue("rescatista")
 public class Rescatista extends Persona {
+
     private boolean puedeAlojarMascota;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "domicilio")
     private Domicilio domicilio;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "mascotas_alojadas")
     private List<MascotaPerdida> mascotasAlojadas = new ArrayList<>();
+
 
     // Getters and Setters
     public boolean isPuedeAlojarMascota() {
@@ -49,15 +62,15 @@ public class Rescatista extends Persona {
     }
 
     public void mapearDatosDuenio(Persona persona) {
-        setNombre(persona.getNombre());
-        setApellido(persona.getApellido());
-        setFechaDeNacimiento(persona.getFechaDeNacimiento());
-        setTipoDocumento(persona.getTipoDocumento());
-        setNumeroDocumento(persona.getNumeroDocumento());
-        setTelefono(persona.getTelefono());
-        setEmail(persona.getEmail());
-        setFormasDeNotificacion(persona.getFormasDeNotificacion());
-        setContactos(persona.getContactos());
+        this.setNombre(persona.getNombre());
+        this.setApellido(persona.getApellido());
+        this.setFechaDeNacimiento(persona.getFechaDeNacimiento());
+        this.setTipoDocumento(persona.getTipoDocumento());
+        this.setNumeroDocumento(persona.getNumeroDocumento());
+        this.setTelefono(persona.getTelefono());
+        this.setEmail(persona.getEmail());
+        this.setFormasDeNotificacion(persona.getFormasDeNotificacion());
+        this.setContactos(persona.getContactos());
     }
 
     @Override

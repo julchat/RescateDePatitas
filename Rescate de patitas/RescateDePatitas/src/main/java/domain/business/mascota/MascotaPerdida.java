@@ -1,20 +1,45 @@
 package domain.business.mascota;
 
+import domain.business.EntidadPersistente;
+import domain.business.caracteristicas.Caracteristica;
 import domain.business.ubicacion.Lugar;
 import domain.business.ubicacion.Ubicacion;
 import domain.business.foto.Foto;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MascotaPerdida {
-    private List<Foto> carrouselFotos;
+
+@Entity
+@Table(name = "mascota_perdida")
+public class MascotaPerdida extends EntidadPersistente {
+
     private String descripcion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_animal")
     private TipoAnimal tipoAnimal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tamanio")
     private Tamanio tamanio;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lugar_de_transito")
     private Lugar lugarDeTransito;
-    private List<String> caracteristicas = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "caracteristicas_mascota_perdida")
+    private List<Caracteristica> caracteristicasMascota = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "ubicacion_id")
     private Ubicacion ubicacionEncontrada;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fotos_mascota_perdida")
+    private List<Foto> carrouselFotos = new ArrayList<>();
 
 
     // Getters and Setters
@@ -54,14 +79,15 @@ public class MascotaPerdida {
 
     public void setUbicacionEncontrada(Ubicacion ubicacionEncontrada) { this.ubicacionEncontrada = ubicacionEncontrada; }
 
-    public List<String> getCaracteristicaMascotas() { return caracteristicas; }
+    public List<Caracteristica> getCaracteristicaMascotas() { return caracteristicasMascota; }
 
-    public void setCaracteristicaMascotas(List<String> caracteristicaMascotas) { this.caracteristicas = caracteristicaMascotas; }
+    public void setCaracteristicaMascotas(List<Caracteristica> caracteristicasMascota) { this.caracteristicasMascota = caracteristicasMascota; }
 
 
     // Metodos
-    public boolean cumpleCaracteristicaHogar(String caracteristica) {
-        return caracteristicas.stream().anyMatch(caracteristicaMascotas -> caracteristica.equals(caracteristica));
+    // TODO: arreglar
+    public boolean cumpleCaracteristicaHogar(Caracteristica caracteristica) {
+        return caracteristicasMascota.stream().anyMatch(caracteristicaMascotas -> caracteristica.equals(caracteristica));
     }
 
     public void ocuparLugarDeTransito(Lugar lugarAOcupar) {

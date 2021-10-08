@@ -1,6 +1,16 @@
 package domain.business.ubicacion;
 
-public class Domicilio {
+import domain.business.EntidadPersistente;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "domicilio")
+public class Domicilio extends EntidadPersistente {
+
     private String provincia;
     private String localidad;
     private int codigoPostal;
@@ -8,7 +18,11 @@ public class Domicilio {
     private int numero;
     private int departamento;
     private int piso;
+
+    @OneToOne
+    @JoinColumn(name = "ubicacion_id")
     private Ubicacion ubicacion;
+
 
     // Getters and Setters
     public String getProvincia() { return provincia; }
@@ -47,7 +61,6 @@ public class Domicilio {
     public Domicilio() {}
 
     //Metodos
-
    /* public Organizacion buscarOrganizacionMasCercana(){
         List<Organizacion> organizaciones = Sistema.getInstance().getOrganizaciones();
         List<HogaresDeTransito> hogares = new ArrayList<>();

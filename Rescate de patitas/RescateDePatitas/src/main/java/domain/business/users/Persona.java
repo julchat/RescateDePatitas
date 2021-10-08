@@ -1,27 +1,45 @@
 package domain.business.users;
 
+import domain.business.EntidadPersistente;
 import domain.business.Sistema;
 import domain.business.mascota.Mascota;
 import domain.business.notificaciones.Notificacion;
 import domain.business.publicaciones.*;
-import org.apache.commons.collections.ArrayStack;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Persona {
+
+@Entity
+@Table(name = "persona")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo")
+public class Persona extends EntidadPersistente {
+
     private String nombre;
     private String apellido;
     private LocalDate fechaDeNacimiento;
-    private TipoDoc tipoDocumento;          // Podriamos hacer un enum para tipo de doc: DNI, CEDULA, PASAPORTE, etc.
+
+    @Enumerated(EnumType.STRING)
+    private TipoDoc tipoDocumento;
+
     private int numeroDocumento;
     private String telefono;
     private String email;
-    private List<Notificacion> formasDeNotificacion;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "notificaciones")
+    private List<Notificacion> formasDeNotificacion = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contactos")
     private List<Contacto> contactos = new ArrayList<>();
+
     private boolean suscripto;
+
 
     // Getters and Setters
     public String getNombre() { return nombre; }
@@ -93,18 +111,6 @@ public class Persona {
 
     // Constructor
     public Persona() {}
-
-    public Persona(String nombre, String apellido, LocalDate fechaDeNacimiento, TipoDoc tipoDocumento, int numeroDocumento, String telefono, String email, List<Notificacion> formasDeNotificacion, List<Contacto> contactos) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaDeNacimiento = fechaDeNacimiento;
-        this.tipoDocumento = tipoDocumento;
-        this.numeroDocumento = numeroDocumento;
-        this.telefono = telefono;
-        this.email = email;
-        this.formasDeNotificacion = formasDeNotificacion;
-        this.contactos = contactos;
-    }
 
     // Metodos
     public void crearPublicacionParaAdoptar() {

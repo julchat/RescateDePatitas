@@ -1,8 +1,8 @@
 package server;
 
+import domain.controllers.LoginController;
 import domain.middleware.AuthMiddleware;
 
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -19,14 +19,21 @@ public class Router {
                 .build();
     }
 
+
+    // todos los archivos estaticos y publicos (js, css, img) estan en la carpeta /public
     public static void init() {
         Router.initEngine();
-        // todos los archivos estaticos y publicos (js, css, img) estan en la carpeta /public
         Spark.staticFileLocation("/public");
         Router.configure();
     }
 
     private static void configure(){
+        LoginController loginController = new LoginController();
+        AuthMiddleware authMiddleware = new AuthMiddleware();
+
+        Spark.get("/", loginController::inicio, Router.engine);
+
+        Spark.before("/", authMiddleware::verificarSesion);
 
     }
 }

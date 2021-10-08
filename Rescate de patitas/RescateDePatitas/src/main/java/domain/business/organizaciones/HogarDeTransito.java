@@ -1,5 +1,7 @@
 package domain.business.organizaciones;
 
+import domain.business.EntidadPersistente;
+import domain.business.caracteristicas.Caracteristica;
 import domain.business.mascota.MascotaPerdida;
 import domain.business.mascota.Tamanio;
 import domain.business.mascota.TipoAnimal;
@@ -7,12 +9,15 @@ import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import domain.business.ubicacion.Lugar;
 import domain.business.ubicacion.Ubicacion;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HogarDeTransito{
+@Entity
+@Table(name = "hogar_de_transito")
+public class HogarDeTransito extends EntidadPersistente {
+
     private String nombreOrganizacion;
-    private Lugar lugar;
     private String direccion;
     private double latitud;
     private double longitud;
@@ -22,8 +27,15 @@ public class HogarDeTransito{
     private boolean poseePatio;
     private int capacidad;
     private int lugaresDisponibles;
-    private List<String> caracteristicasAdmitidas = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "caracteristicas_admitidas")
+    private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "mascotas_actuales")
     private List<MascotaPerdida> mascotasActuales = new ArrayList<>();
+
 
     // Getters and Setters
     public String getNombreOrganizacion() { return nombreOrganizacion; }
@@ -33,8 +45,10 @@ public class HogarDeTransito{
     public Lugar getLugar() {
         Lugar lugar = new Lugar();
         lugar.setDireccion(this.getDireccion());
-        lugar.setLatitud(this.getLatitud());
-        lugar.setLongitud(this.getLongitud());
+        Ubicacion nuevaUbicacion = new Ubicacion();
+        lugar.setUbicacion(nuevaUbicacion);
+        lugar.getUbicacion().setLatitud(this.getLatitud());
+        lugar.getUbicacion().setLongitud(this.getLongitud());
 
         return lugar;
     }
@@ -81,13 +95,13 @@ public class HogarDeTransito{
 
     public void setLugaresDisponibles(int lugaresDisponibles) { this.lugaresDisponibles = lugaresDisponibles; }
 
-    public List<String> getCaracteristicasAdmitidas() {
+    public List<Caracteristica> getCaracteristicasAdmitidas() {
         return caracteristicasAdmitidas;
     }
 
-    public void setCaracteristicasAdmitidas(List<String> caracteristicasAdmitidas) { this.caracteristicasAdmitidas = caracteristicasAdmitidas; }
+    public void setCaracteristicasAdmitidas(List<Caracteristica> caracteristicasAdmitidas) { this.caracteristicasAdmitidas = caracteristicasAdmitidas; }
 
-    public void agregarCaracteristicaAdmitida(String unaCaracteristica) {
+    public void agregarCaracteristicaAdmitida(Caracteristica unaCaracteristica) {
         this.caracteristicasAdmitidas.add(unaCaracteristica);
     }
 
@@ -166,7 +180,7 @@ public class HogarDeTransito{
     }
 
     private boolean cumpleCaracteristicas(MascotaPerdida mascotaPerdida) {
-        for(String caracteristica : caracteristicasAdmitidas) {
+        for(Caracteristica caracteristica : caracteristicasAdmitidas) {
             if(!mascotaPerdida.cumpleCaracteristicaHogar(caracteristica)){
                 return false;
             }

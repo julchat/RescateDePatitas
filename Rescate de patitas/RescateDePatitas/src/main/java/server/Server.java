@@ -1,7 +1,5 @@
 package server;
 
-import javax.persistence.EntityManager;
-import database.EntityManagerHelper;
 import spark.Spark;
 import spark.debug.DebugScreen;
 
@@ -12,8 +10,6 @@ public class Server {
         Spark.port(9000);
         Router.init();
         DebugScreen.enableDebugScreen();
-
-        //EntityManager em = EntityManagerHelper.getEntityManager();
 
     }
 }
