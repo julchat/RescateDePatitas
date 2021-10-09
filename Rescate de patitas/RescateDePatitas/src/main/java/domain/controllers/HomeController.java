@@ -14,6 +14,11 @@ public class HomeController {
         return new ModelAndView(viewModel,"home.hbs");
     }
 
+    public ModelAndView home2( Request request , Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"home2.hbs");
+    }
+
     public ModelAndView registrarMascota(Request request, Response response) {
         Map<String, Object> viewModel = new HashMap<>();
         return new ModelAndView(viewModel,"registrar-mascota.hbs");
