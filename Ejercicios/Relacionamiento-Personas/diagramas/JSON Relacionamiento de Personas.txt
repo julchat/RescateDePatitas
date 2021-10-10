@@ -1,0 +1,26 @@
+Registrar Usuario (method = POST) '/registrarse' {
+	"user.actor.nombre": " ",
+	"user.actor.apellido": " ",
+	"user.actor.nroDocumento": " ",
+	"user.usuario": " ",
+	"user.password": " ",
+} 
+
+Iniciar Sesion (method = GET) '/login'
+{
+	"user.usuario" : " ",
+	"user.password" : " ",
+}
+
+Actualizar Usuario (method = POST) '/update-user'
+{
+	"user.actor.persona.fechaDeNacimiento" : " ",
+	"user.actor.persona.ciudad" : " ",
+	"user.actor.persona.localidadResidencia" : " ",
+	"user.actor.persona.foto" : " ",
+}
+
+Autorizar Persona (method = POST) '/autorizar'
+{
+	"user.actor.persona" = " ", 
+}

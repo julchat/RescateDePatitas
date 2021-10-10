@@ -3,6 +3,7 @@ package domain.model;
 import domain.model.api.entities.UserData;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,8 +63,8 @@ public abstract class Actor extends EntidadPersistente {
 
 
     // Metodos
-    public void actualizarDatos() {
-        persona.actualizarDatos();
+    public void actualizarDatos(LocalDate fechaDeNacimiento, String ciudad, String localidadResidencia, Foto foto) {
+        persona.actualizarDatos(fechaDeNacimiento, ciudad, localidadResidencia, foto);
     }
 
     public void mostrarDatos() {

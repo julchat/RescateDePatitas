@@ -37,8 +37,11 @@ public class Persona extends EntidadPersistente {
     public Persona() {}
 
     // Metodos
-    public void actualizarDatos() {
-        // TODO: pedir datos por consola, y actualizar los de esta clase
+    public void actualizarDatos(LocalDate fechaDeNacimiento, String ciudad, String localidadResidencia, Foto foto) {
+        this.setFechaDeNacimiento(fechaDeNacimiento);
+        this.setCiudad(ciudad);
+        this.setLocalidadResidencia(localidadResidencia);
+        this.setFoto(foto);
     }
 
     public void mostrarDatos() {
