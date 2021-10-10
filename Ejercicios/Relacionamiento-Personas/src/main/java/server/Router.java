@@ -24,41 +24,14 @@ public class Router {
 
     public static void init() {
         Router.initEngine();
-        // todos los archivos estaticos y publicos (js, css, img) estan en la carpeta /public
         Spark.staticFileLocation("/public");
         Router.configure();
     }
 
     private static void configure(){
-        //UsuarioRestControllerEjemplo usuarioRestControllerEjemplo = new UsuarioRestControllerEjemplo();
         UsuarioController usuarioController = new UsuarioController();
         LoginController loginController     = new LoginController();
         AuthMiddleware authMiddleware       = new AuthMiddleware();
 
-        Spark.get("/", loginController::inicio, Router.engine);
-
-        Spark.before("/", authMiddleware::verificarSesion);
-
-        Spark.post("/login", loginController::login);
-
-        Spark.get("/logout", loginController::logout);
-
-        Spark.get("/sign-up", loginController::crear, Router.engine);
-
-        Spark.post("/sign-up", loginController::crearUsuario);
-
-        Spark.get("/usuarios", usuarioController::mostrarTodos, Router.engine);
-
-        Spark.get("/usuario/:id", usuarioController::mostrar, Router.engine);
-
-        Spark.get("/usuario", usuarioController::crear, Router.engine);
-
-        Spark.post("/usuario/:id", usuarioController::modificar);
-
-        Spark.post("/usuario", usuarioController::guardar);
-
-        Spark.delete("/usuario/:id", usuarioController::eliminar);
-
-        //Spark.get("/api/usuario/:id", usuarioRestControllerEjemplo::mostrar);
     }
 }
