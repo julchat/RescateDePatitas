@@ -31,9 +31,9 @@ public class Router {
         AuthMiddleware authMiddleware = new AuthMiddleware();
 
         Spark.get("/", homeController::home, Router.engine);
-        Spark.before("/", authMiddleware::verificarSesion);
+        //Spark.before("/", authMiddleware::verificarSesion);
 
-        Spark.get("/home", homeController::home, Router.engine);
+        //Spark.get("/", homeController::home, Router.engine);
         Spark.get("/home2", homeController::home2, Router.engine);
 
         Spark.get("/sign-in", loginController::showLogin, Router.engine);

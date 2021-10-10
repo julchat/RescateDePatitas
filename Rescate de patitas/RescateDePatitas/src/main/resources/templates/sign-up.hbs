@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+
+    <link rel="shortcut icon" href="/img/image_7_.ico"/>
+
+    <link rel="stylesheet" href="/css/sign-up.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <header>
+        <nav class="menu">
+            <a href="/" class="logo"> <img src="/img/image (7).png" alt="" width="81px"></a>
+            <ul>
+                <li><a href="/adoptar-mascota">ADOPTAR</a></li>
+                <li><a href="/dar-mascota-adopcion">DAR EN ADOPCIÓN</a></li>
+                <li><a href="/reportar-mascota">REPORTAR</a></li>
+                <li><a href="/mascotas-perdidas">MASCOTAS PERDIDAS</a></li>
+                <li><a href="/registrar-mascota">REGISTRAR MASCOTAS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <form class="form1">
+        <h2 class="subtitulo">Complete el siguiente formulario para crear la cuenta</h2>
+        <table class="tabla" align="center">
+            <tr>
+                <td>
+                    <div class="grid-item">
+                        <label for="name">Nombre y Apellido <abbr title="required" aria-label="required">*</abbr><br></label>
+                        <input type="text" id="name" class="text-input">
+                    </div>
+                </td>
+                <td>
+                    <div class="grid-item">
+                        <label for="date">Fecha de Nacimiento <abbr title="required" aria-label="required">*</abbr><br></label>
+                        <input type="date" id="date" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01">
+                    </div>
+                </td>
+                <td>
+                    <div class="grid-item">
+                        <label for="email">Email <abbr title="required" aria-label="required">*</abbr><br></label>
+                        <input type="text" id="email" class="text-input">
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="grid-item">
+                        <label for="doc-type">Tipo de documento <abbr title="required" aria-label="required">*</abbr><br></label>
+                        <select id="doc-type" name="">
+                            <option value="DNI">DNI</option>
+                            <option value="Cedula">Cedula</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                        </select>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="grid-item">
+                        <label for="n-doc">Número de documento <abbr title="required" aria-label="required">*</abbr><br></label>
+                        <input type="text" id="n-doc" class="text-input">
+                    </div>
+                </td>
+
+                <td>
+                    <div class="grid-item">
+                        <label for="cel">Teléfono / Celular <abbr title="required" aria-label="required">*</abbr><br></label>
+                        <input type="text" id="cel" class="text-input">
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="grid-item">
+                        <label for="notification">Formas de notificación <abbr title="required" aria-label="required">*</abbr><br></label>
+                        <select id="notification" name="">
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="SMS">SMS</option>
+                            <option value="Email">Email</option>
+                        </select>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="grid-item">
+                        <label for="contact">Contactos <abbr title="required" aria-label="required">*</abbr></label>
+                        <select id="contact">
+                            <option></option>
+                        </select>
+                        <button for="contact">Agregar contacto<br></button>
+                        <form>
+                            <div class="grid-item">
+                                <label for="name">Nombre y Apellido <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="name" class="text-input">
+                            </div>
+
+                            <div class="grid-item">
+                                <label for="email">Email <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="email" class="text-input">
+                            </div>
+
+                            <div class="grid-item">
+                                <label for="cel">Teléfono / Celular <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="cel" class="text-input">
+                            </div>
+
+                            <div class="grid-item">
+                                <label for="notification">Formas de notificación <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <select id="notification" name="">
+                                    <option value="WhatsApp">WhatsApp</option>
+                                    <option value="SMS">SMS</option>
+                                    <option value="Email">Email</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="boton">AGREGAR CONTACTO</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+
+    </form>
+
+    <form class="form2">
+        <div class="grid-item">
+            <label for="user">Usuario <abbr title="required" aria-label="required">*</abbr><br></label>
+            <input type="text" id="user" class="text-input">
+        </div>
+
+        <div class="grid-item">
+            <label for="password">Contraseña <abbr title="required" aria-label="required">*</abbr><br></label>
+            <input type="password" id="password" class="text-input">
+            <text class="texto"><br>La contraseña debe tener como mínimo 8 caracteres</text>
+            </input>
+        </div>
+
+        <a href="/home2">
+            <button type="submit" class="boton">REGISTRARSE</button>
+        </a>
+    </form>
+
+</div>
+
+</body>
+</html>

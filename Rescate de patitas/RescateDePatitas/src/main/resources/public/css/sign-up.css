@@ -1,0 +1,54 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    background-color: #E0EBE9;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    font-family: 'Roboto', sans-serif;
+}
+
+nav {
+    height: 80px;
+    width: 100%;
+    background-color: #9DCFC5;
+}
+
+.logo {
+    margin: 10px 30px;
+    position: absolute;
+    background: none;
+    border: none;
+    transition: transform .5s;
+}
+
+.logo:hover {
+    transform: scale(1.2);
+}
+
+.menu ul{
+    float: center;
+    text-align: center;
+}
+
+.menu ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 80px;
+}
+
+.menu ul li a {
+    color: #396666;
+    padding: 7px 13px;
+    transition: all 0.3s ease 0s;
+}
+
+.menu ul li a:hover {
+    color: #edf8f6;
+}

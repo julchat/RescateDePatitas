@@ -22,7 +22,7 @@ public class LoginController {
 
     public ModelAndView showRegister(Request request, Response response){
         Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"register.hbs");
+        return new ModelAndView(viewModel,"sign-up.hbs");
     }
 
     public ModelAndView logout(Request request, Response response){
