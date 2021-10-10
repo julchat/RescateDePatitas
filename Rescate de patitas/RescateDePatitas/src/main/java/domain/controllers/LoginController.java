@@ -31,37 +31,35 @@ public class LoginController {
         return null;
     }
 
-    public ModelAndView login (Request request, Response response) {
-        EntityManager em = PerThreadEntityManagers.getEntityManager();
-        EntityTransaction transaccion = em.getTransaction();
-        transaccion.begin();
-        String nombreUsuario = request.queryParams("usuario");
-        String password = request.queryParams("password");
-        response.cookie("usuario_login", nombreUsuario);
-
-        RepositorioUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
+    public Response login (Request request, Response response) {
 
         try {
+            RepositorioUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
+
+            String nombreUsuario = request.queryParams("user");
+            String password = request.queryParams("password");
+            response.cookie("usuario_login", nombreUsuario);
+
             if(repoUsuarios.existe(nombreUsuario, password)){
                 Usuario usuario = repoUsuarios.buscarUsuario(nombreUsuario, password);
-
                 request.session(true);
                 request.session().attribute("id", usuario.getId());
-
-                response.redirect("/");
+                response.redirect("/home2");
             }
             else{
-                transaccion.commit();
+                // TODO: tirar un mensaje que el usuario no existe
+                System.out.println("El usuario no existe");
                 response.redirect("/sign-in");
             }
-
-            return null;
-        } catch(Exception exception) {
-            transaccion.commit();
-            response.redirect("/");
         }
-
-        return null;
+        catch(Exception exception) {
+            System.out.println("Hay un error en la busqueda");
+            // Todo: deberia tirar un modal, marcando que hay un error y no existe el usuario o la contraseña es incorrecta
+            response.redirect("/sign-in");
+        }
+        finally {
+            return response;
+        }
     }
 
 

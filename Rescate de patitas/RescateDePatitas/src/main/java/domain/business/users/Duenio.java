@@ -39,6 +39,7 @@ public class Duenio extends Persona {
 
     public Duenio() {}
 
+
     // Metodos
     public void registrarMascota(Mascota nuevaMascota) {
         Chapa nuevaChapa = new Chapa();

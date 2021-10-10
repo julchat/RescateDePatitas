@@ -10,9 +10,7 @@ import javax.persistence.criteria.Root;
 
 public class RepositorioUsuarios extends Repositorio<Usuario> {
 
-    public RepositorioUsuarios(DAO<Usuario> dao) {
-        super(dao);
-    }
+    public RepositorioUsuarios(DAO<Usuario> dao) { super(dao); }
 
     public Boolean existe(String nombreDeUsuario, String contrasenia){
         return buscarUsuario(nombreDeUsuario, contrasenia) != null;
@@ -28,7 +26,7 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
 
         Root<Usuario> condicionRaiz = usuarioQuery.from(Usuario.class);
 
-        Predicate condicionNombreDeUsuario = criteriaBuilder.equal(condicionRaiz.get("nombreDeUsuario"), nombreDeUsuario);
+        Predicate condicionNombreDeUsuario = criteriaBuilder.equal(condicionRaiz.get("nombreUsuario"), nombreDeUsuario);
         Predicate condicionContrasenia = criteriaBuilder.equal(condicionRaiz.get("contrasenia"), contrasenia);
 
         Predicate condicionExisteUsuario = criteriaBuilder.and(condicionNombreDeUsuario, condicionContrasenia);

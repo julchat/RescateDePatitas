@@ -1,10 +1,13 @@
 package domain.business.mascota;
 
+import com.google.zxing.WriterException;
 import domain.business.EntidadPersistente;
 import domain.business.users.Duenio;
 import domain.business.users.Rescatista;
 
 import javax.persistence.*;
+import java.io.IOException;
+
 
 @Entity
 @Table(name = "chapa")
@@ -40,11 +43,18 @@ public class Chapa extends EntidadPersistente {
     // Metodos
     public Chapa() {}
 
-    public void generarQR() {
-        // TODO: genera formulario del Rescatista
+    public void generarQR() throws WriterException, IOException {
+        QRCode qrGenerator = new QRCode();
+
+        qrGenerator.crearQR("URL AL FORMULARIO PERO CON ID DE CHAPITA" + "?id=" + this.getId(), "ChapitaN°" + this.getId() + ".png");
         // Rescatista rescatista = new Rescatista();
        // this.notificarDuenio(rescatista);
     }
+
+    //formulario-mascota-perdida-chapita?id=182
+
+
+
 
     public void notificarDuenio(Rescatista rescatista) {
         this.duenio.notificarDuenio(rescatista, mascota);

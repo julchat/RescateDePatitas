@@ -120,6 +120,12 @@
             <version>4.2.0</version>
         </dependency>
 
+        <!-- CODIGO QR -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.2.1</version>
+        </dependency>
 
     </dependencies>
 </project>

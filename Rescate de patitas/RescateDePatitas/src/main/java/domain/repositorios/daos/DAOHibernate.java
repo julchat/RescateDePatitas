@@ -3,9 +3,11 @@ package domain.repositorios.daos;
 import domain.repositorios.BusquedaCondicional;
 import database.EntityManagerHelper;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
+import java.util.Optional;
 
 public class DAOHibernate<T> implements DAO<T> {
     private Class<T> type;
