@@ -1,15 +1,17 @@
 package domain.security.password;
 
-public class ValidadorPasswordNull implements Validador{
+import excepciones.NullException;
+
+public class ValidadorPasswordNull extends Validador {
 
     @Override
-    public boolean esValida(String usuario, String password) {
-        if (password.isEmpty()) {
-            //throw new NullException();
-            return false;
+    public String esValida(String usuario, String password) {
+
+        if(password.isEmpty()) {
+            return passwordStatus.getStatusNull();
         }
         else {
-            return true;
+            return passwordStatus.getStatusOK();
         }
     }
 }

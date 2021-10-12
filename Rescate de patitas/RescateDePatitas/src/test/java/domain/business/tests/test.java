@@ -22,24 +22,24 @@ public class test {
     Sistema miSistema = Sistema.getInstance();
 
     @Test
-    public void contraseniaInsegura() throws FileNotFoundException {
+    public void contraseniaInsegura() throws IOException {
         System.out.println("Contraseña que no cumpla con los criterios de Seguridad, no cumple.");
         assertFalse(miSistema.validarContrasenia("admin123", "password"));
     }
     @Test
-    public void contraseniaMuyCorta() throws FileNotFoundException {
+    public void contraseniaMuyCorta() throws IOException {
         System.out.println("Contraseña que no cumple con el mínimo de 8 caracteres.");
         assertFalse(miSistema.validarContrasenia("admin123", "A12DH"));
     }
 
     @Test
-    public void contraseniaDiferenteUsuario() throws FileNotFoundException {
+    public void contraseniaDiferenteUsuario() throws IOException {
         System.out.println("Contraseña que cumple con los criterios de Seguridad, es una contraseña válida.");
         assertFalse(miSistema.validarContrasenia("admin", "admin"));
     }
 
     @Test
-    public void validarContrasenia() throws FileNotFoundException {
+    public void validarContrasenia() throws IOException {
         System.out.println("Contraseña que cumple con los criterios de Seguridad, es una contraseña válida.");
         assertTrue(miSistema.validarContrasenia("admin123", "password1234ABC"));
     }

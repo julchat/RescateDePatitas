@@ -1,8 +1,6 @@
 package excepciones;
 
-public class TamanioException extends RuntimeException {
-    private static final String message = "El password no cumple con la cantidad de caracteres mínimos.";
-    public TamanioException() {
-        super(message);
-    }
+public class TamanioException extends PasswordException {
+    private static final String message = "La Contraseña debe tener un largo entre 8 y 64 caracteres.";
+    public TamanioException() { super(message); }
 }

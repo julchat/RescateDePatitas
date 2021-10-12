@@ -1,16 +1,25 @@
 package domain.security.password;
 
-public class ValidadorPasswordTamanio implements Validador{
+import excepciones.TamanioException;
+
+public class ValidadorPasswordTamanio extends Validador {
+    private int cantidadMinima;
+    private int cantidadMaxima;
+
+    public ValidadorPasswordTamanio(int cantidadMinima, int cantidadMaxima) {
+        this.cantidadMinima = cantidadMinima;
+        this.cantidadMaxima = cantidadMaxima;
+    }
+
     @Override
-    public boolean esValida(String usuario, String password) {
+    public String esValida(String usuario, String password) {
         int tamanioPassword = password.length();
 
-        if (tamanioPassword > 8) {
-            return true;
+        if(tamanioPassword >= cantidadMinima && tamanioPassword <= cantidadMaxima){
+            return passwordStatus.getStatusOK();
         }
         else {
-            //throw new TamanioException();
-            return false;
+            return passwordStatus.getStatusTamanio();
         }
     }
 }

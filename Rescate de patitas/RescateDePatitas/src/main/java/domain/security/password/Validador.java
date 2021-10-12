@@ -1,5 +1,6 @@
 package domain.security.password;
 
-public interface Validador {
-    boolean esValida(String usuario, String password);
+public abstract class Validador {
+    PasswordStatus passwordStatus = PasswordStatus.getInstance();
+    abstract String esValida(String usuario, String password);
 }

@@ -31,15 +31,16 @@ public class Router {
         AuthMiddleware authMiddleware = new AuthMiddleware();
 
         Spark.get("/", homeController::home, Router.engine);
+        // Si entras, y despues actualizas la pagina, te tira que se redirecciono demasiadas veces
         //Spark.before("/", authMiddleware::verificarSesion);
 
-        //Spark.get("/", homeController::home, Router.engine);
         Spark.get("/home2", homeController::home2, Router.engine);
 
         Spark.get("/sign-in", loginController::showLogin, Router.engine);
         Spark.post("/sign-in", loginController::login);
 
         Spark.get("/sign-up", loginController::showRegister, Router.engine);
+        Spark.post("/sign-up", loginController::registrarse);
 
         Spark.get("/logout", loginController::logout, Router.engine);
 

@@ -8,6 +8,7 @@ import excepciones.PermisosInvalidosException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import java.io.IOException;
 
 @Entity
 @Table(name = "usuario")

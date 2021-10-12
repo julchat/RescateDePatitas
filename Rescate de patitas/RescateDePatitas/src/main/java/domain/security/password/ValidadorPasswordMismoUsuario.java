@@ -1,8 +1,16 @@
 package domain.security.password;
 
-public class ValidadorPasswordMismoUsuario implements Validador {
+public class ValidadorPasswordMismoUsuario extends Validador {
     @Override
-    public boolean esValida(String usuario, String password) {
-        return !usuario.equals(password);
+    public String esValida(String usuario, String password) {
+
+        if ((!usuario.equalsIgnoreCase(password) && !password.equalsIgnoreCase(usuario))) {
+            return passwordStatus.getStatusOK();
+        }
+        else {
+            return passwordStatus.getStatusDiferentes();
+        }
     }
 }
+
+

@@ -12,10 +12,13 @@ import java.util.HashMap;
 public class Foto extends EntidadPersistente {
     private int alto;
     private int ancho;
-    private String ubicacion_foto;
+    private String ubicacionFoto;
 
     @Transient
     private HashMap<Posicion, Color> pixeles = new HashMap<>();
+
+    @Transient
+    public byte[] imagenByteArray;
 
 
     // Getters and Setters
@@ -39,9 +42,14 @@ public class Foto extends EntidadPersistente {
 
     public void setPixeles(HashMap<Posicion, Color> pixeles) { this.pixeles = pixeles; }
 
-    public Foto() {}
+    public String getUbicacionFoto() { return ubicacionFoto; }
+
+    public void setUbicacionFoto(String ubicacionFoto) { this.ubicacionFoto = ubicacionFoto; }
+
 
     // Metodos
+    public Foto() {}
+
     public void normalizarA(DimensionEstandar dimension) {}
 
     public void resetearPixeles(){ pixeles = new HashMap<>(); }
