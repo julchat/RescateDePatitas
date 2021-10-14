@@ -1,9 +1,17 @@
 package domain.controllers;
 
+import domain.business.users.Persona;
 import domain.repositorios.Repositorio;
+import domain.repositorios.RepositorioUsuarios;
 import domain.repositorios.factories.FactoryRepositorio;
+import domain.repositorios.factories.FactoryRepositorioPersonas;
+import domain.repositorios.factories.FactoryRepositorioUsuarios;
+import domain.repositorios.factories.RepositorioPersonas;
 import domain.security.Rol;
+import domain.security.User;
 import domain.security.Usuario;
+import domain.security.password.PasswordStatus;
+import domain.security.password.ValidadorPassword;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -14,12 +22,11 @@ import java.util.List;
 import java.util.Map;
 
 public class UsuarioController {
-    private Repositorio<Usuario> repositorio;
+    private RepositorioUsuarios repositorio;
 
     public UsuarioController() {
-        this.repositorio = FactoryRepositorio.get(Usuario.class);
+        this.repositorio = FactoryRepositorioUsuarios.get();
     }
-
 
     private void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
         if(!request.session().isNew() && request.session().attribute("id") != null){
@@ -28,84 +35,101 @@ public class UsuarioController {
         }
     }
 
-    public ModelAndView mostrarTodos(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        List<Usuario> usuarios = this.repositorio.buscarTodos();
-        parametros.put("usuarios", usuarios);
-        asignarUsuarioSiEstaLogueado(request, parametros);
-        return new ModelAndView(parametros, "usuarios.hbs");
+    public ModelAndView showRegister(Request request, Response response){
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"sign-up.hbs");
     }
 
-    public ModelAndView mostrar(Request request, Response response){
-        Usuario usuario = this.repositorio.buscar(new Integer(request.params("id")));
-        Repositorio<Rol> repoRol = FactoryRepositorio.get(Rol.class);
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("usuario", usuario);
-        parametros.put("roles", repoRol.buscarTodos());
-        return new ModelAndView(parametros, "usuario.hbs");
-    }
+    public Response registrarUsuario(Request request, Response response){
 
-    public Response modificar(Request request, Response response){
-        Usuario usuario = this.repositorio.buscar(new Integer(request.params("id")));
-        asignarAtributosA(usuario, request);
-        this.repositorio.modificar(usuario);
-        response.redirect("/usuarios");
+        if(this.repositorio.existe(request.queryParams("user"))) {
+            System.out.println("No existe dicho usuario.");
+
+            Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.setNombreUsuario(request.queryParams("user"));
+            nuevoUsuario.setContrasenia(request.queryParams("password"));
+
+            ValidadorPassword validador = new ValidadorPassword();
+            if(validador.esValida(nuevoUsuario.getNombreUsuario(), nuevoUsuario.getContrasenia())) {
+
+                if(nuevoUsuario.getContrasenia().equals(request.queryParams("passwordConfirm"))) {
+                // Todo: tal vez toda esta parte que continua se puede hacer en otra pantalla
+                // de ser asi, entonces response.redirect("/registrar-persona") para completar los datos de la Persona
+                    nuevoUsuario.setRol(new User());
+                    nuevoUsuario.setPersona(new Persona());
+                    this.registrarPersona(nuevoUsuario.getPersona(), request);
+                    RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
+                    repositorioPersonas.agregar(nuevoUsuario.getPersona());
+
+                    this.repositorio.agregar(nuevoUsuario);
+                    // Todo: tirar mensaje que se creo el usuario de forma satisfactoria
+                    response.redirect("/");
+                }
+                else {
+                    // Todo: en este caso tirar que la contraseña y la confirmacion no son iguales
+                    System.out.println("Las contraseñas son distintas.");
+                    return response;
+                }
+            }
+            else {
+                PasswordStatus passwordStatus = PasswordStatus.getInstance();
+                // Todo: tirar mensajes de acuerdo a los errores que comete dicha contraseña
+                List<String> lista = validador.verificarPassword(nuevoUsuario.getNombreUsuario(), nuevoUsuario.getContrasenia());
+                lista.stream().filter(s -> !s.equals(passwordStatus.getStatusOK()));
+
+                for(String string : lista) {
+                    System.out.println(string);
+                }
+            }
+
+        }
+        else {
+            System.out.println("Existe dicho usuario.");
+            //Todo: tirar mensaje de que existe el usuario
+            response.redirect("/sign-up");
+        }
         return response;
     }
 
-    private void asignarAtributosA(Usuario usuario, Request request){
-       /* if(request.queryParams("telefono") != null){
-            int telefono = new Integer(request.queryParams("telefono"));
-            usuario.setTelefono(telefono);
-        }
-
+    private void registrarPersona(Persona persona, Request request){
         if(request.queryParams("nombre") != null){
-            usuario.setNombre(request.queryParams("nombre"));
-        }
-
-        if(request.queryParams("email") != null){
-            usuario.setEmail(request.queryParams("email"));
-        }
-
-        if(request.queryParams("nombreDeUsuario") != null){
-            usuario.setNombreDeUsuario(request.queryParams("nombreDeUsuario"));
+            persona.setNombre(request.queryParams("nombre"));
         }
 
         if(request.queryParams("apellido") != null){
-            usuario.setApellido(request.queryParams("apellido"));
-        }
-
-        if(request.queryParams("legajo") != null){
-            int legajo = new Integer(request.queryParams("legajo"));
-            usuario.setLegajo(legajo);
+            persona.setApellido(request.queryParams("apellido"));
         }
 
         if(request.queryParams("fechaDeNacimiento") != null && !request.queryParams("fechaDeNacimiento").isEmpty()){
             LocalDate fechaDeNacimiento = LocalDate.parse(request.queryParams("fechaDeNacimiento"));
-            usuario.setFechaDeNacimiento(fechaDeNacimiento);
+            persona.setFechaDeNacimiento(fechaDeNacimiento);
         }
 
-        if(request.queryParams("rol") != null){
-            Repositorio<Rol> repoRol = FactoryRepositorio.get(Rol.class);
-            Rol unRol = repoRol.buscar(new Integer(request.queryParams("rol")));
-            usuario.setRol(unRol);
+        /*      DEBERIA DAR LO QUE ELIGE DE LA LISTA DE TIPOS DE DOC
+        if(request.queryParams("tipoDoc") != null){
+            persona.setTipoDocumento();
         }*/
-    }
 
-    public ModelAndView crear(Request request, Response response){
-        Map<String, Object> parametros = new HashMap<>();
-        Repositorio<Rol> repoRol = FactoryRepositorio.get(Rol.class);
+        if(request.queryParams("nroDocumento") != null){
+            persona.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
+        }
 
-        parametros.put("roles", repoRol.buscarTodos());
-        return new ModelAndView(parametros, "usuario.hbs");
-    }
+        if(request.queryParams("email") != null){
+            persona.setEmail(request.queryParams("email"));
+        }
 
-    public Response guardar(Request request, Response response){
-        Usuario usuario = new Usuario();
-        asignarAtributosA(usuario, request);
-        this.repositorio.agregar(usuario);
-        response.redirect("/usuarios");
-        return response;
+        if(request.queryParams("telefono") != null){
+            persona.setTelefono(request.queryParams("telefono"));
+        }
+
+        /*
+        if(request.queryParams("formasDeNotifacion") != null){
+            persona.setFormasDeNotificacion(request.queryParams("formasDeNotifacion"));
+        }
+
+        if(request.queryParams("contactos") != null){
+            persona.setContactos(request.queryParams("contactos"));
+        }*/
     }
 
     public Response eliminar(Request request, Response response){
@@ -113,6 +137,4 @@ public class UsuarioController {
         this.repositorio.eliminar(usuario);
         return response;
     }
-
-
 }

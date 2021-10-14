@@ -2,7 +2,6 @@ package domain.repositorios;
 
 import domain.repositorios.daos.DAO;
 import domain.security.Usuario;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -12,8 +11,7 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
 
     public RepositorioUsuarios(DAO<Usuario> dao) { super(dao); }
 
-    public Boolean existe(String nombreDeUsuario){
-        //return buscarUsuario(nombreDeUsuario) != null;
+    public boolean existe(String nombreDeUsuario){
         return this.dao.buscar(existeUsuario(nombreDeUsuario)) != null;
     }
 
@@ -21,7 +19,6 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
     public Usuario buscarUsuario(String nombreDeUsuario, String contrasenia){
         return this.dao.buscar(condicionUsuarioYContrasenia(nombreDeUsuario, contrasenia));
     }
-
 
     private BusquedaCondicional existeUsuario(String nombreDeUsuario) {
         CriteriaBuilder criteriaBuilder = criteriaBuilder();

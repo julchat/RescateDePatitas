@@ -131,10 +131,10 @@ public class Sistema {
         return validador.esValida(usuario, contrasenia);
     }
 
-    public boolean usuarioInvalido(String usuario) {
+    /*public boolean usuarioInvalido(String usuario) {
         return !EntityManagerHelper.usuarioDisponible(usuario);
         //return listaDeUsuarios.stream().anyMatch(usuario -> usuario.getNombre().equals(usuarioProvisorio));
-    }
+    }*/
 
 
     // Cuando rescata una mascota y escanea el código QR

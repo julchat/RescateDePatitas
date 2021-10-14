@@ -40,23 +40,4 @@ public class EntityManagerHelper {
             tx.rollback();
         }
     }
-
-
-    public static boolean usuarioDisponible(String nombreBuscado){
-        EntityManager em = EntityManagerHelper.getEntityManager();
-
-        String consultaUsuario = "'SELECT nombreUsuario FROM usuario WHERE nombreUsuario = " + nombreBuscado + "'";
-
-        return em.createQuery(consultaUsuario).getResultList().isEmpty();
-    }
-
-
-    public static Mascota buscarMascota(int idBuscado) {
-        EntityManager em = EntityManagerHelper.getEntityManager();
-
-        String consultaMascota = "'SELECT * FROM mascota WHERE id = " + idBuscado + "'";
-
-        return (Mascota) em.createQuery(consultaMascota).getResultList().get(0);
-    }
-
 }

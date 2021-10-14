@@ -18,11 +18,16 @@ public class QRCode {
     // Provisoriamente es esta carpeta, en si, deberia guardarse en el Repositorio de Chapas
     static final String ruta = "D:\\Data User\\Desktop\\CodigosQR";
 
-
-    public void crearQR(String cadena, String nombre) throws WriterException, IOException {
+    public void crearQR(String mensaje, String nombre) throws IOException {
         BitMatrix matrix;
         Writer escritor = new QRCodeWriter();
-        matrix = escritor.encode(cadena, BarcodeFormat.QR_CODE, ancho, altura);
+
+       try {
+           matrix = escritor.encode(mensaje, BarcodeFormat.QR_CODE, ancho, altura);
+        } catch (WriterException e) {
+            e.printStackTrace(System.err);
+            return;
+        }
 
         BufferedImage imagen = new BufferedImage(ancho, altura, BufferedImage.TYPE_INT_RGB);
 
@@ -33,6 +38,7 @@ public class QRCode {
             }
         }
 
+        // Por el momento se guarda en esta ruta
         String rutaFinal = ruta + "\\" + nombre;
         FileOutputStream qrCode = new FileOutputStream(rutaFinal);
 

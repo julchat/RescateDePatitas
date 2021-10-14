@@ -3,9 +3,11 @@ package domain.business.mascota;
 import domain.business.EntidadPersistente;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.foto.Foto;
+import domain.business.organizaciones.Organizacion;
 import domain.business.users.Duenio;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -109,10 +111,9 @@ public class Mascota extends EntidadPersistente {
         this.caracteristicasMascota = caracteristicasMascota;
     }
 
-    // TODO: arreglar
-    public void quitarCaracteristica(String caracteristicaAQuitar) {
-        if(this.caracteristicasMascota.stream().anyMatch(caracteristica -> caracteristica.equals(caracteristicaAQuitar))) {
-            this.caracteristicasMascota.remove(this.caracteristicasMascota.stream().filter(caracteristica -> caracteristica.equals(caracteristicaAQuitar)).collect(Collectors.toList()).get(0));
+    public void quitarCaracteristica(Caracteristica caracteristicaAQuitar) {
+        if(this.caracteristicasMascota.contains(caracteristicaAQuitar)) {
+            this.caracteristicasMascota.remove(caracteristicaAQuitar);
         }
     }
 
@@ -120,20 +121,7 @@ public class Mascota extends EntidadPersistente {
 
 
     // Metodos
-    public Chapa generarChapitaIdentificatoria() {
-        Chapa chapa = new Chapa();
-        return chapa;
-    }
-
-    /*
-    public void ajustarseAOrganizacion(Organizacion organizacion){
-        this.fotos.forEach(foto -> foto.normalizarA(organizacion.getDimensionEstandar()));
-        List<CaracteristicaMascota> caracteristicasValidas = new ArrayList<>();
-        caracteristicasMascota.forEach(unaCaracteristica -> organizacion.agregoSiAceptaCaracteristica(unaCaracteristica, caracteristicasValidas));
-
-        caracteristicasMascota = caracteristicasValidas;
-    }*/
-
+    // Esto despues se puede sacar
     public void mostrarDatosMascota() {
         System.out.println("Tipo del Animal: " + getTipoAnimal());
         System.out.println("Nombre de la Mascota: " + getNombreMascota());

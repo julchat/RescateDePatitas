@@ -43,21 +43,27 @@ public class Chapa extends EntidadPersistente {
     // Metodos
     public Chapa() {}
 
-    public void generarQR() throws WriterException, IOException {
-        QRCode qrGenerator = new QRCode();
+    public Chapa(Duenio duenio, Mascota mascota) throws IOException {
+        this.setDuenio(duenio);
+        this.setMascota(mascota);
+        this.generarQR();
 
-        qrGenerator.crearQR("URL AL FORMULARIO PERO CON ID DE CHAPITA" + "?id=" + this.getId(), "ChapitaN°" + this.getId() + ".png");
-        // Rescatista rescatista = new Rescatista();
-       // this.notificarDuenio(rescatista);
+        // esta chapa tendria que agregarse al RepositorioDeChapas
+        // Tambien, esta chapita deberia crearse con su ID correspondiente, Nombre Mascota y Codigo QR
+        //      y enviarse al Domicilio del Duenio
     }
 
-    //formulario-mascota-perdida-chapita?id=182
+    public void generarQR() throws IOException {
+        QRCode qrGenerator = new QRCode();
+        qrGenerator.crearQR("http://localhost:9000/formulario-mascota-perdida/" + "{id}" + this.getId(), "ChapitaN°" + this.getId() + ".png");
 
+        // tal vez ese codigo QR se guarda en un repositorio, o directamente queda asi
+    }
 
+    //formulario-mascota-perdida/{id=182}
 
 
     public void notificarDuenio(Rescatista rescatista) {
         this.duenio.notificarDuenio(rescatista, mascota);
     }
-
 }

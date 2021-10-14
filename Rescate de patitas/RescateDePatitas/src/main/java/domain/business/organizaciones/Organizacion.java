@@ -2,6 +2,7 @@ package domain.business.organizaciones;
 
 import domain.business.EntidadPersistente;
 import domain.business.caracteristicas.Caracteristica;
+import domain.business.mascota.Mascota;
 import domain.business.publicaciones.Pregunta;
 import domain.business.users.Administrador;
 import domain.business.users.Persona;
@@ -51,6 +52,12 @@ public class Organizacion extends EntidadPersistente {
 
     @Transient
     private List<Persona> potencialesVoluntarios = new ArrayList<>();
+
+    //@OneToMany(cascade = CascadeType.PERSIST)
+    //@JoinColumn(name = "mascotasAsociadas")
+    // Por ahora Transient
+    @Transient
+    private List<Mascota> mascotasAsociadas = new ArrayList<>();
 
 
     // Getters and Setters
@@ -112,6 +119,10 @@ public class Organizacion extends EntidadPersistente {
 
     public void setAdministradores(List<Administrador> administradores) { this.administradores = administradores; }
 
+    public List<Persona> getPotencialesVoluntarios() { return potencialesVoluntarios; }
+
+    public List<Mascota> getMascotasAsociadas() { return mascotasAsociadas; }
+
 
     // Constructor
     public Organizacion() {}
@@ -129,6 +140,12 @@ public class Organizacion extends EntidadPersistente {
         }
     }
 
+    public void asociarMascota(Mascota nuevaMascota) {
+        if(nuevaMascota.getCaracteristicasMascota().stream().allMatch(caracteristica -> this.aceptaCaracteristica(caracteristica))){
+            nuevaMascota.getFotos().forEach(foto -> foto.normalizarA(this.getDimensionEstandar()));
+            this.getMascotasAsociadas().add(nuevaMascota);
+        }
+    }
 
     public boolean aceptaCaracteristica(Caracteristica caracteristicaMascota) {
         if(this.existeCaracteristica(caracteristicaMascota)){

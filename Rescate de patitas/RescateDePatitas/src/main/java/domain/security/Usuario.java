@@ -51,7 +51,7 @@ public class Usuario extends EntidadPersistente {
         return rol;
     }
 
-    public void cambiarRol(Rol rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 

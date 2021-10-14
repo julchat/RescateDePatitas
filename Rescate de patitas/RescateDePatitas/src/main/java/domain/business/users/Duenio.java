@@ -5,6 +5,7 @@ import domain.business.mascota.Mascota;
 import domain.business.ubicacion.Domicilio;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +42,8 @@ public class Duenio extends Persona {
 
 
     // Metodos
-    public void registrarMascota(Mascota nuevaMascota) {
-        Chapa nuevaChapa = new Chapa();
-        nuevaChapa.setMascota(nuevaMascota);
-        nuevaChapa.setDuenio(this);
+    public void registrarMascota(Mascota nuevaMascota) throws IOException {
+        Chapa nuevaChapa = new Chapa(this, nuevaMascota);
         this.getMascotasACargo().add(nuevaChapa);
     }
 
@@ -84,6 +83,11 @@ public class Duenio extends Persona {
     }
 
     public void notificarDuenio(Rescatista rescatista, Mascota mascotaPerdida) {
+        // Notifica al Dueño de la Mascota
         this.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida));
+        // Notifica a cada uno de los Contactos que haya agregado la persona
+        if(!this.getContactos().isEmpty()) {
+            this.getContactos().forEach(contacto -> contacto.getFormasDeNotificacionContacto().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida)));
+        }
     }
 }

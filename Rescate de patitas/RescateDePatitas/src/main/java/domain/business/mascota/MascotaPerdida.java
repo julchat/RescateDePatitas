@@ -33,6 +33,7 @@ public class MascotaPerdida extends EntidadPersistente {
     @JoinColumn(name = "caracteristicas_mascota_perdida")
     private List<Caracteristica> caracteristicasMascota = new ArrayList<>();
 
+    // Tal vez aca podria ser directamente un Lugar, ya que podria ponerse ademas de las coordenadas, la Direccion del lugar
     @OneToOne
     @JoinColumn(name = "ubicacion_id")
     private Ubicacion ubicacionEncontrada;

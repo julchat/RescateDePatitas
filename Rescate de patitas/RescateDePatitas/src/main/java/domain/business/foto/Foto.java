@@ -20,6 +20,9 @@ public class Foto extends EntidadPersistente {
     @Transient
     public byte[] imagenByteArray;
 
+    @Transient
+    private int nivelDeCalidad;
+
 
     // Getters and Setters
     public int getAlto() {
@@ -50,7 +53,11 @@ public class Foto extends EntidadPersistente {
     // Metodos
     public Foto() {}
 
-    public void normalizarA(DimensionEstandar dimension) {}
+    public void normalizarA(DimensionEstandar dimension) {
+        // TODO: deberia cambiar la resolucion de la foto?
+        this.setAlto(dimension.getAlto());
+        this.setAncho(dimension.getAncho());
+    }
 
     public void resetearPixeles(){ pixeles = new HashMap<>(); }
 
