@@ -36,15 +36,6 @@ public class Router {
         Spark.get("/", homeController::home, Router.engine);
         // Si entras, y despues actualizas la pagina, te tira que se redirecciono demasiadas veces
         //Spark.before("/", authMiddleware::verificarSesion);
-
-        // Si escaneo el codigo QR me deberia redirigir a esta direccion, indicando el ID de chapa que contendria el mismo QR
-        Spark.get("/reportar-mascota/:id", formularioController::showMascotaPerdidaChapita, Router.engine);
-        Spark.post("/reportar-mascota/:id", formularioController::mascotaPerdidaChapita);
-
-        // En el caso de no tener Chapita, se ingresa por esta direccion y se completan los Formularios correspondientes
-        Spark.get("/reportar-mascota", formularioController::showMascotaPerdida, Router.engine);
-        Spark.post("/reportar-mascota", formularioController::mascotaPerdida);
-
         Spark.get("/home2", homeController::home2, Router.engine);
 
         Spark.get("/sign-in", loginController::showLogin, Router.engine);
@@ -57,7 +48,13 @@ public class Router {
 
         Spark.get("/registrar-mascota", homeController::registrarMascota, Router.engine);
 
-        Spark.get("/reportar-mascota", homeController::reportarMascota, Router.engine);
+        // Si escaneo el codigo QR me deberia redirigir a esta direccion, indicando el ID de chapa que contendria el mismo QR
+        Spark.get("/reportar-mascota/:id", formularioController::showMascotaPerdidaChapita, Router.engine);
+        Spark.post("/reportar-mascota/:id", formularioController::mascotaPerdidaChapita);
+
+        // En el caso de no tener Chapita, se ingresa por esta direccion y se completan los Formularios correspondientes
+        Spark.get("/reportar-mascota", formularioController::showMascotaPerdida, Router.engine);
+        Spark.post("/reportar-mascota", formularioController::mascotaPerdida);
 
         Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas, Router.engine);
 

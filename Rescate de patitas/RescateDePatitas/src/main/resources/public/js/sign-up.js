@@ -1,42 +1,80 @@
-// for form validation
-var unsupportedBrowsers = false;
-if ((navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) || (navigator.userAgent.match(/MSIE\s(?!10)/))) {
-    unsupportedBrowsers = true;
+
+function validarContrasenia() {
+    const contrasenia = document.getElementById('password').value;
+    // verificar la contrasenia por todas las validaciones
+
+    if(contrasenia == ""){
+        var contraseniaInvalida = document.getElementById('password');
+        contraseniaInvalida.classList.add('is-invalid')
+        console.log('Contraseña invalida');
+    }
+    else {
+        var contraseniaValida = document.getElementById('confirmPassword');
+        contraseniaValida.classList.add('is-valid')
+        console.log('Contrasenia valida');
+    }
 }
 
-// Tests with Modernizr if supports HTML5 placeholder="" attribute. If old browser, load necessary JS files and run them
-if (!Modernizr.input.placeholder) {
-    Modernizr.load({
-        load: [
-            'http://lab.alexcican.com/minimal_signup_form/placeholder.min.js',
-        ],
-        complete: function(){
-            $('input').placeholder();
-        }
+function confirmarContrasenia() {
+    const contrasenia = document.getElementById('password').value;
+    const confirmacionContrasenia = document.getElementById('confirmPassword').value;
+    if(contrasenia == confirmacionContrasenia) {
+        var confirmacion = document.getElementById('confirmPassword');
+        confirmacion.classList.add('is-valid')
+        console.log('Proceda');
+    }
+    else {
+        var confirmacion = document.getElementById('confirmPassword');
+        confirmacion.classList.add('is-invalid')
+        console.log('Procedan´t');
+    }
+}
+
+document.addEventListener('submit', validarRegistro);
+
+function validarRegistro() {
+
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
     })
 }
 
-// ugly browser sniffer for form validation
-if (unsupportedBrowsers) {
-    Modernizr.load({
-        load: [
-            'http://lab.alexcican.com/minimal_signup_form/jquery.validate.min.js'
-        ],
-        complete: function(){
-            // parse through each required input
-            $('form').find('input[required]').each(function () {
-                // add a class to each required field with "required" & the input type
-                // using the normal "getAttribute" method because jQuery's attr always returns "text"
-                $(this).attr('class', 'required ' + this.getAttribute('type')).removeAttr('required');
-            });
 
-            // call jQuery validate plugin on each form
-            $('form').each(function () {
-                $(this).validate();
-            });
-        }
-    })
-}
+/*const nombreUsuario = document.getElementById('user').value;
+const contrasenia = document.getElementById('password').value;
+const confirmacionContrasenia = document.getElementById('confirmPassword').value;
+
+if(nombreUsuario == "") {
+    console.log('');
+}*/
+
+
+(function () {
+    'use strict'
+
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+            }, false)
+        })
+})()
+
 
 
 
@@ -93,15 +131,10 @@ function checkPassStrength(pass) {
 
 
 
-
-
-
-
-
 //Problem: Hints are shown even when form is valid
 //Solution: Hide and show them at appropriate times
 var $password = $("#password");
-var $confirmPassword = $("#confirm_password");
+var $confirmPassword = $("#confirmPassword");
 
 //Hide hints
 $("form span").hide();

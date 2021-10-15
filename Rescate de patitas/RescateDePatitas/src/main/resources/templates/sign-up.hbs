@@ -5,13 +5,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Registrarse</title>
-        <link rel="shortcut icon" href="/img/image_7_.ico"/>
-
         <script src="/js/sign-up.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <link rel="shortcut icon" href="/img/image_7_.ico"/>
         <link rel="stylesheet" href="/css/sign-up.css">
         <link rel="stylesheet" href="/css/reset.css">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap">
+
+        <title>Registrarse</title>
     </head>
 
     <body>
@@ -29,32 +33,142 @@
                 </nav>
             </header>
 
-            <form action="/sign-up" method="post" class="form1">
+
+            <form action="/sign-up" method="post" class="form1 needs-validation" novalidate>
 
                 <h2 class="subtitulo">Ingrese un nombre de usuario y contraseña adecuada</h2>
 
-                    <div class="form2">
-                        <label for="user" class="text-input">Usuario</label>
-                        <input id="user" name="user" type="text">
-                    </div>
+                <div class="grid-item">
+                    <label for="user" class="form-label">Usuario *</label>
+                    <input type="text" id="user" name="userName" class="form-control" required>
+                </div>
 
-                    <div class="form2">
-                        <label for="password" class="text-input">Contraseña</label>
-                        <input id="password" name="password" type="password">
+                <div class="grid-item">
+                    <label for="Contraseña" class="form-label">Contraseña *</label>
+                    <input type="password" id="password" name="userPassword" class="form-control" onblur="validarContrasenia()" required>
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                        La contraseña no cumple con los parámetros de seguridad
                     </div>
+                </div>
 
-                    <div class="form2">
-                        <label for="confirmPassword" class="text-input">Confirmar Contraseña</label>
-                        <input id="confirmPassword" name="confirmPassword" type="password">
+
+                <div class="grid-item">
+                    <label for="Confirmar contraseña" class="form-label">Confirmar contraseña *</label>
+                    <input type="password" id="confirmPassword" name="passConf" class="form-control" onblur="confirmarContrasenia()" required>
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                        Las contraseñas deben coincidir
                     </div>
+                </div>
 
-                <div class="form2">
-                    <a href="/register">
+                <div class="grid-item">
+                   <!-- <a href="/"> -->
                         <button type="submit" class="boton">REGISTRARSE</button>
-                    </a>
+                  <!--  </a> -->
                 </div>
 
             </form>
+
+
+            <h2 class="subtitulo">Complete el siguiente formulario para crear la cuenta</h2>
+            <table class="tabla" align="center">
+                <tr>
+                    <td>
+                        <div class="grid-item">
+                            <label for="name">Nombre y Apellido <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="name" class="text-input">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="grid-item">
+                            <label for="date">Fecha de Nacimiento <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="date" id="date" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="grid-item">
+                            <label for="email">Email <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="email" class="text-input">
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="grid-item">
+                            <label for="doc-type">Tipo de documento <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <select id="doc-type" name="">
+                                <option value="DNI">DNI</option>
+                                <option value="Cedula">Cedula</option>
+                                <option value="Pasaporte">Pasaporte</option>
+                            </select>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="grid-item">
+                            <label for="n-doc">Número de documento <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="n-doc" class="text-input">
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="grid-item">
+                            <label for="cel">Teléfono / Celular <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="cel" class="text-input">
+                        </div>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="grid-item">
+                            <label for="notification">Formas de notificación <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <select id="notification" name="">
+                                <option value="WhatsApp">WhatsApp</option>
+                                <option value="SMS">SMS</option>
+                                <option value="Email">Email</option>
+                            </select>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="grid-item">
+                            <label for="contact">Contactos <abbr title="required" aria-label="required">*</abbr></label>
+                            <select id="contact">
+                                <option></option>
+                            </select>
+                            <button for="contact">Agregar contacto<br></button>
+                            <form>
+                                <div class="grid-item">
+                                    <label for="name">Nombre y Apellido <abbr title="required" aria-label="required">*</abbr><br></label>
+                                    <input type="text" id="name" class="text-input">
+                                </div>
+
+                                <div class="grid-item">
+                                    <label for="email">Email <abbr title="required" aria-label="required">*</abbr><br></label>
+                                    <input type="text" id="email" class="text-input">
+                                </div>
+
+                                <div class="grid-item">
+                                    <label for="cel">Teléfono / Celular <abbr title="required" aria-label="required">*</abbr><br></label>
+                                    <input type="text" id="cel" class="text-input">
+                                </div>
+
+                                <div class="grid-item">
+                                    <label for="notification">Formas de notificación <abbr title="required" aria-label="required">*</abbr><br></label>
+                                    <select id="notification" name="">
+                                        <option value="WhatsApp">WhatsApp</option>
+                                        <option value="SMS">SMS</option>
+                                        <option value="Email">Email</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="boton">AGREGAR CONTACTO</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
         </div>
     </body>
@@ -68,38 +182,29 @@ https://codepen.io/chrissteurer/pen/oqjul
 https://codepen.io/alexcican/pen/hEjxD
 https://codepen.io/atakan/pen/gqbIz
 
-            <form action="/sign-up" method="post" class="form1">
+<form action="/sign-up" method="post" class="form1">
 
-                <h2 class="subtitulo">Ingrese un nombre de usuario y contraseña adecuada</h2>
+<h2 class="subtitulo">Ingrese un nombre de usuario y contraseña adecuada</h2>
 
-            <div class="grid-item">
-                    <label for="user">Usuario <abbr title="required" aria-label="required">*</abbr><br></label>
-                    <input type="text" id="user" name="user" class="text-input" required>
-                </div>
+<div class="grid-item">
+        <label for="user">Usuario <abbr title="required" aria-label="required">*</abbr><br></label>
+        <input type="text" id="user" name="user" class="text-input" required>
+    </div>
 
-                <div class="grid-item">
-                    <label for="password">Contraseña <abbr title="required" aria-label="required">*</abbr><br></label>
-                    <input type="password" id="password" name="password" class="text-input" required>
+    <div class="grid-item">
+        <label for="password">Contraseña <abbr title="required" aria-label="required">*</abbr><br></label>
+        <input type="password" id="password" name="password" class="text-input" required>
 
-                    <div class="grid-item">
-                        <label for="passwordConfirm">Confirmar contraseña <abbr title="required" aria-label="required">*</abbr><br></label>
-                        <input type="password" id="passwordConfirm" name="passwordConfirm" required>
-                    </div>
-                </div>
+        <div class="grid-item">
+            <label for="passwordConfirm">Confirmar contraseña <abbr title="required" aria-label="required">*</abbr><br></label>
+            <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+        </div>
+    </div>
 
-                <a href="/register">
-                    <button type="submit" class="boton">REGISTRARSE</button>
-                </a>
-            </form>
-
-
-
-
-
-
-
-
-
+    <a href="/register">
+        <button type="submit" class="boton">REGISTRARSE</button>
+    </a>
+</form>
 
 
   <text class="texto"><br>La contraseña debe tener como mínimo 8 caracteres</text>
@@ -207,35 +312,3 @@ https://codepen.io/atakan/pen/gqbIz
         </td>
     </tr>
 </table> -->
-
-
-
-
-
-<script>
-    $("#button").on("click", function() {
-        if($("#password").val()!=$("#passwordConfirm").val()) {
-            alert("Las contraseñas son incorrectas");
-            return false;
-        }
-
-        var usuario = $('#usuario').val();
-        var password = $('#password').val();
-
-        var data = {'user': usuario, 'password': password};
-
-        $.ajax({
-            url: '/sign-up',
-            type:'POST',
-            data: data,
-            success: function(result) {
-                $("#mensaje").html(result);
-            },
-            error: function (error) {
-                alert("Se ha producido un error inesperado, intente más tarde");
-                console.log(error)
-            }
-        });
-    })
-</script>
-

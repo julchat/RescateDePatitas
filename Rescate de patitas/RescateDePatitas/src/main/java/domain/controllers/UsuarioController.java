@@ -42,17 +42,17 @@ public class UsuarioController {
 
     public Response registrarUsuario(Request request, Response response){
 
-        if(this.repositorio.existe(request.queryParams("user"))) {
+        if(this.repositorio.existe(request.queryParams("userName"))) {
             System.out.println("No existe dicho usuario.");
 
             Usuario nuevoUsuario = new Usuario();
-            nuevoUsuario.setNombreUsuario(request.queryParams("user"));
-            nuevoUsuario.setContrasenia(request.queryParams("password"));
+            nuevoUsuario.setNombreUsuario(request.queryParams("userName"));
+            nuevoUsuario.setContrasenia(request.queryParams("userPassword"));
 
             ValidadorPassword validador = new ValidadorPassword();
             if(validador.esValida(nuevoUsuario.getNombreUsuario(), nuevoUsuario.getContrasenia())) {
 
-                if(nuevoUsuario.getContrasenia().equals(request.queryParams("passwordConfirm"))) {
+                if(nuevoUsuario.getContrasenia().equals(request.queryParams("passConf"))) {
                 // Todo: tal vez toda esta parte que continua se puede hacer en otra pantalla
                 // de ser asi, entonces response.redirect("/registrar-persona") para completar los datos de la Persona
                     nuevoUsuario.setRol(new User());
@@ -68,6 +68,7 @@ public class UsuarioController {
                 else {
                     // Todo: en este caso tirar que la contraseña y la confirmacion no son iguales
                     System.out.println("Las contraseñas son distintas.");
+                    response.redirect("/sign-up");
                     return response;
                 }
             }

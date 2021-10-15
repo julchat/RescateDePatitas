@@ -27,11 +27,12 @@ public class LoginController {
         try {
             RepositorioUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
 
-            String nombreUsuario = request.queryParams("user");
+            String nombreUsuario = request.queryParams("userName");
 
             if(repoUsuarios.existe(nombreUsuario)){
+                System.out.println("Existe el usuario y ahora valido si puedo entrar");
 
-                String password = request.queryParams("password");
+                String password = request.queryParams("userPassword");
                 response.cookie("usuarioLogin", nombreUsuario);
                 Usuario usuario = repoUsuarios.buscarUsuario(nombreUsuario, password);
                 request.session(true);
