@@ -3,7 +3,7 @@ package domain.security.password;
 public class PasswordStatus {
     private static final String StatusOK = "OK";
     private static final String StatusNull = "No puede ingresar una Contraseña nula.";
-    private static final String StatusSimple = "La Contraseña es muy simple y común.";
+    private static final String StatusSimple = "La Contraseña es muy simple e insegura.";
     private static final String StatusMayus = "La Contraseña necesita al menos una mayúscula.";
     private static final String StatusMinus = "La Contraseña necesita al menos una minúscula.";
     private static final String StatusNum = "La Contraseña necesita al menos un número.";

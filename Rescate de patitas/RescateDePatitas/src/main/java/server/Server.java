@@ -3,6 +3,7 @@ package server;
 import com.google.zxing.WriterException;
 import database.EntityManagerHelper;
 import domain.business.mascota.Chapa;
+import domain.security.password.AESEncryptionDecryption;
 import domain.security.password.ValidadorPassword;
 import spark.Spark;
 import spark.debug.DebugScreen;
@@ -20,8 +21,13 @@ public class Server {
         Router.init();
         DebugScreen.enableDebugScreen();
 
-        EntityManager em = EntityManagerHelper.getEntityManager();
 
+        //String passwordEncriptado = AESEncryptionDecryption.encrypt("Password1234");
+
+       // System.out.println(passwordEncriptado);
+       // EntityManager em = EntityManagerHelper.getEntityManager();
+
+        //System.out.println(AESEncryptionDecryption.decrypt("cEpRCGMazPX5KXKKjMFw/Q=="));
         //Chapa chapita = new Chapa();
         //chapita.generarQR();
 

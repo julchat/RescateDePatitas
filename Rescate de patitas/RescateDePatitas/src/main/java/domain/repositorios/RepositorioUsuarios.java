@@ -2,6 +2,11 @@ package domain.repositorios;
 
 import domain.repositorios.daos.DAO;
 import domain.security.Usuario;
+import domain.security.password.AESEncryptionDecryption;
+import domain.security.password.ValidadorPassword;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -15,9 +20,12 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
         return this.dao.buscar(existeUsuario(nombreDeUsuario)) != null;
     }
 
-
-    public Usuario buscarUsuario(String nombreDeUsuario, String contrasenia){
+    /*public Usuario buscarUsuario(String nombreDeUsuario, String contrasenia){
         return this.dao.buscar(condicionUsuarioYContrasenia(nombreDeUsuario, contrasenia));
+    }*/
+
+    public Usuario buscarUsuario(String nombreDeUsuario){
+        return this.dao.buscar(existeUsuario(nombreDeUsuario));
     }
 
     private BusquedaCondicional existeUsuario(String nombreDeUsuario) {
@@ -46,5 +54,11 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
         usuarioQuery.where(condicionExisteUsuario);
 
         return new BusquedaCondicional(null, usuarioQuery);
+    }
+
+    public void guardarUsuario(Usuario nuevoUsuario, String password) {
+        String passwordEncriptada = AESEncryptionDecryption.encrypt(password);
+        nuevoUsuario.setContrasenia(passwordEncriptada);
+        this.agregar(nuevoUsuario);
     }
 }

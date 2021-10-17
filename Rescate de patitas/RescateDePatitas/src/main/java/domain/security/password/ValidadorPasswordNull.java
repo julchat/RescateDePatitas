@@ -1,7 +1,5 @@
 package domain.security.password;
 
-import excepciones.NullException;
-
 public class ValidadorPasswordNull extends Validador {
 
     @Override

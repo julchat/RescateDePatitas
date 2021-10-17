@@ -8,6 +8,7 @@ import domain.repositorios.factories.FactoryRepositorioPersonas;
 import domain.repositorios.factories.FactoryRepositorioUsuarios;
 import domain.repositorios.factories.RepositorioPersonas;
 import domain.security.Rol;
+import domain.security.TipoRol;
 import domain.security.User;
 import domain.security.Usuario;
 import domain.security.password.PasswordStatus;
@@ -20,79 +21,93 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UsuarioController {
-    private RepositorioUsuarios repositorio;
-
-    public UsuarioController() {
-        this.repositorio = FactoryRepositorioUsuarios.get();
-    }
+    private RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
+    private RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
 
     private void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
         if(!request.session().isNew() && request.session().attribute("id") != null){
-            Usuario usuario = repositorio.buscar(request.session().attribute("id"));
+            Usuario usuario = repositorioUsuarios.buscar(request.session().attribute("id"));
             parametros.put("usuario", usuario);
         }
     }
 
-    public ModelAndView showRegister(Request request, Response response){
+    public ModelAndView showRegistrarUsuario(Request request, Response response){
         Map<String, Object> viewModel = new HashMap<>();
         return new ModelAndView(viewModel,"sign-up.hbs");
     }
 
     public Response registrarUsuario(Request request, Response response){
 
-        if(this.repositorio.existe(request.queryParams("userName"))) {
-            System.out.println("No existe dicho usuario.");
+        String nombreUsuario = request.queryParams("userName");
+        String password = request.queryParams("userPassword");
+        String passwordConfirm = request.queryParams("passConf");
 
-            Usuario nuevoUsuario = new Usuario();
-            nuevoUsuario.setNombreUsuario(request.queryParams("userName"));
-            nuevoUsuario.setContrasenia(request.queryParams("userPassword"));
+        try {
+            Usuario usuario = repositorioUsuarios.buscarUsuario(nombreUsuario);
+
+            System.out.println("Existe dicho usuario.");
+            //Todo: tirar mensaje de que existe el usuario
+            response.redirect("/sign-up");
+        }
+        catch (Exception e) {
+            System.out.println("No existe dicho usuario asi que puedo utilizarlo.");
 
             ValidadorPassword validador = new ValidadorPassword();
-            if(validador.esValida(nuevoUsuario.getNombreUsuario(), nuevoUsuario.getContrasenia())) {
+            if(validador.esValida(nombreUsuario, password)) {
+                System.out.println("La contraseña es válida.");
 
-                if(nuevoUsuario.getContrasenia().equals(request.queryParams("passConf"))) {
-                // Todo: tal vez toda esta parte que continua se puede hacer en otra pantalla
-                // de ser asi, entonces response.redirect("/registrar-persona") para completar los datos de la Persona
+                if(password.equals(passwordConfirm)) {
+                    System.out.println("La contraseña coincide con la confirmación.");
+                    // Todo: tal vez toda esta parte que continua se puede hacer en otra pantalla
+                    // de ser asi, entonces response.redirect("/registrar-persona") para completar los datos de la Persona
+
+                    Usuario nuevoUsuario = new Usuario();
+                    nuevoUsuario.setNombreUsuario(nombreUsuario);
+
                     nuevoUsuario.setRol(new User());
-                    nuevoUsuario.setPersona(new Persona());
-                    this.registrarPersona(nuevoUsuario.getPersona(), request);
-                    RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
-                    repositorioPersonas.agregar(nuevoUsuario.getPersona());
+                    nuevoUsuario.setTipoRol(TipoRol.USER);
 
-                    this.repositorio.agregar(nuevoUsuario);
+                    // Todo: llamar a otra pantalla para crear la persona y despues hacer un update del Usuario con la nueva Persona
+                    //nuevoUsuario.setPersona(new Persona());
+                    //this.registrarPersona(nuevoUsuario.getPersona(), request);
+                    //repositorioPersonas.agregar(nuevoUsuario.getPersona());
+
+                    this.repositorioUsuarios.guardarUsuario(nuevoUsuario, password);
                     // Todo: tirar mensaje que se creo el usuario de forma satisfactoria
+                    System.out.println("Se ha creado el usuario de forma satisfactoria!!");
                     response.redirect("/");
+                    //response.redirect("/sign-up/registrar-persona");
                 }
                 else {
                     // Todo: en este caso tirar que la contraseña y la confirmacion no son iguales
                     System.out.println("Las contraseñas son distintas.");
                     response.redirect("/sign-up");
-                    return response;
                 }
             }
             else {
                 PasswordStatus passwordStatus = PasswordStatus.getInstance();
                 // Todo: tirar mensajes de acuerdo a los errores que comete dicha contraseña
-                List<String> lista = validador.verificarPassword(nuevoUsuario.getNombreUsuario(), nuevoUsuario.getContrasenia());
-                lista.stream().filter(s -> !s.equals(passwordStatus.getStatusOK()));
+                List<String> lista = validador.verificarPassword(nombreUsuario, password);
+                List<String> listaFiltrada = lista.stream().filter(s -> !s.equals(passwordStatus.getStatusOK())).collect(Collectors.toList());
 
-                for(String string : lista) {
+                // Por ahora los imprime en la consola, habria que llevar este mensaje a la pantalla
+                for(String string : listaFiltrada) {
                     System.out.println(string);
                 }
-            }
 
+                response.redirect("/sign-up");
+            }
         }
-        else {
-            System.out.println("Existe dicho usuario.");
-            //Todo: tirar mensaje de que existe el usuario
-            response.redirect("/sign-up");
+        finally {
+            return response;
         }
-        return response;
     }
 
-    private void registrarPersona(Persona persona, Request request){
+    public void registrarPersona(Persona persona, Request request){
+        
         if(request.queryParams("nombre") != null){
             persona.setNombre(request.queryParams("nombre"));
         }
@@ -134,8 +149,9 @@ public class UsuarioController {
     }
 
     public Response eliminar(Request request, Response response){
-        Usuario usuario = this.repositorio.buscar(new Integer(request.params("id")));
-        this.repositorio.eliminar(usuario);
+        Usuario usuario = this.repositorioUsuarios.buscar(new Integer(request.params("id")));
+        this.repositorioUsuarios.eliminar(usuario);
         return response;
     }
+
 }

@@ -1,7 +1,5 @@
 package domain.security.password;
 
-import excepciones.TamanioException;
-
 public class ValidadorPasswordTamanio extends Validador {
     private int cantidadMinima;
     private int cantidadMaxima;

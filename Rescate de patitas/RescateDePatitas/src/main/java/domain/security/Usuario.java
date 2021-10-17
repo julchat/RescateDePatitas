@@ -47,13 +47,15 @@ public class Usuario extends EntidadPersistente {
         }
     }
 
-    public Rol getRol() {
-        return rol;
-    }
+    public Rol getRol() { return rol; }
 
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+
+    public TipoRol getTipoRol() { return tipoRol; }
+
+    public void setTipoRol(TipoRol tipoRol) { this.tipoRol = tipoRol; }
 
     public Persona getPersona() {
         return persona;

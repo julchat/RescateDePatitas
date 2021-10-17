@@ -8,8 +8,10 @@ import spark.Request;
 import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class LoginController {
+    private RepositorioUsuarios repositorio = FactoryRepositorioUsuarios.get();
 
     public ModelAndView showLogin(Request request, Response response){
         Map<String, Object> viewModel = new HashMap<>();
@@ -17,42 +19,42 @@ public class LoginController {
     }
 
     public ModelAndView logout(Request request, Response response){
-        request.session().invalidate();
+        request.session().removeAttribute("usuarioLogin");
         response.redirect("/");
         return null;
     }
 
     public Response login(Request request, Response response) {
 
+        String nombreUsuario = request.queryParams("userName");
+        String password = request.queryParams("userPassword");
+
         try {
-            RepositorioUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
-
-            String nombreUsuario = request.queryParams("userName");
-
-            if(repoUsuarios.existe(nombreUsuario)){
+            Usuario usuario = repositorio.buscarUsuario(nombreUsuario);
+            if (usuario != null && usuario.validarLogin(nombreUsuario, password)) {
                 System.out.println("Existe el usuario y ahora valido si puedo entrar");
 
-                String password = request.queryParams("userPassword");
                 response.cookie("usuarioLogin", nombreUsuario);
-                Usuario usuario = repoUsuarios.buscarUsuario(nombreUsuario, password);
                 request.session(true);
                 request.session().attribute("id", usuario.getId());
+
+                // Todo: verificar que tipo de rol tiene y redirigir a la pantalla correspondiente?
+
                 response.redirect("/home2");
             }
-            else{
-                // TODO: tirar un mensaje que el usuario no existe
-                System.out.println("El usuario no existe");
+            else {
+                // Todo: tirar que la contraseña es incorrecta
+                System.out.println("La contraseña es incorrecta.");
                 response.redirect("/sign-in");
             }
         }
-        catch(Exception exception) {
-            System.out.println("Hay un error en la busqueda");
-            // Todo: deberia tirar un modal, marcando que hay un error y no existe el usuario o la contraseña es incorrecta
+        catch (Exception e) {
+            // TODO: tirar un mensaje que el usuario no existe
+            System.out.println("El usuario no existe");
             response.redirect("/sign-in");
         }
         finally {
             return response;
         }
     }
-
 }

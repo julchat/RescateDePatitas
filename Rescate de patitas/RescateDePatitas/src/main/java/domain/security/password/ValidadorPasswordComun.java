@@ -1,8 +1,5 @@
 package domain.security.password;
 
-import excepciones.PasswordComunException;
-import excepciones.ReadFileException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,9 +13,13 @@ public class ValidadorPasswordComun extends Validador {
         Stream<String> stream;
         try {
             stream = Files.lines(path);
-            stream.noneMatch(palabra -> palabra.equals(password));
-            return passwordStatus.getStatusOK();
-        } catch (PasswordComunException | IOException exception){
+            if(stream.noneMatch(palabra -> palabra.equals(password))) {
+                return passwordStatus.getStatusOK();
+            }
+            else {
+                return passwordStatus.getStatusSimple();
+            }
+        } catch (IOException exception){
             return passwordStatus.getStatusSimple();
         }
     }
