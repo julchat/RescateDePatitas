@@ -27,23 +27,23 @@ public class Organizacion extends EntidadPersistente {
     private LocalDate fechaDeCreacion;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name = "caracteristicas admitidas")
+    @Column(name = "caracteristicasAdmitidas admitidas")
     private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "logo_organizacion")
+    @JoinColumn(name = "logo")
     private Foto logo;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "dimension_organizacion")
+    @JoinColumn(name = "dimensionEstandar")
     private DimensionEstandar dimensionEstandar;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "preguntas_organizacion")
+    @JoinColumn(name = "preguntasOrganizacion")
     private List<Pregunta> preguntasOrganizacion = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "voluntarios")
+    @Column(name = "voluntarios")
     private List<Voluntario> voluntarios = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)

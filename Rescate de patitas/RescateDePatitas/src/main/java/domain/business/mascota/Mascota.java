@@ -21,24 +21,24 @@ public class Mascota extends EntidadPersistente {
     private String nombreMascota;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_animal")
+    @Column(name = "tipoAnimal")
     private TipoAnimal tipoAnimal;
 
     private String apodoMascota;
     private int edadMascota;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sexo_mascota")
+    @Column(name = "sexoMascota")
     private SexoMascota sexoMascota;
 
     private String descripcionMascota;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fotos_mascota")
+    @JoinColumn(name = "fotos")
     private List<Foto> fotos = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "caracteristicas_mascota")
+    @JoinColumn(name = "caracteristicasMascota")
     private List<Caracteristica> caracteristicasMascota = new ArrayList<>();
 
 

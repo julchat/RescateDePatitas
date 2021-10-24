@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class PersonaOrganizacion extends Persona {
 
     @OneToOne
-    @JoinColumn(name = "organizacion_id")
+    @JoinColumn(name = "organizacion")
     private Organizacion organizacion;
 
 

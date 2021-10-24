@@ -15,11 +15,11 @@ import java.util.List;
 public class PublicacionMascotaEnAdopcion extends Publicacion {
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "duenio_id")
+    @JoinColumn(name = "duenioActual")
     private Duenio duenioActual;
 
     @OneToOne
-    @JoinColumn(name = "mascota_id")
+    @JoinColumn(name = "mascotaElegida")
     private Mascota mascotaElegida;
 
     @OneToMany(cascade = CascadeType.PERSIST)

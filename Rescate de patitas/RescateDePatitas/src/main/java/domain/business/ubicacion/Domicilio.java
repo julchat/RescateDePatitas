@@ -20,7 +20,7 @@ public class Domicilio extends EntidadPersistente {
     private int piso;
 
     @OneToOne
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn(name = "ubicacion")
     private Ubicacion ubicacion;
 
 
@@ -59,6 +59,17 @@ public class Domicilio extends EntidadPersistente {
 
     // Constructor
     public Domicilio() {}
+
+    public Domicilio(String provincia, String localidad, int codigoPostal, String calle, int numero, int departamento, int piso, Ubicacion ubicacion) {
+        this.provincia = provincia;
+        this.localidad = localidad;
+        this.codigoPostal = codigoPostal;
+        this.calle = calle;
+        this.numero = numero;
+        this.departamento = departamento;
+        this.piso = piso;
+        this.ubicacion = ubicacion;
+    }
 
     //Metodos
    /* public Organizacion buscarOrganizacionMasCercana(){

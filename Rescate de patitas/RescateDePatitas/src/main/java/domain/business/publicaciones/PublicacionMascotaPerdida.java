@@ -12,11 +12,11 @@ import javax.persistence.*;
 public class PublicacionMascotaPerdida extends Publicacion {
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mascota_perdida_id")
+    @JoinColumn(name = "mascotaRescatada")
     private MascotaPerdida mascotaRescatada;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lugar_de_transito_id")
+    @JoinColumn(name = "lugarDeTransito")
     private Lugar lugarDeTransito;
 
 

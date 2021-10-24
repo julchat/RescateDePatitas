@@ -20,8 +20,7 @@ public class Duenio extends Persona {
     private Domicilio domicilio;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "mascotas_a_cargo")
-    @Transient
+    @Column(name = "mascotasACargo")
     private List<Chapa> mascotasACargo = new ArrayList<>();
 
 
@@ -87,7 +86,7 @@ public class Duenio extends Persona {
         this.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida));
         // Notifica a cada uno de los Contactos que haya agregado la persona
         if(!this.getContactos().isEmpty()) {
-            this.getContactos().forEach(contacto -> contacto.getFormasDeNotificacionContacto().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida)));
+            this.getContactos().forEach(contacto -> contacto.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida)));
         }
     }
 }

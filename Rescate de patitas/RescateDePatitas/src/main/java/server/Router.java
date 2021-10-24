@@ -60,7 +60,9 @@ public class Router {
         Spark.get("/reportar-mascota", formularioController::showMascotaPerdida, Router.engine);
         Spark.post("/reportar-mascota", formularioController::mascotaPerdida);
 
-        Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas, Router.engine);
+        Spark.get("/mascotas-perdidas", homeController::showMascotasPerdidas, Router.engine);
+        //Spark.post("/mascotas-perdidas", homeController::mascotasPerdidas);
+        //Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas);
 
         Spark.get("/dar-mascota-adopcion", homeController::darMascotaAdopcion, Router.engine);
 

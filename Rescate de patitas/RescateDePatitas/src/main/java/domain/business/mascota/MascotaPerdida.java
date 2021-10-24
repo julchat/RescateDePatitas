@@ -18,7 +18,7 @@ public class MascotaPerdida extends EntidadPersistente {
     private String descripcion;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_animal")
+    @Column(name = "tipoAnimal")
     private TipoAnimal tipoAnimal;
 
     @Enumerated(EnumType.STRING)
@@ -26,20 +26,20 @@ public class MascotaPerdida extends EntidadPersistente {
     private Tamanio tamanio;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lugar_de_transito")
+    @JoinColumn(name = "lugarDeTransito")
     private Lugar lugarDeTransito;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "caracteristicas_mascota_perdida")
+    @JoinColumn(name = "caracteristicasMascota")
     private List<Caracteristica> caracteristicasMascota = new ArrayList<>();
 
     // Tal vez aca podria ser directamente un Lugar, ya que podria ponerse ademas de las coordenadas, la Direccion del lugar
     @OneToOne
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn(name = "ubicacionEncontrada")
     private Ubicacion ubicacionEncontrada;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fotos_mascota_perdida")
+    @JoinColumn(name = "carrouselFotos")
     private List<Foto> carrouselFotos = new ArrayList<>();
 
 
@@ -96,8 +96,8 @@ public class MascotaPerdida extends EntidadPersistente {
     }
 
     public void mostrarMascota() {
-        //System.out.println("Tipo de Animal: " + this.getTipoAnimal());
-        //System.out.println("Tamaño del animal: " + this.getTamanio());
+        System.out.println("Tipo de Animal: " + this.getTipoAnimal());
+        System.out.println("Tamaño del animal: " + this.getTamanio());
         System.out.println("Descripción de la Mascota: " + this.getDescripcion());
         System.out.println("Ubicación encontrada:");
         System.out.println("    - Latitud: " + this.getUbicacionEncontrada().getLatitud());

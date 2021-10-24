@@ -1,14 +1,15 @@
 package domain.controllers;
 
 import domain.business.Sistema;
-import domain.business.mascota.Chapa;
-import domain.business.mascota.Mascota;
-import domain.business.mascota.MascotaPerdida;
+import domain.business.mascota.*;
+import domain.business.notificaciones.Notificador;
 import domain.business.organizaciones.HogarDeTransito;
+import domain.business.ubicacion.Domicilio;
 import domain.business.ubicacion.Ubicacion;
 import domain.business.users.Duenio;
 import domain.business.users.Persona;
 import domain.business.users.Rescatista;
+import domain.business.users.TipoDoc;
 import domain.repositorios.*;
 import domain.repositorios.factories.*;
 import spark.ModelAndView;
@@ -20,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FormularioController {
-
 
     public ModelAndView showRegistroMascota(Request request, Response response) {
         Map<String, Object> viewModel = new HashMap<>();
@@ -101,10 +101,9 @@ public class FormularioController {
 
     public void registrarMascota(Mascota mascota, Request request){
 
-        /*  Deberia elegirlo como una de las opciones de la lista
         if(request.queryParams("tipoAnimal") != null){
-            mascota.setTipoAnimal(request.queryParams("tipoAnimal"));
-        }*/
+            mascota.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
+        }
 
         if(request.queryParams("nombreMascota") != null){
             mascota.setNombreMascota(request.queryParams("nombreMascota"));
@@ -118,10 +117,9 @@ public class FormularioController {
             mascota.setEdadMascota(new Integer(request.queryParams("edadMascota")));
         }
 
-        /*
         if(request.queryParams("sexoMascota") != null){
-            mascota.setSexoMascota(request.queryParams("sexoMascota"));
-        }*/
+            mascota.setSexoMascota(SexoMascota.valueOf(request.queryParams("sexoMascota")));
+        }
 
         if(request.queryParams("descripcion") != null){
             mascota.setDescripcionMascota(request.queryParams("descripcion"));
@@ -139,9 +137,10 @@ public class FormularioController {
 
 
 
-/*
+/* ==============================================================================================================
     Mascota Perdida pero con Chapita -> Escaneando el Código QR se llega a este Formulario
-*/
+   ============================================================================================================== */
+
     public ModelAndView showMascotaPerdidaChapita(Request request , Response response) {
         Map<String, Object> parametros = new HashMap<>();
         RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
@@ -159,24 +158,37 @@ public class FormularioController {
         RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
 
         // Rescatista que se obtiene con los datos del formulario
-        Rescatista nuevoRescatista = new Rescatista();
+        Rescatista rescatista = new Rescatista();
+        this.registrarRescatista(rescatista, request);
+
+
+        //==============================================================================================================
+        // Todo: en el formulario pide los datos de la mascota que encontró
+        //  pero si resulta que la encuentra por el ID de la Chapa, no tienen relevancia los datos que ingresa de la mascota
+        MascotaPerdida mascotaPerdida = new MascotaPerdida();
+        this.registrarMascotaPerdida(mascotaPerdida, request);
+        //==============================================================================================================
+
 
         // Obtener el ID que esta en el link /reportar-mascota/{id}, con ese id busco la chapita
-        int idChapa = 0;
+        int idChapa = new Integer(request.queryParams("idChapa"));
 
         Chapa chapaRecuperada = repositorioChapas.buscarChapa(idChapa);
 
         Mascota mascotaRecuperada = repositorioMascotas.buscarMascotaChapita(chapaRecuperada.getMascota().getId());
         Duenio duenioMascota = repositorioPersonas.buscarDuenio(chapaRecuperada.getDuenio().getId());
 
-        duenioMascota.notificarDuenio(nuevoRescatista, mascotaRecuperada);
+        Notificador notificador = Notificador.getInstance();
+        notificador.notificarDuenio(duenioMascota, rescatista, mascotaRecuperada);
 
+        response.status(200);
+        response.redirect("/ok");       // Mostrar que se envió correctamente (?)
         return response;
     }
 
-/*
-    Mascota Perdida pero sin Chapita -> El Rescatista tiene que rellenar este Formulario y crear una Publicacion
-*/
+/* ==============================================================================================================
+    Mascota Perdida pero sin Chapita -> El Rescatista tiene que rellenar este Formulario y crea una Publicacion
+   ============================================================================================================== */
 
     public ModelAndView showMascotaPerdida(Request request , Response response) {
         Map<String, Object> viewModel = new HashMap<>();
@@ -239,10 +251,9 @@ public class FormularioController {
             rescatista.setFechaDeNacimiento(fechaDeNacimiento);
         }
 
-        /*      DEBERIA DAR LO QUE ELIGE DE LA LISTA DE TIPOS DE DOC
         if(request.queryParams("tipoDoc") != null){
-            rescatista.setTipoDocumento();
-        }*/
+            rescatista.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
+        }
 
         if(request.queryParams("nroDocumento") != null){
             rescatista.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
@@ -256,11 +267,28 @@ public class FormularioController {
             rescatista.setTelefono(request.queryParams("telefono"));
         }
 
-        /* hay que abrir un nuevo formulario, para poder ingresar Calle, Numeracion, Localidad, etc.
-        if(request.queryParams("domicilio") != null){
-            rescatista.setDomicilio(request.queryParams("domicilio"));
+        if(request.queryParams("provincia") != null &&
+                request.queryParams("localidad") != null &&
+                request.queryParams("codigoPostal") != null &&
+                request.queryParams("calle") != null &&
+                request.queryParams("numeracion") != null
+        ){
+            rescatista.setDomicilio(
+                    new Domicilio(request.queryParams("provincia"),
+                            request.queryParams("localidad"),
+                            new Integer(request.queryParams("codigoPostal")),
+                            request.queryParams("calle"),
+                            new Integer(request.queryParams("numeracion")),
+                            new Integer(request.queryParams("departamento")),
+                            new Integer(request.queryParams("piso")),
+                            new Ubicacion(
+                                    new Integer(request.queryParams("longitud")),
+                                    new Integer(request.queryParams("latitud"))))
+            );
         }
+        // Todo: tal vez se puede utilizar una API, para buscar por la direccion y asi obtener la Ubicacion en coordenadas
 
+        /*
         if(request.queryParams("formasDeNotifacion") != null){
             rescatista.setFormasDeNotificacion(request.queryParams("formasDeNotifacion"));
         }
@@ -280,28 +308,26 @@ public class FormularioController {
             mascotaPerdida.setDescripcion(request.queryParams("descripcion"));
         }
 
-        /*  Deberia elegirlo como una de las opciones de la lista
         if(request.queryParams("tipoAnimal") != null){
-            mascotaPerdida.setTipoAnimal(request.queryParams("tipoAnimal"));
+            mascotaPerdida.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
         }
 
         if(request.queryParams("tamanio") != null){
-            mascotaPerdida.setTamanio(request.queryParams("tamanio"));
+            mascotaPerdida.setTamanio(Tamanio.valueOf(request.queryParams("tamanio")));
         }
 
+        /*
         if(request.queryParams("fotos") != null){
             mascotaPerdida.setCarrouselFotos(request.queryParams("fotos"));
         }*/
 
         // TODO: para este caso tendría que elegirlo desde un mapa, podemos cargar una ubicacion X,Y, o directamente con una direccion como String
-        mascotaPerdida.setUbicacionEncontrada(new Ubicacion());
-        if(request.queryParams("latitud") != null){
-            mascotaPerdida.getUbicacionEncontrada().setLatitud(new Integer(request.queryParams("latitud")));
+        if(request.queryParams("latitud") != null && request.queryParams("longitud") != null){
+            mascotaPerdida.setUbicacionEncontrada(new Ubicacion(
+                    new Integer(request.queryParams("longitud")),
+                    new Integer(request.queryParams("latitud"))));
         }
 
-        if(request.queryParams("longitud") != null){
-            mascotaPerdida.getUbicacionEncontrada().setLongitud(new Integer(request.queryParams("longitud")));
-        }
 
     }
 }

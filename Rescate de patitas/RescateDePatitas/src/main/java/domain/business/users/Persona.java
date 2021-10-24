@@ -31,7 +31,7 @@ public class Persona extends EntidadPersistente {
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "notificaciones")
+    @JoinColumn(name = "formasDeNotificacion")
     private List<Notificacion> formasDeNotificacion = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)

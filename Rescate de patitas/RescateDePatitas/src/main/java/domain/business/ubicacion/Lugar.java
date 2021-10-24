@@ -15,7 +15,7 @@ public class Lugar extends EntidadPersistente {
     private String direccion;
 
     @OneToOne
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn(name = "ubicacion")
     private Ubicacion ubicacion;
 
 
@@ -35,9 +35,7 @@ public class Lugar extends EntidadPersistente {
     public Lugar mapearLugar(Domicilio domicilio) {
         String direccion = domicilio.getCalle() + " " + domicilio.getNumero() + ", " + domicilio.getLocalidad() + ", " + domicilio.getProvincia();
         this.setDireccion(direccion);
-        this.setUbicacion(new Ubicacion());
-        this.getUbicacion().setLatitud(domicilio.getUbicacion().getLatitud());
-        this.getUbicacion().setLongitud(domicilio.getUbicacion().getLongitud());
+        this.setUbicacion(new Ubicacion(domicilio.getUbicacion().getLongitud(), domicilio.getUbicacion().getLatitud()));
         return this;
     }
 }

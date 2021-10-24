@@ -1,6 +1,7 @@
 package domain.controllers;
 
 import domain.business.users.Persona;
+import domain.business.users.TipoDoc;
 import domain.repositorios.RepositorioUsuarios;
 import domain.repositorios.factories.FactoryRepositorioPersonas;
 import domain.repositorios.factories.FactoryRepositorioUsuarios;
@@ -118,10 +119,9 @@ public class UsuarioController {
             persona.setFechaDeNacimiento(fechaDeNacimiento);
         }
 
-        /*      DEBERIA DAR LO QUE ELIGE DE LA LISTA DE TIPOS DE DOC
         if(request.queryParams("tipoDoc") != null){
-            persona.setTipoDocumento();
-        }*/
+            persona.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
+        }
 
         if(request.queryParams("nroDocumento") != null){
             persona.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));

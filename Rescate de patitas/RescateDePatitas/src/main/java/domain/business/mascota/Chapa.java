@@ -14,11 +14,11 @@ import java.io.IOException;
 public class Chapa extends EntidadPersistente {
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "mascota_id")
+    @JoinColumn(name = "mascota")
     private Mascota mascota;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "duenio_id")
+    @JoinColumn(name = "duenio")
     private Duenio duenio;
 
 

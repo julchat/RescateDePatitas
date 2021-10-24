@@ -18,6 +18,13 @@ public class Repositorio<T> {
         this.dao = dao;
     }
 
+    // Metodos principales
+    public List<T> buscarTodos(){
+        return this.dao.buscarTodos();
+    }
+
+    public T buscar(int id){ return this.dao.buscar(id); }
+
     public void agregar(Object unObjeto){
         this.dao.agregar(unObjeto);
     }
@@ -29,12 +36,6 @@ public class Repositorio<T> {
     public void eliminar(Object unObjeto){
         this.dao.eliminar(unObjeto);
     }
-
-    public List<T> buscarTodos(){
-        return this.dao.buscarTodos();
-    }
-
-    public T buscar(int id){ return this.dao.buscar(id); }
 
     public static CriteriaBuilder criteriaBuilder(){
         return EntityManagerHelper.getEntityManager().getCriteriaBuilder();

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @DiscriminatorColumn(name = "tipo")
 public abstract class Publicacion extends EntidadPersistente {
 
-    @Column(name = "estado_publicacion")
+    @Column(name = "estado")
     @Enumerated(EnumType.STRING)
     private Estados estado;
 
@@ -21,7 +21,7 @@ public abstract class Publicacion extends EntidadPersistente {
     private EstadoPublicacion estadoPublicacion;
 
     @OneToOne
-    @JoinColumn(name = "autor_id")
+    @JoinColumn(name = "autor")
     private Persona autor;
 
     private LocalDate fechaDePublicacion;

@@ -24,7 +24,7 @@ public class Rescatista extends Persona {
     private Domicilio domicilio;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "mascotas_alojadas")
+    @Column(name = "mascotasAlojadas")
     private List<MascotaPerdida> mascotasAlojadas = new ArrayList<>();
 
 

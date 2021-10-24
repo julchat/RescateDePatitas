@@ -11,7 +11,7 @@ import javax.persistence.*;
 public abstract class Notificacion extends EntidadPersistente {
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_notificacion")
+    @Column(name = "tipoDeNotificacion")
     private TipoNotificacion tipoDeNotificacion;
 
     @Transient

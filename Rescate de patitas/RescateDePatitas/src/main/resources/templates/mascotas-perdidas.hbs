@@ -15,37 +15,26 @@
 
     <body>
 
-    <div id="app">
+    <h1>MASCOTAS PERDIDAS</h1>
 
-        <h3>Info de la mascota</h3>
-        <table>
-            <tr v-for="mascota in mascotasHardcode">
-                <td>{{mascota.nombre}}</td>
-                <td>{{mascota.raza}}</td>
+    <table class="table table-hover">
+        <tr>
+            <th scope="col"> ID </th>
+            <th scope="col"> Descripcion </th>
+            <th scope="col"> Tamaño animal </th>
+            <th scope="col"> Tipo animal </th>
+
+        </tr>
+        {{#each mascotasPerdidas}}
+            <tr>
+                <td> {{ id }} </td>
+                <td> {{ descripcion }} </td>
+                <td> {{ tamanio }} </td>
+                <td> {{ tipoAnimal }} </td>
+
             </tr>
-        </table>
-
-    </div>
-
-
-    <script>
-        var app = new Vue({
-            el: "#app",
-            data: {
-                mascotasHardcode: [{id: 1, nombre: "Juan", raza: "PEPE"}, {id:2, nombre:"Carlos", raza:"PIPO"}],
-                // mascota: {}
-            },
-            // created () {
-            //     const urlParams = new URLSearchParams(window.location.search);
-            //
-            //     fetch('http://localhost:8080/mascotas/' + urlParams.get("id"))
-            //         .then(response => response.json())
-            //         .then(data => {
-            //             this.mascota = data
-            //         })
-            // }
-        })
-    </script>
+        {{/each}}
+    </table>
 
     </body>
 </html>

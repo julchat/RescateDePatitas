@@ -29,11 +29,11 @@ public class HogarDeTransito extends EntidadPersistente {
     private int lugaresDisponibles;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "caracteristicas_admitidas")
+    @JoinColumn(name = "caracteristicasAdmitidas")
     private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "mascotas_actuales")
+    @Column(name = "mascotasActuales")
     private List<MascotaPerdida> mascotasActuales = new ArrayList<>();
 
 

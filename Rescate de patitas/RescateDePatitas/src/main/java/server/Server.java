@@ -25,7 +25,7 @@ public class Server {
         //String passwordEncriptado = AESEncryptionDecryption.encrypt("Password1234");
 
        // System.out.println(passwordEncriptado);
-       // EntityManager em = EntityManagerHelper.getEntityManager();
+       //EntityManager em = EntityManagerHelper.getEntityManager();
 
         //System.out.println(AESEncryptionDecryption.decrypt("cEpRCGMazPX5KXKKjMFw/Q=="));
         //Chapa chapita = new Chapa();
