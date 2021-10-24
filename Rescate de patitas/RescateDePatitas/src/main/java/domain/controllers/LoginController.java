@@ -8,7 +8,6 @@ import spark.Request;
 import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class LoginController {
     private RepositorioUsuarios repositorio = FactoryRepositorioUsuarios.get();
@@ -39,7 +38,7 @@ public class LoginController {
                 request.session().attribute("id", usuario.getId());
 
                 // Todo: verificar que tipo de rol tiene y redirigir a la pantalla correspondiente?
-
+                response.status(200);
                 response.redirect("/home2");
             }
             else {
@@ -51,6 +50,7 @@ public class LoginController {
         catch (Exception e) {
             // TODO: tirar un mensaje que el usuario no existe
             System.out.println("El usuario no existe");
+            response.status(404);
             response.redirect("/sign-in");
         }
         finally {

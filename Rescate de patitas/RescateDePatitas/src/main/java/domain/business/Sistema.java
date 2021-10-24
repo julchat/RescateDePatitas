@@ -1,6 +1,5 @@
 package domain.business;
 
-import database.EntityManagerHelper;
 import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
 import domain.business.mascota.MascotaPerdida;

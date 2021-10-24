@@ -4,6 +4,8 @@ import domain.business.ubicacion.Domicilio;
 import domain.business.ubicacion.Lugar;
 import domain.business.mascota.MascotaPerdida;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
+import domain.repositorios.RepositorioPublicaciones;
+import domain.repositorios.factories.FactoryRepositorioPublicaciones;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -56,9 +58,10 @@ public class Rescatista extends Persona {
     }
 
     public void reportarMascotaPerdida(MascotaPerdida mascotaPerdida) {
+        RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
         PublicacionMascotaPerdida publicacionCreada = new PublicacionMascotaPerdida();
         publicacionCreada.crearPublicacion(this, mascotaPerdida);
-        // TODO: agregar la publicacion al Repositorio de Publicaciones
+        repositorioPublicaciones.agregar(publicacionCreada);
     }
 
     public void mapearDatosDuenio(Persona persona) {

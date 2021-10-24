@@ -1,27 +1,27 @@
 package domain.repositorios.factories;
 
 import config.Config;
-import domain.business.users.Persona;
-import domain.repositorios.RepositorioPersonas;
+import domain.business.users.Duenio;
+import domain.repositorios.RepositorioDuenio;
 import domain.repositorios.daos.DAO;
 import domain.repositorios.daos.DAOHibernate;
 
-public class FactoryRepositorioPersonas {
-    private static RepositorioPersonas repo;
+public class FactoryRepositorioDuenio {
+    private static RepositorioDuenio repo;
 
     static {
         repo = null;
     }
 
-    public static RepositorioPersonas get(){
+    public static RepositorioDuenio get(){
         if(repo == null){
             if(Config.useDataBase){
-                DAO<Persona> dao = new DAOHibernate<>(Persona.class);
-                repo = new RepositorioPersonas(dao);
+                DAO<Duenio> dao = new DAOHibernate<>(Duenio.class);
+                repo = new RepositorioDuenio(dao);
             }
             else{
                 // repo = new RepositorioUsuarios(new DAOMemoria<>(Data.getData(Usuario.class)));
-                repo = new RepositorioPersonas(null);
+                repo = new RepositorioDuenio(null);
             }
         }
         return repo;

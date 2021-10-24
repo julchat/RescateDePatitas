@@ -10,6 +10,9 @@ import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.HandlebarsTemplateEngineBuilder;
 
+import static spark.Spark.options;
+import static spark.route.HttpMethod.before;
+
 public class Router {
     private static HandlebarsTemplateEngine engine;
 
@@ -46,7 +49,8 @@ public class Router {
 
         Spark.get("/logout", loginController::logout, Router.engine);
 
-        Spark.get("/registrar-mascota", homeController::registrarMascota, Router.engine);
+        Spark.get("/registrar-mascota", formularioController::showRegistroMascota, Router.engine);
+        Spark.post("/registrar-mascota", formularioController::registrarMascota);
 
         // Si escaneo el codigo QR me deberia redirigir a esta direccion, indicando el ID de chapa que contendria el mismo QR
         Spark.get("/reportar-mascota/:id", formularioController::showMascotaPerdidaChapita, Router.engine);
@@ -62,5 +66,27 @@ public class Router {
 
         Spark.get("/adoptar-mascota", homeController::adoptarMascota, Router.engine);
 
+
+        Spark.options("/*",
+                (request, response) -> {
+
+                    String accessControlRequestHeaders = request
+                            .headers("Access-Control-Request-Headers");
+                    if (accessControlRequestHeaders != null) {
+                        response.header("Access-Control-Allow-Headers",
+                                accessControlRequestHeaders);
+                    }
+
+                    String accessControlRequestMethod = request
+                            .headers("Access-Control-Request-Method");
+                    if (accessControlRequestMethod != null) {
+                        response.header("Access-Control-Allow-Methods",
+                                accessControlRequestMethod);
+                    }
+
+                    return "OK";
+                });
+
+        Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
     }
 }

@@ -1,13 +1,10 @@
 package domain.controllers;
 
 import domain.business.users.Persona;
-import domain.repositorios.Repositorio;
 import domain.repositorios.RepositorioUsuarios;
-import domain.repositorios.factories.FactoryRepositorio;
 import domain.repositorios.factories.FactoryRepositorioPersonas;
 import domain.repositorios.factories.FactoryRepositorioUsuarios;
-import domain.repositorios.factories.RepositorioPersonas;
-import domain.security.Rol;
+import domain.repositorios.RepositorioPersonas;
 import domain.security.TipoRol;
 import domain.security.User;
 import domain.security.Usuario;
@@ -147,6 +144,7 @@ public class UsuarioController {
             persona.setContactos(request.queryParams("contactos"));
         }*/
     }
+
 
     public Response eliminar(Request request, Response response){
         Usuario usuario = this.repositorioUsuarios.buscar(new Integer(request.params("id")));

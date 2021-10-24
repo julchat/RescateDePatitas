@@ -21,7 +21,7 @@ nav {
 }
 
 .logo {
-    margin: 10px 30px;
+    margin: 10px 10px;
     position: absolute;
     background: none;
     border: none;
@@ -32,15 +32,16 @@ nav {
     transform: scale(1.2);
 }
 
+
 .menu ul{
     float: center;
     text-align: center;
 }
 
 .menu ul li {
-    display: inline-block;
+    display: inline-flex;
     line-height: 80px;
-    margin: 0 80px;
+    margin: 0 10px;
 }
 
 .menu ul li a {

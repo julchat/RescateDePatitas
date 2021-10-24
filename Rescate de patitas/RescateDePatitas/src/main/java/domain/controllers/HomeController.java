@@ -19,11 +19,6 @@ public class HomeController {
         return new ModelAndView(viewModel,"home2.hbs");
     }
 
-    public ModelAndView registrarMascota(Request request, Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"registrar-mascota.hbs");
-    }
-
     public ModelAndView reportarMascota(Request request, Response response) {
         Map<String, Object> viewModel = new HashMap<>();
         return new ModelAndView(viewModel,"reportar-mascota.hbs");
