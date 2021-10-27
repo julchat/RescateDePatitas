@@ -1,5 +1,6 @@
 package domain.repositorios;
 
+import database.EntityManagerHelper;
 import domain.repositorios.daos.DAO;
 import domain.security.Usuario;
 import domain.security.password.AESEncryptionDecryption;
@@ -8,6 +9,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RepositorioUsuarios extends Repositorio<Usuario> {
 
@@ -17,9 +20,27 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
         return this.dao.buscar(existeUsuario(nombreDeUsuario)) != null;
     }
 
+    public boolean existeNombreUsuario(String nombreDeUsuario) {
+        String usuarioQuery = "SELECT nombreUsuario FROM Usuario WHERE nombreUsuario = " + nombreDeUsuario + ";";
+        List<String> usuarios = EntityManagerHelper.getEntityManager().createQuery(usuarioQuery).getResultList();
+        if(usuarios.size() > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     /*public Usuario buscarUsuario(String nombreDeUsuario, String contrasenia){
         return this.dao.buscar(condicionUsuarioYContrasenia(nombreDeUsuario, contrasenia));
     }*/
+
+    public List<String> usuariosRegistrados() {
+        // SELECT nombreUsuario FROM usuario
+        String usuarioQuery = "SELECT nombreUsuario FROM Usuario";
+        List<String> usuarios = EntityManagerHelper.getEntityManager().createQuery(usuarioQuery).getResultList();
+        return usuarios;
+    }
 
     public Usuario buscarUsuario(String nombreDeUsuario){
         return this.dao.buscar(existeUsuario(nombreDeUsuario));

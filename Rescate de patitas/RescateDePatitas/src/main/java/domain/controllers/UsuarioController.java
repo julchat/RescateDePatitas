@@ -1,5 +1,6 @@
 package domain.controllers;
 
+import domain.business.notificaciones.TipoNotificacion;
 import domain.business.users.Persona;
 import domain.business.users.TipoDoc;
 import domain.repositorios.RepositorioUsuarios;
@@ -11,15 +12,21 @@ import domain.security.User;
 import domain.security.Usuario;
 import domain.security.password.PasswordStatus;
 import domain.security.password.ValidadorPassword;
+import json.Mensaje;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UsuarioController {
     private RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
@@ -33,7 +40,26 @@ public class UsuarioController {
     }
 
     public ModelAndView showRegistrarUsuario(Request request, Response response){
+        Path path = Paths.get("src/Main/resources/utils/10k-most-common.txt");
         Map<String, Object> viewModel = new HashMap<>();
+        List<Mensaje> passComunes = new ArrayList<>();
+        List<Mensaje> usuariosRegistrados = new ArrayList<>();
+       try {
+           Stream<String> stream = Files.lines(path);
+           for(String password : stream.collect(Collectors.toList())){
+               passComunes.add(new Mensaje(password));
+           }
+
+           for(String usuario : repositorioUsuarios.usuariosRegistrados()) {
+               System.out.println("Nombre de Usuario: " + usuario);
+               usuariosRegistrados.add(new Mensaje(usuario));
+           }
+       }
+       catch (Exception e) {
+
+       }
+        viewModel.put("usuariosRegistrados", usuariosRegistrados);
+        viewModel.put("passComunes", passComunes);
         return new ModelAndView(viewModel,"sign-up.hbs");
     }
 
@@ -69,15 +95,53 @@ public class UsuarioController {
                     nuevoUsuario.setTipoRol(TipoRol.USER);
 
                     // Todo: llamar a otra pantalla para crear la persona y despues hacer un update del Usuario con la nueva Persona
-                    //nuevoUsuario.setPersona(new Persona());
-                    //this.registrarPersona(nuevoUsuario.getPersona(), request);
-                    //repositorioPersonas.agregar(nuevoUsuario.getPersona());
+                    nuevoUsuario.setPersona(new Persona());
+
+                    if(request.queryParams("nombre") != null){
+                        nuevoUsuario.getPersona().setNombre(request.queryParams("nombre"));
+                    }
+
+                    if(request.queryParams("apellido") != null){
+                        nuevoUsuario.getPersona().setApellido(request.queryParams("apellido"));
+                    }
+
+                    if(request.queryParams("fechaDeNacimiento") != null && !request.queryParams("fechaDeNacimiento").isEmpty()){
+                        LocalDate fechaDeNacimiento = LocalDate.parse(request.queryParams("fechaDeNacimiento"));
+                        nuevoUsuario.getPersona().setFechaDeNacimiento(fechaDeNacimiento);
+                    }
+
+                    if(request.queryParams("tipoDoc") != null){
+                        nuevoUsuario.getPersona().setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
+                    }
+
+                    if(request.queryParams("nroDocumento") != null){
+                        nuevoUsuario.getPersona().setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
+                    }
+
+                    if(request.queryParams("email") != null){
+                        nuevoUsuario.getPersona().setEmail(request.queryParams("email"));
+                    }
+
+                    if(request.queryParams("telefono") != null){
+                        nuevoUsuario.getPersona().setTelefono(request.queryParams("telefono"));
+                    }
+
+                    /*
+                    if(request.queryParams("formasDeNotifacion") != null){
+                        persona.setFormasDeNotificacion(TipoNotificacion.valueOf(request.queryParams("formasDeNotifacion")));
+                    }
+
+
+                    if(request.queryParams("contactos") != null){
+                        persona.setContactos(request.queryParams("contactos"));
+                    }*/
+
+                    repositorioPersonas.agregar(nuevoUsuario.getPersona());
 
                     this.repositorioUsuarios.guardarUsuario(nuevoUsuario, password);
                     // Todo: tirar mensaje que se creo el usuario de forma satisfactoria
                     System.out.println("Se ha creado el usuario de forma satisfactoria!!");
                     response.redirect("/");
-                    //response.redirect("/sign-up/registrar-persona");
                 }
                 else {
                     // Todo: en este caso tirar que la contraseña y la confirmacion no son iguales
@@ -104,51 +168,10 @@ public class UsuarioController {
         }
     }
 
-    public void registrarPersona(Persona persona, Request request){
-        
-        if(request.queryParams("nombre") != null){
-            persona.setNombre(request.queryParams("nombre"));
-        }
-
-        if(request.queryParams("apellido") != null){
-            persona.setApellido(request.queryParams("apellido"));
-        }
-
-        if(request.queryParams("fechaDeNacimiento") != null && !request.queryParams("fechaDeNacimiento").isEmpty()){
-            LocalDate fechaDeNacimiento = LocalDate.parse(request.queryParams("fechaDeNacimiento"));
-            persona.setFechaDeNacimiento(fechaDeNacimiento);
-        }
-
-        if(request.queryParams("tipoDoc") != null){
-            persona.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
-        }
-
-        if(request.queryParams("nroDocumento") != null){
-            persona.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
-        }
-
-        if(request.queryParams("email") != null){
-            persona.setEmail(request.queryParams("email"));
-        }
-
-        if(request.queryParams("telefono") != null){
-            persona.setTelefono(request.queryParams("telefono"));
-        }
-
-        /*
-        if(request.queryParams("formasDeNotifacion") != null){
-            persona.setFormasDeNotificacion(request.queryParams("formasDeNotifacion"));
-        }
-
-        if(request.queryParams("contactos") != null){
-            persona.setContactos(request.queryParams("contactos"));
-        }*/
-    }
-
-
     public Response eliminar(Request request, Response response){
         Usuario usuario = this.repositorioUsuarios.buscar(new Integer(request.params("id")));
         this.repositorioUsuarios.eliminar(usuario);
+        response.redirect("/");
         return response;
     }
 

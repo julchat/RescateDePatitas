@@ -1,17 +1,30 @@
 
 function validarContrasenia() {
     const contrasenia = document.getElementById('password').value;
+    const user = document.getElementById('user').value;
     // verificar la contrasenia por todas las validaciones
+    var mayusTest = /^[A-Z]$/;
+    var minusTest = /^[a-z]$/;
+    var numTest = /^[0-9]$/;
+    var regularExpression = /^(?=.*[0-9])[a-zA-Z0-9]{8,64}$/;
 
     if(contrasenia == ""){
         var contraseniaInvalida = document.getElementById('password');
         contraseniaInvalida.classList.add('is-invalid')
-        console.log('Contraseña invalida');
+        window.alert("La contraseña no puede estar vacía.");
     }
+    else if(!regularExpression.test(contrasenia)) {
+        window.alert("La contraseña necesita al menos una Mayúscula, minúscula y un número." +
+            "También necesita tener un largo mayor a 8 caracteres y menor a 64 caracteres.");
+    }
+    else if(contrasenia == user) {
+        window.alert("La contraseña tiene que ser diferente al usuario.");
+    }
+
     else {
         var contraseniaValida = document.getElementById('confirmPassword');
         contraseniaValida.classList.add('is-valid')
-        console.log('Contrasenia valida');
+        console.log('Proceda')
     }
 }
 
@@ -20,20 +33,17 @@ function confirmarContrasenia() {
     const confirmacionContrasenia = document.getElementById('confirmPassword').value;
     if(contrasenia == confirmacionContrasenia) {
         var confirmacion = document.getElementById('confirmPassword');
-        confirmacion.classList.add('is-valid')
-        console.log('Proceda');
     }
     else {
         var confirmacion = document.getElementById('confirmPassword');
-        confirmacion.classList.add('is-invalid')
-        console.log('Procedan´t');
+        window.alert("Las contraseñas no coinciden.");
     }
 }
+
 
 document.addEventListener('submit', validarRegistro);
 
 function validarRegistro() {
-
     var forms = document.querySelectorAll('.needs-validation')
 
     // Loop over them and prevent submission
@@ -47,47 +57,3 @@ function validarRegistro() {
         }, false)
     })
 }
-
-
-/*const nombreUsuario = document.getElementById('user').value;
-const contrasenia = document.getElementById('password').value;
-const confirmacionContrasenia = document.getElementById('confirmPassword').value;
-
-if(nombreUsuario == "") {
-    console.log('');
-}*/
-
-
-
-
-// rates user's password
-function scorePassword(pass) {
-    var i = pass.length,
-        score = 0;
-    if (i >= 7) {
-        score += /[a-z]/.test(pass) ? 3 : 0;
-        score += /[A-Z]/.test(pass) ? 4 : 0;
-        score += /\d/.test(pass) ? 1 : 0;
-        score += /[^\w\d\s]/.test(pass) ? 1 : 0;
-    }
-    if (i >= 22 && score >= 9)
-        score += 1;
-    return score;
-}
-
-// adds classes depending on score
-function checkPassStrength(pass) {
-    var score = scorePassword(pass);
-    console.log(score);
-    if (score < 1)
-        $('#password, #passwordMeter').removeClass().addClass('weak');
-    if (score >= 7)
-        $('#password, #passwordMeter').removeClass().addClass('good');
-    if (score >= 8)
-        $('#password, #passwordMeter').removeClass().addClass('better');
-    if (score >= 9)
-        $('#password, #passwordMeter').removeClass().addClass('strong');
-    if (score >= 10)
-        $('#password, #passwordMeter').removeClass().addClass('military');
-}
-
