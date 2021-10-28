@@ -25,24 +25,24 @@ public class HomeController {
         return new ModelAndView(viewModel,"home2.hbs");
     }
 
-    public ModelAndView adoptarMascota(Request request, Response response) {
+    public ModelAndView showAdoptarMascota(Request request, Response response) {
         Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"adoptar-mascota.hbs");
+        return new ModelAndView(viewModel,"mascotas-adopcion.hbs");
     }
 
     public ModelAndView darMascotaAdopcion(Request request, Response response) {
         Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"mascota-adopcion.hbs");
+        return new ModelAndView(viewModel,"dar-mascota-adopcion.hbs");
     }
 
     public ModelAndView showMascotasPerdidas(Request request, Response response) {
-        RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
+        //RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
 
-        List<MascotaPerdida> mascotasPerdidas = repositorioMascotaPerdida.buscarTodos();
+        //List<MascotaPerdida> mascotasPerdidas = repositorioMascotaPerdida.buscarTodos();
 
         Map<String, Object> viewModel = new HashMap<>();
 
-        viewModel.put("mascotasPerdidas", mascotasPerdidas);
+        //viewModel.put("mascotasPerdidas", mascotasPerdidas);
         return new ModelAndView(viewModel,"mascotas-perdidas.hbs");
     }
 

@@ -11,7 +11,7 @@ function registrarse() {
 }
 
 function adoptarMascota() {
-    window.location.href = "adoptar-mascota";
+    window.location.href = "mascotas-en-adopcion";
 }
 
 function registrarMascota() {

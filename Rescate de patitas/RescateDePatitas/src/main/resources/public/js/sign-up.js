@@ -46,14 +46,15 @@ document.addEventListener('submit', validarRegistro);
 function validarRegistro() {
     var forms = document.querySelectorAll('.needs-validation')
 
-    // Loop over them and prevent submission
     Array.prototype.slice.call(forms).forEach(function (form) {
         form.addEventListener('submit', function (event) {
             if (!form.checkValidity()) {
                 event.preventDefault()
                 event.stopPropagation()
+                window.alert("Faltan rellenar datos")
             }
             form.classList.add('was-validated')
+            window.alert("Se ha creado correctamente.")
         }, false)
     })
 }

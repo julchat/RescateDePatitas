@@ -39,7 +39,7 @@ public class Router {
         Spark.get("/", homeController::home, Router.engine);
         // Si entras, y despues actualizas la pagina, te tira que se redirecciono demasiadas veces
         //Spark.before("/", authMiddleware::verificarSesion);
-        Spark.get("/home2", homeController::home2, Router.engine);
+        Spark.get("/home", homeController::home2, Router.engine);
 
         Spark.get("/sign-in", loginController::showLogin, Router.engine);
         Spark.post("/sign-in", loginController::login);
@@ -61,12 +61,10 @@ public class Router {
         Spark.post("/reportar-mascota", formularioController::mascotaPerdida);
 
         Spark.get("/mascotas-perdidas", homeController::showMascotasPerdidas, Router.engine);
-        //Spark.post("/mascotas-perdidas", homeController::mascotasPerdidas);
-        //Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas);
 
         Spark.get("/dar-mascota-adopcion", homeController::darMascotaAdopcion, Router.engine);
 
-        Spark.get("/adoptar-mascota", homeController::adoptarMascota, Router.engine);
+        Spark.get("/mascotas-en-adopcion", homeController::showAdoptarMascota, Router.engine);
 
 
         Spark.options("/*",
