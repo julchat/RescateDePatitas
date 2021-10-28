@@ -30,30 +30,6 @@ fetch('http://localhost:9000/mascotas-perdidas')
 });*/
 
 
-
-    console.log("inside handleGetJson");
-    fetch('http://localhost:9000/mascotas-perdidas', {
-            headers : {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            console.log(response);
-            return response.json();
-        })
-        .then(mascotaObtenida => {
-            this.mascotas = mascotaObtenida
-            console.log(mascotaObtenida);
-        })
-        .catch(err => {
-            alert('Anda todo para el orto')
-            console.log("Error Reading data " + err);
-        });
-
-
-
-
 function mostrarMascota() {
     var app = new Vue({
         el: "#app",
