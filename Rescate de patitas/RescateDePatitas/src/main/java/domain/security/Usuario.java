@@ -68,6 +68,13 @@ public class Usuario extends EntidadPersistente {
     // Constructor
     public Usuario() {}
 
+    public Usuario(String nombreUsuario, String contrasenia, TipoRol tipoRol, Rol rol, Persona persona) {
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
+        this.tipoRol = tipoRol;
+        this.rol = rol;
+        this.persona = persona;
+    }
 
     // Metodos
     public void hacerAdministrador(Usuario otroUsuario){

@@ -1,9 +1,7 @@
-function inicio() {
-    window.location.href = "";
-}
 
 function login() {
     window.location.href = "sign-in";
+    // Habria que validar el loggeo; que espere la respuesta de parte del backend
 }
 
 function registrarse() {
