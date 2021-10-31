@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dar Mascota en Adopción</title>
+
+    <link rel="shortcut icon" href="/img/image_2_.ico"/>
+
+    <link rel="stylesheet" href="/css/sign-up.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>    
+            <nav class="menu">
+                <a href="home.html" class="logo"> <img src="/img/image (7).png" alt="" width="81px"></a>
+                <ul>
+                    <li><a href="adoptar.html">ADOPTAR</a></li>
+                    <li><a href="dar-en-adopcion.html">DAR EN ADOPCIÓN</a></li>
+                    <li><a href="reportar.html">REPORTAR</a></li>
+                    <li><a href="mascotas-perdidas.html">MASCOTAS PERDIDAS</a></li>
+                    <li><a href="registrar-mascota.html">REGISTRAR MASCOTAS</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <form class="form1">
+                <h2 class="subtitulo">Complete el siguiente formulario para dar a una mascota en adopción</h2>
+                <table class="tabla" align="center">
+                    <tr>
+                        <td>            
+                            <div class="grid-item">
+                                <label for="name">Nombre y Apellido <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="name" class="text-input">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="grid-item">
+                                <label for="date">Fecha de Nacimiento <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="date" id="date" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="grid-item">
+                                <label for="email">Email <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="email" class="text-input">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="grid-item">
+                                <label for="doc-type">Tipo de documento <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <select id="doc-type" name="">
+                                    <option value="DNI">DNI</option>
+                                    <option value="Cedula">Cedula</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                </select>
+                            </div>
+                        </td>
+                
+                        <td>
+                            <div class="grid-item">
+                                <label for="n-doc">Número de documento <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="n-doc" class="text-input">
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="grid-item">
+                                <label for="cel">Teléfono / Celular <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="cel" class="text-input">
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="grid-item">
+                                <label for="notification">Formas de notificación <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <select id="notification" name="">
+                                    <option value="WhatsApp">WhatsApp</option>
+                                    <option value="SMS">SMS</option>
+                                    <option value="Email">Email</option>
+                                </select>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="grid-item">
+                                <label for="contact">Contactos <abbr title="required" aria-label="required">*</abbr></label>
+                                <select id="contact">
+                                    <option></option>
+                                </select>
+                                <button for="contact">Agregar contacto<br></button>
+                                <form>
+                                    <div class="grid-item">
+                                        <label for="name">Nombre y Apellido <abbr title="required" aria-label="required">*</abbr><br></label>
+                                        <input type="text" id="name" class="text-input">
+                                    </div>
+                
+                                    <div class="grid-item">
+                                        <label for="email">Email <abbr title="required" aria-label="required">*</abbr><br></label>
+                                        <input type="text" id="email" class="text-input">
+                                    </div>
+                
+                                    <div class="grid-item">
+                                        <label for="cel">Teléfono / Celular <abbr title="required" aria-label="required">*</abbr><br></label>
+                                        <input type="text" id="cel" class="text-input">
+                                    </div>
+                        
+                                    <div class="grid-item">
+                                        <label for="notification">Formas de notificación <abbr title="required" aria-label="required">*</abbr><br></label>
+                                        <select id="notification" name="">
+                                            <option value="WhatsApp">WhatsApp</option>
+                                            <option value="SMS">SMS</option>
+                                            <option value="Email">Email</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="boton">AGREGAR CONTACTO</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>            
+                            <div class="grid-item">
+                                <label for="name">Provincia <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="name" class="text-input">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="grid-item">
+                                <label for="date">Localidad <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="date" id="date" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="grid-item">
+                                <label for="email">Código Postal <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="email" class="text-input">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>            
+                            <div class="grid-item">
+                                <label for="name">Calle y numeración <abbr title="required" aria-label="required">*</abbr><br></label>
+                                <input type="text" id="name" class="text-input">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="grid-item">
+                                <label for="date">Departamento <br></label>
+                                <input type="text" id="email" class="text-input">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="grid-item">
+                                <label for="email">Piso <br></label>
+                                <input type="text" id="email" class="text-input">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td>
+                            <label for="name">Descripción del estado en el cual encontró a la mascota <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="name" class="text-input">
+                        </td>
+                        <td>
+                            <!-- help, no pude sacar la api de google para crear el mapita, me tiro mil errores, tiene que ser con la cuenta de la facu
+                            porque te piden una organización -->
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <label for="date">Fotos <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="file" name="imagen1" />
+                            <input type="submit" name="subir-imagen" value="Enviar imagen" />
+                    </tr>
+                </table>
+
+                <table>
+                    <h2>Preferencias</h2>
+                    <tr>
+                        <td>
+                            <label for="email">Pregunta 1 <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="text" class="text-input">
+                        </td>
+
+                        <td>
+                            <label for="email">Pregunta 2 <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="text" class="text-input">
+                        </td>
+
+                        <td>
+                            <label for="email">Pregunta 3 <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="text" class="text-input">
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <h2>Comodidades</h2>
+                    <tr>
+                        <td>
+                            <label for="email">Pregunta 1 <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="text" class="text-input">
+                        </td>
+
+                        <td>
+                            <label for="email">Pregunta 2 <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="text" class="text-input">
+                        </td>
+
+                        <td>
+                            <label for="email">Pregunta 3 <abbr title="required" aria-label="required">*</abbr><br></label>
+                            <input type="text" id="text" class="text-input">
+                        </td>
+                    </tr>
+                </table>
+                <a href="home2.html">
+                    <button type="submit" class="boton">CREAR PUBLICACIÓN</button>
+                </a>
+            </form>
+        </div>
+        
+    </body>
+    </html>

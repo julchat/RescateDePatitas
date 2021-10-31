@@ -168,6 +168,13 @@ public class UsuarioController {
         }
     }
 
+    public ModelAndView showEditarPerfil(Request request, Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        Usuario usuario = repositorioUsuarios.buscar(new Integer(request.params("id")));
+        viewModel.put("usuario", usuario);
+        return new ModelAndView(viewModel,"usuario.hbs");
+    }
+
     public Response eliminar(Request request, Response response){
         Usuario usuario = this.repositorioUsuarios.buscar(new Integer(request.params("id")));
         this.repositorioUsuarios.eliminar(usuario);

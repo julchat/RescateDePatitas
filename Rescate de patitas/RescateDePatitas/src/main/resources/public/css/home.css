@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url("/img/fondo.svg");
+    background-image: url("/img/background.svg");
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;

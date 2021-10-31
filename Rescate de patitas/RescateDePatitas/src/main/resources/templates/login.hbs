@@ -5,10 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-        <link rel="shortcut icon" href="/img/image_7_.ico"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        
+        <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
         <link rel="stylesheet" href="/css/login.css">
         <link rel="stylesheet" href="/css/reset.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap">
@@ -17,47 +16,42 @@
     </head>
 
     <body>
-        <header>
-            <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="logo d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"> <img src="/img/image (7).png" alt="" width="81px"></a>
-                   <nav class="menu">
-                     <ul>
-                         <li><a href="/adoptar-mascota" class="nav-link">ADOPTAR</a></li>
+        <div class="container">
+            <header>
+                <nav class="menu">
+                    <a href="/" class="logo">
+                        <img src="/img/home-logo.png" alt="" width="81px">
+                    </a>
+                    <ul>
+                         <li><a href="/mascotas-en-adopcion" class="nav-link">ADOPTAR</a></li>
                          <li><a href="/dar-mascota-adopcion" class="nav-link">DAR EN ADOPCIÓN</a></li>
                          <li><a href="/reportar-mascota" class="nav-link">REPORTAR</a></li>
                          <li><a href="/mascotas-perdidas" class="nav-link">MASCOTAS PERDIDAS</a></li>
                          <li><a href="/registrar-mascota" class="nav-link">REGISTRAR MASCOTAS</a></li>
-                     </ul>
-                   </nav>
-                </div>
-            </div>
-        </header>
+                    </ul>
+                </nav>
+            </header>
 
-        <div class="container">
+        <form href="/sign-in"  method="post" class="form1">
+            <h2 class="subtitulo">INICIO DE SESIÓN</h2>
 
-            <form method="post" class="form1">
-                <h2 class="subtitulo">INICIO DE SESIÓN</h2>
+            <input type="text" placeholder="Usuario" value="" name="userName" class="text-input" required>
+            <input type="password" placeholder="Contraseña" value="" name="userPassword" class="text-input" required>
 
-                <input type="text" placeholder="Usuario" value="" name="userName" class="text-input" required>
-                <input type="password" placeholder="Contraseña" value="" name="userPassword" class="text-input" required>
+            <button type=submit class="boton" onclick="login()">INICIAR SESIÓN</button>
 
-                <button type=submit class="boton" onclick="login()">INICIAR SESIÓN</button>
+            <a class="olvido" href="#"><br> Olvide mi contraseña</a><br><br>
 
-                <a class="olvido" onclick=""><br> Olvide mi contraseña</a>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Recordar cuenta
+            </label>
+        </form>
 
-                <div>
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember"> Recordar cuenta
-                    </label>
-                </div>
-            </form>
+        <a class="no-tiene-cuenta">¿Usted no tiene una cuenta?<br></a>
 
-            <a class="no-tiene-cuenta">¿Usted no tiene una cuenta?<br></a>
-
-            <a class="boton2">
-                <button  class="boton" onclick="registrarse()">REGISTRARSE</button>
-            </a>
+        <a class="boton2">
+            <button  class="boton" onclick="registrarse()">REGISTRARSE</button>
+        </a>
 
         </div>
 

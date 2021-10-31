@@ -34,56 +34,35 @@ public class FormularioController {
 
         try {
             Duenio duenio = new Duenio();
-            this.registrarDuenio(duenio, request);
-            repositorioDuenios.agregar(duenio);
 
-            Mascota mascota = new Mascota();
-            this.registrarMascota(mascota, request);
-            repositorioMascotas.agregar(mascota);
+            if(request.queryParams("nombre") != null){
+                duenio.setNombre(request.queryParams("nombre"));
+            }
 
-            response.status(200);
-            // Todo: mandar mensaje de que el registro se realizo de forma correcta (?
-            response.redirect("/formulario-ok");
-        }
-        catch (Exception e) {
+            if(request.queryParams("apellido") != null){
+                duenio.setApellido(request.queryParams("apellido"));
+            }
 
-        }
-        finally {
-            return response;
-        }
-    }
+            if(request.queryParams("fechaDeNacimiento") != null && !request.queryParams("fechaDeNacimiento").isEmpty()){
+                LocalDate fechaDeNacimiento = LocalDate.parse(request.queryParams("fechaDeNacimiento"));
+                duenio.setFechaDeNacimiento(fechaDeNacimiento);
+            }
 
-    public void registrarDuenio(Duenio duenio, Request request){
+            if(request.queryParams("tipoDoc") != null){
+                duenio.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
+            }
 
-        if(request.queryParams("nombre") != null){
-            duenio.setNombre(request.queryParams("nombre"));
-        }
+            if(request.queryParams("nroDocumento") != null){
+                duenio.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
+            }
 
-        if(request.queryParams("apellido") != null){
-            duenio.setApellido(request.queryParams("apellido"));
-        }
+            if(request.queryParams("email") != null){
+                duenio.setEmail(request.queryParams("email"));
+            }
 
-        if(request.queryParams("fechaDeNacimiento") != null && !request.queryParams("fechaDeNacimiento").isEmpty()){
-            LocalDate fechaDeNacimiento = LocalDate.parse(request.queryParams("fechaDeNacimiento"));
-            duenio.setFechaDeNacimiento(fechaDeNacimiento);
-        }
-
-        /*      DEBERIA DAR LO QUE ELIGE DE LA LISTA DE TIPOS DE DOC
-        if(request.queryParams("tipoDoc") != null){
-            duenio.setTipoDocumento();
-        }*/
-
-        if(request.queryParams("nroDocumento") != null){
-            duenio.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
-        }
-
-        if(request.queryParams("email") != null){
-            duenio.setEmail(request.queryParams("email"));
-        }
-
-        if(request.queryParams("telefono") != null){
-            duenio.setTelefono(request.queryParams("telefono"));
-        }
+            if(request.queryParams("telefono") != null){
+                duenio.setTelefono(request.queryParams("telefono"));
+            }
 
         /* hay que abrir un nuevo formulario, para poder ingresar Calle, Numeracion, Localidad, etc.
         if(request.queryParams("domicilio") != null){
@@ -97,42 +76,72 @@ public class FormularioController {
         if(request.queryParams("contactos") != null){
             duenio.setContactos(request.queryParams("contactos"));
         }*/
-    }
+            duenio.setDomicilio(new Domicilio());
+            if(request.queryParams("provincia") != null
+                    && request.queryParams("localidad") != null
+                    && request.queryParams("codigoPostal") != null
+                    && request.queryParams("calle") != null
+                    && request.queryParams("numeracion") != null){
+                duenio.getDomicilio().setProvincia(request.queryParams("provincia"));
+                duenio.getDomicilio().setLocalidad(request.queryParams("localidad"));
+                duenio.getDomicilio().setCodigoPostal(new Integer(request.queryParams("codigoPostal")));
+                duenio.getDomicilio().setCalle(request.queryParams("calle"));
+                duenio.getDomicilio().setNumero(new Integer(request.queryParams("numeracion")));
+            }
 
-    public void registrarMascota(Mascota mascota, Request request){
+            if(request.queryParams("departamento") != null && request.queryParams("piso") != null) {
+                duenio.getDomicilio().setDepartamento(new Integer(request.queryParams("departamento")));
+                duenio.getDomicilio().setPiso(new Integer(request.queryParams("piso")));
+            }
+            repositorioDuenios.agregar(duenio);
+            //repositorioDomicilio.agregar(duenio.getDomicilio());
 
-        if(request.queryParams("tipoAnimal") != null){
-            mascota.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
+            Mascota mascota = new Mascota();
+
+            if(request.queryParams("nombreMascota") != null){
+                mascota.setNombreMascota(request.queryParams("nombreMascota"));
+            }
+
+            if(request.queryParams("apodoMascota") != null){
+                mascota.setApodoMascota(request.queryParams("apodoMascota"));
+            }
+
+            if(request.queryParams("tipoAnimal") != null){
+                mascota.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
+            }
+
+            if(request.queryParams("sexoMascota") != null){
+                mascota.setSexoMascota(SexoMascota.valueOf(request.queryParams("sexoMascota")));
+            }
+
+            if(request.queryParams("edadMascota") != null){
+                mascota.setEdadMascota(new Integer(request.queryParams("edadMascota")));
+            }
+
+            if(request.queryParams("descripcionMascota") != null){
+                mascota.setDescripcionMascota(request.queryParams("descripcionMascota"));
+            }
+
+            /*
+            if(request.queryParams("fotos") != null){
+                mascota.setFotos(request.queryParams("fotos"));
+            }
+
+            if(request.queryParams("caracteristicas") != null){
+                mascota.setCaracteristicasMascota(request.queryParams("caracteristicas"));
+            }*/
+
+            repositorioMascotas.agregar(mascota);
+
+            System.out.println("Se ha creado el usuario de forma satisfactoria!!");
+            response.redirect("/");
         }
+        catch (Exception e) {
 
-        if(request.queryParams("nombreMascota") != null){
-            mascota.setNombreMascota(request.queryParams("nombreMascota"));
         }
-
-        if(request.queryParams("apodoMascota") != null){
-            mascota.setApodoMascota(request.queryParams("apodoMascota"));
+        finally {
+            return response;
         }
-
-        if(request.queryParams("edadMascota") != null){
-            mascota.setEdadMascota(new Integer(request.queryParams("edadMascota")));
-        }
-
-        if(request.queryParams("sexoMascota") != null){
-            mascota.setSexoMascota(SexoMascota.valueOf(request.queryParams("sexoMascota")));
-        }
-
-        if(request.queryParams("descripcion") != null){
-            mascota.setDescripcionMascota(request.queryParams("descripcion"));
-        }
-
-        /*
-        if(request.queryParams("fotos") != null){
-            mascota.setFotos(request.queryParams("fotos"));
-        }
-
-        if(request.queryParams("caracteristicas") != null){
-            mascota.setCaracteristicasMascota(request.queryParams("caracteristicas"));
-        }*/
     }
 
 
@@ -156,17 +165,73 @@ public class FormularioController {
         RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
         RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
         RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
+        RepositorioRescatista repositorioRescatistas = FactoryRepositorioRescatista.get();
 
         // Rescatista que se obtiene con los datos del formulario
         Rescatista rescatista = new Rescatista();
-        this.registrarRescatista(rescatista, request);
+        rescatista.setNombre(request.queryParams("nombre"));
+        rescatista.setApellido(request.queryParams("apellido"));
+        rescatista.setFechaDeNacimiento(LocalDate.parse(request.queryParams("fechaDeNacimiento")));
+        rescatista.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
+        rescatista.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
+        rescatista.setEmail(request.queryParams("email"));
+        rescatista.setTelefono(request.queryParams("telefono"));
 
+        if(request.queryParams("provincia") != null &&
+                request.queryParams("localidad") != null &&
+                request.queryParams("codigoPostal") != null &&
+                request.queryParams("calle") != null &&
+                request.queryParams("numeracion") != null){
+            rescatista.setDomicilio(
+                    new Domicilio(request.queryParams("provincia"),
+                            request.queryParams("localidad"),
+                            new Integer(request.queryParams("codigoPostal")),
+                            request.queryParams("calle"),
+                            new Integer(request.queryParams("numeracion")),
+                            new Integer(request.queryParams("departamento")),
+                            new Integer(request.queryParams("piso")),
+                            new Ubicacion(
+                                    new Integer(request.queryParams("longitud")),
+                                    new Integer(request.queryParams("latitud"))))
+            );
+        }
+        // Todo: tal vez se puede utilizar una API, para buscar por la direccion y asi obtener la Ubicacion en coordenadas
+
+        /*
+        if(request.queryParams("formasDeNotifacion") != null){
+            rescatista.setFormasDeNotificacion(request.queryParams("formasDeNotifacion"));
+        }
+
+        if(request.queryParams("contactos") != null){
+            rescatista.setContactos(request.queryParams("contactos"));
+        }*/
+
+
+        /*if(request.queryParams("albergarMascota") != null){
+            rescatista.isPuedeAlojarMascota(request.queryParams("albergarMascota"));
+        }*/
+
+        repositorioRescatistas.agregar(rescatista);
 
         //==============================================================================================================
         // Todo: en el formulario pide los datos de la mascota que encontró
         //  pero si resulta que la encuentra por el ID de la Chapa, no tienen relevancia los datos que ingresa de la mascota
         MascotaPerdida mascotaPerdida = new MascotaPerdida();
-        this.registrarMascotaPerdida(mascotaPerdida, request);
+        mascotaPerdida.setDescripcion(request.queryParams("descripcionMascota"));
+        mascotaPerdida.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
+        mascotaPerdida.setTamanio(Tamanio.valueOf(request.queryParams("tamanioAnimal")));
+
+        /*
+        if(request.queryParams("fotos") != null){
+            mascotaPerdida.setCarrouselFotos(request.queryParams("fotos"));
+        }*/
+
+        // TODO: para este caso tendría que elegirlo desde un mapa, podemos cargar una ubicacion X,Y, o directamente con una direccion como String
+        if(request.queryParams("latitud") != null && request.queryParams("longitud") != null){
+            mascotaPerdida.setUbicacionEncontrada(new Ubicacion(
+                    new Integer(request.queryParams("longitud")),
+                    new Integer(request.queryParams("latitud"))));
+        }
         //==============================================================================================================
 
 
@@ -206,11 +271,71 @@ public class FormularioController {
         // Verificar si el Rescatista puede alojar a la mascota, sino buscar un Hogar de Transito
         try {
             Rescatista rescatista = new Rescatista();
-            this.registrarRescatista(rescatista, request);
+
+            rescatista.setNombre(request.queryParams("nombre"));
+            rescatista.setApellido(request.queryParams("apellido"));
+            rescatista.setFechaDeNacimiento(LocalDate.parse(request.queryParams("fechaDeNacimiento")));
+            rescatista.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
+            rescatista.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
+            rescatista.setEmail(request.queryParams("email"));
+            rescatista.setTelefono(request.queryParams("telefono"));
+
+            if(request.queryParams("provincia") != null &&
+                    request.queryParams("localidad") != null &&
+                    request.queryParams("codigoPostal") != null &&
+                    request.queryParams("calle") != null &&
+                    request.queryParams("numeracion") != null
+            ){
+                rescatista.setDomicilio(
+                        new Domicilio(request.queryParams("provincia"),
+                                request.queryParams("localidad"),
+                                new Integer(request.queryParams("codigoPostal")),
+                                request.queryParams("calle"),
+                                new Integer(request.queryParams("numeracion")),
+                                new Integer(request.queryParams("departamento")),
+                                new Integer(request.queryParams("piso")),
+                                new Ubicacion(
+                                        new Integer(request.queryParams("longitud")),
+                                        new Integer(request.queryParams("latitud"))))
+                );
+            }
+            // Todo: tal vez se puede utilizar una API, para buscar por la direccion y asi obtener la Ubicacion en coordenadas
+
+            /*
+            if(request.queryParams("formasDeNotifacion") != null){
+                rescatista.setFormasDeNotificacion(request.queryParams("formasDeNotifacion"));
+            }
+
+            if(request.queryParams("contactos") != null){
+                rescatista.setContactos(request.queryParams("contactos"));
+            }*/
+
+
+            /*
+            if(request.queryParams("albergarMascota") != null){
+                rescatista.isPuedeAlojarMascota(request.queryParams("albergarMascota"));
+            }*/
+
             repositorioRescatistas.agregar(rescatista);
 
             MascotaPerdida mascotaPerdida = new MascotaPerdida();
-            this.registrarMascotaPerdida(mascotaPerdida, request);
+            mascotaPerdida.setDescripcion(request.queryParams("descripcionMascota"));
+            mascotaPerdida.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
+            mascotaPerdida.setTamanio(Tamanio.valueOf(request.queryParams("tamanioAnimal")));
+
+            /*
+            if(request.queryParams("fotos") != null){
+                mascotaPerdida.setCarrouselFotos(request.queryParams("fotos"));
+            }*/
+
+            // TODO: para este caso tendría que elegirlo desde un mapa, podemos cargar una ubicacion X,Y, o directamente con una direccion como String
+            if(request.queryParams("latitud") != null && request.queryParams("longitud") != null){
+                mascotaPerdida.setUbicacionEncontrada(new Ubicacion(
+                        new Integer(request.queryParams("longitud")),
+                        new Integer(request.queryParams("latitud"))));
+            }
+
+
             repositorioMascotasPerdidas.agregar(mascotaPerdida);
 
             if(rescatista.isPuedeAlojarMascota()) {
@@ -225,8 +350,8 @@ public class FormularioController {
 
             rescatista.reportarMascotaPerdida(mascotaPerdida);
 
-            response.status(200);
-            response.redirect("/formulario-ok");
+
+            response.redirect("/");
         }
         catch (Exception e) {
             response.status(204);
@@ -236,98 +361,4 @@ public class FormularioController {
         }
     }
 
-    public void registrarRescatista(Rescatista rescatista, Request request){
-
-        if(request.queryParams("nombre") != null){
-            rescatista.setNombre(request.queryParams("nombre"));
-        }
-
-        if(request.queryParams("apellido") != null){
-            rescatista.setApellido(request.queryParams("apellido"));
-        }
-
-        if(request.queryParams("fechaDeNacimiento") != null && !request.queryParams("fechaDeNacimiento").isEmpty()){
-            LocalDate fechaDeNacimiento = LocalDate.parse(request.queryParams("fechaDeNacimiento"));
-            rescatista.setFechaDeNacimiento(fechaDeNacimiento);
-        }
-
-        if(request.queryParams("tipoDoc") != null){
-            rescatista.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
-        }
-
-        if(request.queryParams("nroDocumento") != null){
-            rescatista.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
-        }
-
-        if(request.queryParams("email") != null){
-            rescatista.setEmail(request.queryParams("email"));
-        }
-
-        if(request.queryParams("telefono") != null){
-            rescatista.setTelefono(request.queryParams("telefono"));
-        }
-
-        if(request.queryParams("provincia") != null &&
-                request.queryParams("localidad") != null &&
-                request.queryParams("codigoPostal") != null &&
-                request.queryParams("calle") != null &&
-                request.queryParams("numeracion") != null
-        ){
-            rescatista.setDomicilio(
-                    new Domicilio(request.queryParams("provincia"),
-                            request.queryParams("localidad"),
-                            new Integer(request.queryParams("codigoPostal")),
-                            request.queryParams("calle"),
-                            new Integer(request.queryParams("numeracion")),
-                            new Integer(request.queryParams("departamento")),
-                            new Integer(request.queryParams("piso")),
-                            new Ubicacion(
-                                    new Integer(request.queryParams("longitud")),
-                                    new Integer(request.queryParams("latitud"))))
-            );
-        }
-        // Todo: tal vez se puede utilizar una API, para buscar por la direccion y asi obtener la Ubicacion en coordenadas
-
-        /*
-        if(request.queryParams("formasDeNotifacion") != null){
-            rescatista.setFormasDeNotificacion(request.queryParams("formasDeNotifacion"));
-        }
-
-        if(request.queryParams("contactos") != null){
-            rescatista.setContactos(request.queryParams("contactos"));
-        }
-
-        if(request.queryParams("puedeAlojarMascota") != null){
-            rescatista.isPuedeAlojarMascota(request.queryParams("puedeAlojarMascota"));
-        }*/
-    }
-
-    public void registrarMascotaPerdida(MascotaPerdida mascotaPerdida, Request request){
-
-        if(request.queryParams("descripcion") != null){
-            mascotaPerdida.setDescripcion(request.queryParams("descripcion"));
-        }
-
-        if(request.queryParams("tipoAnimal") != null){
-            mascotaPerdida.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
-        }
-
-        if(request.queryParams("tamanio") != null){
-            mascotaPerdida.setTamanio(Tamanio.valueOf(request.queryParams("tamanio")));
-        }
-
-        /*
-        if(request.queryParams("fotos") != null){
-            mascotaPerdida.setCarrouselFotos(request.queryParams("fotos"));
-        }*/
-
-        // TODO: para este caso tendría que elegirlo desde un mapa, podemos cargar una ubicacion X,Y, o directamente con una direccion como String
-        if(request.queryParams("latitud") != null && request.queryParams("longitud") != null){
-            mascotaPerdida.setUbicacionEncontrada(new Ubicacion(
-                    new Integer(request.queryParams("longitud")),
-                    new Integer(request.queryParams("latitud"))));
-        }
-
-
-    }
 }

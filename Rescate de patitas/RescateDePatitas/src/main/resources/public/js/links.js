@@ -1,9 +1,7 @@
-function inicio() {
-    window.location.href = "";
-}
 
 function login() {
     window.location.href = "sign-in";
+    // Habria que validar el loggeo; que espere la respuesta de parte del backend
 }
 
 function registrarse() {
@@ -11,7 +9,7 @@ function registrarse() {
 }
 
 function adoptarMascota() {
-    window.location.href = "adoptar-mascota";
+    window.location.href = "mascotas-en-adopcion";
 }
 
 function registrarMascota() {

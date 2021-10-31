@@ -1,109 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="/js/links.js"></script>
-
-    <title>Home</title>
-    <link rel="shortcut icon" href="/img/image_7_.ico"/>
-
-    <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
 
 
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+        <script>
+            var template = Handlebars.compile("Handlebars <b>{{doesWhat}}</b>");
+            console.log(template({ doesWhat: "rocks!" }));
+        </script>
+        <script src="/js/links.js"></script>
 
-</head>
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet" href="/css/reset.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
 
-<body>
-<div class="container">
-    <h1 class="titulo">RESCATE DE PATITAS</h1>
+        <title>Home</title>
+    </head>
 
-    <img
-            class="logo"
-            src="/img/image (7).png"
-            alt="Rescate de Patitas"
-            width="187px"
-            height="141px";
-    />
+    <body>
+        <div class="container">
+            <h1 class="titulo">RESCATE DE PATITAS</h1>
 
-    <button type="button" class="boton-ingresar" onclick="login()" >INGRESAR</button>
+            <img
+                    class="logo"
+                    src="/img/home-logo.png"
+                    alt="Rescate de Patitas"
+                    width="187px"
+                    height="141px";
+            />
 
+            <button type="button" class="boton-ingresar" onclick="login()" >INGRESAR</button>
 
-    <button type="button" class="boton1" onclick="adoptarMascota()">
-        <img
-                src="/img/boton 1.png"
-                alt=""
-                width="300px"
-        />
-        <br>
-        <br>
-        ADOPTAR
-    </button>
+            <button type="button" class="boton1" onclick="adoptarMascota()">
+                <img
+                        src="/img/boton-1.png"
+                        alt=""
+                        width="300px"
+                />
+                <br>
+                <br>
+                ADOPTAR
+            </button>
 
+            <button type="button" class="boton2" onclick="registrarMascota()">
+                <img
+                        src="/img/boton-2.png"
+                        alt=""
+                        width="150px"
+                />
+                <br>
+                <br>
+                REGISTRAR MASCOTA
+            </button>
 
-    <button type="button" class="boton2" onclick="registrarMascota()">
-        <img
-                src="/img/boton 2.png"
-                alt=""
-                width="150px"
-        />
-        <br>
-        <br>
-        REGISTRAR MASCOTA
-    </button>
+            <button type="button" class="boton3" onclick="reportarMascota()">
+                <img
+                        src="/img/boton-3.png"
+                        alt=""
+                        width="250px"
+                />
+                <br>
+                <br>
+                REPORTAR
+            </button>
 
+            <button type="button" class="boton4" onclick="darMascotaEnAdopcion()">
+                <img
+                        src="/img/boton-4.png"
+                        alt=""
+                        width="150px"
+                />
+                <br>
+                <br>
+                DAR MASCOTA EN ADOPCIÓN
+            </button>
 
-    <button type="button" class="boton3" onclick="reportarMascota()">
-        <img
-                src="/img/boton 3.png"
-                alt=""
-                width="250px"
-        />
-        <br>
-        <br>
-        REPORTAR
-    </button>
+            <button type="button" class="boton5" onclick="registrarse()">
+                <img
+                        src="/img/boton-5.png"
+                        alt=""
+                        width="300px"
+                />
+                <br>
+                <br>
+                REGISTRARSE
+            </button>
 
-
-    <button type="button" class="boton4" onclick="darMascotaEnAdopcion()">
-        <img
-                src="/img/boton 4.png"
-                alt=""
-                width="150px"
-        />
-        <br>
-        <br>
-        DAR MASCOTA EN ADOPCIÓN
-    </button>
-
-
-    <button type="button" class="boton5" onclick="registrarse()">
-        <img
-                src="/img/boton 5.png"
-                alt=""
-                width="300px"
-        />
-        <br>
-        <br>
-        REGISTRARSE
-    </button>
-
-
-    <button type="button" class="boton6" onclick="mascotasPerdidas()">
-        <img
-                src="/img/boton 6.png"
-                alt=""
-                width="250px"
-        />
-        <br>
-        <br>
-        MASCOTAS PERDIDAS
-    </button>
-
-</div>
-</body>
+            <button type="button" class="boton6" onclick="mascotasPerdidas()">
+                <img
+                        src="/img/boton-6.png"
+                        alt=""
+                        width="250px"
+                />
+                <br>
+                <br>
+                MASCOTAS PERDIDAS
+            </button>
+        </div>
+    </body>
 </html>

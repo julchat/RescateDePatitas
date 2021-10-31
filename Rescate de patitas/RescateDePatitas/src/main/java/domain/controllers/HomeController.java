@@ -3,6 +3,9 @@ package domain.controllers;
 import domain.business.mascota.MascotaPerdida;
 import domain.repositorios.RepositorioMascotaPerdida;
 import domain.repositorios.factories.FactoryRepositorioMascotaPerdida;
+import domain.security.Admin;
+import domain.security.TipoRol;
+import domain.security.Usuario;
 import json.JsonMap;
 import spark.ModelAndView;
 import spark.Request;
@@ -15,34 +18,49 @@ import java.util.Map;
 
 public class HomeController {
 
+    public String prueba(Request request, Response response) {
+        response.type("application/json");
+        return new JsonMap<Usuario>(new Usuario("admin", "admin", TipoRol.ADMIN, new Admin(), null),"MENSAJE DE PRUEBA").transformar();
+    }
+
     public ModelAndView home( Request request , Response response) {
         Map<String, Object> viewModel = new HashMap<>();
         return new ModelAndView(viewModel,"home.hbs");
     }
 
-    public ModelAndView home2( Request request , Response response) {
+    public ModelAndView showHomeUser( Request request , Response response) {
         Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"home2.hbs");
+        return new ModelAndView(viewModel,"homeUser.hbs");
     }
 
-    public ModelAndView adoptarMascota(Request request, Response response) {
+    /*public ModelAndView showHomeAdmin( Request request , Response response) {
         Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"adoptar-mascota.hbs");
+        return new ModelAndView(viewModel,"homeAdmin.hbs");
+    }
+
+    public ModelAndView showHomeModer( Request request , Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"homeModer.hbs");
+    }*/
+
+    public ModelAndView showAdoptarMascota(Request request, Response response) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"mascotas-adopcion.hbs");
     }
 
     public ModelAndView darMascotaAdopcion(Request request, Response response) {
         Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"mascota-adopcion.hbs");
+        return new ModelAndView(viewModel,"dar-mascota-adopcion.hbs");
     }
 
     public ModelAndView showMascotasPerdidas(Request request, Response response) {
-        RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
+        //RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
 
-        List<MascotaPerdida> mascotasPerdidas = repositorioMascotaPerdida.buscarTodos();
+        //List<MascotaPerdida> mascotasPerdidas = repositorioMascotaPerdida.buscarTodos();
 
         Map<String, Object> viewModel = new HashMap<>();
 
-        viewModel.put("mascotasPerdidas", mascotasPerdidas);
+        //viewModel.put("mascotasPerdidas", mascotasPerdidas);
         return new ModelAndView(viewModel,"mascotas-perdidas.hbs");
     }
 

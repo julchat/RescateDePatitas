@@ -2,6 +2,7 @@ package domain.controllers;
 
 import domain.repositorios.RepositorioUsuarios;
 import domain.repositorios.factories.FactoryRepositorioUsuarios;
+import domain.security.TipoRol;
 import domain.security.Usuario;
 import spark.ModelAndView;
 import spark.Request;
@@ -36,11 +37,23 @@ public class LoginController {
                 response.cookie("usuarioLogin", nombreUsuario);
                 request.session(true);
                 request.session().attribute("id", usuario.getId());
+//TODO: otra opcion, para no hacer 3 pantallas "distintas", es que en una sola se valide el Rol del Usuario
+// y de acuerdo al mismo, modificar el codigo HTML dentro de la pestaña que se abre cuando se toca MI CUENTA
 
-                // Todo: verificar que tipo de rol tiene y redirigir a la pantalla correspondiente?
-                response.status(200);
-                response.redirect("/home2");
-            }
+
+                if(usuario.getTipoRol() == TipoRol.USER) {
+                    // TODO: Verificar que solamente pueda entrarse si la sesion esta activa
+                    response.redirect("/homeUser");
+                }
+                else if(usuario.getTipoRol() == TipoRol.ADMIN) {
+                    response.redirect("/homeAdmin");
+                }
+                else if(usuario.getTipoRol() == TipoRol.MODERADOR) {
+                    response.redirect("/homeMod");
+                }
+
+                }
+
             else {
                 // Todo: tirar que la contraseña es incorrecta
                 System.out.println("La contraseña es incorrecta.");
@@ -50,7 +63,6 @@ public class LoginController {
         catch (Exception e) {
             // TODO: tirar un mensaje que el usuario no existe
             System.out.println("El usuario no existe");
-            response.status(404);
             response.redirect("/sign-in");
         }
         finally {
