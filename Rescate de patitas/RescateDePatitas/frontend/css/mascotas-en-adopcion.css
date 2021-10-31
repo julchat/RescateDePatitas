@@ -65,7 +65,7 @@ img {
     transition: all 0.3s ease 0s;
 }
 
-.nav-menu-item:hover {
+.nav-menu-link:hover {
     color: #edf8f6;
 }
 
