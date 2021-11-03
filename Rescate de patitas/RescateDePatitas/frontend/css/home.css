@@ -42,8 +42,17 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:6%;
+    right: 67%;
     top:35%;
+}
+.img1{
+    width: 55%;
+}
+.img2{
+    width: 25%;
+}
+.img3{
+    width: 45%;
 }
 
 .boton1:hover{
@@ -59,8 +68,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:24%;
-    top:70%;
+    left:13%;
+    top:75%;
 }
 
 .boton2:hover{
@@ -76,7 +85,7 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:39%;
+    left:28%;
     top:45%;
 }
 
@@ -93,7 +102,7 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:60%;
+    left:45%;
     top:25%;
 }
 
@@ -110,8 +119,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:65%;
-    top:59%;
+    left:55%;
+    top:52%;
 }
 
 .boton5:hover{
@@ -127,8 +136,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    right:6%;
-    top:30%;
+    right:4%;
+    top:12%;
 }
 
 .boton6:hover{
@@ -137,7 +146,6 @@ body {
 
 .boton-ingresar {
     background-color: #CB93F6;
-    filter: drop-shadow(0px 5px 15px #E5C6FE);
     color: white;
     border: none;
     width: 8.5%;

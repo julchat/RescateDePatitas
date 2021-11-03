@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportar Mascota Perdida</title>
+
+    <script defer src="/js/index.js"></script>
+    <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
+    
+    <link rel="shortcut icon" href="/img/image_2_.ico"/>
+
+    <link rel="stylesheet" href="/css/barra-menu.css">
+    <link rel="stylesheet" href="/css/reportar-mascota.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">    
+            <nav class="menu">
+                <a href="home.html" class="logo"><img src="/img/image (7).png"></a>
+                <button class="toggle"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu"> 
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="mascotas-en-adopcion.html">ADOPTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="dar-mascota-adopcion.html">DAR EN ADOPCIÓN</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="notificar.html">REPORTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="mascotas-perdidas.html">MASCOTAS PERDIDAS</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link nav-menu-link_Active" href="registrar-mascota.html">REGISTRAR MASCOTAS</a></li>
+                </ul>
+            </nav>
+        </header>
+        <h2 class="subtitulo">Complete el siguiente formulario para reportar a una mascota perdida</h2>
+        <a class="subtitulo2">
+            Si la mascota posee una chapita, escanee el código QR y complete los datos para notificarle al dueño 
+            <br>
+            En caso de no tenerla, por favor, complete el siguiente formulario para crear una publicación en el sitio
+        </a>
+        <form class="form1">
+                
+                <div class="grid-item">
+                    <label for="name">Nombre y Apellido<br></label>
+                    <input type="text" id="name" class="text-input">
+                </div>
+                           
+                <div class="grid-item">
+                    <label for="date">Fecha de Nacimiento<br></label>
+                    <input type="date" id="date" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01">
+                </div>
+                            
+                <div class="grid-item">
+                    <label for="email">Email<br></label>
+                    <input type="text" id="email" class="text-input">
+                </div>
+                            
+                <div class="grid-item">
+                    <label for="doc-type">Tipo de documento<br></label>
+                    <select class="doc" id="doc-type" name="">
+                        <option value="DNI">DNI</option>
+                        <option value="Cedula">Cedula</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                    </select>
+                </div>
+                             
+                <div class="grid-item">
+                    <label for="n-doc">Número de documento<br></label>
+                    <input type="text" id="n-doc" class="text-input">
+                </div>
+                           
+                <div class="grid-item">
+                    <label for="cel">Teléfono / Celular<br></label>
+                    <input type="text" id="cel" class="text-input">
+                </div>
+                            
+                <div class="grid-item">
+                    <label for="notification">Formas de notificación<br></label><br>
+                        <a><input class="check" type="checkbox" name="sms"> SMS</a>
+                        <a><input class="check" type="checkbox" name="email"> Email</a>
+                        <a><input class="check" type="checkbox" name="WhatsApp"> WhatsApp</a>
+                </div>
+    
+                <div class="grid-item">
+                    <label for="name">Provincia<br></label>
+                    <input type="text" id="provincia" class="text-input">
+                </div>
+           
+                <div class="grid-item">
+                    <label for="date">Localidad<br></label>
+                    <input type="text" id="localidad" class="text-input">
+                </div>
+            
+                <div class="grid-item">
+                    <label for="email">Código Postal<br></label>
+                    <input type="text" id="cp" class="text-input">
+                </div>
+                     
+                <div class="grid-item">
+                    <label for="name">Calle y numeración<br></label>
+                    <input type="text" id="calle" class="text-input">
+                </div>
+          
+                <div class="grid-item">
+                    <label for="date">Departamento <br></label>
+                    <input type="text" id="dpto" class="text-input">
+                </div>
+            
+                <div class="grid-item">
+                    <label for="email">Piso <br></label>
+                    <input type="text" id="piso" class="text-input">
+                </div>
+                 
+                <div></div><div></div><div></div>
+                
+                <h3 class="subtitulo3">Agregar contacto</h3>
+                <div></div>
+                <div class="grid-item">
+                    <label for="name">Nombre y Apellido<br></label>
+                    <input type="text" id="name" class="text-input">
+                </div>
+                    
+                <div class="grid-item">
+                    <label for="email">Email<br></label>
+                    <input type="text" id="email" class="text-input">
+                </div>
+                    
+                <div class="grid-item">
+                    <label for="cel">Teléfono / Celular<br></label>
+                    <input type="text" id="cel" class="text-input">
+                </div>
+                            
+                <div class="grid-item">
+                    <label for="notification">Formas de notificación<br></label><br>
+                        <a><input class="check" type="checkbox" name="sms"> SMS</a>
+                        <a><input class="check" type="checkbox" name="email"> Email</a>
+                        <a><input class="check" type="checkbox" name="WhatsApp"> WhatsApp</a>
+                </div>
+                <div class="grid-item">
+                    <label for="name">Descripción del estado de la mascota<br></label>
+                    <input type="text" id="name" class="text-input">
+
+                </div>
+                <div class="grid-item">
+                    <label for="date">Fotos<br></label>
+                    <br>
+                    <input type="file" name="imagen1" />
+                    <input type="submit" name="subir-imagen" value="Enviar imagen" />
+                </div>
+                <div></div>
+
+                <h3 class="subtitulo3">Hogar de tránsito</h3>
+                <div></div><div></div>
+                <div class="grid-item">
+                    <text class="texto"><br>¿Puede ser hogar de tránsito para la mascota?</text>
+                    <input class="si-no" type="radio" name="si-no" value="2">Si
+                    <input class="si-no2" type="radio" name="si-no" value="2">No 
+                </div>
+                <div></div>
+                <div class="grid-item">
+                    <label for="name">Mascota<br></label>
+                        <input class="radio" type="radio" name="mascota" value="3">Perro
+                        <input class="radio" type="radio" name="mascota" value="3">Gato
+                </div>
+
+                <div class="grid-item">
+                    <label for="date">Tamaño<br></label>
+                        <input class="radio" type="radio" name="sexo-mascota" value="2">Chico
+                        <input class="radio" type="radio" name="sexo-mascota" value="2">Mediano
+                        <input class="radio" type="radio" name="sexo-mascota" value="2">Grande
+                </div> 
+                <div class="grid-item">
+                    <label for="email">Radio de cercanía (en Km) <br></label>
+                    <input type="text" id="text" class="text-input">
+                </div><div></div>    
+                <div class="grid-item">
+                    <label for="notification">Características<br></label>
+                        <!-- aca deberían ir características para ver que tipo de animal aceptan, tranquilo, jugueton blabla -->
+                        <select class="doc" id="Caracteristicas" name="">
+                            <option value="">Opción 1</option>
+                            <option value="">Opción 2</option>
+                        </select>
+                </div>
+                <div></div><div></div>
+                <a href="home2.html">
+                    <br>
+                    <button type="submit" class="boton">BUSCAR</button>
+                </a>
+            </fieldset>
+        </form>
+    </div>
+    
+</body>
+</html>

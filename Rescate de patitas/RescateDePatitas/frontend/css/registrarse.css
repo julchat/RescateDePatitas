@@ -8,11 +8,16 @@
 }
 
 .subtitulo3 {
+    color:#8dc0c0;
     padding-top: 30px;
     padding-bottom: 15px;
     font-weight: bold;
     font-size: 18px;
     text-align: center;
+}
+
+label {
+    font-style:italic;
 }
 
 .form1 {
@@ -128,9 +133,4 @@
 
 .boton:hover{
     transform: scale(1.1);
-}
-
-.check {
-    color: black;
-    border-radius: 10;
 }

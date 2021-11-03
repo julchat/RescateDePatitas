@@ -66,3 +66,33 @@ h3 {
         grid-auto-rows: 400px;
     }
 }
+
+.boton1 {
+    background-color: #96D7EC;
+    color: white;
+    border: none;
+    min-width: 100px;
+    max-width: 200px;
+    height: 40px;
+    width: 50%;
+    text-align: center;
+    display: block;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    transition: transform .5s;
+    margin-bottom: 35px;
+}
+
+.boton1:hover{
+    transform: scale(1.1);
+}
+
+.texto {
+    color: black;
+    font-size: 18px;
+    padding-top: 5px;
+    display: block;
+    text-align: center;
+}

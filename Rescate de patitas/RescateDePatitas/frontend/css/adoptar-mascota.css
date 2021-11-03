@@ -1,0 +1,135 @@
+.subtitulo {
+    padding-top: 90px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.subtitulo3 {
+    color:#8dc0c0;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+label {
+    font-style:italic;
+}
+
+.form1 {
+    width: 70%;
+    margin: 0 auto;
+    padding: 5px;
+    justify-content: center;
+}
+
+.registro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 25px;
+    margin: 15px;
+    background:  white;
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.contacto {
+    width: 50%;
+    padding: 25px;
+    align-items: center;
+    margin: 0 auto;
+    display: block;
+    border-radius: 20px;
+    text-align: center;
+    align-content: center;
+    background: rgb(216, 216, 216);
+}
+
+.usuario {
+    margin: 0 auto;
+    align-content: center;
+    text-align: center;
+    width: 30%;
+}
+
+.texto {
+    color: grey;
+    font-size: 12px;
+    padding-bottom: 10px;
+    display: block;
+    text-align: center;
+}
+
+.grid-item {
+    margin: 0 auto;
+    align-content: center;
+    justify-content: center;
+    width: 90%;
+    padding-bottom: 15px;
+}
+
+.text-input {
+    background-color: #F0F0F0;
+    width: 80%;
+    height: 40px;
+    margin: 10px;
+    border: none;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
+    color: grey;
+    align-content: center;
+}
+
+.doc {
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
+    color: grey;
+    background-color: #F0F0F0;
+    width: 80%;
+    height: 40px;
+    border: none;
+}
+
+.fecha {
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
+    color: grey;
+    background-color: #F0F0F0;
+    width: 80%;
+    height: 40px;
+    border: none;
+}
+
+.check {
+    margin-left: 15px;
+}
+
+.boton {
+    background-color: #96D7EC;
+    color: white;
+    border: none;
+    min-width: 100px;
+    max-width: 200px;
+    height: 40px;
+    width: 50%;
+    text-align: center;
+    display: block;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    transition: transform .5s;
+}
+
+.boton:hover{
+    transform: scale(1.1);
+}

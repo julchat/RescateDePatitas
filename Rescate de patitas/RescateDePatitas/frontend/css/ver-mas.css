@@ -1,0 +1,48 @@
+.subtitulo {
+    padding-top: 90px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.formita {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background:  white;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+    padding: 25px;
+    margin-top: 15px;
+}
+
+.img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.formita label {
+    margin: 35px;
+    padding: 25px;
+}
+.boton {
+    background-color: #96D7EC;
+    color: white;
+    align-content: center;
+    justify-content: 0 auto;
+    margin-top: 25px;
+    border: none;
+    height: 40px;
+    width: 30%;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+.boton:hover{
+    transform: scale(1.1);
+}
