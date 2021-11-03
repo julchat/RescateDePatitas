@@ -1,206 +1,88 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-}
-
-.container {
-    font-family: 'Roboto', sans-serif;
-}
-
-body {
-    background-color: #E0EBE9;
-    font-family: 'Roboto', sans-serif;
-    padding: 90px 20px 0;
-}
-
-.header {
-    background-color: #9DCFC5;
-    height: 80px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-}
-
-.menu {
-    display: flex;
-    justify-content: space-between;
-    max-width: 992px;
-    margin: 0 auto;
-}
-
-img {
-    width: 80px;
-}
-
-.logo {
-    padding: 10px;
-    border: none;
-    line-height: 80px;
-    transition: transform .5s;
-    width: max-content;
-}
-
-.logo:hover {
-    transform: scale(1.2);
-}
-
-.nav-menu {
-    display: flex;
-    margin-right: 40px;
-}
-
-.nav-menu-item {
-    font-size: 18px;
-    line-height: 80px;
-    margin: 0 10px;
-    width: max-content;
-}
-
-.nav-menu-link {
-    color: #396666;
-    padding: 8px 12px;
-    transition: all 0.3s ease 0s;
-}
-
-.nav-menu-link:hover {
-    color: #edf8f6;
-}
-
-.toggle {
-    display: none;
-    color: #396666;
-    background: none;
-    border: none;
-    font-size: 30px;
-    padding: 0 20px;
-    line-height: 60px;
-    display: none;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    body {
-        padding-top: 70px;
-    }
-
-    .header {
-        height: 60px;
-    }
-    
-    img {
-        width: 55px;
-    }
-
-    .logo {
-        line-height: 60px;
-        padding: 10px;
-    }
-
-    .nav-menu {
-        flex-direction: column;
-        align-items: center;
-        margin: 0;
-        background-color: #396666;
-        position:fixed;
-        top: 60px;
-        width: 100%;
-        padding: 20px 0;
-        height: calc(100% - 60px);
-        overflow-y: auto;
-        left: 100%;
-        transition: left 0.3s;
-    }
-
-    .nav-menu-item {
-        line-height: 70px;
-    }
-    
-    .nav-menu-link {
-        background: none;
-        color: white;
-        transition: all 0.3s ease 0s;
-    }
-    
-    .nav-menu-link:hover {
-        color: #9DCFC5;
-    }
-
-    .toggle {
-        padding-bottom: 25px;
-        display: block;
-    }
-
-    .nav-menu_visible {
-        left: 0;
-    }
-
-    .toggle:focus:not(:focus-visible) {
-        outline: none;
-      }
-}
-
-/* HASTA ACA EL ESTILO RESPONSIVE HERMOSO DE LA BARRA DEL MENU*/
 
 .subtitulo {
+    padding-top: 90px;
     font-weight: bold;
     font-size: 20px;
     text-align: center;
+    margin: 0 auto;
+}
+
+.subtitulo3 {
+    padding-top: 30px;
+    padding-bottom: 15px;
+    font-weight: bold;
+    font-size: 18px;
     text-align: center;
-    padding: 20px;
 }
 
 .form1 {
+    width: 70%;
     margin: 0 auto;
-    padding: 15px;
-    align-content: center;
+    padding: 5px;
+    justify-content: center;
 }
 
-.tabla {
-    width: 70%;
-    top: 50%;
-    left: 80%;
-    align-items: center;
-    margin: 0 auto;
+.registro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 25px;
+    margin: 15px;
     background:  white;
     border-radius: 20px;
     text-align: center;
-    padding: 15px;
+    justify-content: center;
+    align-items: center;
 }
 
-.subtabla {
-    width: 35%;
-    top: 50%;
-    left: 80%;
+.contacto {
+    width: 50%;
+    padding: 25px;
     align-items: center;
     margin: 0 auto;
-    background: rgb(201, 201, 201);
+    display: block;
     border-radius: 20px;
     text-align: center;
-    padding: 15px;
+    align-content: center;
+    background: rgb(216, 216, 216);
+}
+
+.usuario {
+    margin: 0 auto;
+    align-content: center;
+    text-align: center;
+    width: 30%;
+}
+
+.texto {
+    color: grey;
+    font-size: 12px;
+    padding-bottom: 20px;
+    display: block;
+    text-align: center;
 }
 
 .grid-item {
-    margin-top: 15px;
-    width: 25%;
+    margin: 0 auto;
+    align-content: center;
+    justify-content: center;
+    width: 90%;
+    padding-bottom: 15px;
 }
 
 .text-input {
     background-color: #F0F0F0;
     width: 80%;
     height: 40px;
-    margin: 15px;
+    margin: 10px;
     border: none;
     text-align: center;
     border-radius: 10px;
     font-size: 15px;
     color: grey;
+    align-content: center;
 }
 
-.fecha {
-    margin-top: 15px;
+.doc {
     text-align: center;
     border-radius: 10px;
     font-size: 15px;
@@ -211,10 +93,20 @@ img {
     border: none;
 }
 
-.tabla2 {
-    width: 50%;
-    margin: 0 auto;
-    align-content: center;
+.fecha {
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
+    color: grey;
+    background-color: #F0F0F0;
+    width: 80%;
+    height: 40px;
+    border: none;
+}
+
+.check {
+    margin-left: 15px;
 }
 
 .boton {
@@ -226,9 +118,11 @@ img {
     height: 40px;
     width: 50%;
     text-align: center;
+    display: block;
     border-radius: 10px;
     cursor: pointer;
-    margin: 15px;
+    margin: 0 auto;
+    display: block;
     transition: transform .5s;
 }
 
