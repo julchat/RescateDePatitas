@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Iniciar sesión</title>
+
+        <script defer src="/js/index.js"></script>
+        <script defer src="/js/links.js"></script>
+        <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
+
+        <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
+
+        <link rel="stylesheet" href="/css/barra-menu.css">
+        <link rel="stylesheet" href="/css/iniciar-sesion.css">
+        <link rel="stylesheet" href="/css/reset.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+    <div class="container">
+        <header class="header">
+            <nav class="menu">
+                <a href="/" class="logo"><img src="/img/home-logo.png"></a>
+                <button class="toggle"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-en-adopcion">ADOPTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/dar-mascota-adopcion">DAR EN ADOPCIÓN</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/reportar-mascota">REPORTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-perdidas">MASCOTAS PERDIDAS</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link nav-menu-link_Active" href="/registrar-mascota">REGISTRAR MASCOTAS</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <form action="/iniciar-sesion" method="post" class="form1">
+            <h2 class="subtitulo">INICIO DE SESIÓN</h2>
+
+            <input type="text" placeholder="Usuario" value="" name="userName" class="text-input" required>
+            <input type="password" placeholder="Contraseña" value="" name="userPassword" class="text-input" required>
+
+            <button class="boton" onclick="login()">INICIAR SESIÓN</button>
+
+            <a class="olvido" href="#"><br>Olvide mi contraseña</a>
+
+        </form>
+
+        <a class="no-tiene-cuenta">¿Usted no tiene una cuenta?<br></a>
+
+        <a class="boton2">
+            <button class="boton" onclick="registrarse()">REGISTRARSE</button>
+        </a>
+
+    </div>
+
+    </body>
+</html>

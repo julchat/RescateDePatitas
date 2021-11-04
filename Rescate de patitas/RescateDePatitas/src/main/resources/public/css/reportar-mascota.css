@@ -1,0 +1,149 @@
+.subtitulo {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    text-align: center;
+    padding-top: 95px;
+}
+
+.subtitulo3 {
+    color: #8dc0c0;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.form1 {
+    width: 70%;
+    margin: 0 auto;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 25px;
+    background:  white;
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 35px;
+}
+
+.texto {
+    color: grey;
+    font-size: 12px;
+    padding-bottom: 10px;
+    display: block;
+    text-align: center;
+}
+
+.subtitulo2 {
+    color: grey;
+    padding-top: 10px;
+    font-weight:300;
+    font-size: 18px;
+    padding-bottom: 10px;
+    display: block;
+    text-align: center;
+}
+
+label {
+    font-style:italic;
+}
+
+.grid-item {
+    margin: 0 auto;
+    align-content: center;
+    justify-content: center;
+    padding-bottom: 15px;
+    width: 90%;
+}
+
+.radio {
+    margin-right: 5px;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+.text-input {
+    background-color: #F0F0F0;
+    width: 90%;
+    height: 40px;
+    margin: 10px;
+    border: none;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
+    color: grey;
+    align-content: center;
+}
+
+.doc {
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
+    color: grey;
+    background-color: #F0F0F0;
+    width: 90%;
+    height: 40px;
+    border: none;
+    margin-top: 10px;
+}
+
+.fecha {
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
+    color: grey;
+    background-color: #F0F0F0;
+    width: 90%;
+    height: 40px;
+    border: none;
+}
+
+.check {
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+.boton {
+    background-color: #96D7EC;
+    color: white;
+    border: none;
+    min-width: 100px;
+    max-width: 200px;
+    height: 40px;
+    width: 50%;
+    text-align: center;
+    display: block;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    transition: transform .5s;
+}
+
+.boton:hover{
+    transform: scale(1.1);
+}
+
+.boton-foto {
+    padding-top: 15px;
+    text-align: center; 
+    cursor: pointer;
+    margin: 0 auto;
+} 
+
+.si-no {
+    margin-right: 2px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.si-no2 {
+    margin-right: 2px;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}

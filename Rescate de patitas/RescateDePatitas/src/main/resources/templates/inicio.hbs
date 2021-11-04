@@ -7,35 +7,30 @@
 
         <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
 
-        <link rel="stylesheet" href="/css/home2.css">
+        <script src="/js/links.js"></script>
+
+        <link rel="stylesheet" href="/css/inicio.css">
         <link rel="stylesheet" href="/css/reset.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
 
         <title>Home</title>
     </head>
+
     <body>
         <div class="container">
-        <h1 class="titulo">RESCATE DE PATITAS</h1>
-        <img
-                class="logo"
-                src="/img/home-logo.png"
-                alt="Rescate de Patitas"
-                width="187px"
-                height="141px";
-        />
-        <nav class="nav">
-            <ul>
-                <li><a class="mi-cuenta">MI CUENTA</a>
-                    <ul class="submenu">
-                        <li><a href="/editar-perfil"><button>Editar perfil</button></a></li>
-                        <li><a href="#"><button>Mascotas registradas</button></a></li>
-                        <li><a href="/logout"><button>Cerrar sesión</button></a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+            <h1 class="titulo">RESCATE DE PATITAS</h1>
 
-            <button type="button" class="boton1" onclick="adoptarMascota()">
+            <img
+                    class="logo"
+                    src="/img/home-logo.png"
+                    alt="Rescate de Patitas"
+                    width="187px"
+                    height="141px";
+            />
+
+            <button type="button" class="boton-ingresar" onclick="login()" >INGRESAR</button>
+
+            <button type="button" class="boton1" onclick="mascotasEnAdopcion()">
                 <img
                         src="/img/boton-1.png"
                         alt=""
@@ -79,7 +74,7 @@
                 DAR MASCOTA EN ADOPCIÓN
             </button>
 
-            <!--<button type="button" class="boton5" onclick="registrarse()">
+            <button type="button" class="boton5" onclick="registrarse()">
                 <img
                         src="/img/boton-5.png"
                         alt=""
@@ -88,7 +83,7 @@
                 <br>
                 <br>
                 REGISTRARSE
-            </button> -->
+            </button>
 
             <button type="button" class="boton6" onclick="mascotasPerdidas()">
                 <img
@@ -101,6 +96,5 @@
                 MASCOTAS PERDIDAS
             </button>
         </div>
-        <script src="/js/links.js"></script>
     </body>
 </html>

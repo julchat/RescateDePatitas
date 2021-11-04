@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url("/img/background.svg");
+    background-image: url("/img/Fondo.svg");
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
@@ -29,7 +29,7 @@ body {
 }
 
 .logo {
-    margin: auto;
+    margin: auto;    
     display: block;
 }
 
@@ -42,8 +42,17 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:6%;
+    right: 67%;
     top:35%;
+}
+.img1{
+    width: 55%;
+}
+.img2{
+    width: 25%;
+}
+.img3{
+    width: 45%;
 }
 
 .boton1:hover{
@@ -59,8 +68,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:24%;
-    top:70%;
+    left:13%;
+    top:75%;
 }
 
 .boton2:hover{
@@ -76,7 +85,7 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:39%;
+    left:28%;
     top:45%;
 }
 
@@ -93,7 +102,7 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:60%;
+    left:45%;
     top:25%;
 }
 
@@ -110,8 +119,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:65%;
-    top:59%;
+    left:55%;
+    top:52%;
 }
 
 .boton5:hover{
@@ -127,63 +136,31 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    right:6%;
-    top:30%;
+    right:4%;
+    top:12%;
 }
 
 .boton6:hover{
     transform: scale(1.2);
 }
-.nav{
-    font-size: 13px;
-    font-style: normal;
-    font-family: 'Roboto';
-}
 
-.mi-cuenta {
+.boton-ingresar {
     background-color: #CB93F6;
     color: white;
+    cursor: pointer;
     border: none;
     width: 8.5%;
     height: 40px;
     text-align: center;
-    align-content: center;
     border-radius: 10px;
-    padding: 13px;
+    margin: 0;
+    padding: 12px;
+    transition: transform .5s;
     position: absolute;
     right: 3%;
     top: 4%;
-    transition: all 0.3s ease 0s;
 }
 
-.mi-cuenta:hover {
-    background-color: #E5C6FE;
-
-}
-
-nav ul li:hover ul{
-    display: block;
-}
-
-.submenu {
-    position: absolute;
-    align-items: center;
-    display: none;
-    align-content: center;
-    right: 3.1%;
-    top:8%;
-    background: #E5C6FE;
-    border-radius: 10px;
-    transition: all 0.3s ease 0s;
-}
-
-nav ul li ul a:hover {
-    background-color: #CB93F6;
-    border-radius: 10px;
-}
-
-.submenu li a {
-    display: block;
-    padding: 15px;
-    color: white;
+.boton-ingresar:hover{
+    transform: scale(1.2);
 }

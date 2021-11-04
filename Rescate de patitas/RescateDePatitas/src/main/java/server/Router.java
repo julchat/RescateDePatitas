@@ -36,42 +36,44 @@ public class Router {
         AuthMiddleware authMiddleware = new AuthMiddleware();
         FormularioController formularioController = new FormularioController();
 
-        Spark.get("/", homeController::home, Router.engine);
-        // Si entras, y despues actualizas la pagina, te tira que se redirecciono demasiadas veces
-        //Spark.before("/", authMiddleware::verificarSesion);
-        //Spark.get("/home", homeController::home2, Router.engine);
-        Spark.get("/homeUser", homeController::showHomeUser, Router.engine);
-        //Spark.get("/homeAdmin", homeController::showHomeAdmin, Router.engine);
-        //Spark.get("/homeModer", homeController::showHomeModer, Router.engine);
+        Spark.get("/", homeController::inicio);
+        Spark.before("/inicio", authMiddleware::verificarSesion);
+        Spark.get("/home", homeController::homeSesion);
 
-        Spark.get("/sign-in", loginController::showLogin, Router.engine);
-        Spark.post("/sign-in", loginController::login);
+        Spark.get("/iniciar-sesion", loginController::iniciarSesion);
+        Spark.post("/iniciar-sesion", loginController::iniciarSesionPost);
 
-        Spark.get("/logout", loginController::logout, Router.engine);
+        Spark.get("/logout", loginController::logout);
 
-        Spark.get("/sign-up", usuarioController::showRegistrarUsuario, Router.engine);
-        Spark.post("/sign-up", usuarioController::registrarUsuario);
+        Spark.get("/registrarse", homeController::registrarse);
+        Spark.post("/registrarse", usuarioController::registrarUsuario);
 
-        Spark.get("/editar-perfil/:id", usuarioController::showEditarPerfil, Router.engine);
+        Spark.get("/editar-perfil/:id", usuarioController::editarPerfil);
+        Spark.put("/editar-perfil/:id", usuarioController::editarPerfilPost);
 
-        Spark.get("/registrar-mascota", formularioController::showRegistroMascota, Router.engine);
-        Spark.post("/registrar-mascota", formularioController::registrarMascota);
+        Spark.get("/registrar-mascota", homeController::registrarMascotaPerdida);
+        //Spark.post("/registrar-mascota", formularioController::registrarMascotaPost);
 
         // Si escaneo el codigo QR me deberia redirigir a esta direccion, indicando el ID de chapa que contendria el mismo QR
-        Spark.get("/reportar-mascota/:id", formularioController::showMascotaPerdidaChapita, Router.engine);
+        Spark.get("/reportar-mascota/:id", formularioController::showMascotaPerdidaChapita);
         Spark.post("/reportar-mascota/:id", formularioController::mascotaPerdidaChapita);
 
         // En el caso de no tener Chapita, se ingresa por esta direccion y se completan los Formularios correspondientes
-        Spark.get("/reportar-mascota", formularioController::showMascotaPerdida, Router.engine);
-        Spark.post("/reportar-mascota", formularioController::mascotaPerdida);
+        Spark.get("/reportar-mascota", homeController::reportarMascotaPerdida);
+        //Spark.post("/reportar-mascota", formularioController::reportarMascotaPost);
 
-        Spark.get("/mascotas-perdidas", homeController::showMascotasPerdidas, Router.engine);
+        Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas);
 
-        Spark.get("/dar-mascota-adopcion", homeController::darMascotaAdopcion, Router.engine);
+        Spark.get("/dar-mascota-adopcion", homeController::darMascotaAdopcion);
 
-        Spark.get("/mascotas-en-adopcion", homeController::showAdoptarMascota, Router.engine);
+        Spark.get("/mascotas-en-adopcion", homeController::mascotasEnAdopcion);
 
-        Spark.get("/prueba", homeController::prueba);
+        Spark.get("/mascotas-en-adopcion/adoptar-mascota/:id", homeController::adoptarMascota);
+
+        Spark.get("/mascotas-en-adopcion/busqueda-mascota-ideal", homeController::buscarMascotaIdeal);
+
+        Spark.get("/notificar-duenio/:id", homeController::notificarDuenio);
+        Spark.get("/notificar-rescatista/:id", homeController::notificarRescatista);
 
         Spark.options("/*",
                 (request, response) -> {
@@ -92,7 +94,5 @@ public class Router {
 
                     return "OK";
                 });
-
-        Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
     }
 }

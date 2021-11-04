@@ -1,14 +1,13 @@
 
 function login() {
-    window.location.href = "sign-in";
-    // Habria que validar el loggeo; que espere la respuesta de parte del backend
+    window.location.href = "iniciar-sesion";
 }
 
 function registrarse() {
-    window.location.href = "sign-up";
+    window.location.href = "registrarse";
 }
 
-function adoptarMascota() {
+function mascotasEnAdopcion() {
     window.location.href = "mascotas-en-adopcion";
 }
 
@@ -26,5 +25,9 @@ function darMascotaEnAdopcion() {
 
 function mascotasPerdidas() {
     window.location.href = "mascotas-perdidas";
+}
+
+function busquedaMascotaIdeal() {
+    window.location.href = "mascotas-en-adopcion/busqueda-mascota-ideal";
 }
 

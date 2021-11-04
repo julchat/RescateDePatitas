@@ -1,0 +1,144 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.container {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #E0EBE9;
+    font-family: 'Roboto', sans-serif;
+    padding: 90px 20px 0;
+}
+
+.header {
+    background-color: #9DCFC5;
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    max-width: 992px;
+    margin: 0 auto;
+}
+
+img {
+    width: 80px;
+}
+
+.logo {
+    padding: 10px;
+    border: none;
+    line-height: 80px;
+    transition: transform .5s;
+    width: max-content;
+}
+
+.logo:hover {
+    transform: scale(1.2);
+}
+
+.nav-menu {
+    display: flex;
+    margin-right: 40px;
+}
+
+.nav-menu-item {
+    font-size: 18px;
+    line-height: 80px;
+    margin: 0 10px;
+    width: max-content;
+}
+
+.nav-menu-link {
+    color: #396666;
+    padding: 8px 12px;
+    transition: all 0.3s ease 0s;
+}
+
+.nav-menu-link:hover {
+    color: #edf8f6;
+}
+
+.toggle {
+    display: none;
+    color: #396666;
+    background: none;
+    border: none;
+    font-size: 30px;
+    padding: 0 20px;
+    line-height: 60px;
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+
+    .header {
+        height: 60px;
+    }
+    
+    img {
+        width: 55px;
+    }
+
+    .logo {
+        line-height: 60px;
+        padding: 10px;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        background-color: #396666;
+        position:fixed;
+        top: 60px;
+        width: 100%;
+        padding: 20px 0;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+        left: 100%;
+        transition: left 0.3s;
+    }
+
+    .nav-menu-item {
+        line-height: 70px;
+    }
+    
+    .nav-menu-link {
+        background: none;
+        color: white;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .nav-menu-link:hover {
+        color: #9DCFC5;
+    }
+
+    .toggle {
+        padding-bottom: 25px;
+        display: block;
+    }
+
+    .nav-menu_visible {
+        left: 0;
+    }
+
+    .toggle:focus:not(:focus-visible) {
+        outline: none;
+      }
+}
+

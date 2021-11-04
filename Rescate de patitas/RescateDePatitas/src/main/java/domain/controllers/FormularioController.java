@@ -22,11 +22,6 @@ import java.util.Map;
 
 public class FormularioController {
 
-    public ModelAndView showRegistroMascota(Request request, Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"registrar-mascota.hbs");
-    }
-
     public Response registrarMascota(Request request, Response response) {
 
         RepositorioDuenio repositorioDuenios = FactoryRepositorioDuenio.get();
@@ -254,11 +249,6 @@ public class FormularioController {
 /* ==============================================================================================================
     Mascota Perdida pero sin Chapita -> El Rescatista tiene que rellenar este Formulario y crea una Publicacion
    ============================================================================================================== */
-
-    public ModelAndView showMascotaPerdida(Request request , Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"reportar-mascota.hbs");
-    }
 
     public Response mascotaPerdida(Request request, Response response) {
         Sistema miSistema = Sistema.getInstance();

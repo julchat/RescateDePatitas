@@ -1,30 +1,32 @@
 package domain.controllers;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
+import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
+import com.github.jknack.handlebars.io.TemplateLoader;
 import domain.repositorios.RepositorioUsuarios;
 import domain.repositorios.factories.FactoryRepositorioUsuarios;
-import domain.security.TipoRol;
 import domain.security.Usuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginController {
     private RepositorioUsuarios repositorio = FactoryRepositorioUsuarios.get();
 
-    public ModelAndView showLogin(Request request, Response response){
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"login.hbs");
+    public String iniciarSesion(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("iniciar-sesion");
+
+        return template.text();
     }
 
-    public ModelAndView logout(Request request, Response response){
-        request.session().removeAttribute("usuarioLogin");
-        response.redirect("/");
-        return null;
-    }
-
-    public Response login(Request request, Response response) {
+    public Response iniciarSesionPost(Request request, Response response) {
 
         String nombreUsuario = request.queryParams("userName");
         String password = request.queryParams("userPassword");
@@ -32,41 +34,33 @@ public class LoginController {
         try {
             Usuario usuario = repositorio.buscarUsuario(nombreUsuario);
             if (usuario != null && usuario.validarLogin(nombreUsuario, password)) {
-                System.out.println("Existe el usuario y ahora valido si puedo entrar");
 
-                response.cookie("usuarioLogin", nombreUsuario);
+                response.cookie("user", nombreUsuario);
                 request.session(true);
                 request.session().attribute("id", usuario.getId());
-//TODO: otra opcion, para no hacer 3 pantallas "distintas", es que en una sola se valide el Rol del Usuario
-// y de acuerdo al mismo, modificar el codigo HTML dentro de la pestaña que se abre cuando se toca MI CUENTA
 
-
-                if(usuario.getTipoRol() == TipoRol.USER) {
-                    // TODO: Verificar que solamente pueda entrarse si la sesion esta activa
-                    response.redirect("/homeUser");
-                }
-                else if(usuario.getTipoRol() == TipoRol.ADMIN) {
-                    response.redirect("/homeAdmin");
-                }
-                else if(usuario.getTipoRol() == TipoRol.MODERADOR) {
-                    response.redirect("/homeMod");
-                }
-
-                }
+                response.redirect("/home");
+            }
 
             else {
                 // Todo: tirar que la contraseña es incorrecta
                 System.out.println("La contraseña es incorrecta.");
-                response.redirect("/sign-in");
+                response.redirect("/iniciar-sesion");
             }
         }
         catch (Exception e) {
             // TODO: tirar un mensaje que el usuario no existe
             System.out.println("El usuario no existe");
-            response.redirect("/sign-in");
+            response.redirect("/iniciar-sesion");
         }
         finally {
             return response;
         }
+    }
+
+    public ModelAndView logout(Request request, Response response){
+        request.session().removeAttribute("user");
+        response.redirect("/");
+        return null;
     }
 }

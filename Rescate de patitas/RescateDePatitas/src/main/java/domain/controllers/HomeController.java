@@ -1,6 +1,11 @@
 package domain.controllers;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
+import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
+import com.github.jknack.handlebars.io.TemplateLoader;
 import domain.business.mascota.MascotaPerdida;
+import domain.business.users.Duenio;
 import domain.repositorios.RepositorioMascotaPerdida;
 import domain.repositorios.factories.FactoryRepositorioMascotaPerdida;
 import domain.security.Admin;
@@ -11,6 +16,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,52 +24,108 @@ import java.util.Map;
 
 public class HomeController {
 
-    public String prueba(Request request, Response response) {
-        response.type("application/json");
-        return new JsonMap<Usuario>(new Usuario("admin", "admin", TipoRol.ADMIN, new Admin(), null),"MENSAJE DE PRUEBA").transformar();
+    public String inicio( Request request , Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("inicio");
+
+        return template.text();
     }
 
-    public ModelAndView home( Request request , Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"home.hbs");
+    public String homeSesion( Request request , Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("home");
+
+        return template.text();
     }
 
-    public ModelAndView showHomeUser( Request request , Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"homeUser.hbs");
+    public String registrarse(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("registrarse");
+
+        return template.text();
     }
 
-    /*public ModelAndView showHomeAdmin( Request request , Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"homeAdmin.hbs");
+    public String mascotasEnAdopcion(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("mascotas-en-adopcion");
+
+        return template.text();
     }
 
-    public ModelAndView showHomeModer( Request request , Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"homeModer.hbs");
-    }*/
+    public String adoptarMascota(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("adoptar-mascota");
 
-    public ModelAndView showAdoptarMascota(Request request, Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"mascotas-adopcion.hbs");
+        return template.text();
     }
 
-    public ModelAndView darMascotaAdopcion(Request request, Response response) {
-        Map<String, Object> viewModel = new HashMap<>();
-        return new ModelAndView(viewModel,"dar-mascota-adopcion.hbs");
+    public String buscarMascotaIdeal(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("busqueda-mascota-ideal");
+
+        return template.text();
     }
 
-    public ModelAndView showMascotasPerdidas(Request request, Response response) {
+    public String darMascotaAdopcion(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("dar-mascota-adopcion");
+
+        return template.text();
+    }
+
+    public String registrarMascotaPerdida(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("registrar-mascota");
+
+        return template.text();
+    }
+
+    public String reportarMascotaPerdida(Request request , Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("reportar-mascota");
+
+        return template.text();
+    }
+
+
+    public String notificarDuenio(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("notificar-duenio");
+
+        return template.text();
+    }
+
+    public String notificarRescatista(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("notificar-rescatista");
+
+        return template.text();
+    }
+
+
+    public String mascotasPerdidas(Request request, Response response) throws IOException {
         //RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
 
         //List<MascotaPerdida> mascotasPerdidas = repositorioMascotaPerdida.buscarTodos();
 
-        Map<String, Object> viewModel = new HashMap<>();
-
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("mascotas-perdidas");
         //viewModel.put("mascotasPerdidas", mascotasPerdidas);
-        return new ModelAndView(viewModel,"mascotas-perdidas.hbs");
+        return template.text();
     }
-
+/*
     public List<String> mascotasPerdidas(Request request, Response response) {
         RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
 
@@ -79,6 +141,6 @@ public class HomeController {
 
         return listaJson;
         //return new JsonMap<MascotaPerdida>(null, "Mensaje").transformar();
-    }
+    }*/
 
 }

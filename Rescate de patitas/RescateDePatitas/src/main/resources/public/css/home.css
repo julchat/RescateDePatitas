@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url("/img/background.svg");
+    background-image: url("/img/Fondo.svg");
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
@@ -29,7 +29,7 @@ body {
 }
 
 .logo {
-    margin: auto;
+    margin: auto;    
     display: block;
 }
 
@@ -134,25 +134,56 @@ body {
 .boton6:hover{
     transform: scale(1.2);
 }
+.nav{
+    font-size: 13px;
+    font-style: normal;
+    font-family: 'Roboto';
+}
 
-.boton-ingresar {
+.mi-cuenta {
     background-color: #CB93F6;
-    filter: drop-shadow(0px 5px 15px #E5C6FE);
     color: white;
     border: none;
-    cursor: pointer;
     width: 8.5%;
     height: 40px;
     text-align: center;
+    align-content: center;
     border-radius: 10px;
-    margin: 0;
-    padding: 12px;
-    transition: transform .5s;
+    padding: 13px;
     position: absolute;
     right: 3%;
     top: 4%;
+    transition: all 0.3s ease 0s;
 }
 
-.boton-ingresar:hover{
-    transform: scale(1.2);
+.mi-cuenta:hover {
+    background-color: #E5C6FE;
+
+}
+
+nav ul li:hover ul{
+    display: block;
+}
+
+.submenu {
+    position: absolute;
+    align-items: center;
+    display: none;
+    align-content: center;
+    right: 3.1%;
+    top:8%;
+    background: #E5C6FE;
+    border-radius: 10px;
+    transition: all 0.3s ease 0s;
+}
+
+nav ul li ul a:hover {
+    background-color: #CB93F6;
+    border-radius: 10px;
+}
+
+.submenu li a {
+    display: block;
+    padding: 15px;
+    color: white;
 }

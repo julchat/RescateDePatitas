@@ -1,5 +1,9 @@
 package domain.controllers;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
+import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
+import com.github.jknack.handlebars.io.TemplateLoader;
 import domain.business.notificaciones.TipoNotificacion;
 import domain.business.users.Persona;
 import domain.business.users.TipoDoc;
@@ -17,6 +21,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -60,7 +65,7 @@ public class UsuarioController {
        }
         viewModel.put("usuariosRegistrados", usuariosRegistrados);
         viewModel.put("passComunes", passComunes);
-        return new ModelAndView(viewModel,"sign-up.hbs");
+        return new ModelAndView(viewModel,"registrarse.hbs");
     }
 
     public Response registrarUsuario(Request request, Response response){
@@ -168,11 +173,21 @@ public class UsuarioController {
         }
     }
 
-    public ModelAndView showEditarPerfil(Request request, Response response) {
+    public String editarPerfil(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("editar-perfil");
         Map<String, Object> viewModel = new HashMap<>();
+
         Usuario usuario = repositorioUsuarios.buscar(new Integer(request.params("id")));
         viewModel.put("usuario", usuario);
-        return new ModelAndView(viewModel,"usuario.hbs");
+
+        return template.apply(viewModel);
+    }
+
+    public Response editarPerfilPost(Request request, Response response) {
+
+        return response;
     }
 
     public Response eliminar(Request request, Response response){
