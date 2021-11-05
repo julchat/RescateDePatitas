@@ -4,6 +4,7 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
+import com.google.gson.Gson;
 import domain.business.notificaciones.TipoNotificacion;
 import domain.business.users.Persona;
 import domain.business.users.TipoDoc;
@@ -16,6 +17,7 @@ import domain.security.User;
 import domain.security.Usuario;
 import domain.security.password.PasswordStatus;
 import domain.security.password.ValidadorPassword;
+import json.JsonMap;
 import json.Mensaje;
 import spark.ModelAndView;
 import spark.Request;
@@ -177,12 +179,22 @@ public class UsuarioController {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("editar-perfil");
-        Map<String, Object> viewModel = new HashMap<>();
+        template.text();
 
-        Usuario usuario = repositorioUsuarios.buscar(new Integer(request.params("id")));
-        viewModel.put("usuario", usuario);
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID Sesion: " + idSesion);
 
-        return template.apply(viewModel);
+        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+
+        if(sesionUsuario == null) {
+            response.status(404);
+            return new Mensaje("No tiene permisos para acceder a esta zona.").transformar();
+        }
+
+        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+        System.out.println(new Gson().toJson(usuario));
+        return new Gson().toJson(usuario);
     }
 
     public Response editarPerfilPost(Request request, Response response) {

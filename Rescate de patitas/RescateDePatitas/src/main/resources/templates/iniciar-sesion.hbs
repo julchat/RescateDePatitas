@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Iniciar sesión</title>
 
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script defer src="/js/iniciar-sesion.js"></script>
         <script defer src="/js/index.js"></script>
         <script defer src="/js/links.js"></script>
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
@@ -34,17 +36,22 @@
             </nav>
         </header>
 
-        <form action="/iniciar-sesion" method="post" class="form1">
-            <h2 class="subtitulo">INICIO DE SESIÓN</h2>
+        <!--<form class="form1">-->
+        <div class="form1" id="appVue">
+            <fieldset>
+                <div >
+                    <h2 class="subtitulo">INICIO DE SESIÓN</h2>
 
-            <input type="text" placeholder="Usuario" value="" name="userName" class="text-input" required>
-            <input type="password" placeholder="Contraseña" value="" name="userPassword" class="text-input" required>
+                    <input type="text" placeholder="Usuario" value="" v-model="userName" name="userName" id="userName" class="text-input" required>
+                    <input type="password" placeholder="Contraseña" value="" v-model="userPassword" name="userPassword" id="userPassword" class="text-input" required>
 
-            <button class="boton" onclick="login()">INICIAR SESIÓN</button>
+                    <button class="boton" v-on:click="iniciarSesion()" >INICIAR SESIÓN</button>
 
-            <a class="olvido" href="#"><br>Olvide mi contraseña</a>
-
-        </form>
+                    <a class="olvido" href="#"><br>Olvide mi contraseña</a>
+                </div>
+            </fieldset>
+        </div>
+       <!-- </form>-->
 
         <a class="no-tiene-cuenta">¿Usted no tiene una cuenta?<br></a>
 

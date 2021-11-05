@@ -4,9 +4,13 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
+import com.google.gson.Gson;
 import domain.repositorios.RepositorioUsuarios;
 import domain.repositorios.factories.FactoryRepositorioUsuarios;
 import domain.security.Usuario;
+import json.JsonMap;
+import json.Mensaje;
+import json.Sesion;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -26,35 +30,37 @@ public class LoginController {
         return template.text();
     }
 
-    public Response iniciarSesionPost(Request request, Response response) {
+    public String iniciarSesionPost(Request request, Response response) {
 
-        String nombreUsuario = request.queryParams("userName");
-        String password = request.queryParams("userPassword");
+        Sesion nuevaSesion = new Gson().fromJson(request.body(), Sesion.class);
+
+        String nombreUsuario = nuevaSesion.getUserName();
+        String password = nuevaSesion.getUserPassword();
 
         try {
             Usuario usuario = repositorio.buscarUsuario(nombreUsuario);
             if (usuario != null && usuario.validarLogin(nombreUsuario, password)) {
 
-                response.cookie("user", nombreUsuario);
-                request.session(true);
-                request.session().attribute("id", usuario.getId());
+                System.out.println("Login: " + usuario.getNombreUsuario());
+                System.out.println("Rol: " + usuario.getTipoRol());
 
-                response.redirect("/home");
+                SesionManager sesionManager = SesionManager.get();
+                String idSesion = sesionManager.crear("usuario", usuario);
+
+                System.out.println("ID Sesion: " + idSesion);
+                response.status(200);
+                return new LoginResponse(idSesion).transformar();
             }
-
             else {
-                // Todo: tirar que la contraseña es incorrecta
                 System.out.println("La contraseña es incorrecta.");
-                response.redirect("/iniciar-sesion");
+                response.status(400);
+                return new Mensaje("Contraseña incorrecta").transformar();
             }
         }
         catch (Exception e) {
-            // TODO: tirar un mensaje que el usuario no existe
             System.out.println("El usuario no existe");
-            response.redirect("/iniciar-sesion");
-        }
-        finally {
-            return response;
+            response.status(404);
+            return new Mensaje("El usuario no existe.").transformar();
         }
     }
 

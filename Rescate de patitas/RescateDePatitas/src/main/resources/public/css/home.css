@@ -187,3 +187,14 @@ nav ul li ul a:hover {
     padding: 15px;
     color: white;
 }
+
+.botonsub {
+    position: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: auto;
+    text-align: center;
+    color: whitesmoke;
+    font-weight: bold;
+}

@@ -40,6 +40,14 @@ public class HomeController {
         return template.text();
     }
 
+    public String showEditarPerfil(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("editar-perfil");
+
+        return template.text();
+    }
+
     public String registrarse(Request request, Response response) throws IOException {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);

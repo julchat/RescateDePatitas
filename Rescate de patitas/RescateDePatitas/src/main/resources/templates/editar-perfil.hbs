@@ -7,6 +7,8 @@
         <title>Perfil</title>
 
         <script defer src="/js/index.js"></script>
+        <script src="/js/editar-perfil.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
         <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
@@ -34,19 +36,15 @@
 
         <br><br><br><br><br><br><br><br>
 
-        <div class="grid-item">
-            <label for="name">Nombre de Usuario<br></label>
-            <p>{{usuario.nombreUsuario}}</p><br>
-        </div>
-        <div class="grid-item">
-            <label for="name">Contraseña<br></label>
-            <p>{{usuario.contrasenia}}</p><br>
-        </div>
-        <div class="grid-item">
-            <label for="name">Tipo Rol<br></label>
-            <p>{{usuario.tipoRol}}</p><br>
-        </div>
-    </div>
+        <div id="appVue">
+            <div class="grid-item">
+                <label for="name">Nombre de Usuario<br></label>
+                <p id="username">{{ nombre }}</p><br>
+            </div>
 
+
+        </div>
+
+    </div>
     </body>
 </html>

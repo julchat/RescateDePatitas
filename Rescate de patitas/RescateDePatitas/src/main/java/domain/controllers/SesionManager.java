@@ -1,5 +1,7 @@
 package domain.controllers;
 
+import domain.security.Usuario;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -55,5 +57,4 @@ public class SesionManager {
         //esto no elimina la cookie del frontend
         return this.sesiones.remove(id);
     }
-
 }

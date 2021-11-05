@@ -10,4 +10,8 @@ public class Mensaje {
     public String getMensaje() { return mensaje; }
 
     public void setMensaje(String mensaje) { this.mensaje = mensaje; }
+
+    public String transformar(){
+        return JsonController.transformar(this);
+    }
 }
