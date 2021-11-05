@@ -16,11 +16,28 @@ form {
     background:  white;
     border-radius: 20px;
     text-align: center;
+    padding: 35px;
+    margin: 150px auto 15px;
 }
 
 .form1 {
     padding: 35px;
-    margin: 150px auto 15px;
+    margin: 100px auto 15px;
+}
+
+.formulario {
+    display: grid;
+    padding: 25px;
+    background:  white;
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+    max-width: 350px;
+    left: 50%;
+    margin: 0 auto;
+    background:  white;
 }
 
 .text-input {
@@ -61,15 +78,15 @@ form {
 
 .no-tiene-cuenta {
     color: grey;
-    font-size: 12px;
+    font-size: 15px;
     left: 50%;
     margin: auto;
-    padding-top: 35px;
+    padding-top: 0px;
     display: block;
     text-align: center;
 }
 
 .olvido {
     text-align: center;
-    font-size: 12px;
+    font-size: 15px;
 }

@@ -1,5 +1,6 @@
 package domain.controllers;
 
+import com.google.gson.Gson;
 import domain.business.Sistema;
 import domain.business.mascota.*;
 import domain.business.notificaciones.Notificador;
@@ -12,6 +13,8 @@ import domain.business.users.Rescatista;
 import domain.business.users.TipoDoc;
 import domain.repositorios.*;
 import domain.repositorios.factories.*;
+import json.FormUser;
+import json.Mensaje;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -28,42 +31,29 @@ public class FormularioController {
     }
 
 
-    public Response registrarMascota(Request request, Response response) {
+    public String registrarMascota(Request request, Response response) {
 
+        // Todo: los campos para registrar a una persona podrían ser opcionales en el caso que el usuario ya se registró
         RepositorioDuenio repositorioDuenios = FactoryRepositorioDuenio.get();
         RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
 
-        try {
-            Duenio duenio = new Duenio();
+        FormUser formUser = new Gson().fromJson(request.body(), FormUser.class);
+        System.out.println(request.body());
 
-            if(request.queryParams("nombre") != null){
-                duenio.setNombre(request.queryParams("nombre"));
-            }
+        String nombreUsuario = formUser.getUserName();
+        String password = formUser.getPassword();
+        String passwordConfirm = formUser.getPassConf();
 
-            if(request.queryParams("apellido") != null){
-                duenio.setApellido(request.queryParams("apellido"));
-            }
+        Duenio duenio = new Duenio();
 
-            if(request.queryParams("fechaDeNacimiento") != null && !request.queryParams("fechaDeNacimiento").isEmpty()){
-                LocalDate fechaDeNacimiento = LocalDate.parse(request.queryParams("fechaDeNacimiento"));
-                duenio.setFechaDeNacimiento(fechaDeNacimiento);
-            }
-
-            if(request.queryParams("tipoDoc") != null){
-                duenio.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
-            }
-
-            if(request.queryParams("nroDocumento") != null){
-                duenio.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
-            }
-
-            if(request.queryParams("email") != null){
-                duenio.setEmail(request.queryParams("email"));
-            }
-
-            if(request.queryParams("telefono") != null){
-                duenio.setTelefono(request.queryParams("telefono"));
-            }
+        duenio.setNombre(formUser.getNombre());
+        duenio.setApellido(formUser.getApellido());
+        LocalDate fechaDeNacimiento = LocalDate.parse(formUser.getFechaDeNacimiento());
+        duenio.setFechaDeNacimiento(fechaDeNacimiento);
+        duenio.setTipoDocumento(TipoDoc.valueOf(formUser.getTipoDoc()));
+        duenio.setNumeroDocumento(new Integer(formUser.getNroDocumento()));
+        duenio.setEmail(formUser.getEmail());
+        duenio.setTelefono(formUser.getTelefono());
 
         /* hay que abrir un nuevo formulario, para poder ingresar Calle, Numeracion, Localidad, etc.
         if(request.queryParams("domicilio") != null){
@@ -99,29 +89,13 @@ public class FormularioController {
 
             Mascota mascota = new Mascota();
 
-            if(request.queryParams("nombreMascota") != null){
-                mascota.setNombreMascota(request.queryParams("nombreMascota"));
-            }
+            mascota.setNombreMascota(request.queryParams("nombreMascota"));
+            mascota.setApodoMascota(request.queryParams("apodoMascota"));
+            mascota.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
+            mascota.setSexoMascota(SexoMascota.valueOf(request.queryParams("sexoMascota")));
+            mascota.setEdadMascota(new Integer(request.queryParams("edadMascota")));
+            mascota.setDescripcionMascota(request.queryParams("descripcionMascota"));
 
-            if(request.queryParams("apodoMascota") != null){
-                mascota.setApodoMascota(request.queryParams("apodoMascota"));
-            }
-
-            if(request.queryParams("tipoAnimal") != null){
-                mascota.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
-            }
-
-            if(request.queryParams("sexoMascota") != null){
-                mascota.setSexoMascota(SexoMascota.valueOf(request.queryParams("sexoMascota")));
-            }
-
-            if(request.queryParams("edadMascota") != null){
-                mascota.setEdadMascota(new Integer(request.queryParams("edadMascota")));
-            }
-
-            if(request.queryParams("descripcionMascota") != null){
-                mascota.setDescripcionMascota(request.queryParams("descripcionMascota"));
-            }
 
             /*
             if(request.queryParams("fotos") != null){
@@ -135,14 +109,7 @@ public class FormularioController {
             repositorioMascotas.agregar(mascota);
 
             System.out.println("Se ha creado el usuario de forma satisfactoria!!");
-            response.redirect("/");
-        }
-        catch (Exception e) {
-
-        }
-        finally {
-            return response;
-        }
+            return new Mensaje("Se ha creado el usuario de forma satisfactoria.").transformar();
     }
 
 
@@ -150,16 +117,6 @@ public class FormularioController {
 /* ==============================================================================================================
     Mascota Perdida pero con Chapita -> Escaneando el Código QR se llega a este Formulario
    ============================================================================================================== */
-
-    public ModelAndView showMascotaPerdidaChapita(Request request , Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
-
-        Mascota mascota = repositorioMascotas.buscar(new Integer(request.params("id")));
-        parametros.put("mascota", mascota);
-
-        return new ModelAndView(parametros,"reportar-mascota-chapita.hbs");
-    }
 
     public Response mascotaPerdidaChapita(Request request, Response response) {
 

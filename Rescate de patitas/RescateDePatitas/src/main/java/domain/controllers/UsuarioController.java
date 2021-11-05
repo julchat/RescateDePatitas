@@ -48,29 +48,6 @@ public class UsuarioController {
         }
     }
 
-    public ModelAndView showRegistrarUsuario(Request request, Response response){
-        Path path = Paths.get("src/Main/resources/utils/10k-most-common.txt");
-        Map<String, Object> viewModel = new HashMap<>();
-        List<Mensaje> passComunes = new ArrayList<>();
-        List<Mensaje> usuariosRegistrados = new ArrayList<>();
-       try {
-           Stream<String> stream = Files.lines(path);
-           for(String password : stream.collect(Collectors.toList())){
-               passComunes.add(new Mensaje(password));
-           }
-
-           for(String usuario : repositorioUsuarios.usuariosRegistrados()) {
-               System.out.println("Nombre de Usuario: " + usuario);
-               usuariosRegistrados.add(new Mensaje(usuario));
-           }
-       }
-       catch (Exception e) {
-
-       }
-        viewModel.put("usuariosRegistrados", usuariosRegistrados);
-        viewModel.put("passComunes", passComunes);
-        return new ModelAndView(viewModel,"registrarse.hbs");
-    }
 
     public String registrarUsuario(Request request, Response response){
 
