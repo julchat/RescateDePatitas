@@ -64,9 +64,10 @@ public class LoginController {
         }
     }
 
-    public ModelAndView logout(Request request, Response response){
-        request.session().removeAttribute("user");
-        response.redirect("/");
-        return null;
+    public String logout(Request request, Response response){
+        String idSesion = request.headers("Authorization");
+        SesionManager.get().eliminar(idSesion);
+        System.out.println("Cerrando Sesion de " + idSesion);
+        return new Mensaje("Cerrando Sesion...").transformar();
     }
 }

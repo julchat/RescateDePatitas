@@ -55,7 +55,7 @@ public class Chapa extends EntidadPersistente {
 
     public void generarQR() throws IOException {
         QRCode qrGenerator = new QRCode();
-        qrGenerator.crearQR("http://localhost:9000/formulario-mascota-perdida/" + "{id}" + this.getId(), "ChapitaN°" + this.getId() + ".png");
+        qrGenerator.crearQR("http://localhost:9000/reportar-mascota/" + this.getId(), "ChapitaN°" + this.getId() + ".png");
 
         // tal vez ese codigo QR se guarda en un repositorio, o directamente queda asi
     }

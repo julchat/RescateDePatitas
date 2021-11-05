@@ -22,6 +22,12 @@ import java.util.Map;
 
 public class FormularioController {
 
+    public String registrarMascotaPost(Request request, Response response) {
+
+        return null;
+    }
+
+
     public Response registrarMascota(Request request, Response response) {
 
         RepositorioDuenio repositorioDuenios = FactoryRepositorioDuenio.get();

@@ -37,20 +37,20 @@
         </header>
 
         <!--<form class="form1">-->
-        <div class="form1" id="appVue">
-            <fieldset>
-                <div >
-                    <h2 class="subtitulo">INICIO DE SESIÓN</h2>
+            <section class="form1">
+                <fieldset>
+                    <div id="appVue">
+                        <h2 class="subtitulo">INICIO DE SESIÓN</h2>
 
-                    <input type="text" placeholder="Usuario" value="" v-model="userName" name="userName" id="userName" class="text-input" required>
-                    <input type="password" placeholder="Contraseña" value="" v-model="userPassword" name="userPassword" id="userPassword" class="text-input" required>
+                        <input type="text" placeholder="Usuario" value="" v-model="userName" name="userName" id="userName" class="text-input" required>
+                        <input type="password" placeholder="Contraseña" value="" v-model="userPassword" name="userPassword" id="userPassword" class="text-input" required>
 
-                    <button class="boton" v-on:click="iniciarSesion()" >INICIAR SESIÓN</button>
+                        <button class="boton" v-on:click="iniciarSesion()" >INICIAR SESIÓN</button>
 
-                    <a class="olvido" href="#"><br>Olvide mi contraseña</a>
-                </div>
-            </fieldset>
-        </div>
+                        <a class="olvido" href="#"><br>Olvide mi contraseña</a>
+                    </div>
+                </fieldset>
+            </section>
        <!-- </form>-->
 
         <a class="no-tiene-cuenta">¿Usted no tiene una cuenta?<br></a>

@@ -17,8 +17,10 @@ import domain.security.User;
 import domain.security.Usuario;
 import domain.security.password.PasswordStatus;
 import domain.security.password.ValidadorPassword;
+import json.FormUser;
 import json.JsonMap;
 import json.Mensaje;
+import json.Sesion;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -70,18 +72,21 @@ public class UsuarioController {
         return new ModelAndView(viewModel,"registrarse.hbs");
     }
 
-    public Response registrarUsuario(Request request, Response response){
+    public String registrarUsuario(Request request, Response response){
 
-        String nombreUsuario = request.queryParams("userName");
-        String password = request.queryParams("userPassword");
-        String passwordConfirm = request.queryParams("passConf");
+        FormUser formUser = new Gson().fromJson(request.body(), FormUser.class);
+        System.out.println(request.body());
+
+        String nombreUsuario = formUser.getUserName();
+        String password = formUser.getPassword();
+        String passwordConfirm = formUser.getPassConf();
 
         try {
             Usuario usuario = repositorioUsuarios.buscarUsuario(nombreUsuario);
 
             System.out.println("Existe dicho usuario.");
-            //Todo: tirar mensaje de que existe el usuario
-            response.redirect("/sign-up");
+            response.status(404);
+            return new Mensaje("El usuario no esta disponible.").transformar();
         }
         catch (Exception e) {
             System.out.println("No existe dicho usuario asi que puedo utilizarlo.");
@@ -92,8 +97,6 @@ public class UsuarioController {
 
                 if(password.equals(passwordConfirm)) {
                     System.out.println("La contraseña coincide con la confirmación.");
-                    // Todo: tal vez toda esta parte que continua se puede hacer en otra pantalla
-                    // de ser asi, entonces response.redirect("/registrar-persona") para completar los datos de la Persona
 
                     Usuario nuevoUsuario = new Usuario();
                     nuevoUsuario.setNombreUsuario(nombreUsuario);
@@ -101,37 +104,16 @@ public class UsuarioController {
                     nuevoUsuario.setRol(new User());
                     nuevoUsuario.setTipoRol(TipoRol.USER);
 
-                    // Todo: llamar a otra pantalla para crear la persona y despues hacer un update del Usuario con la nueva Persona
                     nuevoUsuario.setPersona(new Persona());
 
-                    if(request.queryParams("nombre") != null){
-                        nuevoUsuario.getPersona().setNombre(request.queryParams("nombre"));
-                    }
-
-                    if(request.queryParams("apellido") != null){
-                        nuevoUsuario.getPersona().setApellido(request.queryParams("apellido"));
-                    }
-
-                    if(request.queryParams("fechaDeNacimiento") != null && !request.queryParams("fechaDeNacimiento").isEmpty()){
-                        LocalDate fechaDeNacimiento = LocalDate.parse(request.queryParams("fechaDeNacimiento"));
-                        nuevoUsuario.getPersona().setFechaDeNacimiento(fechaDeNacimiento);
-                    }
-
-                    if(request.queryParams("tipoDoc") != null){
-                        nuevoUsuario.getPersona().setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
-                    }
-
-                    if(request.queryParams("nroDocumento") != null){
-                        nuevoUsuario.getPersona().setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
-                    }
-
-                    if(request.queryParams("email") != null){
-                        nuevoUsuario.getPersona().setEmail(request.queryParams("email"));
-                    }
-
-                    if(request.queryParams("telefono") != null){
-                        nuevoUsuario.getPersona().setTelefono(request.queryParams("telefono"));
-                    }
+                    nuevoUsuario.getPersona().setNombre(formUser.getNombre());
+                    nuevoUsuario.getPersona().setApellido(formUser.getApellido());
+                    LocalDate fechaDeNacimiento = LocalDate.parse(formUser.getFechaDeNacimiento());
+                    nuevoUsuario.getPersona().setFechaDeNacimiento(fechaDeNacimiento);
+                    nuevoUsuario.getPersona().setTipoDocumento(TipoDoc.valueOf(formUser.getTipoDoc()));
+                    nuevoUsuario.getPersona().setNumeroDocumento(new Integer(formUser.getNroDocumento()));
+                    nuevoUsuario.getPersona().setEmail(formUser.getEmail());
+                    nuevoUsuario.getPersona().setTelefono(formUser.getTelefono());
 
                     /*
                     if(request.queryParams("formasDeNotifacion") != null){
@@ -146,14 +128,15 @@ public class UsuarioController {
                     repositorioPersonas.agregar(nuevoUsuario.getPersona());
 
                     this.repositorioUsuarios.guardarUsuario(nuevoUsuario, password);
-                    // Todo: tirar mensaje que se creo el usuario de forma satisfactoria
+
                     System.out.println("Se ha creado el usuario de forma satisfactoria!!");
-                    response.redirect("/");
+                    response.status(200);
+                    return new Mensaje("El usuario fue creado satisfactoriamente.").transformar();
                 }
                 else {
-                    // Todo: en este caso tirar que la contraseña y la confirmacion no son iguales
                     System.out.println("Las contraseñas son distintas.");
-                    response.redirect("/sign-up");
+                    response.status(400);
+                    return new Mensaje("Las contraseñas deben coincidir.").transformar();
                 }
             }
             else {
@@ -161,17 +144,17 @@ public class UsuarioController {
                 // Todo: tirar mensajes de acuerdo a los errores que comete dicha contraseña
                 List<String> lista = validador.verificarPassword(nombreUsuario, password);
                 List<String> listaFiltrada = lista.stream().filter(s -> !s.equals(passwordStatus.getStatusOK())).collect(Collectors.toList());
+                String fallas = new String();
+                fallas = "La contraseña no cumple con los siguientes parámetros: \n";
 
-                // Por ahora los imprime en la consola, habria que llevar este mensaje a la pantalla
-                for(String string : listaFiltrada) {
-                    System.out.println(string);
+                for(String error : listaFiltrada) {
+                    fallas = fallas + " • " + error + "\n";
                 }
+                System.out.println(fallas);
 
-                response.redirect("/sign-up");
+                response.status(400);
+                return new Mensaje(fallas).transformar();
             }
-        }
-        finally {
-            return response;
         }
     }
 
@@ -179,27 +162,50 @@ public class UsuarioController {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("editar-perfil");
-        template.text();
+        Map<String, Object> viewModel = new HashMap<>();
+
+        System.out.println("Recibido: " + request.body());
 
         String idSesion = request.headers("Authorization");
         System.out.println("ID Sesion: " + idSesion);
 
-        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
-        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+        try {
+            Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+            Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+            System.out.println("Login: " + sesionUsuario);
 
-        if(sesionUsuario == null) {
+            Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+            Persona datosUsuario = repositorioPersonas.buscar(usuario.getPersona().getId());
+
+            response.status(200);
+            System.out.println(new Gson().toJson(datosUsuario));
+            //return new Gson().toJson(datosUsuario);
+
+            viewModel.put("usuario", datosUsuario);
+            return template.apply(viewModel);
+        }
+        catch (Exception e) {
             response.status(404);
             return new Mensaje("No tiene permisos para acceder a esta zona.").transformar();
         }
-
-        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
-        System.out.println(new Gson().toJson(usuario));
-        return new Gson().toJson(usuario);
     }
 
     public Response editarPerfilPost(Request request, Response response) {
 
         return response;
+    }
+
+    public String mascotasRegistradas(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("mascotas-registradas");
+        Map<String, Object> viewModel = new HashMap<>();
+
+        // Todo: habria que obtener el ID Sesion, tal como se tendria que hacer en Editar-Perfil,
+        //      buscar el usuario y de ahi obtener todas las mascotas que tenga registradas
+
+        //viewModel.put("mascotasRegistradas", mascotas);
+        return template.apply(viewModel);
     }
 
     public Response eliminar(Request request, Response response){

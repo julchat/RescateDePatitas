@@ -5,6 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <script src="/js/links.js"></script>
+        <script defer src="/js/home.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
 
         <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
@@ -27,13 +30,13 @@
         />
 
 
-            <nav class="nav">
+            <nav class="nav" id="appVue">
                 <ul>
                     <li><a class="mi-cuenta">MI CUENTA</a>
                         <ul class="submenu">
-                            <li><a href="/editar-perfil"><button class="botonsub">Editar perfil</button></a></li>
-                            <li><a href="#"><button class="botonsub">Mascotas registradas</button></a></li>
-                            <li><a href="/logout"><button class="botonsub">Cerrar sesión</button></a></li>
+                            <li><a><button class="botonsub" v-on:click="editarPerfil">Editar perfil</button></a></li>
+                            <li><a href="/mascotas-registradas"><button class="botonsub">Mascotas registradas</button></a></li>
+                            <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -105,7 +108,5 @@
                 MASCOTAS PERDIDAS
             </button>
         </div>
-        <script src="/js/links.js"></script>
-
     </body>
 </html>

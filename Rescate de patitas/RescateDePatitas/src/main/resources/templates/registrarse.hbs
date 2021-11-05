@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registrarse</title>
 
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script defer src="/js/registrarse.js"></script>
         <script defer src="/js/index.js"></script>
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
@@ -36,32 +37,33 @@
 
         <h2 class="subtitulo">Complete el siguiente formulario para crear la cuenta</h2>
 
-        <form action="/registrarse" class="form1" method="post">
+       <!-- <form action="/registrarse" class="form1" method="post">-->
+        <div class="form1" id="appVue">
             <div class="registro">
 
                 <div class="grid-item">
                     <label for="name">Nombre<br></label>
-                    <input type="text" id="name" name="nombre" class="text-input" required>
+                    <input type="text" id="name" v-model="nombre"  name="nombre" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="surname">Apellido<br></label>
-                    <input type="text" id="surname" name="apellido" class="text-input" required>
+                    <input type="text" id="surname" v-model="apellido"  name="apellido" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="date">Fecha de Nacimiento</label>
-                    <input type="date" id="date" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
+                    <input type="date" id="date" v-model="fechaDeNacimiento" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="email">Email<br></label>
-                    <input type="text" id="email" name="email" class="text-input" required>
+                    <input type="text" id="email" v-model="email" name="email" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="doc-type">Tipo de documento<br></label><br>
-                    <select class="doc"  id="doc-type" name="tipoDoc" required>
+                    <select class="doc" v-model="tipoDoc" id="tipoDoc" name="tipoDoc" required>
                         <option value="DNI">DNI</option>
                         <option value="CEDULA">Cedula</option>
                         <option value="PASAPORTE">Pasaporte</option>
@@ -70,12 +72,12 @@
 
                 <div class="grid-item">
                     <label for="n-doc">Número de documento<br></label>
-                    <input type="text" id="n-doc" name="nroDocumento" class="text-input" required>
+                    <input type="text" id="nroDocumento" v-model="nroDocumento" name="nroDocumento" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="cel">Teléfono / Celular<br></label>
-                    <input type="text" id="cel" name="telefono" class="text-input" required>
+                    <input type="text" id="cel" v-model="telefono" name="telefono" class="text-input" required>
                 </div>
                 <div></div>
                 <div class="grid-item">
@@ -126,29 +128,30 @@
             <div class="usuario">
                 <div class="grid-item">
                     <label for="user">Usuario<br></label>
-                    <input type="text" id="user" name="userName" class="text-input" required>
+                    <input type="text" id="userName" v-model="userName" name="userName" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="password">Contraseña<br></label>
-                    <input type="password" id="password" name="password" class="text-input" onblur="validarContrasenia()" required>
+                    <input type="password" id="password" v-model="password" name="password" class="text-input" required>
                     <text class="texto">La contraseña debe tener como mínimo 8 caracteres</text>
                     </input>
                 </div>
 
                 <div class="grid-item">
                     <label for="password">Confirmar la Contraseña<br></label>
-                    <input type="password" name="passConf" class="text-input" id="password" onfocusout="confirmarContrasenia()" required>
+                    <input type="password" id="passConf" v-model="passConf" name="passConf" class="text-input"required>
                 </div>
 
             </div>
 
             <div class="grid-item" align="center">
-                <button type="submit" class="boton" onclick="validarRegistro()">REGISTRARSE</button>
+                <button type="submit" class="boton" v-on:click="registrarse()">REGISTRARSE</button>
             </div>
             <br>
 
-        </form>
+        </div>
+        <!--</form>-->
     </div>
 
     </body>

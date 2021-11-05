@@ -1,21 +1,6 @@
 
 let status;
 
-function iniciarSesion(usuarioOemail, contrasenia){
-
-    fetch("http://localhost:4567/patitas/iniciarSesion", {
-
-        method: "POST",
-        body: JSON.stringify({
-            "usuario_Email":usuarioOemail,
-            "contrasenia":contrasenia
-        })
-
-    })
-        .then(Response => verificarEstado(Response.status))
-
-}
-
 function verificarEstado(status){
     if(status == 200) {
         window.location.href = "home";

@@ -1,4 +1,5 @@
-
+let status;
+/*
 function validarContrasenia() {
     const contrasenia = document.getElementById('password').value;
     const user = document.getElementById('user').value;
@@ -38,9 +39,66 @@ function confirmarContrasenia() {
         var confirmacion = document.getElementById('confirmPassword');
         window.alert("Las contraseñas no coinciden.");
     }
+}*/
+
+
+function verificarEstado(status, datos){
+    if(status == 200) {
+        window.location.href = "/";
+    }
+    else {
+        alert(datos.mensaje);
+    }
 }
 
 
+let app = new Vue({
+    el: "#appVue",
+    data: {
+        nombre: "",
+        apellido: "",
+        fechaDeNacimiento: "",
+        email: "",
+        tipoDoc: "",
+        nroDocumento: "",
+        telefono: "",
+        userName: "",
+        password: "",
+        passConf: ""
+    },
+    methods: {
+        registrarse: function () {
+            let status;
+            let datos;
+            fetch("http://localhost:9000/registrarse", {
+                method: "post",
+                body: JSON.stringify({
+                    nombre: this.nombre,
+                    apellido: this.apellido,
+                    fechaDeNacimiento: this.fechaDeNacimiento,
+                    email: this.email,
+                    tipoDoc: this.tipoDoc,
+                    nroDocumento: this.nroDocumento,
+                    telefono: this.telefono,
+                    userName: this.userName,
+                    password: this.password,
+                    passConf: this.passConf
+                })
+            })
+                .then(response =>{
+                    status = response.status
+                    datos = response.json()
+                    return datos
+                })
+                .then(datos => {
+                    verificarEstado(status, datos)
+                })
+        }
+    }
+})
+
+
+/*
 document.addEventListener('submit', validarRegistro);
 
 function validarRegistro() {
@@ -57,4 +115,4 @@ function validarRegistro() {
             window.alert("Se ha creado correctamente.")
         }, false)
     })
-}
+}*/

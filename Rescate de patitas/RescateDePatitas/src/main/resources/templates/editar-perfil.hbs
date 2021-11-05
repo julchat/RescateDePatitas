@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Perfil</title>
 
-        <script defer src="/js/index.js"></script>
-        <script src="/js/editar-perfil.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script defer src="/js/index.js"></script>
+
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
         <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
@@ -36,13 +36,54 @@
 
         <br><br><br><br><br><br><br><br>
 
-        <div id="appVue">
-            <div class="grid-item">
-                <label for="name">Nombre de Usuario<br></label>
-                <p id="username">{{ nombre }}</p><br>
+
+        <div class="card" id="appVue">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Nombre Completo</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <input id="nombre" disabled type="text" class="text-input" value="{{usuario.nombre}} {{usuario.apellido}}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <input id="email" disabled type="text" class="text-input" value="{{usuario.email}}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Telefono</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <input id="telefono" disabled type="text" class="text-input" value="{{usuario.telefono}}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Direccion</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <input id="direccion" disabled type="text" class="text-input" value="{{usuario.direccion.calle}} {{usuario.direccion.numeracion}}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9 text-secondary">
+                        <input id="editar" type="button" class="btn btn-secondary px-4"  style="background-color: blueviolet;" value="Editar" onclick="guardarPerfil()">
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9 text-secondary">
+                        <input id="guardar" type="button" class="btn btn-secondary px-4"  style="background-color: blueviolet;" value="Guardar Cambios" onclick="guardarPerfil()">
+                    </div>
+                </div>
             </div>
-
-
         </div>
 
     </div>

@@ -48,35 +48,33 @@ public class Router {
         Spark.get("/registrarse", homeController::registrarse);
         Spark.post("/registrarse", usuarioController::registrarUsuario);
 
-        //Spark.get("/editar-perfil", homeController::showEditarPerfil);
         Spark.get("/editar-perfil", usuarioController::editarPerfil);
-
-        //Spark.get("/editar-perfil/:id", usuarioController::editarPerfil);
-        //Spark.put("/editar-perfil/:id", usuarioController::editarPerfilPost);
+        //Spark.get("/editar-perfil", homeController::showEditarPerfil);
+        Spark.get("/mascotas-registradas", usuarioController::mascotasRegistradas);
 
         Spark.get("/registrar-mascota", homeController::registrarMascotaPerdida);
-        //Spark.post("/registrar-mascota", formularioController::registrarMascotaPost);
+        Spark.post("/registrar-mascota", formularioController::registrarMascotaPost);
 
-        // Si escaneo el codigo QR me deberia redirigir a esta direccion, indicando el ID de chapa que contendria el mismo QR
+// --  Si escaneo el codigo QR me deberia redirigir a esta direccion, indicando el ID de chapa que contendria el mismo QR
         Spark.get("/reportar-mascota/:id", formularioController::showMascotaPerdidaChapita);
         Spark.post("/reportar-mascota/:id", formularioController::mascotaPerdidaChapita);
 
-        // En el caso de no tener Chapita, se ingresa por esta direccion y se completan los Formularios correspondientes
+// -- En el caso de no tener Chapita, se ingresa por esta direccion y se completan los Formularios correspondientes
         Spark.get("/reportar-mascota", homeController::reportarMascotaPerdida);
         //Spark.post("/reportar-mascota", formularioController::reportarMascotaPost);
 
         Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas);
+        Spark.get("/mascotas-perdidas/notificar-rescatista/:id", homeController::notificarRescatista);
 
         Spark.get("/dar-mascota-adopcion", homeController::darMascotaAdopcion);
 
         Spark.get("/mascotas-en-adopcion", homeController::mascotasEnAdopcion);
-
+        Spark.get("/mascotas-en-adopcion/notificar-duenio/:id", homeController::notificarDuenio);
         Spark.get("/mascotas-en-adopcion/adoptar-mascota/:id", homeController::adoptarMascota);
-
         Spark.get("/mascotas-en-adopcion/busqueda-mascota-ideal", homeController::buscarMascotaIdeal);
 
-        Spark.get("/notificar-duenio/:id", homeController::notificarDuenio);
-        Spark.get("/notificar-rescatista/:id", homeController::notificarRescatista);
+
+
 
         Spark.options("/*",
                 (request, response) -> {
