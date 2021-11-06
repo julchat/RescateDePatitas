@@ -13,7 +13,7 @@ public class Contacto extends EntidadPersistente {
 
     private String nombreContacto;
     private String apellidoContacto;
-    private int telefonoContacto;
+    private String telefonoContacto;
     private String emailContacto;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -36,11 +36,11 @@ public class Contacto extends EntidadPersistente {
         this.apellidoContacto = apellidoContacto;
     }
 
-    public int getTelefonoContacto() {
+    public String getTelefonoContacto() {
         return telefonoContacto;
     }
 
-    public void setTelefonoContacto(int telefonoContacto) {
+    public void setTelefonoContacto(String telefonoContacto) {
         this.telefonoContacto = telefonoContacto;
     }
 

@@ -5,10 +5,17 @@ import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
 import com.google.gson.Gson;
+import domain.business.notificaciones.NotificadorEmail;
+import domain.business.notificaciones.NotificadorSms;
+import domain.business.notificaciones.NotificadorWhatsapp;
 import domain.business.notificaciones.TipoNotificacion;
+import domain.business.users.Contacto;
 import domain.business.users.Persona;
 import domain.business.users.TipoDoc;
+import domain.repositorios.RepositorioContactos;
 import domain.repositorios.RepositorioUsuarios;
+import domain.repositorios.factories.FactoryRepositorio;
+import domain.repositorios.factories.FactoryRepositorioContacto;
 import domain.repositorios.factories.FactoryRepositorioPersonas;
 import domain.repositorios.factories.FactoryRepositorioUsuarios;
 import domain.repositorios.RepositorioPersonas;
@@ -40,6 +47,7 @@ import java.util.stream.Stream;
 public class UsuarioController {
     private RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
     private RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
+    private RepositorioContactos repositorioContactos = FactoryRepositorioContacto.get();
 
     private void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
         if(!request.session().isNew() && request.session().attribute("id") != null){
@@ -92,16 +100,38 @@ public class UsuarioController {
                     nuevoUsuario.getPersona().setEmail(formUser.getEmail());
                     nuevoUsuario.getPersona().setTelefono(formUser.getTelefono());
 
-                    /*
-                    if(request.queryParams("formasDeNotifacion") != null){
-                        persona.setFormasDeNotificacion(TipoNotificacion.valueOf(request.queryParams("formasDeNotifacion")));
+                    if(formUser.getNotificacionSms() != "false") {
+                        nuevoUsuario.getPersona().getFormasDeNotificacion().add(new NotificadorSms());
                     }
 
+                    if(formUser.getNotificacionEmail() != "false") {
+                        nuevoUsuario.getPersona().getFormasDeNotificacion().add(new NotificadorEmail());
+                    }
 
-                    if(request.queryParams("contactos") != null){
-                        persona.setContactos(request.queryParams("contactos"));
-                    }*/
+                    if(formUser.getNotificacionWpp() != "false") {
+                        nuevoUsuario.getPersona().getFormasDeNotificacion().add(new NotificadorWhatsapp());
+                    }
 
+                    Contacto contactoUnico = new Contacto();
+                    contactoUnico.setNombreContacto(formUser.getContactoNombre());
+                    contactoUnico.setApellidoContacto(formUser.getContactoApellido());
+                    contactoUnico.setEmailContacto(formUser.getContactoEmail());
+                    contactoUnico.setTelefonoContacto(formUser.getContactoTelefono());
+
+                    if(formUser.getContactoNotificacionSms() != "false") {
+                        contactoUnico.getFormasDeNotificacion().add(new NotificadorSms());
+                    }
+
+                    if(formUser.getContactoNotificacionEmail() != "false") {
+                        contactoUnico.getFormasDeNotificacion().add(new NotificadorEmail());
+                    }
+
+                    if(formUser.getContactoNotificacionWpp() != "false") {
+                        contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
+                    }
+
+                    nuevoUsuario.getPersona().getContactos().add(contactoUnico);
+                    repositorioContactos.agregar(contactoUnico);
                     repositorioPersonas.agregar(nuevoUsuario.getPersona());
 
                     this.repositorioUsuarios.guardarUsuario(nuevoUsuario, password);

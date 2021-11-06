@@ -20,8 +20,15 @@ public abstract class Notificacion extends EntidadPersistente {
     @Transient
     AdapterJavaMailApi mailSender = new AdapterJavaMailApi();
 
+
     // Metodos
-    public abstract TipoNotificacion obtenerCodigoNotificacion();
+    public Notificacion(TipoNotificacion tipoDeNotificacion) {
+        this.tipoDeNotificacion = tipoDeNotificacion;
+    }
+
+    public TipoNotificacion obtenerCodigoNotificacion() {
+        return this.tipoDeNotificacion;
+    }
 
     public String armarMensajeMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaEncontrada) {
         return "Estimado/a " + destinatario.getNombre() + "\n" + "Nos comunicamos para informarle que su mascota " + mascotaEncontrada.getNombreMascota() +

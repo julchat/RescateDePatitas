@@ -44,6 +44,7 @@ function confirmarContrasenia() {
 
 function verificarEstado(status, datos){
     if(status == 200) {
+        alert(datos.mensaje);
         window.location.href = "/";
     }
     else {
@@ -62,6 +63,16 @@ let app = new Vue({
         tipoDoc: "",
         nroDocumento: "",
         telefono: "",
+        notificacionSms: "false",
+        notificacionEmail: "false",
+        notificacionWpp: "false",
+        contactoNombre: "",
+        contactoApellido: "",
+        contactoEmail: "",
+        contactoTelefono: "",
+        contactoNotificacionSms: "false",
+        contactoNotificacionEmail: "false",
+        contactoNotificacionWpp: "false",
         userName: "",
         password: "",
         passConf: ""
@@ -80,6 +91,16 @@ let app = new Vue({
                     tipoDoc: this.tipoDoc,
                     nroDocumento: this.nroDocumento,
                     telefono: this.telefono,
+                    notificacionSms: this.notificacionSms,
+                    notificacionEmail: this.notificacionEmail,
+                    notificacionWpp: this.notificacionWpp,
+                    contactoNombre: this.contactoNombre,
+                    contactoApellido: this.contactoApellido,
+                    contactoEmail: this.contactoEmail,
+                    contactoTelefono: this.contactoTelefono,
+                    contactoNotificacionSms: this.contactoNotificacionSms,
+                    contactoNotificacionEmail: this.contactoNotificacionEmail,
+                    contactoNotificacionWpp: this.contactoNotificacionWpp,
                     userName: this.userName,
                     password: this.password,
                     passConf: this.passConf

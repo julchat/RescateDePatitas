@@ -82,9 +82,9 @@
                 <div></div>
                 <div class="grid-item">
                     <label for="notification">Formas de notificación<br></label><br>
-                    <a><input class="check" type="checkbox" name="SMS"> SMS</a>
-                    <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
-                    <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
+                    <a><input class="check" type="checkbox" v-model="notificacionSms" name="SMS"> SMS</a>
+                    <a><input class="check" type="checkbox" v-model="notificacionEmail" name="EMAIL"> Email</a>
+                    <a><input class="check" type="checkbox" v-model="notificacionWpp" name="WHATSAPP"> WhatsApp</a>
                 </div>
 
 
@@ -96,30 +96,30 @@
                 <br>
 
                 <div class="grid-item">
-                    <label for="name">Nombre<br></label>
-                    <input type="text" id="name" name="nombre" class="text-input" required>
+                    <label for="contactoName">Nombre<br></label>
+                    <input type="text" id="contactoName" v-model="contactoNombre" name="contactoNombre" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
-                    <label for="surname">Apellido<br></label>
-                    <input type="text" id="surname" name="apellido" class="text-input" required>
+                    <label for="contactoSurname">Apellido<br></label>
+                    <input type="text" id="contactoSurname" v-model="contactoApellido" name="contactoApellido" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
-                    <label for="email">Email<br></label>
-                    <input type="text" id="email" name="email" class="text-input" required>
+                    <label for="contactoEmail">Email<br></label>
+                    <input type="text" id="contactoEmail" v-model="contactoEmail" name="contactoEmail" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
-                    <label for="cel">Teléfono / Celular<br></label>
-                    <input type="text" id="cel" name="telefono" class="text-input" required>
+                    <label for="contactoTel">Teléfono / Celular<br></label>
+                    <input type="text" id="contactoTel" v-model="contactoTelefono" name="contactoTelefono" class="text-input" required>
                 </div>
                 <div></div>
                 <div class="grid-item">
-                    <label for="notification">Formas de notificación<br></label><br>
-                    <a><input class="check" type="checkbox" name="SMS"> SMS</a>
-                    <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
-                    <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
+                    <label for="contactoNotification">Formas de notificación<br></label><br>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionSms" name="SMS"> SMS</a>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionEmail" name="EMAIL"> Email</a>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionWpp" name="WHATSAPP"> WhatsApp</a>
                 </div>
 
             </div>

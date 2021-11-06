@@ -1,15 +1,13 @@
 
 let status;
 
-function verificarEstado(status){
+function verificarEstado(status, datos){
     if(status == 200) {
+        alert("Bienvenido a Rescate de Patitas...");
         window.location.href = "home";
     }
-    else if(status == 400) {
-        alert("La contraseña es incorrecta");
-    }
     else {
-        alert("404 NOT FOUND");
+        alert(datos.mensaje);
     }
 }
 
@@ -23,6 +21,7 @@ let app = new Vue({
     methods: {
         iniciarSesion: function () {
             let status;
+            let datos;
             fetch("http://localhost:9000/iniciar-sesion", {
                 method: "post",
                 body: JSON.stringify({
@@ -32,11 +31,12 @@ let app = new Vue({
             })
                 .then(response =>{
                     status = response.status
-                    return response.json()
+                    datos = response.json()
+                    return datos
                 })
                 .then(datos => {
                     localStorage.setItem("IDSESION", datos.idSesion)
-                    verificarEstado(status)
+                    verificarEstado(status, datos)
                 })
         }
     }

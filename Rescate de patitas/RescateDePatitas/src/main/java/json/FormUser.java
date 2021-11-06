@@ -8,11 +8,24 @@ public class FormUser {
     String tipoDoc;
     String nroDocumento;
     String telefono;
+    // Notificaciones
+    String notificacionSms;
+    String notificacionEmail;
+    String notificacionWpp;
+    // Contacto
+    String contactoNombre;
+    String contactoApellido;
+    String contactoEmail;
+    String contactoTelefono;
+    String contactoNotificacionSms;
+    String contactoNotificacionEmail;
+    String contactoNotificacionWpp;
+    // Usuario
     String userName;
     String password;
     String passConf;
 
-    public FormUser(String nombre, String apellido, String fechaDeNacimiento, String email, String tipoDoc, String nroDocumento, String telefono, String userName, String password, String passConfg) {
+    public FormUser(String nombre, String apellido, String fechaDeNacimiento, String email, String tipoDoc, String nroDocumento, String telefono, String notificacionSms, String notificacionEmail, String notificacionWpp, String contactoNombre, String contactoApellido, String contactoEmail, String contactoTelefono, String contactoNotificacionSms, String contactoNotificacionEmail, String contactoNotificacionWpp, String userName, String password, String passConf) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaDeNacimiento = fechaDeNacimiento;
@@ -20,9 +33,19 @@ public class FormUser {
         this.tipoDoc = tipoDoc;
         this.nroDocumento = nroDocumento;
         this.telefono = telefono;
+        this.notificacionSms = notificacionSms;
+        this.notificacionEmail = notificacionEmail;
+        this.notificacionWpp = notificacionWpp;
+        this.contactoNombre = contactoNombre;
+        this.contactoApellido = contactoApellido;
+        this.contactoEmail = contactoEmail;
+        this.contactoTelefono = contactoTelefono;
+        this.contactoNotificacionSms = contactoNotificacionSms;
+        this.contactoNotificacionEmail = contactoNotificacionEmail;
+        this.contactoNotificacionWpp = contactoNotificacionWpp;
         this.userName = userName;
         this.password = password;
-        this.passConf = passConfg;
+        this.passConf = passConf;
     }
 
     public String getNombre() { return nombre; }
@@ -52,6 +75,46 @@ public class FormUser {
     public String getTelefono() { return telefono; }
 
     public void setTelefono(String telefono) { this.telefono = telefono; }
+
+    public String getNotificacionSms() { return notificacionSms; }
+
+    public void setNotificacionSms(String notificacionSms) { this.notificacionSms = notificacionSms; }
+
+    public String getNotificacionEmail() { return notificacionEmail; }
+
+    public void setNotificacionEmail(String notificacionEmail) { this.notificacionEmail = notificacionEmail; }
+
+    public String getNotificacionWpp() { return notificacionWpp; }
+
+    public void setNotificacionWpp(String notificacionWpp) { this.notificacionWpp = notificacionWpp; }
+
+    public String getContactoNombre() { return contactoNombre; }
+
+    public void setContactoNombre(String contactoNombre) { this.contactoNombre = contactoNombre; }
+
+    public String getContactoApellido() { return contactoApellido; }
+
+    public void setContactoApellido(String contactoApellido) { this.contactoApellido = contactoApellido; }
+
+    public String getContactoEmail() { return contactoEmail; }
+
+    public void setContactoEmail(String contactoEmail) { this.contactoEmail = contactoEmail; }
+
+    public String getContactoTelefono() { return contactoTelefono; }
+
+    public void setContactoTelefono(String contactoTelefono) { this.contactoTelefono = contactoTelefono; }
+
+    public String getContactoNotificacionSms() { return contactoNotificacionSms; }
+
+    public void setContactoNotificacionSms(String contactoNotificacionSms) { this.contactoNotificacionSms = contactoNotificacionSms; }
+
+    public String getContactoNotificacionEmail() { return contactoNotificacionEmail; }
+
+    public void setContactoNotificacionEmail(String contactoNotificacionEmail) { this.contactoNotificacionEmail = contactoNotificacionEmail; }
+
+    public String getContactoNotificacionWpp() { return contactoNotificacionWpp; }
+
+    public void setContactoNotificacionWpp(String contactoNotificacionWpp) { this.contactoNotificacionWpp = contactoNotificacionWpp; }
 
     public String getUserName() { return userName; }
 

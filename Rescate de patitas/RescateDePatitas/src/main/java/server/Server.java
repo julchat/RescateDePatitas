@@ -1,11 +1,13 @@
 package server;
 
+import database.EntityManagerHelper;
 import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
 import domain.business.users.Duenio;
 import spark.Spark;
 import spark.debug.DebugScreen;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 
 // Unico punto de partida / unico MAIN
@@ -14,6 +16,8 @@ public class Server {
         Spark.port(9000);
         Router.init();
         DebugScreen.enableDebugScreen();
+
+        //EntityManager em = EntityManagerHelper.getEntityManager();
 
     // Prueba para crear un codigo QR
         //Duenio duenio = new Duenio();

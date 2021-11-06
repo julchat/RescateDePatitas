@@ -4,6 +4,11 @@ import domain.business.users.Persona;
 import domain.business.publicaciones.PublicacionParaAdoptar;
 
 public class NotificadorEmail extends Notificacion{
+
+    public NotificadorEmail() {
+        super(TipoNotificacion.EMAIL);
+    }
+
     @Override
     public TipoNotificacion obtenerCodigoNotificacion() { return TipoNotificacion.EMAIL; }
 
