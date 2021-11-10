@@ -165,36 +165,23 @@ public class UsuarioController {
         }
     }
 
-    public String editarPerfil(Request request, Response response) throws IOException {
-        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
-        Handlebars handlebars = new Handlebars(loader);
-        Template template = handlebars.compile("editar-perfil");
+    public String obtenerPerfil(Request request, Response response) throws IOException {
         Map<String, Object> viewModel = new HashMap<>();
-
-        System.out.println("Recibido: " + request.body());
-
+        System.out.println("OBTENIENDO EL PERFIL ----------------------------");
         String idSesion = request.headers("Authorization");
         System.out.println("ID Sesion: " + idSesion);
 
-        try {
-            Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
-            Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
-            System.out.println("Login: " + sesionUsuario);
+        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+        System.out.println("Login: " + sesionUsuario);
 
-            Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
-            Persona datosUsuario = repositorioPersonas.buscar(usuario.getPersona().getId());
+        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+        Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
 
-            response.status(200);
-            System.out.println(new Gson().toJson(datosUsuario));
-            //return new Gson().toJson(datosUsuario);
+        response.status(200);
+        System.out.println(new Gson().toJson(persona));
 
-            viewModel.put("usuario", datosUsuario);
-            return template.apply(viewModel);
-        }
-        catch (Exception e) {
-            response.status(404);
-            return new Mensaje("No tiene permisos para acceder a esta zona.").transformar();
-        }
+        return new Gson().toJson(persona);
     }
 
     public Response editarPerfilPost(Request request, Response response) {

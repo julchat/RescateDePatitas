@@ -48,8 +48,8 @@ public class Router {
         Spark.get("/registrarse", homeController::registrarse);
         Spark.post("/registrarse", usuarioController::registrarUsuario);
 
-        Spark.get("/editar-perfil", usuarioController::editarPerfil);
-        //Spark.get("/editar-perfil", homeController::showEditarPerfil);
+        Spark.get("/perfil", usuarioController::obtenerPerfil);
+        Spark.get("/editar-perfil", homeController::showEditarPerfil);
         Spark.get("/mascotas-registradas", usuarioController::mascotasRegistradas);
 
         Spark.get("/registrar-mascota", homeController::registrarMascotaPerdida);

@@ -8,10 +8,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "notificacion")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "medio")
 public abstract class Notificacion extends EntidadPersistente {
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipoDeNotificacion")
+    //@Enumerated(EnumType.STRING)
+    //@Column(name = "tipoDeNotificacion")
+    @Transient
     private TipoNotificacion tipoDeNotificacion;
 
     @Transient

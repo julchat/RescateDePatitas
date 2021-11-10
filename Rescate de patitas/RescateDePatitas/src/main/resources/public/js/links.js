@@ -31,3 +31,7 @@ function busquedaMascotaIdeal() {
     window.location.href = "mascotas-en-adopcion/busqueda-mascota-ideal";
 }
 
+function editarPerfil() {
+    window.location.href = "editar-perfil";
+}
+

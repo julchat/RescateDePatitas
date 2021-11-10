@@ -118,7 +118,7 @@ public class FormularioController {
     Mascota Perdida pero con Chapita -> Escaneando el Código QR se llega a este Formulario
    ============================================================================================================== */
 
-    public Response mascotaPerdidaChapita(Request request, Response response) {
+    public String mascotaPerdidaChapita(Request request, Response response) {
 
         RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
         RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
@@ -205,8 +205,8 @@ public class FormularioController {
         notificador.notificarDuenio(duenioMascota, rescatista, mascotaRecuperada);
 
         response.status(200);
-        response.redirect("/ok");       // Mostrar que se envió correctamente (?)
-        return response;
+        //response.redirect("/ok");       // Mostrar que se envió correctamente (?)
+        return new Mensaje("Mensaje enviado.").transformar();
     }
 
 /* ==============================================================================================================

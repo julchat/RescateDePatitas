@@ -3,6 +3,11 @@ import domain.business.mascota.Mascota;
 import domain.business.users.Persona;
 import domain.business.publicaciones.PublicacionParaAdoptar;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("sms")
 public class NotificadorSms extends Notificacion{
 
     public NotificadorSms() {

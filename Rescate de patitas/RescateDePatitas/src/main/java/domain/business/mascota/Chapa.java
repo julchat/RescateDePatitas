@@ -1,6 +1,5 @@
 package domain.business.mascota;
 
-import com.google.zxing.WriterException;
 import domain.business.EntidadPersistente;
 import domain.business.users.Duenio;
 import domain.business.users.Rescatista;
@@ -56,6 +55,7 @@ public class Chapa extends EntidadPersistente {
     public void generarQR() throws IOException {
         QRCode qrGenerator = new QRCode();
         qrGenerator.crearQR("http://localhost:9000/reportar-mascota/" + this.getId(), "ChapitaN°" + this.getId() + ".png");
+    //Todo: agregar un Hash en vez del ID de la chapita
 
         // tal vez ese codigo QR se guarda en un repositorio, o directamente queda asi
     }

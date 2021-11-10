@@ -45,8 +45,6 @@ public class HomeController {
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("editar-perfil");
 
-        System.out.println("Recibido: " + request.body());
-
         return template.text();
     }
 
