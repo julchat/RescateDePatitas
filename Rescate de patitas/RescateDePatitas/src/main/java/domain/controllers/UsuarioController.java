@@ -100,15 +100,15 @@ public class UsuarioController {
                     nuevoUsuario.getPersona().setEmail(formUser.getEmail());
                     nuevoUsuario.getPersona().setTelefono(formUser.getTelefono());
 
-                    if(formUser.getNotificacionSms() != "false") {
+                    if(formUser.getNotificacionSms() == "true") {
                         nuevoUsuario.getPersona().getFormasDeNotificacion().add(new NotificadorSms());
                     }
 
-                    if(formUser.getNotificacionEmail() != "false") {
+                    if(formUser.getNotificacionEmail() == "true") {
                         nuevoUsuario.getPersona().getFormasDeNotificacion().add(new NotificadorEmail());
                     }
 
-                    if(formUser.getNotificacionWpp() != "false") {
+                    if(formUser.getNotificacionWpp() == "true") {
                         nuevoUsuario.getPersona().getFormasDeNotificacion().add(new NotificadorWhatsapp());
                     }
 
@@ -118,15 +118,15 @@ public class UsuarioController {
                     contactoUnico.setEmailContacto(formUser.getContactoEmail());
                     contactoUnico.setTelefonoContacto(formUser.getContactoTelefono());
 
-                    if(formUser.getContactoNotificacionSms() != "false") {
+                    if(formUser.getContactoNotificacionSms() == "true") {
                         contactoUnico.getFormasDeNotificacion().add(new NotificadorSms());
                     }
 
-                    if(formUser.getContactoNotificacionEmail() != "false") {
+                    if(formUser.getContactoNotificacionEmail() == "true") {
                         contactoUnico.getFormasDeNotificacion().add(new NotificadorEmail());
                     }
 
-                    if(formUser.getContactoNotificacionWpp() != "false") {
+                    if(formUser.getContactoNotificacionWpp() == "true") {
                         contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
                     }
 

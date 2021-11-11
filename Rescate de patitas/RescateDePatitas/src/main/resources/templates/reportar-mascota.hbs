@@ -39,190 +39,186 @@
         </a>
         <form action="/reportar-mascota" method="post" class="form1">
 
-            <div class="registro">
+            <div class="grid-item">
+                <label for="name">Nombre<br></label>
+                <input type="text" id="name" name="nombre" class="text-input" required>
+            </div>
 
-                <div class="grid-item">
-                    <label for="name">Nombre<br></label>
-                    <input type="text" id="name" name="nombre" class="text-input" required>
-                </div>
+            <div class="grid-item">
+                <label for="surname">Apellido<br></label>
+                <input type="text" id="surname" name="apellido" class="text-input" required>
+            </div>
 
-                <div class="grid-item">
-                    <label for="surname">Apellido<br></label>
-                    <input type="text" id="surname" name="apellido" class="text-input" required>
-                </div>
+            <div class="grid-item">
+                <label for="date">Fecha de Nacimiento</label>
+                <input type="date" id="date" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
+            </div>
 
-                <div class="grid-item">
-                    <label for="date">Fecha de Nacimiento</label>
-                    <input type="date" id="date" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
-                </div>
+            <div class="grid-item">
+                <label for="email">Email<br></label>
+                <input type="text" id="email" name="email" class="text-input" required>
+            </div>
 
-                <div class="grid-item">
-                    <label for="email">Email<br></label>
-                    <input type="text" id="email" name="email" class="text-input" required>
-                </div>
+            <div class="grid-item">
+                <label for="doc-type">Tipo de documento<br></label><br>
+                <select class="doc"  id="doc-type" name="tipoDoc" required>
+                    <option value="DNI">DNI</option>
+                    <option value="CEDULA">Cedula</option>
+                    <option value="PASAPORTE">Pasaporte</option>
+                </select>
+            </div>
 
-                <div class="grid-item">
-                    <label for="doc-type">Tipo de documento<br></label><br>
-                    <select class="doc"  id="doc-type" name="tipoDoc" required>
-                        <option value="DNI">DNI</option>
-                        <option value="CEDULA">Cedula</option>
-                        <option value="PASAPORTE">Pasaporte</option>
-                    </select>
-                </div>
+            <div class="grid-item">
+                <label for="n-doc">Número de documento<br></label>
+                <input type="text" id="n-doc" name="nroDocumento" class="text-input" required>
+            </div>
 
-                <div class="grid-item">
-                    <label for="n-doc">Número de documento<br></label>
-                    <input type="text" id="n-doc" name="nroDocumento" class="text-input" required>
-                </div>
+            <div class="grid-item">
+                <label for="cel">Teléfono / Celular<br></label>
+                <input type="text" id="cel" name="telefono" class="text-input" required>
+            </div>
 
-                <div class="grid-item">
-                    <label for="cel">Teléfono / Celular<br></label>
-                    <input type="text" id="cel" name="telefono" class="text-input" required>
-                </div>
-                <div></div>
-                <div class="grid-item">
-                    <label for="notification">Formas de notificación<br></label><br>
-                    <a><input class="check" type="checkbox" name="SMS"> SMS</a>
-                    <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
-                    <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
-                </div>
+            <div class="grid-item">
+                <label for="notification">Formas de notificación<br></label><br>
+                <a><input class="check" type="checkbox" name="SMS"> SMS</a>
+                <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
+                <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
+            </div>
 
-                <div class="grid-item">
-                    <label for="name">Provincia<br></label>
-                    <input type="text" id="provincia" name="provincia" class="text-input">
-                </div>
+            <div class="grid-item">
+                <label for="name">Provincia<br></label>
+                <input type="text" id="provincia" name="provincia" class="text-input">
+            </div>
 
-                <div class="grid-item">
-                    <label for="date">Localidad<br></label>
-                    <input type="text" id="localidad" name="localidad" class="text-input">
-                </div>
+            <div class="grid-item">
+                <label for="date">Localidad<br></label>
+                <input type="text" id="localidad" name="localidad" class="text-input">
+            </div>
 
-                <div class="grid-item">
-                    <label for="email">Código Postal<br></label>
-                    <input type="text" id="cp" name="codigoPostal" class="text-input">
-                </div>
+            <div class="grid-item">
+                <label for="email">Código Postal<br></label>
+                <input type="text" id="cp" name="codigoPostal" class="text-input">
+            </div>
 
-                <div class="grid-item">
-                    <label for="name">Calle<br></label>
-                    <input type="text" id="calle" name="calle" class="text-input">
-                </div>
+            <div class="grid-item">
+                <label for="name">Calle<br></label>
+                <input type="text" id="calle" name="calle" class="text-input">
+            </div>
 
-                <div class="grid-item">
-                    <label for="name">Numeración<br></label>
-                    <input type="text" id="numeracion" name="numeracion" class="text-input">
-                </div>
+            <div class="grid-item">
+                <label for="name">Numeración<br></label>
+                <input type="text" id="numeracion" name="numeracion" class="text-input">
+            </div>
 
-                <div class="grid-item">
-                    <label for="name">Departamento <br></label>
-                    <input type="text" id="dpto" name="departamento" class="text-input">
-                </div>
+            <div class="grid-item">
+                <label for="name">Departamento <br></label>
+                <input type="text" id="dpto" name="departamento" class="text-input">
+            </div>
 
-                <div class="grid-item">
-                    <label for="name">Piso <br></label>
-                    <input type="text" id="piso" name="piso" class="text-input">
-                </div>
+            <div class="grid-item">
+                <label for="name">Piso <br></label>
+                <input type="text" id="piso" name="piso" class="text-input">
+            </div>
 
 
-                <br><br><br>
+            <br><br><br>
 
 
-                <div></div>
-                <h3 class="subtitulo3">Agregar contacto</h3>
+
+            <h3 class="subtitulo3">Agregar contacto</h3>
+            <br>
+
+            <div class="grid-item">
+                <label for="name">Nombre<br></label>
+                <input type="text" id="name" name="nombre" class="text-input" required>
+            </div>
+
+            <div class="grid-item">
+                <label for="surname">Apellido<br></label>
+                <input type="text" id="surname" name="apellido" class="text-input" required>
+            </div>
+
+            <div class="grid-item">
+                <label for="email">Email<br></label>
+                <input type="text" id="email" name="email" class="text-input" required>
+            </div>
+
+            <div class="grid-item">
+                <label for="cel">Teléfono / Celular<br></label>
+                <input type="text" id="cel" name="telefono" class="text-input" required>
+            </div>
+            <div></div>
+            <div class="grid-item">
+                <label for="notification">Formas de notificación<br></label><br>
+                <a><input class="check" type="checkbox" name="SMS"> SMS</a>
+                <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
+                <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
+            </div>
+
+            <div class="grid-item">
+                <label for="name">Descripción del estado de la mascota<br></label>
+                <input type="text" id="name" name="descripcionMascota" class="text-input">
+
+            </div>
+            <div class="grid-item">
+                <label for="date">Fotos<br></label>
                 <br>
+                <input type="file" name="imagen1" />
+                <input type="submit" name="subir-imagen" value="Enviar imagen" />
+            </div>
+            <div></div>
 
-                <div class="grid-item">
-                    <label for="name">Nombre<br></label>
-                    <input type="text" id="name" name="nombre" class="text-input" required>
-                </div>
-
-                <div class="grid-item">
-                    <label for="surname">Apellido<br></label>
-                    <input type="text" id="surname" name="apellido" class="text-input" required>
-                </div>
-
-                <div class="grid-item">
-                    <label for="email">Email<br></label>
-                    <input type="text" id="email" name="email" class="text-input" required>
-                </div>
-
-                <div class="grid-item">
-                    <label for="cel">Teléfono / Celular<br></label>
-                    <input type="text" id="cel" name="telefono" class="text-input" required>
-                </div>
-                <div></div>
-                <div class="grid-item">
-                    <label for="notification">Formas de notificación<br></label><br>
-                    <a><input class="check" type="checkbox" name="SMS"> SMS</a>
-                    <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
-                    <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
-                </div>
-
+            <br><br><br><br>
+            <h3 class="subtitulo3">Hogar de tránsito</h3>
+            <div></div><div></div>
+            <div class="grid-item">
+                <text class="texto"><br>¿Puede ser hogar de tránsito para la mascota?</text>
+                <input class="si-no" type="radio" name="si-no" value="true">Si
+                <input class="si-no2" type="radio" name="si-no" value="false">No
+            </div>
+            <div></div>
+            <div class="grid-item">
+                <label for="tipoAnimal">Tipo de Animal<br></label>
+                <input class="radio" type="radio" name="tipoAnimal" value="PERRO">Perro
+                <input class="radio" type="radio" name="tipoAnimal" value="GATO">Gato
             </div>
 
-            <div class="registro">
-                <div class="grid-item">
-                    <label for="name">Descripción del estado de la mascota<br></label>
-                    <input type="text" id="name" name="descripcionMascota" class="text-input">
-
-                </div>
-                <div class="grid-item">
-                    <label for="date">Fotos<br></label>
-                    <br>
-                    <input type="file" name="imagen1" />
-                    <input type="submit" name="subir-imagen" value="Enviar imagen" />
-                </div>
-                <div></div>
-
-                <h3 class="subtitulo3">Hogar de tránsito</h3>
-                <div></div><div></div>
-                <div class="grid-item">
-                    <text class="texto"><br>¿Puede ser hogar de tránsito para la mascota?</text>
-                    <input class="si-no" type="radio" name="si-no" value="true">Si
-                    <input class="si-no2" type="radio" name="si-no" value="false">No
-                </div>
-                <div></div>
-                <div class="grid-item">
-                    <label for="tipoAnimal">Tipo de Animal<br></label>
-                    <input class="radio" type="radio" name="tipoAnimal" value="PERRO">Perro
-                    <input class="radio" type="radio" name="tipoAnimal" value="GATO">Gato
-                </div>
-
-                <div class="grid-item">
-                    <label for="sexo">Sexo<br></label>
-                    <input class="radio" type="radio" name="sexoMascota" value="HEMBRA">Hembra
-                    <input class="radio" type="radio" name="sexoMascota" value="MACHO">Macho
-                </div>
-
-                <div class="grid-item">
-                    <label for="tamanioMascota">Tamaño<br></label>
-                    <input class="radio" type="radio" name="tamanioMascota" value="PEQUENIA">Chico
-                    <input class="radio" type="radio" name="tamanioMascota" value="MEDIANA">Mediano
-                    <input class="radio" type="radio" name="tamanioMascota" value="GRANDE">Grande
-                </div>
-
-                <fieldset>
-                    <text class="texto"><br>¿Puede albergar a la mascota o desea buscar un Hogar de Tránsito adecuado?</text>
-                    <!-- Si selecciona SI debería llevarlo al siguiente fieldset-->
-                    <input type="button" class="button" name="albergarMascota" value="SI" />
-                    <!-- Si selecciona NO debería simplemente registrar a la mascota y mandarlo a home-->
-                    <input type="button" class="button" name="albergarMascota" value="NO" />
-                </fieldset>
-
-
-                <div class="grid-item">
-                    <label for="radio">Radio de cercanía (en Km) <br></label>
-                    <input type="text" id="text" name="radioKM" class="text-input">
-                </div>
-                <div></div>
-                <div class="grid-item">
-                    <label for="notification">Características<br></label>
-                    <!-- aca deberían ir características para ver que tipo de animal aceptan, tranquilo, jugueton blabla -->
-                    <select class="doc" id="Caracteristicas" name="">
-                        <option value="">Opción 1</option>
-                        <option value="">Opción 2</option>
-                    </select>
-                </div>
+            <div class="grid-item">
+                <label for="sexo">Sexo<br></label>
+                <input class="radio" type="radio" name="sexoMascota" value="HEMBRA">Hembra
+                <input class="radio" type="radio" name="sexoMascota" value="MACHO">Macho
             </div>
+
+            <div class="grid-item">
+                <label for="tamanioMascota">Tamaño<br></label>
+                <input class="radio" type="radio" name="tamanioMascota" value="PEQUENIA">Chico
+                <input class="radio" type="radio" name="tamanioMascota" value="MEDIANA">Mediano
+                <input class="radio" type="radio" name="tamanioMascota" value="GRANDE">Grande
+            </div>
+
+            <fieldset>
+                <text class="texto"><br>¿Puede albergar a la mascota o desea buscar un Hogar de Tránsito adecuado?</text>
+                <!-- Si selecciona SI debería llevarlo al siguiente fieldset-->
+                <input type="button" class="button" name="albergarMascota" value="SI" />
+                <!-- Si selecciona NO debería simplemente registrar a la mascota y mandarlo a home-->
+                <input type="button" class="button" name="albergarMascota" value="NO" />
+            </fieldset>
+
+
+            <div class="grid-item">
+                <label for="radio">Radio de cercanía (en Km) <br></label>
+                <input type="text" id="text" name="radioKM" class="text-input">
+            </div>
+            <div></div>
+            <div class="grid-item">
+                <label for="notification">Características<br></label>
+                <!-- aca deberían ir características para ver que tipo de animal aceptan, tranquilo, jugueton blabla -->
+                <select class="doc" id="Caracteristicas" name="">
+                    <option value="">Opción 1</option>
+                    <option value="">Opción 2</option>
+                </select>
+            </div>
+
 
             <div></div><div></div>
 
