@@ -2,7 +2,7 @@
 let app = new Vue({
     el: "#appVue",
     data: {
-
+        tipoRol: ""
     },
     methods: {
         editarPerfil: function () {
@@ -18,6 +18,7 @@ let app = new Vue({
         },
         cerrarSesion: function() {
             let idSesion = localStorage.getItem("IDSESION")
+            localStorage.removeItem("IDSESION")
             fetch("http://localhost:9000/logout", {
                 headers: {
                     "Authorization": idSesion
@@ -25,8 +26,15 @@ let app = new Vue({
             })
                 .then(datos => window.location.href = "/")
         }
+    },
+    created() {
+        let idSesion = localStorage.getItem("IDSESION")
+        fetch("http://localhost:9000/user", {
+            method : "get",
+            headers: {
+                "Authorization": idSesion
+            }
+        })  .then(response => response.json())
+            .then(datos => this.tipoRol = datos.mensaje)
     }
 })
-
-
-

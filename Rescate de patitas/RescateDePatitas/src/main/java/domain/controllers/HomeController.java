@@ -27,7 +27,7 @@ public class HomeController {
     public String inicio( Request request , Response response) throws IOException {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
-        Template template = handlebars.compile("inicio");
+        Template template = handlebars.compile("home");
 
         return template.text();
     }

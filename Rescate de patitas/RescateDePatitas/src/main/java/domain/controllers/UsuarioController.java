@@ -166,7 +166,6 @@ public class UsuarioController {
     }
 
     public String obtenerPerfil(Request request, Response response) throws IOException {
-        Map<String, Object> viewModel = new HashMap<>();
         System.out.println("OBTENIENDO EL PERFIL ----------------------------");
         String idSesion = request.headers("Authorization");
         System.out.println("ID Sesion: " + idSesion);
@@ -182,6 +181,40 @@ public class UsuarioController {
         System.out.println(new Gson().toJson(persona));
 
         return new Gson().toJson(persona);
+    }
+
+    public String obtenerUsuario(Request request, Response response) throws IOException {
+        System.out.println("OBTENIENDO EL USUARIO ----------------------------");
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID Sesion: " + idSesion);
+
+        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+        System.out.println("Login: " + sesionUsuario);
+
+        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+
+        response.status(200);
+        System.out.println(new Gson().toJson(usuario));
+
+        return new Gson().toJson(usuario);
+    }
+
+    public String obtenerRol(Request request, Response response) throws IOException {
+        System.out.println("OBTENIENDO EL USUARIO ----------------------------");
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID Sesion: " + idSesion);
+
+        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+        System.out.println("Login: " + sesionUsuario);
+
+        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+
+        response.status(200);
+        System.out.println(new Mensaje(usuario.getTipoRol().toString()).transformar());
+
+        return new Mensaje(usuario.getTipoRol().toString()).transformar();
     }
 
     public Response editarPerfilPost(Request request, Response response) {
