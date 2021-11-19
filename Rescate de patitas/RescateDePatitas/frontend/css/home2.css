@@ -184,6 +184,7 @@ nav ul li ul a:hover {
 
 .submenu li a {
     display: block;
+    box-sizing: border-box;
     padding: 15px;
     color: white;
 }

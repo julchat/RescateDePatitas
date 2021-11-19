@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Características</title>
+
+    <script defer src="/js/index.js"></script>
+    <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
+    
+    <link rel="shortcut icon" href="/img/image_2_.ico"/>
+    
+    <link rel="stylesheet" href="/css/barra-menu.css">
+    <link rel="stylesheet" href="/css/adm-caracteristicas.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">    
+            <nav class="menu">
+                <a href="home.html" class="logo"><img src="/img/image (7).png"></a>
+                <button class="toggle"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu"> 
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="mascotas-en-adopcion.html">ADOPTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="dar-mascota-adopcion.html">DAR EN ADOPCIÓN</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="reportar.html">REPORTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="mascotas-perdidas.html">MASCOTAS PERDIDAS</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link nav-menu-link_Active" href="registrar-mascota.html">REGISTRAR MASCOTAS</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <h1 class="subtitulo">Administrar características</h1>
+        <p class="subtitulo3">Seleccione las características que verán los usuarios</p>
+        <div class="adm">
+            <select class="select" name="select" multiple="multiple">
+                <option value="1">Característica 1</option>
+                <option value="2">Característica 2</option>
+                <option value="3">Característica 3</option>
+                <option value="4">Característica 4</option>
+                <option value="5">Característica 5</option>
+                <option value="6">Característica 6</option>
+            </select>
+        </div>
+
+        <div class="adm">
+            <p class="subtitulo3">Añadir característica</p>
+
+            <input type="text" placeholder="Añadir característica" value="" class="text-input">
+            <br>
+            <a href="#">
+                <button class="boton">AÑADIR</button>
+            </a> 
+        </div>
+
+        <p class="subtitulo3">Seleccione las características que desea quitar</p>
+        <div class="adm">
+            <select class="select" name="select" multiple="multiple">
+                <option value="1">Característica 1</option>
+                <option value="2">Característica 2</option>
+                <option value="3">Característica 3</option>
+                <option value="4">Característica 4</option>
+                <option value="5">Característica 5</option>
+                <option value="6">Característica 6</option>
+            </select>
+        </div>
+    </div>   
+</body>
+</html>
