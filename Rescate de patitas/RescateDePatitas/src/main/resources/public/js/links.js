@@ -34,4 +34,3 @@ function busquedaMascotaIdeal() {
 function editarPerfil() {
     window.location.href = "editar-perfil";
 }
-

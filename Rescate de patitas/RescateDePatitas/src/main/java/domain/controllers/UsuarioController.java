@@ -5,6 +5,8 @@ import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
 import com.google.gson.Gson;
+import domain.business.mascota.Chapa;
+import domain.business.mascota.Mascota;
 import domain.business.notificaciones.NotificadorEmail;
 import domain.business.notificaciones.NotificadorSms;
 import domain.business.notificaciones.NotificadorWhatsapp;
@@ -12,13 +14,8 @@ import domain.business.notificaciones.TipoNotificacion;
 import domain.business.users.Contacto;
 import domain.business.users.Persona;
 import domain.business.users.TipoDoc;
-import domain.repositorios.RepositorioContactos;
-import domain.repositorios.RepositorioUsuarios;
-import domain.repositorios.factories.FactoryRepositorio;
-import domain.repositorios.factories.FactoryRepositorioContacto;
-import domain.repositorios.factories.FactoryRepositorioPersonas;
-import domain.repositorios.factories.FactoryRepositorioUsuarios;
-import domain.repositorios.RepositorioPersonas;
+import domain.repositorios.*;
+import domain.repositorios.factories.*;
 import domain.security.TipoRol;
 import domain.security.User;
 import domain.security.Usuario;
@@ -48,6 +45,8 @@ public class UsuarioController {
     private RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
     private RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
     private RepositorioContactos repositorioContactos = FactoryRepositorioContacto.get();
+    private RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
+    private RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
 
     private void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
         if(!request.session().isNew() && request.session().attribute("id") != null){
@@ -223,16 +222,27 @@ public class UsuarioController {
     }
 
     public String mascotasRegistradas(Request request, Response response) throws IOException {
-        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
-        Handlebars handlebars = new Handlebars(loader);
-        Template template = handlebars.compile("mascotas-registradas");
-        Map<String, Object> viewModel = new HashMap<>();
+        System.out.println("OBTENIENDO EL USUARIO ----------------------------");
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID Sesion: " + idSesion);
 
-        // Todo: habria que obtener el ID Sesion, tal como se tendria que hacer en Editar-Perfil,
-        //      buscar el usuario y de ahi obtener todas las mascotas que tenga registradas
+        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+        System.out.println("Login: " + sesionUsuario);
 
-        //viewModel.put("mascotasRegistradas", mascotas);
-        return template.apply(viewModel);
+        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+        List<Chapa> chapas = repositorioChapas.buscarTodos();
+
+        List<Mascota> mascotas = new ArrayList<>();
+        for(Chapa chapa : chapas) {
+            System.out.println(chapa.getMascota());
+            mascotas.add(chapa.getMascota());
+        }
+
+        response.status(200);
+        System.out.println(new Gson().toJson(mascotas));
+
+        return new Gson().toJson(mascotas);
     }
 
     public Response eliminar(Request request, Response response){

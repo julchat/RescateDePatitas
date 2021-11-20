@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import domain.business.Sistema;
 import domain.business.mascota.*;
 import domain.business.notificaciones.Notificador;
+import domain.business.notificaciones.NotificadorSms;
 import domain.business.organizaciones.HogarDeTransito;
 import domain.business.ubicacion.Domicilio;
 import domain.business.ubicacion.Ubicacion;
@@ -13,6 +14,8 @@ import domain.business.users.Rescatista;
 import domain.business.users.TipoDoc;
 import domain.repositorios.*;
 import domain.repositorios.factories.*;
+import domain.security.Usuario;
+import json.FormPet;
 import json.FormUser;
 import json.Mensaje;
 import spark.ModelAndView;
@@ -24,18 +27,62 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FormularioController {
+    private RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
+    private RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
+    private RepositorioDuenio repositorioDuenios = FactoryRepositorioDuenio.get();
+    private RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
 
     public String registrarMascotaPost(Request request, Response response) {
 
         return null;
     }
 
+    public String registrarMascotaRegistrado(Request request, Response response) {
+        String idSesion = request.headers("Authorization");
+        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+        Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
+
+        FormPet formPet = new Gson().fromJson(request.body(), FormPet.class);
+        System.out.println(request.body());
+
+        Mascota nuevaMascota = new Mascota();
+        // TODO: castear Persona en Duenio para que pueda tener un Domicilio y una relacion a Chapas
+        // TODO: verificar TODA la Base de Datos
+
+        nuevaMascota.setNombreMascota(formPet.getNombreMascota());
+        nuevaMascota.setApodoMascota(formPet.getApodoMascota());
+        nuevaMascota.setEdadMascota(new Integer(formPet.getEdadMascota()));
+
+        if(formPet.getTipoPerro() == "PERRO") {
+            nuevaMascota.setTipoAnimal(TipoAnimal.PERRO);
+        }
+
+        if(formPet.getTipoGato() == "GATO") {
+            nuevaMascota.setTipoAnimal(TipoAnimal.GATO);
+        }
+
+
+        if(formPet.getSexoHembra() == "HEMBRA") {
+            nuevaMascota.setSexoMascota(SexoMascota.HEMBRA);
+        }
+
+        if(formPet.getSexoMacho() == "MACHO") {
+            nuevaMascota.setSexoMascota(SexoMascota.MACHO);
+        }
+
+        nuevaMascota.setDescripcionMascota(formPet.getDescripcionMascota());
+
+        // repositorioDuenios, habria que convertir a esta persona en un "duenio" cosa que se le relacione la mascota a el mismo
+        repositorioMascotas.agregar(nuevaMascota);
+        response.status(200);
+        return new Mensaje("Se ha registrado la mascota de forma satisfactoria.").transformar();
+    }
+
+
 
     public String registrarMascota(Request request, Response response) {
-
-        // Todo: los campos para registrar a una persona podrían ser opcionales en el caso que el usuario ya se registró
-        RepositorioDuenio repositorioDuenios = FactoryRepositorioDuenio.get();
-        RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
 
         FormUser formUser = new Gson().fromJson(request.body(), FormUser.class);
         System.out.println(request.body());

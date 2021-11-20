@@ -5,17 +5,6 @@ let app = new Vue({
         tipoRol: ""
     },
     methods: {
-        editarPerfil: function () {
-            let idSesion = localStorage.getItem("IDSESION")
-            fetch("http://localhost:9000/perfil", {
-                headers: {
-                    "Authorization": idSesion
-                }
-            })  .then(response => response.json())
-                .then()
-
-
-        },
         cerrarSesion: function() {
             let idSesion = localStorage.getItem("IDSESION")
             localStorage.removeItem("IDSESION")
@@ -25,6 +14,16 @@ let app = new Vue({
                 }
             })
                 .then(datos => window.location.href = "/")
+        },
+        mascotasRegistradas: function() {
+            let idSesion = localStorage.getItem("IDSESION")
+            fetch("http://localhost:9000/mascotas-registradas", {
+                redirect: "follow",
+                method: "GET",
+                headers: {
+                    "Authorization": idSesion
+                },
+            })
         }
     },
     created() {

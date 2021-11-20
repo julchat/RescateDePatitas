@@ -4,19 +4,18 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mascotas Registradas</title>
+        <title>Estoy perdido</title>
 
         <script defer src="/js/index.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
+        <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
         <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
 
         <link rel="stylesheet" href="/css/barra-menu.css">
-        <link rel="stylesheet" href="/css/mascotas-perdidas.css">
+        <link rel="stylesheet" href="/css/ver-mas.css">
         <link rel="stylesheet" href="/css/reset.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
     </head>
-
     <body>
     <div class="container">
         <header class="header">
@@ -32,54 +31,16 @@
                 </ul>
             </nav>
         </header>
+        <h1 class="subtitulo">ESTOY PERDIDO</h1>
+        <div class=formita>
+            <img class="img" src="/img/Pantuflas.png">
 
-        <h1 class="subtitulo">Mascotas Registradas</h1>
+            <div>
+                <label class="texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, tenetur quaerat quod molestias illum et. Iusto officia, debitis repellendus quod sequi, reprehenderit vero suscipit at perferendis magni deserunt. Quidem, velit.</label>
+                <a href="/mascotas-perdidas/notificar-rescatista/{id}"><br><button class="boton">TE ENCONTRÉ</button></a>
+            </div>
 
-        <label>Nombre de Usuario: {{usuario.nombreUsuario}}<br></label>
-        <label>Tipo de Rol: {{usuario.tipoRol}}<br></label>
-
+        </div>
     </div>
     </body>
 </html>
-
-
-
-
-<!--
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-
-        <title>Mascotas Perdidas</title>
-    </head>
-
-    <body>
-
-    <h1>MASCOTAS PERDIDAS</h1>
-
-    <table class="table table-hover">
-        <tr>
-            <th scope="col"> ID </th>
-            <th scope="col"> Descripcion </th>
-            <th scope="col"> Tamaño animal </th>
-            <th scope="col"> Tipo animal </th>
-
-        </tr>
-        #each mascotasPerdidas}}
-            <tr>
-                <td>  id }} </td>
-                <td>  descripcion }} </td>
-                <td>  tamanio }} </td>
-                <td>  tipoAnimal }} </td>
-
-            </tr>
-        /each
-    </table>
-
-    </body>
-</html>-->

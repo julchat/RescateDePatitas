@@ -15,6 +15,7 @@ import json.JsonMap;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,6 +49,26 @@ public class HomeController {
         return template.text();
     }
 
+    public ModelAndView mascotasRegistradas(Request request, Response response) throws IOException {
+        //TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        //Handlebars handlebars = new Handlebars(loader);
+        //Template template = handlebars.compile("mascotas-registradas");
+
+        //System.out.println("OBTENIENDO EL USUARIO ----------------------------");
+        //String idSesion = request.headers("Authorization");
+        //System.out.println("ID Sesion: " + idSesion);
+
+        //Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+        //Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+        //System.out.println("Login: " + sesionUsuario);
+
+        Map<String, Object> model = new HashMap<>();
+        //model.put("usuario", sesionUsuario);
+
+        //return template.apply(model);
+        return new ModelAndView(model, "mascotas-registradas.hbs");
+    }
+
     public String registrarse(Request request, Response response) throws IOException {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
@@ -68,6 +89,14 @@ public class HomeController {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("adoptar-mascota");
+
+        return template.text();
+    }
+
+    public String mascotaEnAdopcion(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("estoy-en-adopcion");
 
         return template.text();
     }
@@ -131,6 +160,13 @@ public class HomeController {
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("mascotas-perdidas");
         //viewModel.put("mascotasPerdidas", mascotasPerdidas);
+        return template.text();
+    }
+
+    public String mascotaPerdida(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("estoy-perdido");
         return template.text();
     }
 /*

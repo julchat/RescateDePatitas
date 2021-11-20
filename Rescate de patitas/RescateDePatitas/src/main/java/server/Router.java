@@ -51,14 +51,16 @@ public class Router {
     // Para obtener datos de Sesion del Usuario
         Spark.get("/perfil", usuarioController::obtenerPerfil);
         Spark.get("/user", usuarioController::obtenerRol);
+        Spark.get("/mascotas", usuarioController::mascotasRegistradas);
 
         Spark.get("/editar-perfil", homeController::showEditarPerfil);
         //Spark.post("/editar-perfil", usuarioController::editarPerfilPost);
 
-        Spark.get("/mascotas-registradas", usuarioController::mascotasRegistradas);
+        Spark.get("/mascotas-registradas", homeController::mascotasRegistradas, Router.engine);
 
         Spark.get("/registrar-mascota", homeController::registrarMascotaPerdida);
         Spark.post("/registrar-mascota", formularioController::registrarMascota);
+        Spark.post("/registrar-mascota/registrado", formularioController::registrarMascotaRegistrado);
 
 // --  Si escaneo el codigo QR me deberia redirigir a esta direccion, indicando el ID de chapa que contendria el mismo QR
         //Spark.get("/reportar-mascota/:id", formularioController::showMascotaPerdidaChapita);
@@ -69,6 +71,7 @@ public class Router {
         //Spark.post("/reportar-mascota", formularioController::reportarMascotaPost);
 
         Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas);
+        Spark.get("/mascotas-perdidas/estoy-perdido/:id", homeController::mascotaPerdida);
         Spark.get("/mascotas-perdidas/notificar-rescatista/:id", homeController::notificarRescatista);
 
         Spark.get("/dar-mascota-adopcion", homeController::darMascotaAdopcion);
@@ -76,6 +79,7 @@ public class Router {
         Spark.get("/mascotas-en-adopcion", homeController::mascotasEnAdopcion);
         Spark.get("/mascotas-en-adopcion/notificar-duenio/:id", homeController::notificarDuenio);
         Spark.get("/mascotas-en-adopcion/adoptar-mascota/:id", homeController::adoptarMascota);
+        Spark.get("/mascotas-en-adopcion/estoy-en-adopcion/:id", homeController::mascotaEnAdopcion);
         Spark.get("/mascotas-en-adopcion/busqueda-mascota-ideal", homeController::buscarMascotaIdeal);
 
 

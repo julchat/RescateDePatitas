@@ -78,7 +78,7 @@
                         <li><a class="mi-cuenta">MI CUENTA</a>
                             <ul class="submenu">
                                 <li><a><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
-                                <li><a href="/mascotas-registradas"><button class="botonsub">Mascotas registradas</button></a></li>
+                                <li><a><button class="botonsub" v-on:click="mascotasRegistradas">Mascotas registradas</button></a></li>
                                 <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
                             </ul>
                         </li>
@@ -101,6 +101,7 @@
                         <li><a class="mi-cuenta">MI CUENTA</a>
                             <ul class="submenu">
                                 <li><a><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
+                                <li><a><button class="botonsub" href="/mascotas-registradas">Mascotas registradas</button></a></li>
                                 <li><a href="#"><button class="botonsub">Publicaciones pendientes</button></a></li>
                                 <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
                             </ul>
@@ -123,7 +124,8 @@
                     <ul>
                         <li><a class="mi-cuenta">MI CUENTA</a>
                             <ul class="submenu">
-                                <li><a><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
+                                <li><a href="/editar-perfil" ><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
+                                <li><a href="/mascotas-registradas" ><button class="botonsub">Mascotas registradas</button></a></li>
                                 <li><a href="#"><button class="botonsub">Administrar Organización</button></a></li>
                                 <li><a href="#"><button class="botonsub">Administrar Características</button></a></li>
                                 <li><a href="#"><button class="botonsub">Verificar Administradores</button></a></li>
