@@ -25,6 +25,7 @@ public class FormRegisterPet {
     String userName;
     String password;
     String passConf;
+    String register;
     // Mascota
     String tipoAnimal;
     String sexoMascota;
@@ -41,7 +42,7 @@ public class FormRegisterPet {
     String departamento;
     String piso;
 
-    public FormRegisterPet(String nombre, String apellido, String fechaDeNacimiento, String email, String tipoDoc, String nroDocumento, String telefono, String notificacionSms, String notificacionEmail, String notificacionWpp, String contactoNombre, String contactoApellido, String contactoEmail, String contactoTelefono, String contactoNotificacionSms, String contactoNotificacionEmail, String contactoNotificacionWpp, String userName, String password, String passConf, String tipoAnimal, String sexoMascota, String nombreMascota, String apodoMascota, String edadMascota, String descripcionMascota, String provincia, String localidad, String codigoPostal, String calle, String numeracion, String departamento, String piso) {
+    public FormRegisterPet(String nombre, String apellido, String fechaDeNacimiento, String email, String tipoDoc, String nroDocumento, String telefono, String notificacionSms, String notificacionEmail, String notificacionWpp, String contactoNombre, String contactoApellido, String contactoEmail, String contactoTelefono, String contactoNotificacionSms, String contactoNotificacionEmail, String contactoNotificacionWpp, String userName, String password, String passConf, String register, String tipoAnimal, String sexoMascota, String nombreMascota, String apodoMascota, String edadMascota, String descripcionMascota, String provincia, String localidad, String codigoPostal, String calle, String numeracion, String departamento, String piso) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaDeNacimiento = fechaDeNacimiento;
@@ -62,6 +63,7 @@ public class FormRegisterPet {
         this.userName = userName;
         this.password = password;
         this.passConf = passConf;
+        this.register = register;
         this.tipoAnimal = tipoAnimal;
         this.sexoMascota = sexoMascota;
         this.nombreMascota = nombreMascota;
@@ -235,6 +237,14 @@ public class FormRegisterPet {
 
     public void setPassConf(String passConf) {
         this.passConf = passConf;
+    }
+
+    public String getRegister() {
+        return register;
+    }
+
+    public void setRegister(String register) {
+        this.register = register;
     }
 
     public String getTipoAnimal() {

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "rescatista")
-@DiscriminatorValue("rescatista")
+@DiscriminatorValue("Rescatista")
 public class Rescatista extends Persona {
 
     private boolean puedeAlojarMascota;

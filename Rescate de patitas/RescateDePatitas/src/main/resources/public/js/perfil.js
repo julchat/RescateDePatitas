@@ -24,16 +24,6 @@ let app = new Vue({
         notificacionEmail: "",
         notificacionWpp: "",
 
-        // Mascota
-        tipoPerro: "",
-        tipoGato: "",
-        sexoHembra: "",
-        sexoMacho: "",
-        nombreMascota: "",
-        apodoMascota: "",
-        edadMascota: "",
-        descripcionMascota: "",
-
         // Domicilio
         provincia: "",
         localidad: "",
@@ -52,56 +42,6 @@ let app = new Vue({
         activa: false
     },
     methods: {
-        registrarMascotaUser: function() {
-            let idSesion = localStorage.getItem("IDSESION");
-            let status;
-            let datos;
-            fetch("http://localhost:9000/registrar-mascota/registrado", {
-                method: "POST",
-                headers: {
-                    "Authorization": idSesion
-                },
-                body: JSON.stringify({
-                    tipoPerro: this.tipoPerro,
-                    tipoGato: this.tipoGato,
-                    sexoHembra: this.sexoHembra,
-                    sexoMacho: this.sexoMacho,
-                    nombreMascota: this.nombreMascota,
-                    apodoMascota: this.apodoMascota,
-                    edadMascota: this.edadMascota,
-                    descripcionMascota: this.descripcionMascota
-                })
-            })
-                .then(response => {
-                    status = response.status
-                    datos = response.json()
-                    return datos
-                })
-                .then(datos => verificarEstado(status, datos))
-        },
-        registrarMascota: function() {
-            let status;
-            let datos;
-            fetch("http://localhost:9000/registrar-mascota", {
-                method: "POST",
-                body: JSON.stringify({
-                    tipoPerro: this.tipoPerro,
-                    tipoGato: this.tipoGato,
-                    sexoHembra: this.sexoHembra,
-                    sexoMacho: this.sexoMacho,
-                    nombreMascota: this.nombreMascota,
-                    apodoMascota: this.apodoMascota,
-                    edadMascota: this.edadMascota,
-                    descripcionMascota: this.descripcionMascota
-                })
-            })
-                .then(response => {
-                    status = response.status
-                    datos = response.json()
-                    return datos
-                })
-                .then(datos => verificarEstado(status, datos))
-        }
     },
     created() {
         let idSesion = localStorage.getItem("IDSESION")

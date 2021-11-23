@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "duenio")
-@DiscriminatorValue("duenio")
+@DiscriminatorValue("Duenio")
 public class Duenio extends Persona {
 
     @OneToMany(cascade = CascadeType.PERSIST)

@@ -4,11 +4,14 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
+import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
 import domain.business.mascota.MascotaPerdida;
 import domain.business.users.Duenio;
+import domain.repositorios.RepositorioChapas;
 import domain.repositorios.RepositorioMascotaPerdida;
 import domain.repositorios.RepositorioMascotas;
+import domain.repositorios.factories.FactoryRepositorioChapas;
 import domain.repositorios.factories.FactoryRepositorioMascota;
 import domain.repositorios.factories.FactoryRepositorioMascotaPerdida;
 import domain.security.Admin;
@@ -166,6 +169,32 @@ public class HomeController {
         return template.text();
     }
 
+    public String mascotaPerdidaChapita(Request request, Response response) throws IOException {
+
+        int idChapita = new Integer(request.params("id"));
+        System.out.println("ID CHAPA: " + idChapita);
+        RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
+        Chapa chapita = repositorioChapas.buscarChapa(idChapita);
+
+        if(chapita == null) {
+            TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+            Handlebars handlebars = new Handlebars(loader);
+            Template template = handlebars.compile("no-existe-pagina");
+
+            return template.text();
+        }
+        else {
+            TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+            Handlebars handlebars = new Handlebars(loader);
+            Template template = handlebars.compile("reportar-mascota-chapita");
+
+            Map<String, Object> viewModel = new HashMap<>();
+            viewModel.put("chapita", repositorioChapas.buscarChapa(idChapita));
+
+            return template.apply(viewModel);
+        }
+    }
+
     public String reportarMascotaPerdida(Request request , Response response) throws IOException {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
@@ -216,7 +245,6 @@ public class HomeController {
         RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
 
         List<MascotaPerdida> mascotasPerdidas = repositorioMascotaPerdida.buscarTodos();
-
 
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);

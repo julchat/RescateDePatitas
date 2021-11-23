@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "persona_organizacion")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("persona_organizacion")
-@DiscriminatorColumn(name = "persona_organizacion")
+@DiscriminatorValue("Persona_Organizacion")
+@DiscriminatorColumn(name = "tipo")
 public class PersonaOrganizacion extends Persona {
 
     @OneToOne

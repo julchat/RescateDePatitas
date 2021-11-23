@@ -72,7 +72,8 @@ let app = new Vue({
 
         // Para verificar que una persona haya iniciado sesion, por defecto nadie inició
         activa: false,
-        domicilio: false
+        domicilio: false,
+        register: ""
     },
     methods: {
         registrarMascotaSoloMascotaUserYDomicilio: function() {
@@ -167,7 +168,8 @@ let app = new Vue({
                     nombreMascota: this.nombreMascota,
                     apodoMascota: this.apodoMascota,
                     edadMascota: this.edadMascota,
-                    descripcionMascota: this.descripcionMascota
+                    descripcionMascota: this.descripcionMascota,
+                    register: this.register
                 })
             })
                 .then(response => {
@@ -215,7 +217,8 @@ let app = new Vue({
                     nombreMascota: this.nombreMascota,
                     apodoMascota: this.apodoMascota,
                     edadMascota: this.edadMascota,
-                    descripcionMascota: this.descripcionMascota
+                    descripcionMascota: this.descripcionMascota,
+                    register: this.register
                 })
             })
                 .then(response => {

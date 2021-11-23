@@ -60,7 +60,7 @@ public class Router {
         //Spark.post("/registrar-mascota/registrado", formularioController::registrarMascotaRegistrado);
 
 // --  Si escaneo el codigo QR me deberia redirigir a esta direccion, indicando el ID de chapa que contendria el mismo QR
-        //Spark.get("/reportar-mascota/:id", formularioController::showMascotaPerdidaChapita);
+        Spark.get("/reportar-mascota/:id", homeController::mascotaPerdidaChapita);
         Spark.post("/reportar-mascota/:id", formularioController::mascotaPerdidaChapita);
 
 // -- En el caso de no tener Chapita, se ingresa por esta direccion y se completan los Formularios correspondientes

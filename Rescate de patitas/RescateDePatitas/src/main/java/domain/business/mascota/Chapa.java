@@ -1,6 +1,7 @@
 package domain.business.mascota;
 
 import domain.business.EntidadPersistente;
+import domain.business.notificaciones.Notificador;
 import domain.business.users.Duenio;
 import domain.business.users.Rescatista;
 
@@ -52,18 +53,22 @@ public class Chapa extends EntidadPersistente {
     public Chapa(Duenio duenio, Mascota mascota) throws IOException {
         this.setDuenio(duenio);
         this.setMascota(mascota);
-        this.generarQR();
     }
 
-    public void generarQR() throws IOException {
+    public void generarQR(int id) throws IOException {
         QRCode qrGenerator = new QRCode();
-        qrGenerator.crearQR("http://localhost:9000/reportar-mascota/" + this.getId(), "ChapitaN°" + this.getId() + ".png");
+        qrGenerator.crearQR("http://localhost:9000/reportar-mascota/" + id, "ChapitaN°" + id + ".png");
     //Todo: agregar un Hash en vez del ID de la chapita
 
         // tal vez ese codigo QR se guarda en un repositorio, o directamente queda asi
     }
 
     public void notificarDuenio(Rescatista rescatista) {
-        this.duenio.notificarDuenio(rescatista, mascota);
+        // Notifica al Dueño de la Mascota
+        duenio.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(duenio, rescatista, mascota));
+        // Notifica a cada uno de los Contactos que haya agregado la persona
+        if(!duenio.getContactos().isEmpty()) {
+            duenio.getContactos().forEach(contacto -> contacto.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(duenio, rescatista, mascota)));
+        }
     }
 }
