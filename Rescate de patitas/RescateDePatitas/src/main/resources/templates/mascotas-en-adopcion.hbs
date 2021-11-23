@@ -36,80 +36,22 @@
 
         <h1 class="subtitulo">Mascotas en Adopción</h1>
         <grid style="align-content: center;" class="tabla">
-
-            <!-- bueno, se supone que debería ser "infinito" esto, osea, tendría que existir la posibilidad de tocar a la derecha para ver más publis, pero ni idea cómo hacerlo -->
-            <div class="publicacion">
-                <img class="img" src="/img/Jengibre.png" >
-                <h3>Jengibre</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/1"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/1"><button class="boton">Adoptar</button></a>
+        {{#each mascotasEnAdopcion}}
+                <div class="publicacion">
+                    <img class="img" src="/img/fluffy.jpg" >
+                    <label>Nombre Mascota:<br></label>
+                    <p class="datos">{{this.nombreMascota}}</p>
+                    <a href="/mascotas-en-adopcion/estoy-en-adopcion/{{id}}"><button class="boton">Ver más</button></a>
+                    <a href="/mascotas-en-adopcion/notificar-duenio/{{id}}"><button class="boton">Adoptar</button></a>
+                </div>
+        {{else}}
+            <div class="subtitulo3">¡No hay mascotas en adopción por el momento!<br><br><br>
+                <img class="imgAviso" src="/img/perro y gato mimiendo.png" >
             </div>
 
-            <div class="publicacion">
-                <img class="img" src="/img/Canelon.png" >
-                <h3>Canelon</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/2"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/2"><button class="boton">Adoptar</button></a>
-            </div>
-
-            <div class="publicacion">
-                <img class="img" src="/img/Bamba.png" >
-                <h3>Bamba</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/3"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/3"><button class="boton">Adoptar</button></a>
-            </div>
-
-            <div class="publicacion">
-                <img class="img" src="/img/Cosmo.png" >
-                <h3>Cosmo</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/4"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/4"><button class="boton">Adoptar</button></a>
-            </div>
-
-            <div class="publicacion">
-                <img class="img" src="/img/Plumita.png" >
-                <h3>Plumita</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/5"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/5"><button class="boton">Adoptar</button></a>
-            </div>
-
-
-            <div class="publicacion">
-                <img class="img" src="/img/Avena.png" >
-                <h3>Avena</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/6"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/6"><button class="boton">Adoptar</button></a>
-            </div>
-
-            <div class="publicacion">
-                <img class="img" src="/img/Fresa.png" >
-                <h3>Fresa</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/7"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/7"><button class="boton">Adoptar</button></a>
-            </div>
-
-            <div class="publicacion">
-                <img class="img" src="/img/Daisy.png" >
-                <h3>Daisy</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/8"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/8"><button class="boton">Adoptar</button></a>
-            </div>
-
-            <div class="publicacion">
-                <img class="img" src="/img/Jorge.png" >
-                <h3>Jorge</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/9"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/9"><button class="boton">Adoptar</button></a>
-            </div>
-
-            <div class="publicacion">
-                <img class="img" src="/img/Gardenia.png" >
-                <h3>Gardenia</h3>
-                <a href="/mascotas-en-adopcion/estoy-en-adopcion/10"><button class="boton">Ver más</button></a>
-                <a href="/mascotas-en-adopcion/notificar-duenio/10"><button class="boton">Adoptar</button></a>
-            </div>
-
+        {{/each}}
         </grid>
+        <br><br><br><br>
         <label class="texto">¿No encontraste tu mascota ideal?<br>Crea tu propia publicación para encontrarla</label>
         <br>
         <button class="boton1" onclick="busquedaMascotaIdeal()">CREAR PUBLICACIÓN</button>

@@ -13,7 +13,7 @@
     border-radius: 20px;
     text-align: center;
     align-items: center;
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     padding: 25px;
     margin-top: 15px;
@@ -45,4 +45,9 @@
 
 .boton:hover{
     transform: scale(1.1);
+}
+
+.datos {
+    font-style:italic;
+    font-family: Arial;
 }

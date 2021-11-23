@@ -1,7 +1,9 @@
 package domain.business.notificaciones;
 
 import domain.business.mascota.Mascota;
+import domain.business.mascota.MascotaPerdida;
 import domain.business.users.Duenio;
+import domain.business.users.Persona;
 import domain.business.users.Rescatista;
 
 public class Notificador {
@@ -22,5 +24,9 @@ public class Notificador {
         if(!duenio.getContactos().isEmpty()) {
             duenio.getContactos().forEach(contacto -> contacto.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(duenio, rescatista, mascotaPerdida)));
         }
+    }
+
+    public void notificarRescatista(Rescatista rescatista, Persona persona, MascotaPerdida mascotaPerdida) {
+        rescatista.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontradaRescatista(rescatista, persona, mascotaPerdida));
     }
 }

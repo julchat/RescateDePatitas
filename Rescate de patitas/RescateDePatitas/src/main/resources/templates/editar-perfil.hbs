@@ -8,7 +8,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script defer src="/js/index.js"></script>
-
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
         <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
@@ -36,58 +35,45 @@
 
         <br><br><br><br><br><br><br><br>
 
+        <div class="form1" id="appVue">
 
-        <div class="card" id="appVue">
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Nombre</h6>
-                    </div>
-                    <div>{{  persona.nombre }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Apellido</h6>
-                    </div>
-                    <div>{{  persona.apellido }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Fecha de Nacimiento</h6>
-                    </div>
-                    <div>{{  persona.fechaDeNacimiento }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div>{{  persona.email }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Telefono</h6>
-                    </div>
-                    <div>{{  persona.telefono }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Direccion</h6>
-                    </div>
+            <label for="name">Nombre<br></label>
+            <div class="text-input"><br>{{persona.nombre}}</div>
+            <label for="surname">Apellido<br></label>
+            <div class="text-input"><br>{{persona.apellido}}</div>
+            <label for="date">Fecha de Nacimiento</label>
+            <div class="text-input"><br>{{persona.fechaDeNacimiento}}</div>
+            <label for="email">Email<br></label>
+            <div class="text-input"><br>{{persona.email}}</div>
+            <label for="doc-type">Tipo de documento<br></label>
+            <div class="text-input"><br>{{persona.tipoDocumento}}</div>
+            <label for="n-doc">Número de documento<br></label>
+            <div class="text-input"><br>{{persona.numeroDocumento}}</div>
+            <label for="cel">Teléfono / Celular<br></label>
+            <div class="text-input"><br>{{persona.telefono}}</div>
+            <label for="notification">Formas de notificación<br></label><br>
+            <ul v-for="formaDeNotificacion in formasDeNotificacion">
+                <a><input class="check" type="checkbox" checked> {{formaDeNotificacion.tipoDeNotificacion}}</a>
+            </ul>
 
-                </div>
-                <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-9 text-secondary">
-                        <input id="editar" type="button" class="btn btn-secondary px-4"  style="background-color: blueviolet;" value="Editar" onclick="guardarPerfil()">
-                    </div>
-                </div>
-                <div class="row" hidden>
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-9 text-secondary">
-                        <input id="guardar" type="button" class="btn btn-secondary px-4"  style="background-color: blueviolet;" value="Guardar Cambios" onclick="guardarPerfil()">
-                    </div>
-                </div>
-            </div>
+            <h3 class="subtitulo3">Contactos</h3>
+            <div></div>
+            <div></div>
+            <fieldset v-for="contacto in contactos">
+
+                    <label for="contactName">Nombre<br></label>
+                    <div class="text-input" disabled><br>{{contacto.nombreContacto}}</div>
+
+                    <label for="contactSurname">Apellido<br></label>
+                    <div class="text-input" disabled><br>{{contacto.apellidoContacto}}</div>
+
+                    <label for="contactEmail">Email<br></label>
+                    <div class="text-input" disabled><br>{{contacto.emailContacto}}</div>
+
+                    <label for="contactTel">Teléfono / Celular<br></label>
+                    <div class="text-input" disabled><br>{{contacto.telefonoContacto}}</div>
+
+            </fieldset>
         </div>
 
     </div>

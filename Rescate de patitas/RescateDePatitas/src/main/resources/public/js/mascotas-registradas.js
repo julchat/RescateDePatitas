@@ -1,18 +1,21 @@
 
 let app = new Vue({
-    el: "#appVue",
+    el: "#vuePet",
     data: {
-        mascotas: [{}]
+        mascotas: []
     },
     created() {
         let idSesion = localStorage.getItem("IDSESION")
-        fetch("http://localhost:9000/mascotas", {
-            method : "get",
+        fetch("http://localhost:9000/api/mascotasUser", {
+            method : "GET",
             headers: {
                 "Authorization": idSesion
             }
         })  .then(response => response.json())
-            .then(datos => {this.mascotas = datos
-                    console.log(datos)})
+            .then(datos => {
+                this.mascotas = datos
+                console.log(this.mascotas)
+            })
     }
 })
+

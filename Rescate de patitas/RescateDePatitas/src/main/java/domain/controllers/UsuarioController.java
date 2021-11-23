@@ -11,6 +11,7 @@ import domain.business.notificaciones.NotificadorEmail;
 import domain.business.notificaciones.NotificadorSms;
 import domain.business.notificaciones.NotificadorWhatsapp;
 import domain.business.notificaciones.TipoNotificacion;
+import domain.business.ubicacion.Domicilio;
 import domain.business.users.Contacto;
 import domain.business.users.Persona;
 import domain.business.users.TipoDoc;
@@ -21,10 +22,7 @@ import domain.security.User;
 import domain.security.Usuario;
 import domain.security.password.PasswordStatus;
 import domain.security.password.ValidadorPassword;
-import json.FormUser;
-import json.JsonMap;
-import json.Mensaje;
-import json.Sesion;
+import json.*;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -54,7 +52,6 @@ public class UsuarioController {
             parametros.put("usuario", usuario);
         }
     }
-
 
     public String registrarUsuario(Request request, Response response){
 
@@ -98,6 +95,7 @@ public class UsuarioController {
                     nuevoUsuario.getPersona().setNumeroDocumento(new Integer(formUser.getNroDocumento()));
                     nuevoUsuario.getPersona().setEmail(formUser.getEmail());
                     nuevoUsuario.getPersona().setTelefono(formUser.getTelefono());
+                    nuevoUsuario.getPersona().setDomicilio(new Domicilio());
 
                     if(formUser.getNotificacionSms() == "true") {
                         nuevoUsuario.getPersona().getFormasDeNotificacion().add(new NotificadorSms());
@@ -162,87 +160,6 @@ public class UsuarioController {
                 return new Mensaje(fallas).transformar();
             }
         }
-    }
-
-    public String obtenerPerfil(Request request, Response response) throws IOException {
-        System.out.println("OBTENIENDO EL PERFIL ----------------------------");
-        String idSesion = request.headers("Authorization");
-        System.out.println("ID Sesion: " + idSesion);
-
-        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
-        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
-        System.out.println("Login: " + sesionUsuario);
-
-        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
-        Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
-
-        response.status(200);
-        System.out.println(new Gson().toJson(persona));
-
-        return new Gson().toJson(persona);
-    }
-
-    public String obtenerUsuario(Request request, Response response) throws IOException {
-        System.out.println("OBTENIENDO EL USUARIO ----------------------------");
-        String idSesion = request.headers("Authorization");
-        System.out.println("ID Sesion: " + idSesion);
-
-        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
-        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
-        System.out.println("Login: " + sesionUsuario);
-
-        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
-
-        response.status(200);
-        System.out.println(new Gson().toJson(usuario));
-
-        return new Gson().toJson(usuario);
-    }
-
-    public String obtenerRol(Request request, Response response) throws IOException {
-        System.out.println("OBTENIENDO EL USUARIO ----------------------------");
-        String idSesion = request.headers("Authorization");
-        System.out.println("ID Sesion: " + idSesion);
-
-        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
-        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
-        System.out.println("Login: " + sesionUsuario);
-
-        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
-
-        response.status(200);
-        System.out.println(new Mensaje(usuario.getTipoRol().toString()).transformar());
-
-        return new Mensaje(usuario.getTipoRol().toString()).transformar();
-    }
-
-    public Response editarPerfilPost(Request request, Response response) {
-
-        return response;
-    }
-
-    public String mascotasRegistradas(Request request, Response response) throws IOException {
-        System.out.println("OBTENIENDO EL USUARIO ----------------------------");
-        String idSesion = request.headers("Authorization");
-        System.out.println("ID Sesion: " + idSesion);
-
-        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
-        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
-        System.out.println("Login: " + sesionUsuario);
-
-        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
-        List<Chapa> chapas = repositorioChapas.buscarTodos();
-
-        List<Mascota> mascotas = new ArrayList<>();
-        for(Chapa chapa : chapas) {
-            System.out.println(chapa.getMascota());
-            mascotas.add(chapa.getMascota());
-        }
-
-        response.status(200);
-        System.out.println(new Gson().toJson(mascotas));
-
-        return new Gson().toJson(mascotas);
     }
 
     public Response eliminar(Request request, Response response){

@@ -51,6 +51,10 @@ label {
     width: 90%;
 }
 
+.registro {
+    display: none;
+}
+
 .radio {
     margin-right: 5px;
     margin-left: 15px;

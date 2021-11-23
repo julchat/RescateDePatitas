@@ -9,15 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Table(name = "duenio")
 @DiscriminatorValue("duenio")
 public class Duenio extends Persona {
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "domicilio")
-    private Domicilio domicilio;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @Column(name = "mascotasACargo")
@@ -25,14 +20,6 @@ public class Duenio extends Persona {
 
 
     // Getters and Setters
-    public Domicilio getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(Domicilio domicilio) {
-        this.domicilio = domicilio;
-    }
-
     public List<Chapa> getMascotasACargo() { return mascotasACargo; }
 
     public void setMascotasACargo(List<Chapa> mascotasACargo) { this.mascotasACargo = mascotasACargo; }
@@ -41,8 +28,7 @@ public class Duenio extends Persona {
 
 
     // Metodos
-    public void registrarMascota(Mascota nuevaMascota) throws IOException {
-        Chapa nuevaChapa = new Chapa(this, nuevaMascota);
+    public void registrarMascota(Chapa nuevaChapa) throws IOException {
         this.getMascotasACargo().add(nuevaChapa);
     }
 
@@ -77,7 +63,7 @@ public class Duenio extends Persona {
         System.out.println("    - Provincia: " + getDomicilio().getProvincia());
         System.out.println("    - Localidad: " + getDomicilio().getLocalidad());
         System.out.println("    - Calle: " + getDomicilio().getCalle());
-        System.out.println("    - Numeración: " + getDomicilio().getNumero());
+        System.out.println("    - Numeración: " + getDomicilio().getNumeracion());
         this.mostrarMascotas();
     }
 

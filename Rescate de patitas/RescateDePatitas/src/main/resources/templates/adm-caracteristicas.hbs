@@ -7,6 +7,7 @@
         <title>Administrar Características</title>
 
         <script defer src="/js/index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
         <link rel="shortcut icon" href="/img/icono-patitas.ico"/>
@@ -32,41 +33,51 @@
                 </nav>
             </header>
 
+            <div id="appVue" v-if="tipoRol === 'ADMIN'">
+                <h1 class="subtitulo">Administrar características</h1>
+                <p class="subtitulo3">Seleccione las características que verán los usuarios</p>
+                <div class="adm">
+                    <select class="select" name="select" multiple="multiple">
+                        <option value="1">Característica 1</option>
+                        <option value="2">Característica 2</option>
+                        <option value="3">Característica 3</option>
+                        <option value="4">Característica 4</option>
+                        <option value="5">Característica 5</option>
+                        <option value="6">Característica 6</option>
+                    </select>
+                </div>
 
-            <h1 class="subtitulo">Administrar características</h1>
-            <p class="subtitulo3">Seleccione las características que verán los usuarios</p>
-            <div class="adm">
-                <select class="select" name="select" multiple="multiple">
-                    <option value="1">Característica 1</option>
-                    <option value="2">Característica 2</option>
-                    <option value="3">Característica 3</option>
-                    <option value="4">Característica 4</option>
-                    <option value="5">Característica 5</option>
-                    <option value="6">Característica 6</option>
-                </select>
+                <div class="adm">
+                    <p class="subtitulo3">Añadir característica</p>
+
+                    <input type="text" placeholder="Añadir característica" value="" class="text-input">
+                    <br>
+                    <a href="#">
+                        <button class="boton">AÑADIR</button>
+                    </a>
+                </div>
+
+                <p class="subtitulo3">Seleccione las características que desea quitar</p>
+                <div class="adm">
+                    <select class="select" name="select" multiple="multiple">
+                        <option value="1">Característica 1</option>
+                        <option value="2">Característica 2</option>
+                        <option value="3">Característica 3</option>
+                        <option value="4">Característica 4</option>
+                        <option value="5">Característica 5</option>
+                        <option value="6">Característica 6</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="adm">
-                <p class="subtitulo3">Añadir característica</p>
-
-                <input type="text" placeholder="Añadir característica" value="" class="text-input">
-                <br>
-                <a href="#">
-                    <button class="boton">AÑADIR</button>
-                </a>
+            <div v-else>
+                <div></div><div></div><div></div><div></div>
+                <div class="subtitulo">Usted no tiene permisos para acceder a esta sección<br><br><br>
+                    <img class="imgAviso" src="/img/gato enojado.png">
+                </div>
             </div>
 
-            <p class="subtitulo3">Seleccione las características que desea quitar</p>
-            <div class="adm">
-                <select class="select" name="select" multiple="multiple">
-                    <option value="1">Característica 1</option>
-                    <option value="2">Característica 2</option>
-                    <option value="3">Característica 3</option>
-                    <option value="4">Característica 4</option>
-                    <option value="5">Característica 5</option>
-                    <option value="6">Característica 6</option>
-                </select>
-            </div>
         </div>
+        <script src="/js/home.js"></script>
     </body>
 </html>

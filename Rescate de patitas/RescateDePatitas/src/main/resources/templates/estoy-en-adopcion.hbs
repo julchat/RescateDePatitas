@@ -33,11 +33,21 @@
         </header>
         <h1 class="subtitulo">ESTOY EN ADOPCIÓN</h1>
         <div class=formita>
-            <img class="img" src="/img/Pantuflas.png">
-
+            <img class="img" src="/img/fluffy.jpg" >
             <div>
-                <label class="texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, tenetur quaerat quod molestias illum et. Iusto officia, debitis repellendus quod sequi, reprehenderit vero suscipit at perferendis magni deserunt. Quidem, velit.</label>
-                <a href="/mascotas-en-adopcion/notificar-duenio/{id}"><br><button class="boton">ADOPTAR</button></a>
+                <label>Nombre Mascota:<br></label>
+                <p class="datos">{{mascota.nombreMascota}}</p>
+                <label>Apodo Mascota:<br></label>
+                <p class="datos">{{mascota.apodoMascota}}</p>
+                <label>Edad Mascota:<br></label>
+                <p class="datos">{{mascota.edadMascota}}</p>
+                <label>Tipo Animal:<br></label>
+                <p class="datos">{{mascota.tipoAnimal}}</p>
+                <label>Sexo Mascota:<br></label>
+                <p class="datos">{{mascota.sexoMascota}}</p>
+                <label>Descripción Mascota:<br></label>
+                <p class="datos">{{mascota.descripcionMascota}}</p>
+                <a href="/mascotas-en-adopcion/notificar-duenio/{{mascota.id}}"><br><button class="boton">ADOPTAR</button></a>
             </div>
 
         </div>

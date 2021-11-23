@@ -5,6 +5,7 @@ import domain.business.Sistema;
 import domain.business.mascota.Mascota;
 import domain.business.notificaciones.Notificacion;
 import domain.business.publicaciones.*;
+import domain.business.ubicacion.Domicilio;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,10 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Entity
 @Table(name = "persona")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
 public class Persona extends EntidadPersistente {
 
@@ -29,6 +29,10 @@ public class Persona extends EntidadPersistente {
     private int numeroDocumento;
     private String telefono;
     private String email;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "domicilio")
+    private Domicilio domicilio;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "formasDeNotificacion")
@@ -69,6 +73,10 @@ public class Persona extends EntidadPersistente {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
+
+    public Domicilio getDomicilio() { return domicilio; }
+
+    public void setDomicilio(Domicilio domicilio) { this.domicilio = domicilio; }
 
     public List<Notificacion> getFormasDeNotificacion() { return formasDeNotificacion; }
 

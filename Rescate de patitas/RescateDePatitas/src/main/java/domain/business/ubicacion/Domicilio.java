@@ -15,7 +15,7 @@ public class Domicilio extends EntidadPersistente {
     private String localidad;
     private int codigoPostal;
     private String calle;
-    private int numero;
+    private int numeracion;
     private int departamento;
     private int piso;
 
@@ -41,9 +41,9 @@ public class Domicilio extends EntidadPersistente {
 
     public void setCalle(String calle) { this.calle = calle; }
 
-    public int getNumero() { return numero; }
+    public int getNumeracion() { return numeracion; }
 
-    public void setNumero(int numero) { this.numero = numero; }
+    public void setNumeracion(int numeracion) { this.numeracion = numeracion; }
 
     public int getDepartamento() { return departamento; }
 
@@ -58,14 +58,18 @@ public class Domicilio extends EntidadPersistente {
     public void setUbicacion(Ubicacion ubicacion) { this.ubicacion = ubicacion; }
 
     // Constructor
-    public Domicilio() {}
+    public Domicilio() {
+        this.provincia = null;
+        this.localidad = null;
+        this.calle = null;
+    }
 
-    public Domicilio(String provincia, String localidad, int codigoPostal, String calle, int numero, int departamento, int piso, Ubicacion ubicacion) {
+    public Domicilio(String provincia, String localidad, int codigoPostal, String calle, int numeracion, int departamento, int piso, Ubicacion ubicacion) {
         this.provincia = provincia;
         this.localidad = localidad;
         this.codigoPostal = codigoPostal;
         this.calle = calle;
-        this.numero = numero;
+        this.numeracion = numeracion;
         this.departamento = departamento;
         this.piso = piso;
         this.ubicacion = ubicacion;

@@ -1,6 +1,5 @@
 package domain.business.users;
 
-import domain.business.ubicacion.Domicilio;
 import domain.business.ubicacion.Lugar;
 import domain.business.mascota.MascotaPerdida;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
@@ -11,17 +10,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Table(name = "rescatista")
 @DiscriminatorValue("rescatista")
 public class Rescatista extends Persona {
 
     private boolean puedeAlojarMascota;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "domicilio")
-    private Domicilio domicilio;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @Column(name = "mascotasAlojadas")
@@ -35,14 +29,6 @@ public class Rescatista extends Persona {
 
     public void setPuedeAlojarMascota(boolean puedeAlojarMascota) {
         this.puedeAlojarMascota = puedeAlojarMascota;
-    }
-
-    public Domicilio getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(Domicilio domicilio) {
-        this.domicilio = domicilio;
     }
 
     public List<MascotaPerdida> getMascotasAlojadas() { return mascotasAlojadas; }
@@ -84,7 +70,7 @@ public class Rescatista extends Persona {
         System.out.println("    - Provincia: " + getDomicilio().getProvincia());
         System.out.println("    - Localidad: " + getDomicilio().getLocalidad());
         System.out.println("    - Calle: " + getDomicilio().getCalle());
-        System.out.println("    - Numeración: " + getDomicilio().getNumero());
+        System.out.println("    - Numeración: " + getDomicilio().getNumeracion());
     }
 
 

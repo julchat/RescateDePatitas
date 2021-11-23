@@ -12,6 +12,9 @@ import java.io.IOException;
 @Table(name = "chapa")
 public class Chapa extends EntidadPersistente {
 
+    @Transient
+    private String hash;
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "mascota")
     private Mascota mascota;
@@ -22,6 +25,10 @@ public class Chapa extends EntidadPersistente {
 
 
     // Getters and Setters
+    public String getHash() { return hash; }
+
+    public void setHash(String hash) { this.hash = hash; }
+
     public Mascota getMascota() {
         return mascota;
     }
@@ -46,10 +53,6 @@ public class Chapa extends EntidadPersistente {
         this.setDuenio(duenio);
         this.setMascota(mascota);
         this.generarQR();
-
-        // esta chapa tendria que agregarse al RepositorioDeChapas
-        // Tambien, esta chapita deberia crearse con su ID correspondiente, Nombre Mascota y Codigo QR
-        //      y enviarse al Domicilio del Duenio
     }
 
     public void generarQR() throws IOException {
@@ -59,9 +62,6 @@ public class Chapa extends EntidadPersistente {
 
         // tal vez ese codigo QR se guarda en un repositorio, o directamente queda asi
     }
-
-    //formulario-mascota-perdida/{id=182}
-
 
     public void notificarDuenio(Rescatista rescatista) {
         this.duenio.notificarDuenio(rescatista, mascota);

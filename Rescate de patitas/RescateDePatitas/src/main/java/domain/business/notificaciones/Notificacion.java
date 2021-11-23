@@ -1,6 +1,7 @@
 package domain.business.notificaciones;
 import domain.business.EntidadPersistente;
 import domain.business.mascota.Mascota;
+import domain.business.mascota.MascotaPerdida;
 import domain.business.users.Persona;
 import domain.business.publicaciones.PublicacionParaAdoptar;
 
@@ -38,6 +39,11 @@ public abstract class Notificacion extends EntidadPersistente {
                 " ha sido encontrada por " + hallador.getApellido() + " " + hallador.getNombre() + ".\n";
     }
 
+    public String armarMensajeMascotaEncontradaRescatista(Persona destinatario, Persona duenio, MascotaPerdida mascotaPerdida) {
+        return "Estimado/a " + destinatario.getNombre() + "\n" + "Nos comunicamos para informarle que " + duenio.getApellido() + " " + duenio.getNombre() +
+                 " ha encontrado a su mascota.\n";
+    }
+
     public String armarMensajeHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta){
         return "Estimado/a " + destinatario.getNombre() + "\n" + "Nos comunicamos para informarle que el usuario " + interesado.getApellido() + " " + interesado.getNombre() +
                 "esta interesado/a en adoptar a su mascota " + mascotaPorSerAdoptada.getNombreMascota() +  ".\n Para mas informacion ingrese a " + ruta;
@@ -49,6 +55,8 @@ public abstract class Notificacion extends EntidadPersistente {
     }
 
     public abstract void notificarMascotaEncontrada(Persona destinatario, Persona hallador, Mascota mascotaPerdida);
+
+    public abstract void notificarMascotaEncontradaRescatista(Persona destinatario, Persona duenio, MascotaPerdida mascotaPerdida);
 
     public abstract void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta);
 

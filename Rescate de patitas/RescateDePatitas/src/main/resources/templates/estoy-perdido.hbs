@@ -33,11 +33,19 @@
         </header>
         <h1 class="subtitulo">ESTOY PERDIDO</h1>
         <div class=formita>
-            <img class="img" src="/img/Pantuflas.png">
-
+            <img class="img" src="/img/fluffy.jpg">
             <div>
-                <label class="texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, tenetur quaerat quod molestias illum et. Iusto officia, debitis repellendus quod sequi, reprehenderit vero suscipit at perferendis magni deserunt. Quidem, velit.</label>
-                <a href="/mascotas-perdidas/notificar-rescatista/{id}"><br><button class="boton">TE ENCONTRÉ</button></a>
+                <label>Tipo Animal:<br></label>
+                <label class="datos">{{mascota.tipoAnimal}}<br></label>
+                <label>Tamanio:<br></label>
+                <label class="datos">{{mascota.tamanio}}<br></label>
+                <label>Descripción:<br></label>
+                <label class="datos">{{mascota.descripcion}}<br></label>
+                <!--<label>Lugar de Tránsito:<br></label>
+                <label class="datos">{{mascota.lugarDeTransito}}<br></label>-->
+                <label>Ubicación Encontrado:<br></label>
+                <label class="datos">{{mascota.ubicacionEncontrada}}<br></label>
+                <a href="/mascotas-perdidas/notificar-rescatista/{{mascota.id}}"><br><button class="boton">TE ENCONTRÉ</button></a>
             </div>
 
         </div>
