@@ -1,1 +1,1 @@
-![RESCATE DE PATITAS](https://user-images.githubusercontent.com/56047770/143084682-5df870bc-62ae-424a-98d1-5c61a57edea7.png)
+![RESCATE DE PATITAS2](https://user-images.githubusercontent.com/56047770/143085030-8ff3df19-24b9-4cb0-aa0e-94f52912e178.png)
