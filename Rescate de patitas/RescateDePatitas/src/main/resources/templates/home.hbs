@@ -18,7 +18,7 @@
         <title>Home</title>
     </head>
     <body>
-        <div class="container">
+    <div class="container">
         <h1 class="titulo">RESCATE DE PATITAS</h1>
         <img
                 class="logo"
@@ -28,123 +28,123 @@
                 height="141px";
         />
 
-            <button type="button" class="boton1" onclick="mascotasEnAdopcion()">
-                <img
-                        src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687214/img/boton-1_f5kqnj.png"
-                        alt=""
-                        width="300px"
-                />
-                <br>
-                <br>
-                ADOPTAR
-            </button>
+        <button type="button" class="boton1" onclick="mascotasEnAdopcion()">
+            <img
+                    src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687214/img/boton-1_f5kqnj.png"
+                    alt=""
+                    width="300px"
+            />
+            <br>
+            <br>
+            ADOPTAR
+        </button>
 
-            <button type="button" class="boton2" onclick="registrarMascota()">
-                <img
-                        src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687215/img/boton-2_qzfl1u.png"
-                        alt=""
-                        width="150px"
-                />
-                <br>
-                <br>
-                REGISTRAR MASCOTA
-            </button>
+        <button type="button" class="boton2" onclick="registrarMascota()">
+            <img
+                    src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687215/img/boton-2_qzfl1u.png"
+                    alt=""
+                    width="150px"
+            />
+            <br>
+            <br>
+            REGISTRAR MASCOTA
+        </button>
 
-            <button type="button" class="boton3" onclick="reportarMascota()">
-                <img
-                        src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687212/img/boton-3_cxzbsm.png"
-                        alt=""
-                        width="250px"
-                />
-                <br>
-                <br>
-                REPORTAR
-            </button>
+        <button type="button" class="boton3" onclick="reportarMascota()">
+            <img
+                    src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687212/img/boton-3_cxzbsm.png"
+                    alt=""
+                    width="250px"
+            />
+            <br>
+            <br>
+            REPORTAR
+        </button>
 
-            <button type="button" class="boton4" onclick="darMascotaEnAdopcion()">
-                <img
-                        src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687212/img/boton-4_y4m3r2.png"
-                        alt=""
-                        width="150px"
-                />
-                <br>
-                <br>
-                DAR MASCOTA EN ADOPCIÓN
-            </button>
+        <button type="button" class="boton4" onclick="darMascotaEnAdopcion()">
+            <img
+                    src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687212/img/boton-4_y4m3r2.png"
+                    alt=""
+                    width="150px"
+            />
+            <br>
+            <br>
+            DAR MASCOTA EN ADOPCIÓN
+        </button>
 
-            <div id="appVue">
-                <nav class="nav" v-if="tipoRol === 'USER'">
-                    <ul>
-                        <li><a class="mi-cuenta">MI CUENTA</a>
-                            <ul class="submenu">
-                                <li><a><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
-                                <li><a><button class="botonsub" v-on:click="mascotasRegistradas">Mascotas registradas</button></a></li>
-                                <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
-                            </ul>
-                        </li>
-                    </ul>
+        <div id="appVue">
+            <nav class="nav" v-if="tipoRol === 'USER'">
+                <ul>
+                    <li><a class="mi-cuenta">MI CUENTA</a>
+                        <ul class="submenu">
+                            <li><a><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
+                            <li><a><button class="botonsub" v-on:click="mascotasRegistradas">Mascotas registradas</button></a></li>
+                            <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-                </nav>
+            </nav>
 
-                <nav class="nav" v-else-if="tipoRol === 'MODERADOR'">
-                    <ul>
-                        <li><a class="mi-cuenta">MI CUENTA</a>
-                            <ul class="submenu">
-                                <li><a><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
-                                <li><a><button class="botonsub" href="/mascotas-registradas">Mascotas registradas</button></a></li>
-                                <li><a href="#"><button class="botonsub">Publicaciones pendientes</button></a></li>
-                                <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
-                            </ul>
-                        </li>
-                    </ul>
+            <nav class="nav" v-else-if="tipoRol === 'MODERADOR'">
+                <ul>
+                    <li><a class="mi-cuenta">MI CUENTA</a>
+                        <ul class="submenu">
+                            <li><a><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
+                            <li><a><button class="botonsub" href="/mascotas-registradas">Mascotas registradas</button></a></li>
+                            <li><a href="#"><button class="botonsub">Publicaciones pendientes</button></a></li>
+                            <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-                </nav>
+            </nav>
 
-                <nav class="nav" v-else-if="tipoRol === 'ADMIN'">
-                    <ul>
-                        <li><a class="mi-cuenta">MI CUENTA</a>
-                            <ul class="submenu">
-                                <li><a href="/editar-perfil" ><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
-                                <li><a href="/mascotas-registradas" ><button class="botonsub">Mascotas registradas</button></a></li>
-                                <li><a href="#"><button class="botonsub">Administrar Organización</button></a></li>
-                                <li><a href="/administrar-caracteristicas"><button class="botonsub">Administrar Características</button></a></li>
-                                <li><a href="#"><button class="botonsub">Verificar Administradores</button></a></li>
-                                <li><a><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
-                            </ul>
-                        </li>
-                    </ul>
+            <nav class="nav" v-else-if="tipoRol === 'ADMIN'">
+                <ul>
+                    <li><a class="mi-cuenta">MI CUENTA</a>
+                        <ul class="submenu">
+                            <li><a href="/editar-perfil" ><button class="botonsub" onclick="editarPerfil()">Editar perfil</button></a></li>
+                            <li><a href="/mascotas-registradas" ><button class="botonsub">Mascotas registradas</button></a></li>
+                            <li><a href="#"><button class="botonsub">Administrar Organización</button></a></li>
+                            <li><a href="#"><button class="botonsub">Administrar Características</button></a></li>
+                            <li><a href="#"><button class="botonsub">Verificar Administradores</button></a></li>
+                            <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-                </nav>
+            </nav>
 
-                <div v-else>
-                    <button type="button" class="boton-ingresar"  onclick="login()" >INGRESAR</button>
+            <div v-else>
+                <button type="button" class="boton-ingresar"  onclick="login()" >INGRESAR</button>
 
-                    <button type="button" class="boton5" onclick="registrarse()">
-                        <img
-                                src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687214/img/boton-5_mpc2sh.png"
-                                alt=""
-                                width="300px"
-                        />
-                        <br>
-                        <br>
-                        REGISTRARSE
-                    </button>
-                </div>
-
+                <button type="button" class="boton5" onclick="registrarse()">
+                    <img
+                            src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687214/img/boton-5_mpc2sh.png"
+                            alt=""
+                            width="300px"
+                    />
+                    <br>
+                    <br>
+                    REGISTRARSE
+                </button>
             </div>
 
-            <button type="button" class="boton6" onclick="mascotasPerdidas()">
-                <img
+        </div>
+
+        <button type="button" class="boton6" onclick="mascotasPerdidas()">
+            <img
                     src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687216/img/boton-6_j1hvec.png"
                     alt=""
                     width="250px"
-                />
-                <br>
-                <br>
-                MASCOTAS PERDIDAS
-            </button>
+            />
+            <br>
+            <br>
+            MASCOTAS PERDIDAS
+        </button>
 
-        </div>
-        <script src="/js/home.js"></script>
+    </div>
+    <script src="/js/home.js"></script>
     </body>
 </html>

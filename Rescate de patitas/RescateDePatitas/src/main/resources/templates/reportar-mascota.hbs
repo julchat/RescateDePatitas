@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="grid-item">
-                    <label for="doc-type">Tipo de documento<br></label><br>
+                    <label for="doc-type">Tipo de documento<br></label>
                     <select class="doc"  id="doc-type" name="tipoDoc" required>
                         <option value="DNI">DNI</option>
                         <option value="CEDULA">Cedula</option>
@@ -185,64 +185,53 @@
                     <input type="text" id="name" name="ubicacionEncontrada" class="text-input">
                 </div>
 
+                <div class="grid-item">
+                    <label for="tipoAnimal">Tipo de Animal<br></label>
+                    <input class="radio" type="radio" name="tipoAnimal" value="PERRO">Perro
+                    <input class="radio" type="radio" name="tipoAnimal" value="GATO">Gato
+                </div>
+
+                <div class="grid-item">
+                    <label for="sexo">Sexo<br></label>
+                    <input class="radio" type="radio" name="sexoMascota" value="HEMBRA">Hembra
+                    <input class="radio" type="radio" name="sexoMascota" value="MACHO">Macho
+                </div>
+
+                <div class="grid-item">
+                    <label for="tamanioMascota">Tamaño<br></label>
+                    <input class="radio" type="radio" name="tamanioMascota" value="PEQUENIA">Chico
+                    <input class="radio" type="radio" name="tamanioMascota" value="MEDIANA">Mediano
+                    <input class="radio" type="radio" name="tamanioMascota" value="GRANDE">Grande
+                </div>
+
+
                 <br><br><br><br>
                 <h3 class="subtitulo3">Hogar de tránsito</h3>
                 <div></div><div></div>
 
                 <div>
-                    <label class="texto"><br>¿Puede ser hogar de tránsito para la mascota?</label>
-                    <input class="si-no" type="radio" onclick="showTransito()" v-model="transito" id="si" name="si" value="si">Si
-                    <input class="si-no2" type="radio" onclick="hideTransito()" v-model="transito" id="no" name="no" value="no">No
+                    <label class="texto"><br>¿Puede ser hogar de tránsito para la mascota? De lo contrario, se le buscará un Hogar de Tránsito adecuado</label>
+                    <input class="si-no" type="radio" onclick="hideTransito()" v-model="transito" id="si" name="si" value="si">Si
+                    <input class="si-no2" type="radio" onclick="showTransito()" v-model="transito" id="no" name="no" value="no">No
                 </div>
 
                 <div></div><div></div>
 
                 <fieldset id="transito" class="transito">
                     <div class="grid-item">
-                        <label for="tipoAnimal">Tipo de Animal<br></label>
-                        <input class="radio" type="radio" name="tipoAnimal" value="PERRO">Perro
-                        <input class="radio" type="radio" name="tipoAnimal" value="GATO">Gato
+                        <label for="radio">Radio de cercanía (en Km) <br></label>
+                        <input type="text" id="text" name="radioKM" class="text-input">
                     </div>
-
+                    <div></div>
                     <div class="grid-item">
-                        <label for="sexo">Sexo<br></label>
-                        <input class="radio" type="radio" name="sexoMascota" value="HEMBRA">Hembra
-                        <input class="radio" type="radio" name="sexoMascota" value="MACHO">Macho
+                        <label for="notification">Características<br></label>
+                        <select class="caracteristicas" id="Caracteristicas" name="caracteristicas" multiple="multiple">
+                            {{#each caracteristicas}}
+                                <option value={{caracteristica}}>{{caracteristica}}</option>
+                            {{/each}}
+                        </select>
                     </div>
 
-                    <div class="grid-item">
-                        <label for="tamanioMascota">Tamaño<br></label>
-                        <input class="radio" type="radio" name="tamanioMascota" value="PEQUENIA">Chico
-                        <input class="radio" type="radio" name="tamanioMascota" value="MEDIANA">Mediano
-                        <input class="radio" type="radio" name="tamanioMascota" value="GRANDE">Grande
-                    </div>
-
-                    <div>
-                        <label class="texto"><br>¿Puede albergar a la mascota o desea buscar un Hogar de Tránsito adecuado?</label>
-                        <!-- Si selecciona SI debería llevarlo al siguiente fieldset
-                        <input type="button" class="button" name="albergarMascota" value="SI" />-->
-                        <input class="si-no" type="radio" onclick="showHogares()" v-model="hogares" id="si" name="si" value="si">Si
-                        <!-- Si selecciona NO debería simplemente registrar a la mascota y mandarlo a home
-                        <input type="button" class="button" name="albergarMascota" value="NO" /> -->
-                        <input class="si-no2" type="radio" onclick="hideHogares()" v-model="hogares" id="no" name="no" value="no">No
-                    </div>
-
-
-                    <fieldset id="hogarTransito" class="hogarTransito">
-                        <div class="grid-item">
-                            <label for="radio">Radio de cercanía (en Km) <br></label>
-                            <input type="text" id="text" name="radioKM" class="text-input">
-                        </div>
-                        <div></div>
-                        <div class="grid-item">
-                            <label for="notification">Características<br></label>
-                            <select class="doc" id="Caracteristicas" name="caracteristicas" multiple="multiple">
-                                {{#each caracteristicas}}
-                                    <option value={{caracteristica}}>{{caracteristica}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                    </fieldset>
 
 
                     <br><br>
@@ -258,7 +247,6 @@
                 <div class="grid-item" align="center" id="publicar">
                     <button type="submit" class="boton" v-on:click="crearPublicacionMascotaPerdida()">CREAR PUBLICACIÓN</button>
                 </div>
-
 
             </div>
         </div>
