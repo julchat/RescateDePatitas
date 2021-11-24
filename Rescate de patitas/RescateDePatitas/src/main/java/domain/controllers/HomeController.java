@@ -203,13 +203,14 @@ public class HomeController {
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("reportar-mascota");
 
-        Map<String, Object> viewModel = new HashMap<>();
-        RepositorioCaracteristicas repositorioCaracteristicas = FactoryRepositorioCaracteristicas.get();
+        //Map<String, Object> viewModel = new HashMap<>();
+        //RepositorioCaracteristicas repositorioCaracteristicas = FactoryRepositorioCaracteristicas.get();
 
-        List<Caracteristica> caracteristicas = repositorioCaracteristicas.buscarTodos();
-        viewModel.put("caracteristicas", caracteristicas);
+        //List<Caracteristica> caracteristicas = repositorioCaracteristicas.buscarTodos();
+        //viewModel.put("caracteristicas", caracteristicas);
 
-        return template.apply(viewModel);
+        //return template.apply(viewModel);
+        return template.text();
     }
 
 

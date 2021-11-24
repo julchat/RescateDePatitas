@@ -35,6 +35,7 @@ public class Rescatista extends Persona {
 
     public void setMascotasAlojadas(List<MascotaPerdida> mascotasAlojadas) { this.mascotasAlojadas = mascotasAlojadas; }
 
+    public Rescatista() { }
 
     // Metodos
     public void alojarMascota(MascotaPerdida mascotaPerdida) {

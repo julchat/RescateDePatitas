@@ -22,6 +22,10 @@ public class MascotaPerdida extends EntidadPersistente {
     private TipoAnimal tipoAnimal;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "sexoMascota")
+    private SexoMascota sexoMascota;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "tamanio")
     private Tamanio tamanio;
 
@@ -63,6 +67,10 @@ public class MascotaPerdida extends EntidadPersistente {
     public TipoAnimal getTipoAnimal() { return tipoAnimal; }
 
     public void setTipoAnimal(TipoAnimal tipoAnimal) { this.tipoAnimal = tipoAnimal; }
+
+    public SexoMascota getSexoMascota() { return sexoMascota; }
+
+    public void setSexoMascota(SexoMascota sexoMascota) { this.sexoMascota = sexoMascota; }
 
     public Tamanio getTamanio() { return tamanio; }
 

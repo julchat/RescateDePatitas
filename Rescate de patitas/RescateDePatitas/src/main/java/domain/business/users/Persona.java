@@ -40,7 +40,7 @@ public class Persona extends EntidadPersistente {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "contactos")
-    private List<Contacto> contactos = new ArrayList<>();
+    private List<Contacto> contactos;
 
     private boolean suscripto;
 

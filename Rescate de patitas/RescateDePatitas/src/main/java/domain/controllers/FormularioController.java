@@ -18,6 +18,7 @@ import domain.security.User;
 import domain.security.Usuario;
 import domain.security.password.PasswordStatus;
 import domain.security.password.ValidadorPassword;
+import json.FormFoundPet;
 import json.FormRegisterPet;
 import json.FormUser;
 import json.Mensaje;
@@ -34,7 +35,7 @@ public class FormularioController {
     private RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
     private RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
     private RepositorioRescatista repositorioRescatista = FactoryRepositorioRescatista.get();
-    private RepositorioDuenio repositorioDuenios = FactoryRepositorioDuenio.get();
+    private RepositorioDuenio repositorioDuenio = FactoryRepositorioDuenio.get();
     private RepositorioContactos repositorioContactos = FactoryRepositorioContacto.get();
     private RepositorioDomicilios repositorioDomicilios = FactoryRepositorioDomicilios.get();
     private RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
@@ -46,6 +47,7 @@ public class FormularioController {
     public String registrarMascota(Request request, Response response) throws IOException {
 
         String idSesion = request.headers("Authorization");
+        System.out.println("ID SESION: " + idSesion);
 
         if(idSesion == null) {
             System.out.println("No se ha iniciado sesion.");
@@ -63,7 +65,6 @@ public class FormularioController {
             duenio.setEmail(formulario.getEmail());
             duenio.setTelefono(formulario.getTelefono());
 
-            duenio.setDomicilio(new Domicilio());
             if(formulario.getProvincia() != ""
                     && formulario.getLocalidad() != ""
                     && formulario.getCodigoPostal() != ""
@@ -71,6 +72,7 @@ public class FormularioController {
                     && formulario.getNumeracion() != ""
                     && formulario.getPiso() != ""
                     && formulario.getDepartamento() != "") {
+                duenio.setDomicilio(new Domicilio());
                 duenio.getDomicilio().setProvincia(formulario.getProvincia());
                 duenio.getDomicilio().setLocalidad(formulario.getLocalidad());
                 duenio.getDomicilio().setCodigoPostal(new Integer(formulario.getCodigoPostal()));
@@ -78,9 +80,8 @@ public class FormularioController {
                 duenio.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
                 duenio.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
                 duenio.getDomicilio().setDepartamento(new Integer(formulario.getDepartamento()));
+                repositorioDomicilios.agregar(duenio.getDomicilio());
             }
-
-            repositorioDomicilios.agregar(duenio.getDomicilio());
 
             if(formulario.getNotificacionSms() == "true") {
                 duenio.getFormasDeNotificacion().add(new NotificadorSms());
@@ -94,26 +95,31 @@ public class FormularioController {
                 duenio.getFormasDeNotificacion().add(new NotificadorWhatsapp());
             }
 
-            Contacto contactoUnico = new Contacto();
-            contactoUnico.setNombreContacto(formulario.getContactoNombre());
-            contactoUnico.setApellidoContacto(formulario.getContactoApellido());
-            contactoUnico.setEmailContacto(formulario.getContactoEmail());
-            contactoUnico.setTelefonoContacto(formulario.getContactoTelefono());
+            if(formulario.getContactoNombre() != "" &&
+                formulario.getContactoApellido() != "" &&
+                formulario.getContactoEmail() != "" &&
+                formulario.getContactoTelefono() != ""){
+                Contacto contactoUnico = new Contacto();
+                contactoUnico.setNombreContacto(formulario.getContactoNombre());
+                contactoUnico.setApellidoContacto(formulario.getContactoApellido());
+                contactoUnico.setEmailContacto(formulario.getContactoEmail());
+                contactoUnico.setTelefonoContacto(formulario.getContactoTelefono());
 
-            if(formulario.getContactoNotificacionSms() == "true") {
-                contactoUnico.getFormasDeNotificacion().add(new NotificadorSms());
+                if(formulario.getContactoNotificacionSms() == "true") {
+                    contactoUnico.getFormasDeNotificacion().add(new NotificadorSms());
+                }
+
+                if(formulario.getContactoNotificacionEmail() == "true") {
+                    contactoUnico.getFormasDeNotificacion().add(new NotificadorEmail());
+                }
+
+                if(formulario.getContactoNotificacionWpp() == "true") {
+                    contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
+                }
+
+                duenio.getContactos().add(contactoUnico);
+                repositorioContactos.agregar(contactoUnico);
             }
-
-            if(formulario.getContactoNotificacionEmail() == "true") {
-                contactoUnico.getFormasDeNotificacion().add(new NotificadorEmail());
-            }
-
-            if(formulario.getContactoNotificacionWpp() == "true") {
-                contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
-            }
-
-            duenio.getContactos().add(contactoUnico);
-            repositorioContactos.agregar(contactoUnico);
 
             Mascota nuevaMascota = new Mascota();
             nuevaMascota.setNombreMascota(formulario.getNombreMascota());
@@ -121,8 +127,6 @@ public class FormularioController {
             nuevaMascota.setEdadMascota(new Integer(formulario.getEdadMascota()));
             nuevaMascota.setTipoAnimal(TipoAnimal.valueOf(formulario.getTipoAnimal()));
             nuevaMascota.setSexoMascota(SexoMascota.valueOf(formulario.getSexoMascota()));
-
-
             nuevaMascota.setDescripcionMascota(formulario.getDescripcionMascota());
 
             Chapa nuevaChapita = new Chapa(duenio, nuevaMascota);
@@ -134,8 +138,8 @@ public class FormularioController {
 
             duenio.registrarMascota(nuevaChapita);
             repositorioMascotas.agregar(nuevaMascota);
-            repositorioPersonas.agregar(duenio);
-            repositorioDuenios.agregar(duenio);
+            //repositorioPersonas.agregar(duenio);
+            repositorioDuenio.agregar(duenio);
 
 
             if(formulario.getRegister().equals("si")) {
@@ -214,11 +218,26 @@ public class FormularioController {
             System.out.println(request.body());
 
             Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
-            Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
+            //Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
+            Duenio duenio = null;
 
-            if(persona.getDomicilio().getLocalidad() == null
-                    && persona.getDomicilio().getProvincia() == null
-                    && persona.getDomicilio().getCalle() == null) {
+            if(usuario.getPersona().getClass() == Persona.class) {
+                duenio = (Duenio) repositorioPersonas.buscar(usuario.getPersona().getId());
+
+                response.status(200);
+                System.out.println(new Gson().toJson(duenio));
+            }
+            else if(usuario.getPersona().getClass() == Duenio.class) {
+                duenio = repositorioDuenio.buscar(usuario.getPersona().getId());
+
+                response.status(200);
+                System.out.println(new Gson().toJson(duenio));
+            }
+
+
+            if(duenio.getDomicilio().getLocalidad() == null
+                    && duenio.getDomicilio().getProvincia() == null
+                    && duenio.getDomicilio().getCalle() == null) {
                 if(formulario.getProvincia() != ""
                         && formulario.getLocalidad() != ""
                         && formulario.getCodigoPostal() != ""
@@ -226,15 +245,15 @@ public class FormularioController {
                         && formulario.getNumeracion() != ""
                         && formulario.getPiso() != ""
                         && formulario.getDepartamento() != "") {
-                    persona.getDomicilio().setProvincia(formulario.getProvincia());
-                    persona.getDomicilio().setLocalidad(formulario.getLocalidad());
-                    persona.getDomicilio().setCodigoPostal(new Integer(formulario.getCodigoPostal()));
-                    persona.getDomicilio().setCalle(formulario.getCalle());
-                    persona.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
-                    persona.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
-                    persona.getDomicilio().setDepartamento(new Integer(formulario.getDepartamento()));
+                    duenio.getDomicilio().setProvincia(formulario.getProvincia());
+                    duenio.getDomicilio().setLocalidad(formulario.getLocalidad());
+                    duenio.getDomicilio().setCodigoPostal(new Integer(formulario.getCodigoPostal()));
+                    duenio.getDomicilio().setCalle(formulario.getCalle());
+                    duenio.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
+                    duenio.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
+                    duenio.getDomicilio().setDepartamento(new Integer(formulario.getDepartamento()));
                 }
-                repositorioDomicilios.modificar(persona.getDomicilio());
+                repositorioDomicilios.modificar(duenio.getDomicilio());
             }
 
             Mascota nuevaMascota = new Mascota();
@@ -246,17 +265,17 @@ public class FormularioController {
 
             nuevaMascota.setDescripcionMascota(formulario.getDescripcionMascota());
 
-            Chapa nuevaChapita = new Chapa((Duenio) persona, nuevaMascota);
+            Chapa nuevaChapita = new Chapa(duenio, nuevaMascota);
             System.out.println("ID CHAPA: " + nuevaChapita.getId());
             repositorioChapas.agregar(nuevaChapita);
 
             System.out.println("ID CHAPA: " + nuevaChapita.getId());
             nuevaChapita.generarQR(nuevaChapita.getId());
 
-            ((Duenio) persona).registrarMascota(nuevaChapita);
+            (duenio).registrarMascota(nuevaChapita);
             repositorioMascotas.agregar(nuevaMascota);
-            repositorioPersonas.modificar(persona);
-            repositorioDuenios.agregar((Duenio) persona);
+            //repositorioPersonas.modificar(persona);
+            repositorioDuenio.agregar(duenio);
 
             response.status(200);
             return new Mensaje("Se ha registrado la mascota de forma satisfactoria.").transformar();
@@ -300,10 +319,10 @@ public class FormularioController {
             rescatista.getFormasDeNotificacion().add(new NotificadorWhatsapp());
         }
 
-        if(formUser.getContactoNombre() != null &&
-                formUser.getContactoApellido()!= null &&
-                formUser.getContactoEmail() != null &&
-                formUser.getContactoTelefono() != null){
+        if(formUser.getContactoNombre() != "" &&
+                formUser.getContactoApellido()!= "" &&
+                formUser.getContactoEmail() != "" &&
+                formUser.getContactoTelefono() != ""){
             Contacto contactoUnico = new Contacto();
             contactoUnico.setNombreContacto(formUser.getContactoNombre());
             contactoUnico.setApellidoContacto(formUser.getContactoApellido());
@@ -348,103 +367,200 @@ public class FormularioController {
     Mascota Perdida pero sin Chapita -> El Rescatista tiene que rellenar este Formulario y crea una Publicacion
    ============================================================================================================== */
 
-    public Response mascotaPerdida(Request request, Response response) {
+    public String mascotaPerdida(Request request, Response response) throws IOException {
         Sistema miSistema = Sistema.getInstance();
 
-        // Crea a un Rescatista y Mascota Perdida, y los persiste en la BD
-        // Crea una publicacion con los datos requeridos, tambien la persiste a la BD
-        // Verificar si el Rescatista puede alojar a la mascota, sino buscar un Hogar de Transito
-        try {
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID SESION: " + idSesion);
+
+        if(idSesion == null) {
+            System.out.println("No se ha iniciado sesion.");
+            FormFoundPet formulario = new Gson().fromJson(request.body(), FormFoundPet.class);
+            System.out.println(request.body());
+
             Rescatista rescatista = new Rescatista();
+            rescatista.setNombre(formulario.getNombre());
+            rescatista.setApellido(formulario.getApellido());
+            LocalDate fechaDeNacimiento = LocalDate.parse(formulario.getFechaDeNacimiento());
+            rescatista.setFechaDeNacimiento(fechaDeNacimiento);
+            rescatista.setTipoDocumento(TipoDoc.valueOf(formulario.getTipoDoc()));
+            rescatista.setNumeroDocumento(new Integer(formulario.getNroDocumento()));
+            rescatista.setEmail(formulario.getEmail());
+            rescatista.setTelefono(formulario.getTelefono());
 
-            rescatista.setNombre(request.queryParams("nombre"));
-            rescatista.setApellido(request.queryParams("apellido"));
-            rescatista.setFechaDeNacimiento(LocalDate.parse(request.queryParams("fechaDeNacimiento")));
-            rescatista.setTipoDocumento(TipoDoc.valueOf(request.queryParams("tipoDoc")));
-            rescatista.setNumeroDocumento(new Integer(request.queryParams("nroDocumento")));
-            rescatista.setEmail(request.queryParams("email"));
-            rescatista.setTelefono(request.queryParams("telefono"));
-
-            if(request.queryParams("provincia") != null &&
-                    request.queryParams("localidad") != null &&
-                    request.queryParams("codigoPostal") != null &&
-                    request.queryParams("calle") != null &&
-                    request.queryParams("numeracion") != null
-            ){
-                rescatista.setDomicilio(
-                        new Domicilio(request.queryParams("provincia"),
-                                request.queryParams("localidad"),
-                                new Integer(request.queryParams("codigoPostal")),
-                                request.queryParams("calle"),
-                                new Integer(request.queryParams("numeracion")),
-                                new Integer(request.queryParams("departamento")),
-                                new Integer(request.queryParams("piso")),
-                                new Ubicacion(
-                                        new Integer(request.queryParams("longitud")),
-                                        new Integer(request.queryParams("latitud"))))
-                );
-            }
-            // Todo: tal vez se puede utilizar una API, para buscar por la direccion y asi obtener la Ubicacion en coordenadas
-
-            /*
-            if(request.queryParams("formasDeNotifacion") != null){
-                rescatista.setFormasDeNotificacion(request.queryParams("formasDeNotifacion"));
+            if(formulario.getProvincia() != ""
+                    && formulario.getLocalidad() != ""
+                    && formulario.getCodigoPostal() != ""
+                    && formulario.getCalle() != ""
+                    && formulario.getNumeracion() != ""
+                    && formulario.getPiso() != ""
+                    && formulario.getDepartamento() != "") {
+                rescatista.setDomicilio(new Domicilio());
+                rescatista.getDomicilio().setProvincia(formulario.getProvincia());
+                rescatista.getDomicilio().setLocalidad(formulario.getLocalidad());
+                rescatista.getDomicilio().setCodigoPostal(new Integer(formulario.getCodigoPostal()));
+                rescatista.getDomicilio().setCalle(formulario.getCalle());
+                rescatista.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
+                rescatista.getDomicilio().setPiso(new Integer(formulario.getPiso()));
+                rescatista.getDomicilio().setDepartamento(new Integer(formulario.getDepartamento()));
+                //rescatista.getDomicilio().setUbicacion(new Ubicacion());
+                repositorioDomicilios.agregar(rescatista.getDomicilio());
             }
 
-            if(request.queryParams("contactos") != null){
-                rescatista.setContactos(request.queryParams("contactos"));
-            }*/
+            if(formulario.getNotificacionSms() == "true") {
+                rescatista.getFormasDeNotificacion().add(new NotificadorSms());
+            }
 
+            if(formulario.getNotificacionEmail() == "true") {
+                rescatista.getFormasDeNotificacion().add(new NotificadorEmail());
+            }
 
-            /*
-            if(request.queryParams("albergarMascota") != null){
-                rescatista.isPuedeAlojarMascota(request.queryParams("albergarMascota"));
-            }*/
+            if(formulario.getNotificacionWpp() == "true") {
+                rescatista.getFormasDeNotificacion().add(new NotificadorWhatsapp());
+            }
 
-            repositorioRescatista.agregar(rescatista);
+            if(formulario.getContactoNombre() != "" &&
+                    formulario.getContactoApellido() != "" &&
+                    formulario.getContactoEmail() != "" &&
+                    formulario.getContactoTelefono() != ""){
+                Contacto contactoUnico = new Contacto();
+                contactoUnico.setNombreContacto(formulario.getContactoNombre());
+                contactoUnico.setApellidoContacto(formulario.getContactoApellido());
+                contactoUnico.setEmailContacto(formulario.getContactoEmail());
+                contactoUnico.setTelefonoContacto(formulario.getContactoTelefono());
+
+                if(formulario.getContactoNotificacionSms() == "true") {
+                    contactoUnico.getFormasDeNotificacion().add(new NotificadorSms());
+                }
+
+                if(formulario.getContactoNotificacionEmail() == "true") {
+                    contactoUnico.getFormasDeNotificacion().add(new NotificadorEmail());
+                }
+
+                if(formulario.getContactoNotificacionWpp() == "true") {
+                    contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
+                }
+
+                rescatista.getContactos().add(contactoUnico);
+                repositorioContactos.agregar(contactoUnico);
+            }
 
             MascotaPerdida mascotaPerdida = new MascotaPerdida();
-            mascotaPerdida.setDescripcion(request.queryParams("descripcionMascota"));
-            mascotaPerdida.setTipoAnimal(TipoAnimal.valueOf(request.queryParams("tipoAnimal")));
-            mascotaPerdida.setTamanio(Tamanio.valueOf(request.queryParams("tamanioAnimal")));
+            mascotaPerdida.setTamanio(Tamanio.valueOf(formulario.getTamanioMascota()));
+            mascotaPerdida.setTipoAnimal(TipoAnimal.valueOf(formulario.getTipoAnimal()));
+            mascotaPerdida.setSexoMascota(SexoMascota.valueOf(formulario.getSexoMascota()));
+            mascotaPerdida.setDescripcion(formulario.getDescripcionMascota());
+            //TODO: Ubicacion y caracteristicas
 
-            /*
-            if(request.queryParams("fotos") != null){
-                mascotaPerdida.setCarrouselFotos(request.queryParams("fotos"));
-            }*/
-
-            // TODO: para este caso tendría que elegirlo desde un mapa, podemos cargar una ubicacion X,Y, o directamente con una direccion como String
-            if(request.queryParams("latitud") != null && request.queryParams("longitud") != null){
-                mascotaPerdida.setUbicacionEncontrada(new Ubicacion(
-                        new Integer(request.queryParams("longitud")),
-                        new Integer(request.queryParams("latitud"))));
-            }
-
-
+            repositorioRescatista.agregar(rescatista);
             repositorioMascotaPerdida.agregar(mascotaPerdida);
 
-            if(rescatista.isPuedeAlojarMascota()) {
+
+            // En este caso, el Rescatista se involucra y puede albergar a la mascota
+            if(formulario.getTransito().equals("si")) {
+                rescatista.setPuedeAlojarMascota(true);
                 rescatista.alojarMascota(mascotaPerdida);
             }
+            // En este caso, se le buscara un Hogar de Transito adecuado para albergar a la mascota
             else {
-                int radioKM = new Integer(request.queryParams("radioKM"));
+                int radioKM = new Integer(formulario.getRadioKM());
 
                 HogarDeTransito hogarAdecuado = miSistema.buscarHogarMasCercano(radioKM, mascotaPerdida);
                 hogarAdecuado.alojarMascota(mascotaPerdida);
             }
 
+            //TODO: crear publicacion
             rescatista.reportarMascotaPerdida(mascotaPerdida);
 
+            response.status(200);
+            return new Mensaje("Se ha reportado a la mascota de forma satisfactoria.").transformar();
+        }
 
-            response.redirect("/");
-        }
-        catch (Exception e) {
-            response.status(204);
-        }
-        finally {
-            return response;
+        // Registro de Mascota luego de haber iniciado Sesion
+        else {
+            System.out.println("Se inicio sesion.");
+            Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+            Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+            System.out.println("Login: " + sesionUsuario.getNombreUsuario());
+
+            FormFoundPet formulario = new Gson().fromJson(request.body(), FormFoundPet.class);
+            System.out.println(request.body());
+
+            Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+            Rescatista rescatista = null;
+
+            if(usuario.getPersona().getClass() == Persona.class) {
+                rescatista = (Rescatista) repositorioPersonas.buscar(usuario.getPersona().getId());
+
+                response.status(200);
+                System.out.println(new Gson().toJson(rescatista));
+
+            }
+            else if(usuario.getPersona().getClass() == Rescatista.class) {
+                rescatista = repositorioRescatista.buscar(usuario.getPersona().getId());
+
+                response.status(200);
+                System.out.println(new Gson().toJson(rescatista));
+            }
+
+            if(rescatista.getDomicilio().getLocalidad() == null
+                    && rescatista.getDomicilio().getProvincia() == null
+                    && rescatista.getDomicilio().getCalle() == null) {
+                if(formulario.getProvincia() != ""
+                        && formulario.getLocalidad() != ""
+                        && formulario.getCodigoPostal() != ""
+                        && formulario.getCalle() != ""
+                        && formulario.getNumeracion() != ""
+                        && formulario.getPiso() != ""
+                        && formulario.getDepartamento() != "") {
+                    rescatista.getDomicilio().setProvincia(formulario.getProvincia());
+                    rescatista.getDomicilio().setLocalidad(formulario.getLocalidad());
+                    rescatista.getDomicilio().setCodigoPostal(new Integer(formulario.getCodigoPostal()));
+                    rescatista.getDomicilio().setCalle(formulario.getCalle());
+                    rescatista.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
+                    rescatista.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
+                    rescatista.getDomicilio().setDepartamento(new Integer(formulario.getDepartamento()));
+                }
+                repositorioDomicilios.modificar(rescatista.getDomicilio());
+            }
+
+            MascotaPerdida mascotaPerdida = new MascotaPerdida();
+            mascotaPerdida.setTamanio(Tamanio.valueOf(formulario.getTamanioMascota()));
+            mascotaPerdida.setTipoAnimal(TipoAnimal.valueOf(formulario.getTipoAnimal()));
+            mascotaPerdida.setSexoMascota(SexoMascota.valueOf(formulario.getSexoMascota()));
+            mascotaPerdida.setDescripcion(formulario.getDescripcionMascota());
+            //TODO: Ubicacion y caracteristicas
+
+            repositorioMascotaPerdida.agregar(mascotaPerdida);
+
+            // En este caso, el Rescatista se involucra y puede albergar a la mascota
+            if(formulario.getTransito().equals("si")) {
+                rescatista.setPuedeAlojarMascota(true);
+                rescatista.alojarMascota(mascotaPerdida);
+            }
+            // En este caso, se le buscara un Hogar de Transito adecuado para albergar a la mascota
+            else {
+                int radioKM = new Integer(formulario.getRadioKM());
+
+                HogarDeTransito hogarAdecuado = miSistema.buscarHogarMasCercano(radioKM, mascotaPerdida);
+                hogarAdecuado.alojarMascota(mascotaPerdida);
+            }
+
+            //TODO: crear publicacion
+            rescatista.reportarMascotaPerdida(mascotaPerdida);
+
+            response.status(200);
+            return new Mensaje("Se ha reportado a la mascota de forma satisfactoria.").transformar();
         }
     }
+
+
+
+
+
+
+
+
 
     public String notificarRescatista(Request request, Response response) {
         int idPublicacion = new Integer(request.params("id"));
