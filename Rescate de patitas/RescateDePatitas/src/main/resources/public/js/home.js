@@ -1,4 +1,4 @@
-
+var dominio = "http://rescatedepatitasdds.herokuapp.com";
 let app = new Vue({
     el: "#appVue",
     data: {
@@ -8,7 +8,7 @@ let app = new Vue({
         cerrarSesion: function() {
             let idSesion = localStorage.getItem("IDSESION")
             localStorage.removeItem("IDSESION")
-            fetch("http://localhost:9000/logout", {
+            fetch(dominio + "/logout", {
                 headers: {
                     "Authorization": idSesion
                 }
@@ -17,7 +17,7 @@ let app = new Vue({
         },
         mascotasRegistradas: function() {
             let idSesion = localStorage.getItem("IDSESION")
-            fetch("http://localhost:9000/mascotas-registradas", {
+            fetch(dominio + "/mascotas-registradas", {
                 redirect: "follow",
                 method: "GET",
                 headers: {
@@ -28,7 +28,7 @@ let app = new Vue({
     },
     created() {
         let idSesion = localStorage.getItem("IDSESION")
-        fetch("http://localhost:9000/api/user", {
+        fetch(dominio + "/api/user", {
             method : "GET",
             headers: {
                 "Authorization": idSesion

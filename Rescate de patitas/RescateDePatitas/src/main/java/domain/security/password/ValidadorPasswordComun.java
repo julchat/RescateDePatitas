@@ -9,7 +9,9 @@ import java.util.stream.Stream;
 public class ValidadorPasswordComun extends Validador {
     @Override
     public String esValida(String usuario, String password){
-        Path path = Paths.get("src/Main/resources/utils/10k-most-common.txt");
+        String tuvieja = System.getProperty("user.dir");
+        Path path = Paths.get("./target/classes/utils/10k-most-common.txt");
+        System.out.println(tuvieja);
         Stream<String> stream;
         try {
             stream = Files.lines(path);
@@ -20,6 +22,7 @@ public class ValidadorPasswordComun extends Validador {
                 return passwordStatus.getStatusSimple();
             }
         } catch (IOException exception){
+            System.out.println("Alto error pa no pude entrar al archivo");
             return passwordStatus.getStatusSimple();
         }
     }

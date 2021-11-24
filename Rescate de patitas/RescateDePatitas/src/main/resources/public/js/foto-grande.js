@@ -1,4 +1,3 @@
-
 const img = document.querySelectorAll(".publicacion img");
 const modal = document.querySelector(".modal");
 const modalImg = document.querySelector(".modalImg");

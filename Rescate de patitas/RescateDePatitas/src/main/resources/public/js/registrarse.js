@@ -1,4 +1,4 @@
-
+var dominio = "http://rescatedepatitasdds.herokuapp.com";
 function verificarEstado(status, datos){
     if(status == 200) {
         alert(datos.mensaje);
@@ -38,7 +38,7 @@ let app = new Vue({
         registrarse: function () {
             let status;
             let datos;
-            fetch("http://localhost:9000/registrarse", {
+            fetch(dominio + "/registrarse", {
                 method: "post",
                 body: JSON.stringify({
                     nombre: this.nombre,

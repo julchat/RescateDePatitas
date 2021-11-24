@@ -1,4 +1,4 @@
-
+import { dominio } from './ruta.js';
 let slideIndex = 1;
 showSlides(slideIndex);
 

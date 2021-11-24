@@ -1,4 +1,4 @@
-
+var dominio = "http://rescatedepatitasdds.herokuapp.com";
 function verificarEstado(status, datos){
     if(status == 200) {
         alert(datos.mensaje);
@@ -56,7 +56,7 @@ let app = new Vue({
             let idSesion = localStorage.getItem("IDSESION");
             let status;
             let datos;
-            fetch("http://localhost:9000/registrar-mascota/registrado", {
+            fetch(dominio + "/registrar-mascota/registrado", {
                 method: "POST",
                 headers: {
                     "Authorization": idSesion
@@ -82,7 +82,7 @@ let app = new Vue({
         registrarMascota: function() {
             let status;
             let datos;
-            fetch("http://localhost:9000/registrar-mascota", {
+            fetch(dominio + "/registrar-mascota", {
                 method: "POST",
                 body: JSON.stringify({
                     tipoPerro: this.tipoPerro,
@@ -105,7 +105,7 @@ let app = new Vue({
     },
     created() {
         let idSesion = localStorage.getItem("IDSESION")
-        fetch("http://localhost:9000/api/perfil", {
+        fetch(dominio + "/api/perfil", {
             method : "get",
             headers: {
                 "Authorization": idSesion

@@ -11,10 +11,22 @@
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <!--<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>-->
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/rescatedepatitas"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="root"/>
+           <!-- <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/rescatedepatitas"/>-->
+<!--            <property name="hibernate.connection.url" value="jdbc:postgres://filmatxkbzynto:3e90f8f9948476f8be772e958be8fec4d3820d8c672c329647c183200137945d@ec2-100-24-247-156.compute-1.amazonaws.com:5432/d9tn814bk3tp8j"/>
+            <property name="hibernate.connection.username" value="filmatxkbzynto"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+            <property name="hibernate.connection.password" value="3e90f8f9948476f8be772e958be8fec4d3820d8c672c329647c183200137945d"/>
+            <property name="hibernate.connection.verifyServerCertificate" value = "false"/>
+            <property name="hibernate.connection.requireSSL" value = "true"/>-->
+            <property name="hibernate.connection.url" value="jdbc:mysql://e8a667ugeun4rthm:zyna2548oeorj33w@jtb9ia3h1pgevwb1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/shagpj98yimx4eyj"/>
+            <property name="hibernate.connection.username" value="e8a667ugeun4rthm"/>
+<!--            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.connection.password" value="zyna2548oeorj33w"/>
+<!--            <property name="hibernate.connection.verifyServerCertificate" value = "false"/>
+            <property name="hibernate.connection.requireSSL" value = "true"/>-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>-->
             <!-- <property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>

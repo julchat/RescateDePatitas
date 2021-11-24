@@ -1,4 +1,4 @@
-
+var dominio = "http://rescatedepatitasdds.herokuapp.com";
 let app = new Vue({
     el: "#vuePet",
     data: {
@@ -6,7 +6,7 @@ let app = new Vue({
     },
     created() {
         let idSesion = localStorage.getItem("IDSESION")
-        fetch("http://localhost:9000/api/mascotasUser", {
+        fetch(dominio + "/api/mascotasUser", {
             method : "GET",
             headers: {
                 "Authorization": idSesion
