@@ -1,21 +1,5 @@
 
-function hideTransito() {
-    document.getElementById('transito').style.display = 'none';
-    document.getElementById('publicar').style.display = 'block';
-}
-
-function showTransito() {
-    document.getElementById('transito').style.display = 'block';
-    document.getElementById('publicar').style.display = 'none';
-}
-
-function showHogares() {
-    document.getElementById('hogarTransito').style.display = 'block';
-}
-
-function hideHogares() {
-    document.getElementById('hogarTransito').style.display = 'none';
-}
+let status;
 
 function verificarEstado(status, datos){
     if(status == 200) {
@@ -54,17 +38,13 @@ let app = new Vue({
         calle: "",
         numeracion: "",
         departamento: "",
-        piso: "",
-
-
-        transito: "",
-        hogares: ""
+        piso: ""
     },
     methods: {
-        crearPublicacionMascotaPerdida: function () {
+        reportarMascota: function (id) {
             let status;
             let datos;
-            fetch("http://localhost:9000/reportar-mascota/", {
+            fetch("http://localhost:9000/reportar-mascota/" + id, {
                 method: "post",
                 body: JSON.stringify({
                     nombre: this.nombre,

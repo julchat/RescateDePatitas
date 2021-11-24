@@ -64,8 +64,8 @@ public class Router {
         Spark.post("/reportar-mascota/:id", formularioController::mascotaPerdidaChapita);
 
 // -- En el caso de no tener Chapita, se ingresa por esta direccion y se completan los Formularios correspondientes
-        Spark.get("/reportar-mascota", homeController::reportarMascotaPerdida);
-        //Spark.post("/reportar-mascota", formularioController::reportarMascotaPost);
+        Spark.get("/reportar-mascota", homeController::mascotaperdida);
+        Spark.post("/reportar-mascota", formularioController::mascotaPerdida);
 
         Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas);
         Spark.get("/mascotas-perdidas/estoy-perdido/:id", homeController::mascotaPerdida);
