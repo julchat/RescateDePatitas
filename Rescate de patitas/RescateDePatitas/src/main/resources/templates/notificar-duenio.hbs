@@ -1,96 +1,47 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Notificar Dueño</title>
-
-        <script defer src="/js/foto-grande.js"></script>
-        <script defer src="/js/index.js"></script>
-        <script defer src="/js/links.js"></script>
-        <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
-
-        <link rel="shortcut icon" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
-
-        <link rel="stylesheet" href="/css/barra-menu.css">
-        <link rel="stylesheet" href="/css/reset.css">
-        <link rel="stylesheet" href="/css/notificar.css">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
-    </head>
-    <body>
-    <div class="container">
-        <header class="header">
-            <nav class="menu">
-                <a href="/" class="logo"><img src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/home-logo_nqrjnd.png"></a>
-                <button class="toggle"><i class="fas fa-bars"></i></button>
-                <ul class="nav-menu">
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-en-adopcion">ADOPTAR</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/dar-mascota-adopcion">DAR EN ADOPCIÓN</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/reportar-mascota">REPORTAR</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-perdidas">MASCOTAS PERDIDAS</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link nav-menu-link_Active" href="/registrar-mascota">REGISTRAR MASCOTAS</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <h2 class="subtitulo">Complete el siguiente formulario para notificar al Dueño</h2>
-
-        <form action="/notificar-duenio:id" method="post" class="form1">
-
-            <div class="registro">
-
-                <div class="grid-item">
-                    <label for="name">Nombre<br></label>
-                    <input type="text" id="name" name="nombre" class="text-input" required>
-                </div>
-
-                <div class="grid-item">
-                    <label for="surname">Apellido<br></label>
-                    <input type="text" id="surname" name="apellido" class="text-input" required>
-                </div>
-
-                <div class="grid-item">
-                    <label for="date">Fecha de Nacimiento</label>
-                    <input type="date" id="date" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
-                </div>
-
-                <div class="grid-item">
-                    <label for="email">Email<br></label>
-                    <input type="text" id="email" name="email" class="text-input" required>
-                </div>
-
-                <div class="grid-item">
-                    <label for="doc-type">Tipo de documento<br></label><br>
-                    <select class="doc"  id="doc-type" name="tipoDoc" required>
-                        <option value="DNI">DNI</option>
-                        <option value="CEDULA">Cedula</option>
-                        <option value="PASAPORTE">Pasaporte</option>
-                    </select>
-                </div>
-
-                <div class="grid-item">
-                    <label for="n-doc">Número de documento<br></label>
-                    <input type="text" id="n-doc" name="nroDocumento" class="text-input" required>
-                </div>
-
-                <div class="grid-item">
-                    <label for="cel">Teléfono / Celular<br></label>
-                    <input type="text" id="cel" name="telefono" class="text-input" required>
-                </div>
-                <div></div>
-                <div class="grid-item">
-                    <label for="notification">Formas de notificación<br></label><br>
-                    <a><input class="check" type="checkbox" name="SMS"> SMS</a>
-                    <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
-                    <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
-                </div>
+<div class="container">
+    <h2 class="subtitulo">Complete el siguiente formulario para notificar al Dueño</h2>
+    <form action="/notificar-duenio:id" method="post" class="form1">
+        <div class="registro">
+            <div class="grid-item">
+                <label for="name">Nombre<br></label>
+                <input type="text" id="name" name="nombre" class="text-input" required>
             </div>
-        </form>
-
-
-        <button type="submit" class="boton">ENVIAR</button>
-
-    </div>
-    </body>
-</html>
+            <div class="grid-item">
+                <label for="surname">Apellido<br></label>
+                <input type="text" id="surname" name="apellido" class="text-input" required>
+            </div>
+            <div class="grid-item">
+                <label for="date">Fecha de Nacimiento</label>
+                <input type="date" id="date" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
+            </div>
+            <div class="grid-item">
+                <label for="email">Email<br></label>
+                <input type="text" id="email" name="email" class="text-input" required>
+            </div>
+            <div class="grid-item">
+                <label for="doc-type">Tipo de documento<br></label><br>
+                <select class="doc"  id="doc-type" name="tipoDoc" required>
+                    <option value="DNI">DNI</option>
+                    <option value="CEDULA">Cedula</option>
+                    <option value="PASAPORTE">Pasaporte</option>
+                </select>
+            </div>
+            <div class="grid-item">
+                <label for="n-doc">Número de documento<br></label>
+                <input type="text" id="n-doc" name="nroDocumento" class="text-input" required>
+            </div>
+            <div class="grid-item">
+                <label for="cel">Teléfono / Celular<br></label>
+                <input type="text" id="cel" name="telefono" class="text-input" required>
+            </div>
+            <div></div>
+            <div class="grid-item">
+                <label for="notification">Formas de notificación<br></label><br>
+                <a><input class="check" type="checkbox" name="SMS"> SMS</a>
+                <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
+                <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
+            </div>
+        </div>
+    </form>
+    <button type="submit" class="boton">ENVIAR</button>
+</div>

@@ -1,83 +1,47 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Administrar Características</title>
-
-        <script defer src="/js/index.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-        <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
-
-        <link rel="shortcut icon" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
-
-        <link rel="stylesheet" href="/css/barra-menu.css">
-        <link rel="stylesheet" href="/css/adm-caracteristicas.css">
-        <link rel="stylesheet" href="/css/reset.css">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container">
-            <header class="header">
-                <nav class="menu">
-                    <a href="/" class="logo"><img src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/home-logo_nqrjnd.png"></a>
-                    <button class="toggle"><i class="fas fa-bars"></i></button>
-                    <ul class="nav-menu">
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-en-adopcion">ADOPTAR</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/dar-mascota-adopcion">DAR EN ADOPCIÓN</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/reportar-mascota">REPORTAR</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-perdidas">MASCOTAS PERDIDAS</a></li>
-                        <li class="nav-menu-item"><a class="nav-menu-link nav-link nav-menu-link_Active" href="/registrar-mascota">REGISTRAR MASCOTAS</a></li>
-                    </ul>
-                </nav>
-            </header>
-
-            <div id="appVue" v-if="tipoRol === 'ADMIN'">
-                <h1 class="subtitulo">Administrar características</h1>
-                <p class="subtitulo3">Seleccione las características que verán los usuarios</p>
-                <div class="adm">
-                    <select class="select" name="select" multiple="multiple">
-                        <option value="1">Característica 1</option>
-                        <option value="2">Característica 2</option>
-                        <option value="3">Característica 3</option>
-                        <option value="4">Característica 4</option>
-                        <option value="5">Característica 5</option>
-                        <option value="6">Característica 6</option>
-                    </select>
-                </div>
-
-                <div class="adm">
-                    <p class="subtitulo3">Añadir característica</p>
-
-                    <input type="text" placeholder="Añadir característica" value="" class="text-input">
-                    <br>
-                    <a href="#">
-                        <button class="boton">AÑADIR</button>
-                    </a>
-                </div>
-
-                <p class="subtitulo3">Seleccione las características que desea quitar</p>
-                <div class="adm">
-                    <select class="select" name="select" multiple="multiple">
-                        <option value="1">Característica 1</option>
-                        <option value="2">Característica 2</option>
-                        <option value="3">Característica 3</option>
-                        <option value="4">Característica 4</option>
-                        <option value="5">Característica 5</option>
-                        <option value="6">Característica 6</option>
-                    </select>
-                </div>
+<div class="container">
+    <div id="appVue" v-if="tipoRol === 'ADMIN'">
+        <h1 class="subtitulo">Administrar características</h1>
+        <p class="subtitulo3">Seleccione las características que verán los usuarios</p>
+            <div class="adm">
+                <select class="select" name="select" multiple="multiple">
+                    <option value="1">Característica 1</option>
+                    <option value="2">Característica 2</option>
+                    <option value="3">Característica 3</option>
+                    <option value="4">Característica 4</option>
+                    <option value="5">Característica 5</option>
+                    <option value="6">Característica 6</option>
+                </select>
             </div>
 
-            <div v-else>
-                <div></div><div></div><div></div><div></div>
-                <div class="subtitulo">Usted no tiene permisos para acceder a esta sección<br><br><br>
-                    <img class="imgAviso" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687231/img/gato_enojado_kmbtyd.png">
-                </div>
+            <div class="adm">
+                <p class="subtitulo3">Añadir característica</p>
+
+                <input type="text" placeholder="Añadir característica" value="" class="text-input">
+                <br>
+                <a href="#">
+                    <button class="boton">AÑADIR</button>
+                </a>
             </div>
 
-        </div>
-        <script src="/js/home.js"></script>
-    </body>
-</html>
+            <p class="subtitulo3">Seleccione las características que desea quitar</p>
+            <div class="adm">
+                <select class="select" name="select" multiple="multiple">
+                    <option value="1">Característica 1</option>
+                    <option value="2">Característica 2</option>
+                    <option value="3">Característica 3</option>
+                    <option value="4">Característica 4</option>
+                    <option value="5">Característica 5</option>
+                    <option value="6">Característica 6</option>
+                </select>
+            </div>
+    </div>
+
+    <div v-else>
+        <div></div><div></div><div></div><div></div>
+            <div class="subtitulo">Usted no tiene permisos para acceder a esta sección<br><br><br>
+                <img class="imgAviso" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687231/img/gato_enojado_kmbtyd.png">
+            </div>
+    </div>
+
+</div>
+    <script src="/js/home.js"></script>
