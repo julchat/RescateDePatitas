@@ -11,6 +11,7 @@ import domain.business.users.Rescatista;
 import domain.repositorios.*;
 import domain.repositorios.factories.*;
 import domain.security.Usuario;
+import json.FormUsuarioRol;
 import json.JsonController;
 import json.JsonLists;
 import json.Mensaje;
@@ -213,10 +214,19 @@ public class ApiRestController {
 
             if(miSistema.validarRol(usuario.getTipoRol()).puedoCrearAdministradores()) {
                 System.out.println("Validando permisos...");
-                //repositorioUsuarios.usuariosRegistrados();
-            // TODO: hay que obtener a todos los usuarios con Nombre y TipoRol
+                List<Usuario> usuariosRegistrados = repositorioUsuarios.buscarTodos();
+                List<FormUsuarioRol> usuariosAMostrar = new ArrayList<>();
+
+                for(Usuario usuarioRegistrado : usuariosRegistrados) {
+                    if(usuarioRegistrado.getNombreUsuario() != usuario.getNombreUsuario()) {
+                        FormUsuarioRol usuarioAMostrar = new FormUsuarioRol(String.valueOf(usuarioRegistrado.getId()), usuarioRegistrado.getNombreUsuario(), usuarioRegistrado.getTipoRol().toString());
+                        usuariosAMostrar.add(usuarioAMostrar);
+                    }
+                }
+                System.out.println(JsonController.transformar(usuariosAMostrar));
+
                 response.status(200);
-                return new Mensaje("USUARIOS REGISTRADOS Y SUS ROLES").transformar();
+                return JsonController.transformar(usuariosAMostrar);
             }
             else {
                 System.out.println("No tiene permisos suficientes.");

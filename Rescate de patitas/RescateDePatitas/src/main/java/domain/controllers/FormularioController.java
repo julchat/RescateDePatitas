@@ -14,6 +14,7 @@ import domain.business.ubicacion.Ubicacion;
 import domain.business.users.*;
 import domain.repositorios.*;
 import domain.repositorios.factories.*;
+import domain.security.Admin;
 import domain.security.TipoRol;
 import domain.security.User;
 import domain.security.Usuario;
@@ -650,7 +651,6 @@ public class FormularioController {
         }
     }
 
-
     public String visibilizarCaracteristicas(Request request, Response response) {
 
         FormCarac caracteristicas = new Gson().fromJson(request.body(), FormCarac.class);
@@ -696,9 +696,54 @@ public class FormularioController {
     }
 
 
-    public String adminUsuarios(Request request, Response response) {
+    public String agregarNuevoAdmin(Request request, Response response) {
 
-        return null;
+        FormAdmins nuevosAdmins = new Gson().fromJson(request.body(), FormAdmins.class);
+        System.out.println(request.body());
+
+        if(!nuevosAdmins.getNuevosAdmins().isEmpty()) {
+
+            System.out.println("ID Admin a agregar: " + nuevosAdmins.getNuevosAdmins());
+            for(String idNuevoAdmin : nuevosAdmins.getNuevosAdmins()) {
+                Usuario nuevoAdmin = repositorioUsuarios.buscar(new Integer(idNuevoAdmin));
+
+                nuevoAdmin.setTipoRol(TipoRol.ADMIN);
+                nuevoAdmin.setRol(new Admin());
+                repositorioUsuarios.modificar(nuevoAdmin);
+            }
+
+            response.status(200);
+            return new Mensaje("Se agregaron los nuevos Admins.").transformar();
+        }
+        else {
+            response.status(204);
+            return new Mensaje("No se eligió a ningún usuario.").transformar();
+        }
+    }
+
+    public String quitarAdmin(Request request, Response response) {
+
+        FormAdmins viejosAdmin = new Gson().fromJson(request.body(), FormAdmins.class);
+        System.out.println(request.body());
+
+        if(!viejosAdmin.getViejosAdmins().isEmpty()) {
+
+            System.out.println("ID Admin a agregar: " + viejosAdmin.getViejosAdmins());
+            for(String idViejoAdmin : viejosAdmin.getViejosAdmins()) {
+                Usuario viejoAdmin = repositorioUsuarios.buscar(new Integer(idViejoAdmin));
+
+                viejoAdmin.setTipoRol(TipoRol.USER);
+                viejoAdmin.setRol(new User());
+                repositorioUsuarios.modificar(viejoAdmin);
+            }
+
+            response.status(200);
+            return new Mensaje("Se quitaron los permisos de Admin de esos usuarios.").transformar();
+        }
+        else {
+            response.status(204);
+            return new Mensaje("No se eligió a ningún usuario.").transformar();
+        }
     }
 
 }

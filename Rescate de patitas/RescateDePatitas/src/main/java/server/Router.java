@@ -42,7 +42,7 @@ public class Router {
         Spark.get("/api/mascotasUser", apiRestController::obtenerMascotasPorUser);
         Spark.get("/api/publicaciones", apiRestController::obtenerPublicaciones);
         Spark.get("/api/cambiar-caracteristicas", apiRestController::permiteAdministrar);
-        Spark.get("/api/nuevos-admins", apiRestController::permiteAgregarAdmin);
+        Spark.get("/api/agregar-admin", apiRestController::permiteAgregarAdmin);
 
 
         Spark.get("/", homeController::inicio);
@@ -93,8 +93,10 @@ public class Router {
         Spark.post("/agregar-caracteristica", formularioController::agregarCaracteristica);
         Spark.post("/visibilizar-caractersticas", formularioController::visibilizarCaracteristicas);
         Spark.post("/ocultar-caracteristicas", formularioController::ocultarCaracteristicas);
+
         Spark.get("/administrar-usuarios", homeController::adminUsuarios);
-        Spark.post("/administrar-usuarios", formularioController::adminUsuarios);
+        Spark.post("/agregar-admin", formularioController::agregarNuevoAdmin);
+        Spark.post("/quitar-admin", formularioController::quitarAdmin);
 
         // Solo para los Moderadores
         Spark.get("/publicaciones-pendientes", homeController::publicacionesPendientes);

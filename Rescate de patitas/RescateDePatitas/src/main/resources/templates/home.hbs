@@ -73,48 +73,89 @@
         </button>
 
         <div id="appVue">
-            <nav class="nav" v-if="tipoRol === 'USER'">
-                <ul>
-                    <li><a class="mi-cuenta">MI CUENTA</a>
-                        <ul class="submenu">
-                            <li><a href="/editar-perfil"><button class="botonsub">Editar perfil</button></a></li>
-                            <li><a><button class="botonsub" v-on:click="mascotasRegistradas">Mascotas registradas</button></a></li>
-                            <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <div v-if="tipoRol === 'USER'">
+                <nav class="nav">
+                    <ul>
+                        <li><a class="mi-cuenta">MI CUENTA</a>
+                            <ul class="submenu">
+                                <li><a href="/editar-perfil"><button class="botonsub">Editar perfil</button></a></li>
+                                <li><a><button class="botonsub" v-on:click="mascotasRegistradas">Mascotas registradas</button></a></li>
+                                <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
+                            </ul>
+                        </li>
+                    </ul>
 
-            </nav>
+                </nav>
+                <button type="button" class="boton7" onclick="mascotasPerdidas()">
+                    <img
+                            src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687216/img/boton-6_j1hvec.png"
+                            alt=""
+                            width="250px"
+                    />
+                    <br>
+                    <br>
+                    MASCOTAS PERDIDAS
+                </button>
+            </div>
 
-            <nav class="nav" v-else-if="tipoRol === 'MODERADOR'">
-                <ul>
-                    <li><a class="mi-cuenta">MI CUENTA</a>
-                        <ul class="submenu">
-                            <li><a href="/editar-perfil"><button class="botonsub">Editar perfil</button></a></li>
-                            <li><a href="/mascotas-registradas"><button class="botonsub" >Mascotas registradas</button></a></li>
-                            <li><a href="/publicaciones-pendientes"><button class="botonsub">Publicaciones pendientes</button></a></li>
-                            <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
-                        </ul>
-                    </li>
-                </ul>
 
-            </nav>
+            <div v-else-if="tipoRol === 'MODERADOR'">
+                <nav class="nav">
+                    <ul>
+                        <li><a class="mi-cuenta">MI CUENTA</a>
+                            <ul class="submenu">
+                                <li><a href="/editar-perfil"><button class="botonsub">Editar perfil</button></a></li>
+                                <li><a href="/mascotas-registradas"><button class="botonsub" >Mascotas registradas</button></a></li>
+                                <li><a href="/publicaciones-pendientes"><button class="botonsub">Publicaciones pendientes</button></a></li>
+                                <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
+                            </ul>
+                        </li>
+                    </ul>
 
-            <nav class="nav" v-else-if="tipoRol === 'ADMIN'">
-                <ul>
-                    <li><a class="mi-cuenta">MI CUENTA</a>
-                        <ul class="submenu">
-                            <li><a href="/editar-perfil" ><button class="botonsub">Editar perfil</button></a></li>
-                            <li><a href="/mascotas-registradas" ><button class="botonsub">Mascotas registradas</button></a></li>
-                            <li><a href="#"><button class="botonsub">Administrar Organización</button></a></li>
-                            <li><a href="/administrar-caracteristicas"><button class="botonsub">Administrar Características</button></a></li>
-                            <li><a href="#"><button class="botonsub">Administrar Roles</button></a></li>
-                            <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
-                        </ul>
-                    </li>
-                </ul>
+                </nav>
 
-            </nav>
+                <button type="button" class="boton7" onclick="mascotasPerdidas()">
+                    <img
+                            src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687216/img/boton-6_j1hvec.png"
+                            alt=""
+                            width="250px"
+                    />
+                    <br>
+                    <br>
+                    MASCOTAS PERDIDAS
+                </button>
+            </div>
+
+
+            <div v-else-if="tipoRol === 'ADMIN'">
+                <nav class="nav">
+                    <ul>
+                        <li><a class="mi-cuenta">MI CUENTA</a>
+                            <ul class="submenu">
+                                <li><a href="/editar-perfil" ><button class="botonsub">Editar perfil</button></a></li>
+                                <li><a href="/mascotas-registradas" ><button class="botonsub">Mascotas registradas</button></a></li>
+                                <li><a href="#"><button class="botonsub">Administrar Organización</button></a></li>
+                                <li><a href="/administrar-caracteristicas"><button class="botonsub">Administrar Características</button></a></li>
+                                <li><a href="/administrar-usuarios"><button class="botonsub">Administrar Roles</button></a></li>
+                                <li><a ><button class="botonsub" v-on:click="cerrarSesion">Cerrar sesión</button></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </nav>
+
+                <button type="button" class="boton7" onclick="mascotasPerdidas()">
+                    <img
+                            src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687216/img/boton-6_j1hvec.png"
+                            alt=""
+                            width="250px"
+                    />
+                    <br>
+                    <br>
+                    MASCOTAS PERDIDAS
+                </button>
+            </div>
+
 
             <div v-else>
                 <button type="button" class="boton-ingresar"  onclick="login()" >INGRESAR</button>
@@ -129,20 +170,24 @@
                     <br>
                     REGISTRARSE
                 </button>
+
+                <button type="button" class="boton6" onclick="mascotasPerdidas()">
+                    <img
+                            src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687216/img/boton-6_j1hvec.png"
+                            alt=""
+                            width="250px"
+                    />
+                    <br>
+                    <br>
+                    MASCOTAS PERDIDAS
+                </button>
             </div>
+
+
 
         </div>
 
-        <button type="button" class="boton6" onclick="mascotasPerdidas()">
-            <img
-                    src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687216/img/boton-6_j1hvec.png"
-                    alt=""
-                    width="250px"
-            />
-            <br>
-            <br>
-            MASCOTAS PERDIDAS
-        </button>
+
 
     </div>
     <script src="/js/home.js"></script>
