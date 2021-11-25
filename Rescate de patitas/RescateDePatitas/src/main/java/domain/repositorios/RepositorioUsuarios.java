@@ -42,6 +42,11 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
         return usuarios;
     }
 
+    /*
+    public List<String> usuariosYRoles() {
+        // TODO
+    }*/
+
     public Usuario buscarUsuario(String nombreDeUsuario){
         return this.dao.buscar(existeUsuario(nombreDeUsuario));
     }

@@ -2,6 +2,7 @@ package domain.controllers;
 
 import com.google.gson.Gson;
 import domain.business.Sistema;
+import domain.business.caracteristicas.Caracteristica;
 import domain.business.mascota.*;
 import domain.business.notificaciones.Notificador;
 import domain.business.notificaciones.NotificadorEmail;
@@ -18,10 +19,7 @@ import domain.security.User;
 import domain.security.Usuario;
 import domain.security.password.PasswordStatus;
 import domain.security.password.ValidadorPassword;
-import json.FormFoundPet;
-import json.FormRegisterPet;
-import json.FormUser;
-import json.Mensaje;
+import json.*;
 import spark.Request;
 import spark.Response;
 
@@ -42,8 +40,11 @@ public class FormularioController {
     private RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
     private RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
     private RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
+    private RepositorioCaracteristicas repositorioCaracteristicas = FactoryRepositorioCaracteristicas.get();
 
-
+/* ==============================================================================================================
+    Registro de Mascota -> El Dueño/Usuario registra a su Mascota
+   ============================================================================================================== */
     public String registrarMascota(Request request, Response response) throws IOException {
 
         String idSesion = request.headers("Authorization");
@@ -283,9 +284,37 @@ public class FormularioController {
     }
 
 
+/* ==============================================================================================================
+    Dar Mascota en Adopción -> El Dueño completa el formulario para dar en adopción a una de sus mascotas
+   ============================================================================================================== */
+
+    public String darMascotaAdopcion(Request request, Response response) {
+
+        return null;
+    }
+
 
 /* ==============================================================================================================
-    Mascota Perdida pero con Chapita -> Escaneando el Código QR se llega a este Formulario
+    Adoptar a una Mascota -> El usuario se comunica con el Dueño de la mascota que desea adoptar
+   ============================================================================================================== */
+
+    public String notificarDuenio(Request request, Response response) {
+        return null;
+    }
+
+
+/* ==============================================================================================================
+    Buscar una Mascota Ideal -> El usuario ingresa sus preferencias y comodidades para que le sugieran una mascota en adopción
+   ============================================================================================================== */
+
+    public String buscarMascotaIdeal(Request request, Response response)  {
+
+        return null;
+    }
+
+
+/* ==============================================================================================================
+    Reportar Mascota Perdida (con Chapita) -> Escaneando el Código QR se llega a este Formulario
    ============================================================================================================== */
 
     public String mascotaPerdidaChapita(Request request, Response response) {
@@ -363,11 +392,12 @@ public class FormularioController {
         return new Mensaje("El formulario se ha enviado correctamente. El dueño de la mascota se comunicará con usted pronto.").transformar();
     }
 
+
 /* ==============================================================================================================
-    Mascota Perdida pero sin Chapita -> El Rescatista tiene que rellenar este Formulario y crea una Publicacion
+    Reportar Mascota Perdida (sin Chapita) -> El Rescatista tiene que rellenar este Formulario y crea una Publicacion
    ============================================================================================================== */
 
-    public String mascotaPerdida(Request request, Response response) throws IOException {
+    public String mascotaPerdida(Request request, Response response) {
         Sistema miSistema = Sistema.getInstance();
 
         String idSesion = request.headers("Authorization");
@@ -555,12 +585,9 @@ public class FormularioController {
     }
 
 
-
-
-
-
-
-
+/* ==============================================================================================================
+    Encontrar una Mascota Perdida -> El Dueño se comunica con el Rescatista por la Mascota que encontró
+   ============================================================================================================== */
 
     public String notificarRescatista(Request request, Response response) {
         int idPublicacion = new Integer(request.params("id"));
@@ -596,6 +623,82 @@ public class FormularioController {
 
         response.status(200);
         return new Mensaje("El formulario se ha enviado correctamente. El rescatista se comunicará con usted pronto.").transformar();
+    }
+
+
+
+
+
+    public String agregarCaracteristica(Request request, Response response) {
+
+        FormCarac caracteristicas = new Gson().fromJson(request.body(), FormCarac.class);
+        System.out.println(request.body());
+
+        if(caracteristicas.getCaracteristicaNueva() != "") {
+            System.out.println("Caracteristica a agregar: " + caracteristicas.getCaracteristicaNueva());
+            Caracteristica nuevaCaracteristica = new Caracteristica();
+            nuevaCaracteristica.setCaracteristica(caracteristicas.getCaracteristicaNueva());
+            nuevaCaracteristica.setEsVisible(true);
+            repositorioCaracteristicas.agregar(nuevaCaracteristica);
+
+            response.status(200);
+            return new Mensaje("La característica fue agregada satisfactoriamente.").transformar();
+        }
+        else {
+            response.status(204);
+            return new Mensaje("No se agregó ninguna característica.").transformar();
+        }
+    }
+
+
+    public String visibilizarCaracteristicas(Request request, Response response) {
+
+        FormCarac caracteristicas = new Gson().fromJson(request.body(), FormCarac.class);
+        System.out.println(request.body());
+
+        if(!caracteristicas.getCaracteristicasVisibles().isEmpty()) {
+            System.out.println("Caracteristicas a Mostrar: " + caracteristicas.getCaracteristicasVisibles());
+            for(String idCaracteristicaAMostrar : caracteristicas.getCaracteristicasVisibles()) {
+                Caracteristica caracteristicaAMostrar = repositorioCaracteristicas.buscar(new Integer(idCaracteristicaAMostrar));
+
+                caracteristicaAMostrar.setEsVisible(true);
+                repositorioCaracteristicas.modificar(caracteristicaAMostrar);
+            }
+            response.status(200);
+            return new Mensaje("Se mostrarán las características elegidas.").transformar();
+        }
+        else {
+            response.status(204);
+            return new Mensaje("No se eligieron características para visibilizar.").transformar();
+        }
+    }
+
+    public String ocultarCaracteristicas(Request request, Response response) {
+
+        FormCarac caracteristicas = new Gson().fromJson(request.body(), FormCarac.class);
+        System.out.println(request.body());
+
+        if(!caracteristicas.getCaracteristicasAQuitar().isEmpty()) {
+            System.out.println("Caracteristicas a Quitar: " + caracteristicas.getCaracteristicasAQuitar());
+            for(String idCaracteristicaAQuitar : caracteristicas.getCaracteristicasAQuitar()) {
+                Caracteristica caracteristicaAQuitar = repositorioCaracteristicas.buscar(new Integer(idCaracteristicaAQuitar));
+
+                caracteristicaAQuitar.setEsVisible(false);
+                repositorioCaracteristicas.modificar(caracteristicaAQuitar);
+            }
+            response.status(200);
+            return new Mensaje("Se ocultaron las características elegidas.").transformar();
+        }
+        else {
+            response.status(204);
+            return new Mensaje("No se eligieron características para ocultar.").transformar();
+        }
+    }
+
+
+    public String adminUsuarios(Request request, Response response) {
+
+        return null;
     }
 
 }

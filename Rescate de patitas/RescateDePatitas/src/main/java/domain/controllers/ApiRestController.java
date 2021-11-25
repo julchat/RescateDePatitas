@@ -1,17 +1,23 @@
 package domain.controllers;
 
 import com.google.gson.Gson;
+import domain.business.Sistema;
+import domain.business.caracteristicas.Caracteristica;
 import domain.business.mascota.Mascota;
+import domain.business.publicaciones.Publicacion;
 import domain.business.users.Duenio;
 import domain.business.users.Persona;
 import domain.business.users.Rescatista;
 import domain.repositorios.*;
 import domain.repositorios.factories.*;
 import domain.security.Usuario;
+import json.JsonController;
+import json.JsonLists;
 import json.Mensaje;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +29,7 @@ public class ApiRestController {
     private RepositorioContactos repositorioContactos = FactoryRepositorioContacto.get();
     private RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
     private RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
+    private RepositorioCaracteristicas repositorioCaracteristicas = FactoryRepositorioCaracteristicas.get();
 
     public String obtenerPerfil(Request request, Response response) {
         System.out.println("OBTENIENDO EL PERFIL ----------------------------");
@@ -65,7 +72,7 @@ public class ApiRestController {
 
             return new Gson().toJson(persona);
         }
-        response.status(500);
+        response.status(204);
         return null;
     }
 
@@ -87,7 +94,7 @@ public class ApiRestController {
     }
 
     public String obtenerRol(Request request, Response response) {
-        System.out.println("OBTENIENDO EL USUARIO ----------------------------");
+        System.out.println("OBTENIENDO EL ROL ----------------------------");
         String idSesion = request.headers("Authorization");
         System.out.println("ID Sesion: " + idSesion);
 
@@ -104,7 +111,7 @@ public class ApiRestController {
     }
 
     public String obtenerMascotasPorUser(Request request, Response response) {
-        System.out.println("OBTENIENDO EL USUARIO ----------------------------");
+        System.out.println("OBTENIENDO MASCOTAS ----------------------------");
         String idSesion = request.headers("Authorization");
         System.out.println("ID Sesion: " + idSesion);
 
@@ -121,6 +128,107 @@ public class ApiRestController {
         System.out.println(new Gson().toJson(mascotas));
 
         return new Gson().toJson(mascotas);
+    }
+
+    public String obtenerPublicaciones(Request request, Response response) {
+        Sistema miSistema = Sistema.getInstance();
+
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID Sesion: " + idSesion);
+
+        try {
+            Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+            Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+            System.out.println("Login: " + sesionUsuario.getNombreUsuario());
+
+            Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+
+            if(miSistema.validarRol(usuario.getTipoRol()).puedoAprobarPublicaciones()) {
+                System.out.println("Validando permisos...");
+                List<Publicacion> publicaciones = new ArrayList<>();
+
+                response.status(200);
+                return new JsonLists<Publicacion>(publicaciones).transformar();
+            }
+            else {
+                System.out.println("No tiene permisos suficientes.");
+                response.status(203);
+                return new Mensaje("No hay permisos suficientes.").transformar();
+            }
+        }
+        catch (NullPointerException e) {
+            System.out.println("No tiene permisos suficientes.");
+            response.status(203);
+            return new Mensaje("No hay permisos suficientes.").transformar();
+        }
+    }
+
+
+    public String permiteAdministrar(Request request, Response response) {
+        Sistema miSistema = Sistema.getInstance();
+
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID Sesion: " + idSesion);
+
+        try {
+            Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+            Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+            System.out.println("Login: " + sesionUsuario.getNombreUsuario());
+
+            Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+
+            if(miSistema.validarRol(usuario.getTipoRol()).puedoCambiarEstandares()) {
+                System.out.println("Validando permisos...");
+                List<Caracteristica> caracteristicas = repositorioCaracteristicas.buscarTodos();
+
+                response.status(200);
+                return JsonController.transformar(caracteristicas);
+            }
+            else {
+                System.out.println("No tiene permisos suficientes.");
+                response.status(203);
+                return new Mensaje("No hay permisos suficientes.").transformar();
+            }
+        }
+        catch (NullPointerException e) {
+            System.out.println("No tiene permisos suficientes.");
+            response.status(203);
+            return new Mensaje("No hay permisos suficientes.").transformar();
+        }
+    }
+
+
+    public String permiteAgregarAdmin(Request request, Response response) {
+        Sistema miSistema = Sistema.getInstance();
+
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID Sesion: " + idSesion);
+
+        try {
+            Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+            Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+            System.out.println("Login: " + sesionUsuario.getNombreUsuario());
+
+            Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+
+            if(miSistema.validarRol(usuario.getTipoRol()).puedoCrearAdministradores()) {
+                System.out.println("Validando permisos...");
+                //repositorioUsuarios.usuariosRegistrados();
+            // TODO: hay que obtener a todos los usuarios con Nombre y TipoRol
+                response.status(200);
+                return new Mensaje("USUARIOS REGISTRADOS Y SUS ROLES").transformar();
+            }
+            else {
+                System.out.println("No tiene permisos suficientes.");
+                response.status(203);
+                return new Mensaje("No hay permisos suficientes.").transformar();
+            }
+        }
+        catch (NullPointerException e) {
+            System.out.println("No tiene permisos suficientes.");
+            response.status(203);
+            return new Mensaje("No hay permisos suficientes.").transformar();
+        }
     }
 
 }

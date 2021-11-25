@@ -33,53 +33,53 @@
                 </nav>
             </header>
             <div id="appVue">
-                <div v-if="tipoRol === 'ADMIN'">
-                    <h1 class="subtitulo">Administrar características</h1>
-                    <p class="subtitulo3">Seleccione las características que verán los usuarios</p>
+                    <h1 class="subtitulo">Administrar Características</h1>
+
+                    <p class="subtitulo3">Características visibles</p>
                     <div class="adm">
-                        <select class="select" name="select" multiple="multiple">
-                            <option value="1">Característica 1</option>
-                            <option value="2">Característica 2</option>
-                            <option value="3">Característica 3</option>
-                            <option value="4">Característica 4</option>
-                            <option value="5">Característica 5</option>
-                            <option value="6">Característica 6</option>
+                        <select class="select" name="select" multiple="true">
+                            <option v-for="carac in caracteristicas" v-bind:value="carac.caracteristica" v-if="carac.esVisible" disabled>{{carac.caracteristica}}</option>
                         </select>
+                    </div>
+
+                    <p class="subtitulo3">Seleccione las características que desea hacer visibles</p>
+                    <div class="adm">
+
+                        <select class="select" name="select" multiple="true" v-model="caracteristicasVisibles">
+                            <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="!carac.esVisible">{{carac.caracteristica}}</option>
+                        </select>
+
+                        <a v-on:click="mostrarCaracteristicas">
+                            <button class="boton">ACTUALIZAR</button>
+                        </a>
+
                     </div>
 
                     <div class="adm">
                         <p class="subtitulo3">Añadir característica</p>
 
-                        <input type="text" placeholder="Añadir característica" value="" class="text-input">
+                        <input type="text" placeholder="Añadir característica" v-model="caracteristicaNueva" class="text-input">
                         <br>
-                        <a href="#">
+                        <a v-on:click="agregarCaracteristica">
                             <button class="boton">AÑADIR</button>
                         </a>
                     </div>
 
                     <p class="subtitulo3">Seleccione las características que desea quitar</p>
                     <div class="adm">
-                        <select class="select" name="select" multiple="multiple">
-                            <option value="1">Característica 1</option>
-                            <option value="2">Característica 2</option>
-                            <option value="3">Característica 3</option>
-                            <option value="4">Característica 4</option>
-                            <option value="5">Característica 5</option>
-                            <option value="6">Característica 6</option>
+
+                        <select class="select" name="select" multiple="true" v-model="caracteristicasAQuitar">
+                            <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
                         </select>
-                    </div>
-                </div>
 
-                <div v-else>
-                    <div></div><div></div><div></div><div></div>
-                    <div class="subtitulo">Usted no tiene permisos para acceder a esta sección<br><br><br>
-                        <img class="imgAviso" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687231/img/gato_enojado_kmbtyd.png">
-                    </div>
-                </div>
+                        <a v-on:click="quitarCaracteristicas">
+                            <button class="boton">ACTUALIZAR</button>
+                        </a>
 
+                    </div>
             </div>
         </div>
-        <script src="/js/home.js"></script>
+        <script src="/js/adm-caracteristicas.js"></script>
     </body>
 </html>
 

@@ -10,11 +10,15 @@ import java.util.Map;
 
 public class PublicacionesController {
 
-    public ModelAndView showPublicacion(Request request , Response response) {
+    public String publicacion(Request request , Response response) {
+
         Map<String, Object> viewModel = new HashMap<>();
 
-        //Publicacion publicacion = repoPublicaciones
+        return null;
+    }
 
-        return new ModelAndView(viewModel,"publicacion.hbs");
+    public String administrarPublicacion(Request request, Response response) {
+
+        return null;
     }
 }

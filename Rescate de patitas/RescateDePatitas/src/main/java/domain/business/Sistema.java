@@ -13,8 +13,8 @@ import domain.business.ubicacion.Ubicacion;
 import domain.business.users.Rescatista;
 import domain.repositorios.RepositorioChapas;
 import domain.repositorios.factories.FactoryRepositorioChapas;
+import domain.security.*;
 import domain.security.password.ValidadorPassword;
-import domain.security.Usuario;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class Sistema {
 
     RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
 
-
+/*
     {
         APIhogares apIhogares = APIhogares.getInstance();
         try {
@@ -50,31 +50,13 @@ public class Sistema {
         } catch (IOException e) {
 
         }
-    }
+    }*/
 
     public static Sistema getInstance() {
         if (instancia == null) {
             instancia = new Sistema();
         }
         return instancia;
-    }
-
-    public void mostrarMascotasPerdidas() {
-        for (MascotaPerdida mascota : mascotasPerdidas) {
-            mascota.mostrarMascota();
-        }
-    }
-
-    public void mostrarMascotasEnAdopcion() {
-        for(Mascota mascotaEnAdopcion : mascotasEnAdopcion) {
-            mascotaEnAdopcion.mostrarDatosMascota();
-        }
-    }
-
-    public void mostrarMascotasRegistradas() {
-        for(Mascota mascotaRegistrada : mascotasRegistradas) {
-            mascotaRegistrada.mostrarDatosMascota();
-        }
     }
 
     public void registrarMascotaPerdida(MascotaPerdida mascotaPerdida) {
@@ -95,45 +77,17 @@ public class Sistema {
 
 
     // Metodos
-    public Usuario crearUsuario(String nombreUsuario, String password) {
-        Usuario nuevoUsuario = new Usuario();
-        nuevoUsuario.setNombreUsuario(nombreUsuario);
-        nuevoUsuario.setContrasenia(password);
-        if (!this.existeUsuario(nombreUsuario)) {
-            this.usuarios.add(nuevoUsuario);
-            return nuevoUsuario;
-        } else {
-            return null;
-        }
-    }
-
     public Usuario buscarUsuario(String nombreUsuario) {
         return this.usuarios.stream().filter(usuario -> usuario.getNombreUsuario().equals(nombreUsuario)).findFirst().get();
-    }
-
-    public boolean coincideContrasenia(String usuarioBuscado, String contrasenia) {
-        Usuario usuario = buscarUsuario(usuarioBuscado);
-        if(usuario.getContrasenia().equals(contrasenia)) {
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 
     public boolean existeUsuario(String usuarioBuscado) {
         return this.usuarios.stream().map(usuario -> usuario.getNombreUsuario()).collect(Collectors.toList()).contains(usuarioBuscado);
     }
 
-
     public boolean validarContrasenia(String usuario, String contrasenia) throws FileNotFoundException {
         return validador.esValida(usuario, contrasenia);
     }
-
-    /*public boolean usuarioInvalido(String usuario) {
-        return !EntityManagerHelper.usuarioDisponible(usuario);
-        //return listaDeUsuarios.stream().anyMatch(usuario -> usuario.getNombre().equals(usuarioProvisorio));
-    }*/
 
 
     // Cuando rescata una mascota y escanea el código QR
@@ -178,16 +132,18 @@ public class Sistema {
         }
     }
 
-
-
-
-
-    public void reclamarMascotaEncontrada(MascotaPerdida mascota) {
-        if(mascotasPerdidas.contains(mascota)) {
-            mascotasPerdidas.remove(mascota);
+    public Rol validarRol(TipoRol tipoRol) {
+        if(tipoRol == TipoRol.ADMIN) {
+            return new Admin();
+        }
+        else if(tipoRol == TipoRol.MODERADOR) {
+            return new Moderador();
+        }
+        else if(tipoRol == TipoRol.USER) {
+            return new User();
         }
         else {
-            System.out.println("La mascota en cuestión no se encuentra en la BD de Mascotas Perdidas.");
+            return null;
         }
     }
 
@@ -221,14 +177,4 @@ public class Sistema {
         }
         return hogarAdecuado;
     }
-/*
-    public List<Persona> notificarPersonasAdoptantes() {
-        // Todo: hecho asi nomas
-
-        List<Publicacion> publicaciones = this.getPublicaciones().stream().filter(publicacion -> publicacion.getClass().equals(PublicacionParaAdoptar.class)).collect(Collectors.toList());
-
-        List<Persona> autores = publicaciones.stream().map(publicacion -> publicacion.getAutor()).collect(Collectors.toList());
-
-        // Todo: por cada autor, enviar una notificacion de una publicacion de mascota que se ajusta a sus preferencias y comodidades
-    }*/
 }
