@@ -125,8 +125,8 @@ public class Persona extends EntidadPersistente {
         List<String> comodidades = new ArrayList<>();
         List<String> preferencias = new ArrayList<>();
 
-        PublicacionParaAdoptar publicacionParaAdoptar = new PublicacionParaAdoptar();
-        publicacionParaAdoptar.crearPublicacion(this, comodidades, preferencias);
+        //PublicacionParaAdoptar publicacionParaAdoptar = new PublicacionParaAdoptar();
+        //publicacionParaAdoptar.crearPublicacion(this, comodidades, preferencias);
         // TODO: agregar la publicacion al Repositorio de Publicaciones
     }
 
@@ -151,7 +151,7 @@ public class Persona extends EntidadPersistente {
 
     private void mostrarInteresEnPublicacion(PublicacionMascotaEnAdopcion publicacionElegida) {
         publicacionElegida.nuevoInteresado(this);
-        publicacionElegida.getAutor().getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarHayInteresadoEnAdoptar(publicacionElegida.getAutor(), this, publicacionElegida.getMascotaElegida(), publicacionElegida.getRuta()));
+        //publicacionElegida.getAutor().getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarHayInteresadoEnAdoptar(publicacionElegida.getAutor(), this, publicacionElegida.getMascotaElegida(), publicacionElegida.getRuta()));
     }
 
     public List<Publicacion> buscarPublicacionesMascotaPerdida(){

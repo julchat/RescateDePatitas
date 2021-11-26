@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "publicacion_mascota_en_adopcion")
-@DiscriminatorColumn(name = "publicacion_mascota_en_adopcion")
+@DiscriminatorColumn(name = "mascota_en_adopcion")
 public class PublicacionMascotaEnAdopcion extends Publicacion {
 
     @OneToOne(cascade = CascadeType.PERSIST)

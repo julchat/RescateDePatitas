@@ -127,7 +127,7 @@ public class Sistema {
                 }
                 hogarDeTransito.alojarMascota(mascotaPerdida);
             }
-            rescatista.reportarMascotaPerdida(mascotaPerdida);
+
             this.registrarMascotaPerdida(mascotaPerdida);
         }
     }

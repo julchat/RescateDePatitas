@@ -35,7 +35,7 @@ public class Lugar extends EntidadPersistente {
     public Lugar mapearLugar(Domicilio domicilio) {
         String direccion = domicilio.getCalle() + " " + domicilio.getNumeracion() + ", " + domicilio.getLocalidad() + ", " + domicilio.getProvincia();
         this.setDireccion(direccion);
-        this.setUbicacion(new Ubicacion(domicilio.getUbicacion().getLongitud(), domicilio.getUbicacion().getLatitud()));
+        //this.setUbicacion(new Ubicacion(domicilio.getUbicacion().getLongitud(), domicilio.getUbicacion().getLatitud()));
         return this;
     }
 }

@@ -44,13 +44,6 @@ public class Rescatista extends Persona {
         mascotasAlojadas.add(mascotaPerdida);
     }
 
-    public void reportarMascotaPerdida(MascotaPerdida mascotaPerdida) {
-        RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
-        PublicacionMascotaPerdida publicacionCreada = new PublicacionMascotaPerdida();
-        publicacionCreada.crearPublicacion(this, mascotaPerdida);
-        repositorioPublicaciones.agregar(publicacionCreada);
-    }
-
     public void mapearDatosDuenio(Persona persona) {
         this.setNombre(persona.getNombre());
         this.setApellido(persona.getApellido());

@@ -10,8 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "publicacion_para_adopcion")
-@DiscriminatorColumn(name = "publicacion_para_adopcion")
-public class PublicacionParaAdoptar extends Publicacion {
+@DiscriminatorColumn(name = "para_adopcion")
+public class PublicacionParaAdopcion extends Publicacion {
 
     @ElementCollection
     private List<String> comodidades;

@@ -9,6 +9,7 @@ import domain.business.notificaciones.NotificadorEmail;
 import domain.business.notificaciones.NotificadorSms;
 import domain.business.notificaciones.NotificadorWhatsapp;
 import domain.business.organizaciones.HogarDeTransito;
+import domain.business.publicaciones.PublicacionMascotaPerdida;
 import domain.business.ubicacion.Domicilio;
 import domain.business.ubicacion.Ubicacion;
 import domain.business.users.*;
@@ -26,6 +27,7 @@ import spark.Response;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -40,8 +42,11 @@ public class FormularioController {
     private RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
     private RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
     private RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
-    private RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
     private RepositorioCaracteristicas repositorioCaracteristicas = FactoryRepositorioCaracteristicas.get();
+
+    //private RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
+    private RepositorioPubliMascotaPerdida repositorioPubliMascotaPerdida = FactoryRepositorioPubliMascotaPerdida.get();
+
 
 /* ==============================================================================================================
     Registro de Mascota -> El Dueño/Usuario registra a su Mascota
@@ -101,6 +106,7 @@ public class FormularioController {
                 formulario.getContactoApellido() != "" &&
                 formulario.getContactoEmail() != "" &&
                 formulario.getContactoTelefono() != ""){
+                System.out.println("Se creará un nuevo contacto.");
                 Contacto contactoUnico = new Contacto();
                 contactoUnico.setNombreContacto(formulario.getContactoNombre());
                 contactoUnico.setApellidoContacto(formulario.getContactoApellido());
@@ -119,6 +125,7 @@ public class FormularioController {
                     contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
                 }
 
+                duenio.setContactos(new ArrayList<>());
                 duenio.getContactos().add(contactoUnico);
                 repositorioContactos.agregar(contactoUnico);
             }
@@ -353,6 +360,7 @@ public class FormularioController {
                 formUser.getContactoApellido()!= "" &&
                 formUser.getContactoEmail() != "" &&
                 formUser.getContactoTelefono() != ""){
+            System.out.println("Se creará un nuevo contacto.");
             Contacto contactoUnico = new Contacto();
             contactoUnico.setNombreContacto(formUser.getContactoNombre());
             contactoUnico.setApellidoContacto(formUser.getContactoApellido());
@@ -370,7 +378,7 @@ public class FormularioController {
             if(formUser.getContactoNotificacionWpp() == "true") {
                 contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
             }
-
+            rescatista.setContactos(new ArrayList<>());
             rescatista.getContactos().add(contactoUnico);
             repositorioContactos.agregar(contactoUnico);
         }
@@ -454,6 +462,7 @@ public class FormularioController {
                     formulario.getContactoApellido() != "" &&
                     formulario.getContactoEmail() != "" &&
                     formulario.getContactoTelefono() != ""){
+                System.out.println("Se creará un nuevo contacto.");
                 Contacto contactoUnico = new Contacto();
                 contactoUnico.setNombreContacto(formulario.getContactoNombre());
                 contactoUnico.setApellidoContacto(formulario.getContactoApellido());
@@ -472,6 +481,7 @@ public class FormularioController {
                     contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
                 }
 
+                rescatista.setContactos(new ArrayList<>());
                 rescatista.getContactos().add(contactoUnico);
                 repositorioContactos.agregar(contactoUnico);
             }
@@ -500,8 +510,9 @@ public class FormularioController {
                 hogarAdecuado.alojarMascota(mascotaPerdida);
             }
 
-            //TODO: crear publicacion
-            rescatista.reportarMascotaPerdida(mascotaPerdida);
+            PublicacionMascotaPerdida publicacionCreada = new PublicacionMascotaPerdida();
+            publicacionCreada.crearPublicacion(rescatista, mascotaPerdida);
+            repositorioPubliMascotaPerdida.agregar(publicacionCreada);
 
             response.status(200);
             return new Mensaje("Se ha reportado a la mascota de forma satisfactoria.").transformar();
@@ -577,8 +588,9 @@ public class FormularioController {
                 hogarAdecuado.alojarMascota(mascotaPerdida);
             }
 
-            //TODO: crear publicacion
-            rescatista.reportarMascotaPerdida(mascotaPerdida);
+            PublicacionMascotaPerdida publicacionCreada = new PublicacionMascotaPerdida();
+            publicacionCreada.crearPublicacion(rescatista, mascotaPerdida);
+            repositorioPubliMascotaPerdida.agregar(publicacionCreada);
 
             response.status(200);
             return new Mensaje("Se ha reportado a la mascota de forma satisfactoria.").transformar();
@@ -628,7 +640,9 @@ public class FormularioController {
 
 
 
-
+/* ==============================================================================================================
+    Administrar las Características -> El Admin puede agregar una nueva característica, o elegir cual pueden ver los demás
+   ============================================================================================================== */
 
     public String agregarCaracteristica(Request request, Response response) {
 
@@ -695,6 +709,10 @@ public class FormularioController {
         }
     }
 
+
+/* ==============================================================================================================
+    Administrar Usuarios -> El Admin puede agregar o quitar el rol de Admin a otros usuarios (menos a sí mismo)
+   ============================================================================================================== */
 
     public String agregarNuevoAdmin(Request request, Response response) {
 

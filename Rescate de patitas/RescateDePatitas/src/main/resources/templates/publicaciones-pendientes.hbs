@@ -14,7 +14,7 @@
 
 
         <link rel="stylesheet" href="/css/barra-menu.css">
-        <link rel="stylesheet" href="/css/adm-caracteristicas.css">
+        <link rel="stylesheet" href="/css/publicaciones.css">
         <link rel="stylesheet" href="/css/reset.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
     </head>
@@ -34,17 +34,25 @@
             </nav>
         </header>
 
-        <div id="appVue">
-                <h1 class="subtitulo">Publicaciones Pendientes</h1>
-                <div class="adm">
-                    <select class="select" name="select" multiple="multiple">
-                        <option value="1">Publicacion 1</option>
-                        <option value="2">Publicacion 2</option>
-                        <option value="3">Publicacion 3</option>
-                        <option value="4">Publicacion 4</option>
-                        <option value="5">Publicacion 5</option>
-                        <option value="6">Publicacion 6</option>
-                    </select>
+        <h1 class="subtitulo">Publicaciones Pendientes</h1>
+            <div id="appVue">
+                <div v-if="publicaciones.length > 0">
+                    <div class="tabla" v-for="publicacion in publicaciones">
+                        <div class="publicacion">
+                            ID: {{publicacion.id}} <br>
+                            Fecha de Publicación: {{publicacion.fechaDePublicacion}} <br>
+                            Autor: {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}
+                            <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png">
+                            <a href="/publicaciones-pendientes/1"><button class="boton" v-on:click="verPublicacion(publicacion.id)">Ver más</button></a>
+                            <button class="boton">Aprobar</button>
+                            <button class="boton">Rechazar</button>
+                        </div>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="subtitulo3">¡No hay publicaciones por el momento!<br><br><br>
+                        <img class="imgAviso" src="/img/perro y notebook.png" >
+                    </div>
                 </div>
             </div>
     </div>

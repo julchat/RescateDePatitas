@@ -1,8 +1,8 @@
 package domain.business.notificaciones;
 import domain.business.mascota.Mascota;
 import domain.business.mascota.MascotaPerdida;
+import domain.business.publicaciones.PublicacionParaAdopcion;
 import domain.business.users.Persona;
-import domain.business.publicaciones.PublicacionParaAdoptar;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class NotificadorSms extends Notificacion{
     }
 
     @Override
-    public void notificarRecomendaciones(Persona destinatario, PublicacionParaAdoptar publicacion, String ruta) {
+    public void notificarRecomendaciones(Persona destinatario, PublicacionParaAdopcion publicacion, String ruta) {
         twillio.enviarSMS(destinatario.getTelefono(), armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
     }
 }

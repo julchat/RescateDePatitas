@@ -6,6 +6,9 @@ let app = new Vue({
         publicaciones: []
     },
     methods: {
+        verPublicacion: function(id) {
+
+        }
     },
     created() {
         let status;
@@ -16,16 +19,19 @@ let app = new Vue({
             headers: {
                 "Authorization": idSesion
             }
-        })  .then(response => {
+        })
+            .then(response => {
                 status = response.status
                 datos = response.json()
-        })
-            .then(datos => {
-                if(status == 203) {
-                    window.location.href = "/sin-permisos"
+                return datos
+            })
+            .then(data => {
+                if(status == 200) {
+                    this.publicaciones = data
+                    console.log(data)
                 }
                 else {
-                    this.publicaciones = datos
+                    window.location.href = "/sin-permisos"
                 }
             })
     }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "publicacion")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
 public abstract class Publicacion extends EntidadPersistente {
 
@@ -25,7 +25,8 @@ public abstract class Publicacion extends EntidadPersistente {
     private Persona autor;
 
     private LocalDate fechaDePublicacion;
-    private String ruta;
+
+    //private String ruta;
 
 
     // Getters and Setters
@@ -51,16 +52,16 @@ public abstract class Publicacion extends EntidadPersistente {
 
     public void setFechaDePublicacion(LocalDate fechaDePublicacion) { this.fechaDePublicacion = fechaDePublicacion; }
 
-    public String getRuta() { return ruta; }
+    //public String getRuta() { return ruta; }
 
-    public void setRuta(String ruta) { this.ruta = ruta; }
+    //public void setRuta(String ruta) { this.ruta = ruta; }
 
 
     // Metodos
     public void crearPublicacion(EstadoPublicacion estadoPublicacion) {
         this.setEstadoPublicacion(estadoPublicacion);
+        this.setEstado(Estados.PENDIENTE);
         this.setFechaDePublicacion(LocalDate.now());
-        this.setRuta(ruta);
     }
 
     public void cambiarEstado(EstadoPublicacion nuevoEstado) {

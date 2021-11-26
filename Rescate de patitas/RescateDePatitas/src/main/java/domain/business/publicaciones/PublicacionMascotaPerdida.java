@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "publicacion_mascota_perdida")
-@DiscriminatorColumn(name = "publicacion_mascota_perdida")
+@DiscriminatorColumn(name = "mascota_perdida")
 public class PublicacionMascotaPerdida extends Publicacion {
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import domain.business.Sistema;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.mascota.Mascota;
+import domain.business.publicaciones.Estados;
 import domain.business.publicaciones.Publicacion;
 import domain.business.users.Duenio;
 import domain.business.users.Persona;
@@ -21,6 +22,7 @@ import spark.Response;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ApiRestController {
     private RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
@@ -31,6 +33,8 @@ public class ApiRestController {
     private RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
     private RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
     private RepositorioCaracteristicas repositorioCaracteristicas = FactoryRepositorioCaracteristicas.get();
+
+    private RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
 
     public String obtenerPerfil(Request request, Response response) {
         System.out.println("OBTENIENDO EL PERFIL ----------------------------");
@@ -146,10 +150,13 @@ public class ApiRestController {
 
             if(miSistema.validarRol(usuario.getTipoRol()).puedoAprobarPublicaciones()) {
                 System.out.println("Validando permisos...");
-                List<Publicacion> publicaciones = new ArrayList<>();
+                List<Publicacion> publicaciones = repositorioPublicaciones.buscarTodos();
+                publicaciones.stream().filter(publicacion -> publicacion.getEstado().equals(Estados.PENDIENTE)).collect(Collectors.toList());
+
+                System.out.println(JsonController.transformar(publicaciones));
 
                 response.status(200);
-                return new JsonLists<Publicacion>(publicaciones).transformar();
+                return JsonController.transformar(publicaciones);
             }
             else {
                 System.out.println("No tiene permisos suficientes.");
