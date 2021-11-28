@@ -15,7 +15,6 @@ import domain.business.publicaciones.PublicacionMascotaPerdida;
 import domain.business.publicaciones.Respuesta;
 import domain.business.ubicacion.Domicilio;
 import domain.business.ubicacion.Lugar;
-import domain.business.ubicacion.Ubicacion;
 import domain.business.users.*;
 import domain.repositorios.*;
 import domain.repositorios.factories.*;
@@ -46,7 +45,6 @@ public class FormularioController {
     private RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
     private RepositorioCaracteristicas repositorioCaracteristicas = FactoryRepositorioCaracteristicas.get();
 
-    //private RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
     private RepositorioPubliMascotaPerdida repositorioPubliMascotaPerdida = FactoryRepositorioPubliMascotaPerdida.get();
     private RepositorioPubliMascotaEnAdopcion repositorioPubliMascotaEnAdopcion = FactoryRepositorioPubliMascotaEnAdopcion.get();
 
@@ -692,7 +690,6 @@ public class FormularioController {
                 rescatista.getDomicilio().setNumeracion(new Integer(formulario.getNumeracion()));
                 rescatista.getDomicilio().setPiso(new Integer(formulario.getPiso()));
                 rescatista.getDomicilio().setDepartamento(new Integer(formulario.getDepartamento()));
-                //rescatista.getDomicilio().setUbicacion(new Ubicacion());
                 repositorioDomicilios.agregar(rescatista.getDomicilio());
             }
 
@@ -708,10 +705,10 @@ public class FormularioController {
                 rescatista.getFormasDeNotificacion().add(new NotificadorWhatsapp());
             }
 
-            if(formulario.getContactoNombre() != "" &&
-                    formulario.getContactoApellido() != "" &&
-                    formulario.getContactoEmail() != "" &&
-                    formulario.getContactoTelefono() != ""){
+            if(formulario.getContactoNombre().equals("") &&
+                    formulario.getContactoApellido().equals("") &&
+                    formulario.getContactoEmail().equals("") &&
+                    formulario.getContactoTelefono().equals("")){
                 System.out.println("Se creará un nuevo contacto.");
                 Contacto contactoUnico = new Contacto();
                 contactoUnico.setNombreContacto(formulario.getContactoNombre());
@@ -736,12 +733,18 @@ public class FormularioController {
                 repositorioContactos.agregar(contactoUnico);
             }
 
+
+            System.out.println("PERSISTIENDO MASCOTA");
             MascotaPerdida mascotaPerdida = new MascotaPerdida();
             mascotaPerdida.setTamanio(Tamanio.valueOf(formulario.getTamanioMascota()));
             mascotaPerdida.setTipoAnimal(TipoAnimal.valueOf(formulario.getTipoAnimal()));
             mascotaPerdida.setSexoMascota(SexoMascota.valueOf(formulario.getSexoMascota()));
             mascotaPerdida.setDescripcion(formulario.getDescripcionMascota());
+            Lugar lugarEncontrada = new Lugar();
+            mascotaPerdida.setLugarEncontrada(lugarEncontrada);
             //TODO: Ubicacion y Foto
+
+            System.out.println(JsonController.transformar(mascotaPerdida));
 
             repositorioPersonas.agregar(rescatista);
             repositorioMascotaPerdida.agregar(mascotaPerdida);
@@ -749,10 +752,15 @@ public class FormularioController {
             // En este caso, el Rescatista se involucra y puede albergar a la mascota
             if(formulario.getTransito().equals("si")) {
                 rescatista.setPuedeAlojarMascota(true);
+
                 Lugar nuevoLugar = new Lugar();
                 mascotaPerdida.setLugarDeTransito(nuevoLugar.mapearLugar(rescatista.getDomicilio()));
+
+                rescatista.setMascotasAlojadas(new ArrayList<>());
                 rescatista.getMascotasAlojadas().add(mascotaPerdida);
 
+                repositorioMascotaPerdida.modificar(mascotaPerdida);
+                repositorioPersonas.modificar(rescatista);
             }
             // En este caso, se le buscara un Hogar de Transito adecuado para albergar a la mascota
             else {
@@ -815,25 +823,29 @@ public class FormularioController {
             mascotaPerdida.setSexoMascota(SexoMascota.valueOf(formulario.getSexoMascota()));
             mascotaPerdida.setDescripcion(formulario.getDescripcionMascota());
             //TODO: Ubicacion y Foto
-
-            //mascotaPerdida.setUbicacionEncontrada(new Ubicacion(LONGITUD, LATITUD));
+            System.out.println(JsonController.transformar(mascotaPerdida));
 
             repositorioMascotaPerdida.agregar(mascotaPerdida);
 
             // En este caso, el Rescatista se involucra y puede albergar a la mascota
             if(formulario.getTransito().equals("si")) {
                 rescatista.setPuedeAlojarMascota(true);
+
                 Lugar nuevoLugar = new Lugar();
                 mascotaPerdida.setLugarDeTransito(nuevoLugar.mapearLugar(rescatista.getDomicilio()));
+
+                rescatista.setMascotasAlojadas(new ArrayList<>());
                 rescatista.getMascotasAlojadas().add(mascotaPerdida);
+
+                repositorioMascotaPerdida.modificar(mascotaPerdida);
+                repositorioPersonas.modificar(rescatista);
             }
             // En este caso, se le buscara un Hogar de Transito adecuado para albergar a la mascota
             else {
                 int radioKM = new Integer(formulario.getRadioKM());
 
-    // TODO: falta terminar lo de obtener un Hogar de Tránsito adecuado según la distancia
-    //      para eso necesitamos si o si los valores de Longitud y Latitud, asi podemos ubicar y obtener el más cercano que cumpla
-
+// TODO: falta terminar lo de obtener un Hogar de Tránsito adecuado según la distancia
+//      para eso necesitamos si o si los valores de Longitud y Latitud, asi podemos ubicar y obtener el más cercano que cumpla
 
                 HogarDeTransito hogarAdecuado = miSistema.buscarHogarMasCercano(radioKM, mascotaPerdida);
                 hogarAdecuado.alojarMascota(mascotaPerdida);

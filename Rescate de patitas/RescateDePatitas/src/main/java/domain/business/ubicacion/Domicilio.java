@@ -19,11 +19,6 @@ public class Domicilio extends EntidadPersistente {
     private int departamento;
     private int piso;
 
-    @OneToOne
-    @JoinColumn(name = "ubicacion")
-    private Ubicacion ubicacion;
-
-
     // Getters and Setters
     public String getProvincia() { return provincia; }
 
@@ -53,9 +48,6 @@ public class Domicilio extends EntidadPersistente {
 
     public void setPiso(int piso) { this.piso = piso; }
 
-    public Ubicacion getUbicacion() { return ubicacion; }
-
-    public void setUbicacion(Ubicacion ubicacion) { this.ubicacion = ubicacion; }
 
     // Constructor
     public Domicilio() {
@@ -64,7 +56,7 @@ public class Domicilio extends EntidadPersistente {
         this.calle = null;
     }
 
-    public Domicilio(String provincia, String localidad, int codigoPostal, String calle, int numeracion, int departamento, int piso, Ubicacion ubicacion) {
+    public Domicilio(String provincia, String localidad, int codigoPostal, String calle, int numeracion, int departamento, int piso) {
         this.provincia = provincia;
         this.localidad = localidad;
         this.codigoPostal = codigoPostal;
@@ -72,7 +64,6 @@ public class Domicilio extends EntidadPersistente {
         this.numeracion = numeracion;
         this.departamento = departamento;
         this.piso = piso;
-        this.ubicacion = ubicacion;
     }
 
     //Metodos

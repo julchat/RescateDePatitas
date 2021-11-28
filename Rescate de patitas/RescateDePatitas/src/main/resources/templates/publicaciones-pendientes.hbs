@@ -40,10 +40,10 @@
                     <div v-for="publicacion in publicaciones">
                         <div class="publicacion">
                             ID: {{publicacion.id}}<br>
-                            Fecha de Publicación: {{publicacion.fechaDePublicacion}} <br>
-                            Autor: {{publicacion.autor.nombre}} {{publicacion.autor.apellido}} <br><br>
+                            {{publicacion.fechaDePublicacion}} <br>
+                            {{publicacion.autor.nombre}} {{publicacion.autor.apellido}} <br><br>
                             <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png">
-                            <button class="boton" v-on:click="verDetalles(publicacion.id)">Ver Publicación</button>
+                            <button class="boton" v-on:click="verDetalles(publicacion.id)">Ver más</button>
                             <button class="boton" v-on:click="aprobarPublicacion(publicacion.id)">Aprobar</button>
                             <button class="boton" v-on:click="rechazarPublicacion(publicacion.id)">Rechazar</button>
                         </div>

@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Mascotas en Adopción</title>
 
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script defer src="/js/foto-grande.js"></script>
         <script defer src="/js/index.js"></script>
         <script defer src="/js/links.js"></script>
@@ -35,22 +36,23 @@
         </header>
 
         <h1 class="subtitulo">Mascotas en Adopción</h1>
-
-        {{#each mascotasEnAdopcion}}
-            <div class="tabla">
-                <div class="publicacion">
-                    <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
-                    <p class="datos">{{this.mascotaElegida.nombreMascota}}</p>
-                    <a href="/mascotas-en-adopcion/estoy-en-adopcion/{{id}}"><button class="boton">Ver más</button></a>
-                    <a href="/mascotas-en-adopcion/notificar-duenio/{{id}}"><button class="boton">Adoptar</button></a>
+        <div id="appVue">
+            <div v-if="publicaciones.length > 0">
+                <div class="tabla" v-for="publicacion in publicaciones">
+                    <div class="publicacion">
+                        <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
+                        <p class="datos">{{publicacion.mascotaElegida.nombreMascota}}</p>
+                        <a href="/mascotas-en-adopcion/estoy-en-adopcion/{{id}}"><button class="boton">Ver más</button></a>
+                        <a href="/mascotas-en-adopcion/notificar-duenio/{{id}}"><button class="boton">Adoptar</button></a>
+                    </div>
                 </div>
             </div>
-        {{else}}
-            <div class="subtitulo3">¡No hay mascotas en adopción por el momento!<br><br><br>
+
+            <div class="subtitulo3" v-else>
+                ¡No hay mascotas en adopción por el momento!<br><br><br>
                 <img class="imgAviso" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687243/img/perro_y_gato_mimiendo_ziucj4.png" >
             </div>
-
-        {{/each}}
+        </div>
 
         <br><br><br><br>
         <label class="texto">¿No encontraste tu mascota ideal?<br>Crea tu propia publicación para encontrarla</label>
@@ -58,5 +60,6 @@
         <button class="boton1" onclick="busquedaMascotaIdeal()">CREAR PUBLICACIÓN</button>
 
     </div>
+    <script src="/js/mascotas-en-adopcion.js"></script>
     </body>
 </html>

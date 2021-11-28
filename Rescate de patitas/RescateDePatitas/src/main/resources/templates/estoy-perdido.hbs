@@ -31,27 +31,29 @@
                 </ul>
             </nav>
         </header>
-        <h1 class="subtitulo">ESTOY PERDIDO</h1>
+        <h1 class="subtitulo">Estoy perdido</h1>
         <div class=formita>
             <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png">
             <div>
-                <label>• Fecha de Publicación:<br></label>
+                <label>Fecha de Publicación:<br></label>
                 <div class="datos">{{publicacion.fechaDePublicacion}}<br></div>
-                <label>• Autor:<br></label>
+                <label>Autor:<br></label>
                 <label class="datos"> {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}<br></label>
                 <br>
-                <label>MASCOTA PERDIDA<br></label>
-                <label>• Tipo Animal:<br></label>
+                <label class="subtitulo2">Mascota perdida<br></label>
+                <br>
+                <label>Tipo Animal:<br></label>
                 <label class="datos">{{publicacion.mascotaRescatada.tipoAnimal}}<br></label>
-                <label>• Sexo Animal:<br></label>
+                <label>Sexo Animal:<br></label>
                 <label class="datos">{{publicacion.mascotaRescatada.sexoMascota}}<br></label>
-                <label>• Tamanio:<br></label>
+                <label>Tamanio:<br></label>
                 <label class="datos">{{publicacion.mascotaRescatada.tamanio}}<br></label>
-                <label>• Descripción:<br></label>
+                <label>Descripción:<br></label>
                 <label class="datos">{{publicacion.mascotaRescatada.descripcion}}<br></label>
                 <br>
-                <label>LUGAR DE TRÁNSITO<br></label>
-                <label>• Dirección:<br></label>
+                <label class="subtitulo2">Lugar de tránsito<br></label>
+                <br>
+                <label>Dirección:<br></label>
                 <label class="datos">{{publicacion.lugarDeTransito.direccion}}<br></label>
 
                 <a href="/mascotas-perdidas/notificar-rescatista/{{publicacion.mascotaRescatada.id}}"><br><button class="boton">TE ENCONTRÉ</button></a>

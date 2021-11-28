@@ -7,7 +7,6 @@ import domain.business.mascota.Tamanio;
 import domain.business.mascota.TipoAnimal;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import domain.business.ubicacion.Lugar;
-import domain.business.ubicacion.Ubicacion;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -45,10 +44,8 @@ public class HogarDeTransito extends EntidadPersistente {
     public Lugar getLugar() {
         Lugar lugar = new Lugar();
         lugar.setDireccion(this.getDireccion());
-        Ubicacion nuevaUbicacion = new Ubicacion();
-        lugar.setUbicacion(nuevaUbicacion);
-        lugar.getUbicacion().setLatitud(this.getLatitud());
-        lugar.getUbicacion().setLongitud(this.getLongitud());
+        lugar.setLatitud(this.getLatitud());
+        lugar.setLongitud(this.getLongitud());
 
         return lugar;
     }
@@ -216,7 +213,7 @@ public class HogarDeTransito extends EntidadPersistente {
         return distance;
     }
 
-    public boolean masCercanoQue(HogarDeTransito otroHogar, Ubicacion ubicacionMascota) {
-        return this.distancia(this.getLatitud(), this.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) >= otroHogar.distancia(otroHogar.getLatitud(), otroHogar.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud());
+    public boolean masCercanoQue(HogarDeTransito otroHogar, Lugar lugarEncontrada) {
+        return this.distancia(this.getLatitud(), this.getLongitud(), lugarEncontrada.getLatitud(), lugarEncontrada.getLongitud()) >= otroHogar.distancia(otroHogar.getLatitud(), otroHogar.getLongitud(), lugarEncontrada.getLatitud(), lugarEncontrada.getLongitud());
     }
 }

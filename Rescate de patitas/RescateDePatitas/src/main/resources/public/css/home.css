@@ -43,7 +43,7 @@ body {
     transition: transform .5s;
     color: white;
     left:6%;
-    top:35%;
+    top:30%;
 }
 
 .boton1:hover{
@@ -59,8 +59,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:24%;
-    top:70%;
+    left:28%;
+    top:65%;
 }
 
 .boton2:hover{
@@ -76,8 +76,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:39%;
-    top:45%;
+    left:41%;
+    top:42%;
 }
 
 .boton3:hover{
@@ -93,8 +93,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:60%;
-    top:25%;
+    left:61%;
+    top:23%;
 }
 
 .boton4:hover{
@@ -166,6 +166,7 @@ body {
     height: 40px;
     text-align: center;
     align-content: center;
+    justify-content: center;
     border-radius: 10px;
     padding: 12px;
     position: absolute;

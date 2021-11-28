@@ -45,6 +45,8 @@ public class Router {
         Spark.get("/api/perfilRegistroMascota", apiRestController::obtenerPerfilParaRegistrarMascota);
         Spark.get("/api/perfilDarEnAdopcion", apiRestController::obtenerPerfilParaDarAdopcion);
         Spark.get("/api/agregar-admin", apiRestController::permiteAgregarAdmin);
+        Spark.get("/api/mascotas-perdidas", apiRestController::mascotasPerdidas);
+        Spark.get("/api/mascotas-en-adopcion", apiRestController::mascotasEnAdopcion);
 
 
         Spark.get("/", homeController::inicio);
@@ -73,11 +75,13 @@ public class Router {
         Spark.get("/reportar-mascota", homeController::mascotaPerdida);
         Spark.post("/reportar-mascota", formularioController::mascotaPerdida);
 
+        Spark.get("/mascotas-perdidas-pesado", homeController::mascotasPerdidasPesado);
         Spark.get("/mascotas-perdidas", homeController::mascotasPerdidas);
         Spark.get("/mascotas-perdidas/estoy-perdido/:id", homeController::estoyPerdido);
         Spark.get("/mascotas-perdidas/notificar-rescatista/:id", homeController::notificarRescatista);
         Spark.post("/mascotas-perdidas/notificar-rescatista/:id", formularioController::notificarRescatista);
 
+        Spark.get("/mascotas-en-adopcion-pesado", homeController::mascotasEnAdopcionPesado);
         Spark.get("/mascotas-en-adopcion", homeController::mascotasEnAdopcion);
         Spark.get("/mascotas-en-adopcion/estoy-en-adopcion/:id", homeController::estoyEnAdopcion);
         Spark.get("/mascotas-en-adopcion/notificar-duenio/:id", homeController::notificarDuenio);

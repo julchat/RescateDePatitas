@@ -5,9 +5,7 @@ import domain.business.Sistema;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
-import domain.business.publicaciones.Estados;
-import domain.business.publicaciones.Pregunta;
-import domain.business.publicaciones.Publicacion;
+import domain.business.publicaciones.*;
 import domain.business.users.Persona;
 import domain.repositorios.*;
 import domain.repositorios.factories.*;
@@ -416,4 +414,24 @@ public class ApiRestController {
         }
     }
 
+
+    public String mascotasPerdidas(Request request, Response response) {
+        RepositorioPubliMascotaPerdida repositorioPubliMascotaPerdida = FactoryRepositorioPubliMascotaPerdida.get();
+
+        List<PublicacionMascotaPerdida> publicaciones = repositorioPubliMascotaPerdida.buscarTodos();
+        List<PublicacionMascotaPerdida> publicacionesAceptadas = publicaciones.stream().filter(publicacion -> publicacion.getEstado().equals(Estados.APROBADA)).collect(Collectors.toList());
+        System.out.println(JsonController.transformar(publicacionesAceptadas));
+
+        return JsonController.transformar(publicacionesAceptadas);
+    }
+
+    public String mascotasEnAdopcion(Request request, Response response) {
+        RepositorioPubliMascotaEnAdopcion repositorioPubliMascotaEnAdopcion = FactoryRepositorioPubliMascotaEnAdopcion.get();
+
+        List<PublicacionMascotaEnAdopcion> publicaciones = repositorioPubliMascotaEnAdopcion.buscarTodos();
+        List<PublicacionMascotaEnAdopcion> publicacionesAceptadas = publicaciones.stream().filter(publicacion -> publicacion.getEstado().equals(Estados.APROBADA)).collect(Collectors.toList());
+        System.out.println(JsonController.transformar(publicacionesAceptadas));
+
+        return JsonController.transformar(publicacionesAceptadas);
+    }
 }

@@ -13,19 +13,22 @@ import javax.persistence.Table;
 public class Lugar extends EntidadPersistente {
 
     private String direccion;
-
-    @OneToOne
-    @JoinColumn(name = "ubicacion")
-    private Ubicacion ubicacion;
+    private double longitud;
+    private double latitud;
 
 
     public String getDireccion() { return direccion; }
 
     public void setDireccion(String direccion) { this.direccion = direccion; }
 
-    public Ubicacion getUbicacion() { return ubicacion; }
+    public double getLongitud() { return longitud; }
 
-    public void setUbicacion(Ubicacion ubicacion) { this.ubicacion = ubicacion; }
+    public void setLongitud(double longitud) { this.longitud = longitud; }
+
+    public double getLatitud() { return latitud; }
+
+    public void setLatitud(double latitud) { this.latitud = latitud; }
+
 
     // Constructor
     public Lugar() {}

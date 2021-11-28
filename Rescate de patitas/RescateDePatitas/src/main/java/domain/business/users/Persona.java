@@ -35,29 +35,19 @@ public class Persona extends EntidadPersistente {
     @JoinColumn(name = "domicilio")
     private Domicilio domicilio;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "formasDeNotificacion")
     private List<Notificacion> formasDeNotificacion = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "contactos")
     private List<Contacto> contactos;
-
-    /*
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name = "mascotasACargo")
-    private List<Chapa> mascotasACargo;*/
 
     private boolean puedeAlojarMascota;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @Column(name = "mascotasAlojadas")
     private List<MascotaPerdida> mascotasAlojadas;
-
-    /*
-    @OneToOne
-    @JoinColumn(name = "organizacion")
-    private Organizacion organizacion;*/
 
     private boolean suscripto;
 

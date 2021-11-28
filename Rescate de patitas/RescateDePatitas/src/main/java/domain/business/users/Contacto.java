@@ -16,9 +16,9 @@ public class Contacto extends EntidadPersistente {
     private String telefonoContacto;
     private String emailContacto;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "formasDeNotificacion")
-    private List<Notificacion> formasDeNotificacion = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "formasDeNotificacionContacto")
+    private List<Notificacion> formasDeNotificacionContacto = new ArrayList<>();
 
 
     // Getters and Setters
@@ -53,19 +53,19 @@ public class Contacto extends EntidadPersistente {
     }
 
     public List<Notificacion> getFormasDeNotificacion() {
-        return formasDeNotificacion;
+        return formasDeNotificacionContacto;
     }
 
     public void setFormasDeNotificacion(List<Notificacion> formasDeNotificacionContacto) {
-        this.formasDeNotificacion = formasDeNotificacionContacto;
+        this.formasDeNotificacionContacto = formasDeNotificacionContacto;
     }
 
     public void agregarFormaDeNotificacion(Notificacion notificacion) {
-        this.formasDeNotificacion.add(notificacion);
+        this.formasDeNotificacionContacto.add(notificacion);
     }
 
     public void quitarFormaDeNotificacion(Notificacion notificacion) {
-        this.formasDeNotificacion.remove(notificacion);
+        this.formasDeNotificacionContacto.remove(notificacion);
     }
 
 

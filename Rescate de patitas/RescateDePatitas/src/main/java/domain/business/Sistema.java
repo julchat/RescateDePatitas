@@ -1,6 +1,5 @@
 package domain.business;
 
-import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
 import domain.business.mascota.MascotaPerdida;
 import domain.business.organizaciones.HogarDeTransito;
@@ -9,7 +8,7 @@ import domain.business.organizaciones.Organizacion;
 import domain.business.organizaciones.apiHogares.APIhogares;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import domain.business.publicaciones.Publicacion;
-import domain.business.ubicacion.Ubicacion;
+import domain.business.ubicacion.Lugar;
 import domain.repositorios.RepositorioChapas;
 import domain.repositorios.factories.FactoryRepositorioChapas;
 import domain.security.*;
@@ -34,7 +33,7 @@ public class Sistema {
 
     RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
 
-/*
+
     {
         APIhogares apIhogares = APIhogares.getInstance();
         try {
@@ -49,7 +48,7 @@ public class Sistema {
         } catch (IOException e) {
 
         }
-    }*/
+    }
 
     public static Sistema getInstance() {
         if (instancia == null) {
@@ -57,16 +56,6 @@ public class Sistema {
         }
         return instancia;
     }
-
-    public void registrarMascotaPerdida(MascotaPerdida mascotaPerdida) {
-        this.mascotasPerdidas.add(mascotaPerdida);
-    }
-
-    public void registrarMascotaEnAdopcion(Mascota mascotaAdopcion) { this.mascotasEnAdopcion.add(mascotaAdopcion); }
-
-    public void registrarMascota(Mascota mascota) { this.mascotasRegistradas.add(mascota); }
-
-    public List<Usuario> getUsuarios() { return usuarios; }
 
     public List<Publicacion> getPublicaciones() { return publicaciones; }
 
@@ -98,7 +87,7 @@ public class Sistema {
 
     public HogarDeTransito buscarHogarMasCercano(int radio, MascotaPerdida mascotaEncontrada) {
 
-        Ubicacion ubicacionMascota = mascotaEncontrada.getUbicacionEncontrada();
+        Lugar ubicacionMascota = mascotaEncontrada.getLugarEncontrada();
         List<HogarDeTransito> hogaresCercanos = this.getHogaresDeTransito().stream().filter(hogarDeTransito -> hogarDeTransito.distancia(hogarDeTransito.getLatitud(), hogarDeTransito.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) <= radio*1000).collect(Collectors.toList());
         HogarDeTransito hogarAdecuado = null;
 

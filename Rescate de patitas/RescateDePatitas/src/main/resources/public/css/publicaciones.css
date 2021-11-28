@@ -66,15 +66,12 @@
     background-color: #96D7EC;
     color: white;
     border: none;
-    min-width: 100px;
-    max-width: 200px;
-    height: 40px;
-    width: 50%;
+    height: 25px;
+    width: 30%;
     text-align: center;
+    margin: 8px;
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 10px;
-    margin-bottom: 25px;
     transition: transform .5s;
 }
 

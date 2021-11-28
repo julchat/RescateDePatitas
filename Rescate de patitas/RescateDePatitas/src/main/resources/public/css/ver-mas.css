@@ -6,6 +6,15 @@
     margin: 0 auto;
 }
 
+.subtitulo2 {
+    color: #8dc0c0;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
 .formita {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -13,6 +22,7 @@
     border-radius: 20px;
     text-align: center;
     align-items: center;
+    justify-content: center;
     width: 80%;
     margin: 0 auto;
     padding: 25px;
@@ -50,4 +60,8 @@
 .datos {
     font-style:italic;
     font-family: Arial;
+}
+
+.info {
+    justify-content: center;
 }
