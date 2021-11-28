@@ -26,8 +26,8 @@ public class NotificadorSms extends Notificacion{
     }
 
     @Override
-    public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta) {
-        twillio.enviarSMS(destinatario.getTelefono(), armarMensajeHayInteresadoEnAdoptar(destinatario, interesado, mascotaPorSerAdoptada, ruta));
+    public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada) {
+        twillio.enviarSMS(destinatario.getTelefono(), armarMensajeHayInteresadoEnAdoptar(destinatario, interesado, mascotaPorSerAdoptada));
     }
 
     @Override

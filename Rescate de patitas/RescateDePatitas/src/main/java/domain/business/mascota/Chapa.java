@@ -2,8 +2,7 @@ package domain.business.mascota;
 
 import domain.business.EntidadPersistente;
 import domain.business.notificaciones.Notificador;
-import domain.business.users.Duenio;
-import domain.business.users.Rescatista;
+import domain.business.users.Persona;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class Chapa extends EntidadPersistente {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "duenio")
-    private Duenio duenio;
+    private Persona duenio;
 
 
     // Getters and Setters
@@ -38,11 +37,11 @@ public class Chapa extends EntidadPersistente {
         this.mascota = mascota;
     }
 
-    public Duenio getDuenio() {
+    public Persona getDuenio() {
         return duenio;
     }
 
-    public void setDuenio(Duenio duenio) {
+    public void setDuenio(Persona duenio) {
         this.duenio = duenio;
     }
 
@@ -50,7 +49,7 @@ public class Chapa extends EntidadPersistente {
     // Metodos
     public Chapa() {}
 
-    public Chapa(Duenio duenio, Mascota mascota) throws IOException {
+    public Chapa(Persona duenio, Mascota mascota) throws IOException {
         this.setDuenio(duenio);
         this.setMascota(mascota);
     }
@@ -63,7 +62,7 @@ public class Chapa extends EntidadPersistente {
         // tal vez ese codigo QR se guarda en un repositorio, o directamente queda asi
     }
 
-    public void notificarDuenio(Rescatista rescatista) {
+    public void notificarDuenio(Persona rescatista) {
         // Notifica al Dueño de la Mascota
         duenio.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(duenio, rescatista, mascota));
         // Notifica a cada uno de los Contactos que haya agregado la persona

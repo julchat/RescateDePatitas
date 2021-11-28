@@ -35,19 +35,33 @@
         <div class=formita>
             <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
             <div>
-                <label>Nombre Mascota:<br></label>
-                <p class="datos">{{mascota.nombreMascota}}</p>
-                <label>Apodo Mascota:<br></label>
-                <p class="datos">{{mascota.apodoMascota}}</p>
-                <label>Edad Mascota:<br></label>
-                <p class="datos">{{mascota.edadMascota}}</p>
-                <label>Tipo Animal:<br></label>
-                <p class="datos">{{mascota.tipoAnimal}}</p>
-                <label>Sexo Mascota:<br></label>
-                <p class="datos">{{mascota.sexoMascota}}</p>
-                <label>Descripción Mascota:<br></label>
-                <p class="datos">{{mascota.descripcionMascota}}</p>
-                <a href="/mascotas-en-adopcion/notificar-duenio/{{mascota.id}}"><br><button class="boton">ADOPTAR</button></a>
+
+                <label>• Fecha de Publicación:<br></label>
+                <div class="datos">{{publicacion.fechaDePublicacion}}<br></div>
+                <label>• Autor:<br></label>
+                <label class="datos"> {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}<br></label>
+                <label>• Provincia:<br></label>
+                <label class="datos"> {{publicacion.autor.domicilio.provincia}}<br></label>
+                <label>• Localidad:<br></label>
+                <label class="datos"> {{publicacion.autor.domicilio.localidad}}<br></label>
+
+                <br>
+                <label>MASCOTA EN ADOPCIÓN<br></label>
+                <label>• Nombre Mascota:<br></label>
+                <label class="datos">{{publicacion.mascotaElegida.nombreMascota}}<br></label>
+                <label>• Apodo Mascota:<br></label>
+                <label class="datos">{{publicacion.mascotaElegida.apodoMascota}}<br></label>
+                <label>• Edad Mascota:<br></label>
+                <label class="datos">{{publicacion.mascotaElegida.edadMascota}}<br></label>
+                <label>• Tipo Animal:<br></label>
+                <label class="datos">{{publicacion.mascotaElegida.tipoAnimal}}<br></label>
+                <label>• Sexo Animal:<br></label>
+                <label class="datos">{{publicacion.mascotaElegida.sexoMascota}}<br></label>
+                <label>• Descripción:<br></label>
+                <label class="datos">{{publicacion.mascotaElegida.descripcionMascota}}<br></label>
+                <br>
+
+                <a href="/mascotas-en-adopcion/notificar-duenio/{{publicacion.mascotaElegida.id}}"><br><button class="boton">ADOPTAR</button></a>
             </div>
         </div>
     </div>

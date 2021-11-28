@@ -20,7 +20,6 @@ public class FactoryRepositorioPersonas {
                 repo = new RepositorioPersonas(dao);
             }
             else{
-                // repo = new RepositorioUsuarios(new DAOMemoria<>(Data.getData(Usuario.class)));
                 repo = new RepositorioPersonas(null);
             }
         }

@@ -1,5 +1,5 @@
 package domain.business.users;
-
+/*
 import domain.business.organizaciones.Organizacion;
 
 import javax.persistence.*;
@@ -11,9 +11,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "tipo")
 public class PersonaOrganizacion extends Persona {
 
-    @OneToOne
-    @JoinColumn(name = "organizacion")
-    private Organizacion organizacion;
+
 
 
     // Getters and Setters
@@ -22,4 +20,4 @@ public class PersonaOrganizacion extends Persona {
     public void setOrganizacion(Organizacion organizacion) { this.organizacion = organizacion; }
 
     public PersonaOrganizacion() {}
-}
+}*/

@@ -1,5 +1,5 @@
 package domain.business.users;
-
+/*
 import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
 import domain.business.ubicacion.Domicilio;
@@ -32,29 +32,7 @@ public class Duenio extends Persona {
         this.getMascotasACargo().add(nuevaChapa);
     }
 
-    public void mostrarMascotas() {
-        int contador = 0;
-        for(Chapa chapaMascota: getMascotasACargo()) {
-            System.out.println("Mascota: " + contador);
-            chapaMascota.getMascota().mostrarDatosMascota();
-            contador++;
-        }
-    }
 
-
-    /*public void registrarMascota(String nombre, TipoAnimal tipo, String apodo, int edadMascota, SexoMascota sexo, String descripcionMascota, List<Foto> fotos, boolean perdida, List<CaracteristicaMascota> caracteristicas) {
-        if(!(caracteristicas.stream().allMatch(unaCaracteristica -> unaCaracteristica.soyCaracteristicaValida(organizacion)))) {
-            throw new HayCaracteristicasNoValidasException();
-        }
-        fotos.forEach(unaFoto-> unaFoto.normalizarA(organizacion.getDimensionEstandar()));
-        Mascota mascotaARegistrar = new Mascota(nombre, tipo, edadMascota, sexo, descripcionMascota, fotos, caracteristicas, perdida, true, this);
-        mascotas.add(mascotaARegistrar);
-    }*/
-
-    public void cambiarDomicilio(Domicilio nuevoDomicilio){
-        //this.cambiarOrganizacion(domicilio.buscarOrganizacionMasCercana());
-        this.setDomicilio(nuevoDomicilio);
-    }
 
     @Override
     public void mostrarDatosNoSensibles() {
@@ -67,12 +45,5 @@ public class Duenio extends Persona {
         this.mostrarMascotas();
     }
 
-    public void notificarDuenio(Rescatista rescatista, Mascota mascotaPerdida) {
-        // Notifica al Dueño de la Mascota
-        this.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida));
-        // Notifica a cada uno de los Contactos que haya agregado la persona
-        if(!this.getContactos().isEmpty()) {
-            this.getContactos().forEach(contacto -> contacto.getFormasDeNotificacion().forEach(notificacion -> notificacion.notificarMascotaEncontrada(this, rescatista, mascotaPerdida)));
-        }
-    }
 }
+*/

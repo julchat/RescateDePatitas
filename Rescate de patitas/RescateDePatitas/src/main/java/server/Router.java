@@ -42,6 +42,8 @@ public class Router {
         Spark.get("/api/mascotasUser", apiRestController::obtenerMascotasPorUser);
         Spark.get("/api/publicaciones", apiRestController::obtenerPublicaciones);
         Spark.get("/api/cambiar-caracteristicas", apiRestController::permiteAdministrar);
+        Spark.get("/api/perfilRegistroMascota", apiRestController::obtenerPerfilParaRegistrarMascota);
+        Spark.get("/api/perfilDarEnAdopcion", apiRestController::obtenerPerfilParaDarAdopcion);
         Spark.get("/api/agregar-admin", apiRestController::permiteAgregarAdmin);
 
 
@@ -87,6 +89,8 @@ public class Router {
 
         Spark.get("/dar-mascota-adopcion", homeController::darMascotaAdopcion);
         Spark.post("/dar-mascota-adopcion", formularioController::darMascotaAdopcion);
+        Spark.get("/dar-mascota-adopcion/:id", homeController::darMascotaAdopcionParticular);
+        Spark.post("/dar-mascota-adopcion/:id", formularioController::darMascotaAdopcionParticular);
 
         // Solo para los Admin
         Spark.get("/administrar-caracteristicas", homeController::adminCaracteristicas);
@@ -102,7 +106,8 @@ public class Router {
         Spark.get("/publicaciones-pendientes", homeController::publicacionesPendientes);
         Spark.get("/publicaciones-pendientes/:id", publicacionesController::publicacion);
         Spark.post("/publicaciones-pendientes/:id", publicacionesController::administrarPublicacion);
-
+        Spark.post("/aprobar-publicacion", publicacionesController::aprobarPublicacion);
+        Spark.post("/rechazar-publicacion", publicacionesController::rechazarPublicacion);
 
         Spark.options("/*",
                 (request, response) -> {

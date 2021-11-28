@@ -31,22 +31,6 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
         }
     }
 
-    /*public Usuario buscarUsuario(String nombreDeUsuario, String contrasenia){
-        return this.dao.buscar(condicionUsuarioYContrasenia(nombreDeUsuario, contrasenia));
-    }*/
-
-    public List<String> usuariosRegistrados() {
-        // SELECT nombreUsuario FROM usuario
-        String usuarioQuery = "SELECT nombreUsuario FROM Usuario";
-        List<String> usuarios = EntityManagerHelper.getEntityManager().createQuery(usuarioQuery).getResultList();
-        return usuarios;
-    }
-
-    /*
-    public List<String> usuariosYRoles() {
-        // TODO
-    }*/
-
     public Usuario buscarUsuario(String nombreDeUsuario){
         return this.dao.buscar(existeUsuario(nombreDeUsuario));
     }

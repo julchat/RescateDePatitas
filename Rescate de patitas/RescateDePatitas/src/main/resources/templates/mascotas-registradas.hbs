@@ -13,7 +13,7 @@
         <link rel="shortcut icon" href="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
 
         <link rel="stylesheet" href="/css/barra-menu.css">
-        <link rel="stylesheet" href="/css/mascotas-en-adopcion.css">
+        <link rel="stylesheet" href="/css/mascotas-registradas.css">
         <link rel="stylesheet" href="/css/reset.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
     </head>
@@ -36,22 +36,37 @@
 
         <h1 class="subtitulo">Mascotas Registradas</h1>
 
-        <div class="form1" id="vuePet">
+        <div class="form1" id="appVue">
+            <div v-if="mascotasRegistradas.length > 0">
+                <div v-for="mascota in mascotasRegistradas">
+                    <div class="tabla">
+                        <div class="publicacion">
+                            <u class="titulo2">Nombre Mascota:</u> {{mascota.nombreMascota}}<br>
+                            <u class="titulo2">Apodo Mascota:</u> {{mascota.apodoMascota}}<br>
+                            <u class="titulo2">Edad Mascota:</u> {{mascota.edadMascota}}<br>
+                            <u class="titulo2">Tipo de Animal:</u> {{mascota.tipoAnimal}}<br>
+                            <u class="titulo2">Sexo Animal:</u> {{mascota.sexoMascota}}<br>
+                            <u class="titulo2">Descripción:</u> {{mascota.descripcionMascota}}<br>
+                            <u class="titulo2">Características:</u><br>
+                            <div v-for="caracteristica in mascota.caracteristicasMascota">
+                                • {{caracteristica.caracteristica}}<br>
+                            </div>
 
-            <article v-for="mascota in mascotas">
-                <label for="name">Nombre Mascota<br></label>
-                <p>{{mascota.mascota.apodoMascota}}<br></p>
-                <a><input> {{mascota.apodoMascota}}</a>
-                <label for="surname">Apodo Mascota<br></label>
-                <p>{{apodoMascota}}<br></p>
-                <label for="date">Edad Mascota</label>
-                <p class="text-input"><br>{{mascota.edadMascota}}<br></p>
-                <label for="email">Sexo<br></label>
-                <p class="text-input"><br>{{mascota.sexoMascota}}<br></p>
-                <label for="doc-type">Tipo de Animal<br></label>
-                <p class="text-input"><br>{{mascota.tipoAnimal}}<br></p>
-                <br><br><br><br>
-            </article>
+                            <!-- Fotos -->
+                            <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
+                            <br><br>
+                            <button class="boton" v-on:click="darEnAdopcion(mascota.id)">Dar en Adopción</button>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+            </div>
+
+            <div v-else>
+                <div class="subtitulo3">¡No tiene mascotas registradas por el momento!<br><br><br>
+                    <img class="imgAviso" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687238/img/jugando_con_la_cola_vxwwjm.png" >
+                </div>
+            </div>
         </div>
     </div>
 

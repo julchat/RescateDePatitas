@@ -72,6 +72,4 @@ public abstract class Publicacion extends EntidadPersistente {
         return this.estadoPublicacion.esVisible(usuario);
     }
 
-    public abstract void mostrarPublicacion();
-
 }

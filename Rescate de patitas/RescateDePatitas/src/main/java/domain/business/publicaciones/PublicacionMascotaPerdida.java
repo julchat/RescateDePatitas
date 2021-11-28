@@ -2,7 +2,7 @@ package domain.business.publicaciones;
 
 import domain.business.mascota.MascotaPerdida;
 import domain.business.ubicacion.Lugar;
-import domain.business.users.Rescatista;
+import domain.business.users.Persona;
 
 import javax.persistence.*;
 
@@ -33,17 +33,10 @@ public class PublicacionMascotaPerdida extends Publicacion {
 
 
     // Metodos
-    public void crearPublicacion(Rescatista autor, MascotaPerdida mascotaRescatada) {
+    public void crearPublicacion(Persona autor, MascotaPerdida mascotaRescatada) {
         super.crearPublicacion(new Pendiente());
         this.setAutor(autor);
         this.setMascotaRescatada(mascotaRescatada);
         this.setLugarDeTransito(mascotaRescatada.getLugarDeTransito());
     }
-
-    @Override
-    public void mostrarPublicacion() {
-        this.mascotaRescatada.mostrarMascota();
-        this.getAutor().mostrarDatosNoSensibles();
-    }
-
 }

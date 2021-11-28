@@ -4,9 +4,7 @@ import domain.business.EntidadPersistente;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.mascota.Mascota;
 import domain.business.publicaciones.Pregunta;
-import domain.business.users.Administrador;
 import domain.business.users.Persona;
-import domain.business.users.Voluntario;
 import domain.business.foto.DimensionEstandar;
 import domain.business.foto.Foto;
 import domain.security.Usuario;
@@ -44,11 +42,11 @@ public class Organizacion extends EntidadPersistente {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @Column(name = "voluntarios")
-    private List<Voluntario> voluntarios = new ArrayList<>();
+    private List<Persona> voluntarios = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "administradores")
-    private List<Administrador> administradores = new ArrayList<>();
+    @Column(name = "administradores")
+    private List<Persona> administradores = new ArrayList<>();
 
     @Transient
     private List<Persona> potencialesVoluntarios = new ArrayList<>();
@@ -111,13 +109,13 @@ public class Organizacion extends EntidadPersistente {
 
     public void setPreguntasOrganizacion(List<Pregunta> preguntasOrganizacion) { this.preguntasOrganizacion = preguntasOrganizacion; }
 
-    public List<Voluntario> getVoluntarios() { return voluntarios; }
+    public List<Persona> getVoluntarios() { return voluntarios; }
 
-    public void setVoluntarios(List<Voluntario> voluntarios) { this.voluntarios = voluntarios; }
+    public void setVoluntarios(List<Persona> voluntarios) { this.voluntarios = voluntarios; }
 
-    public List<Administrador> getAdministradores() { return administradores; }
+    public List<Persona> getAdministradores() { return administradores; }
 
-    public void setAdministradores(List<Administrador> administradores) { this.administradores = administradores; }
+    public void setAdministradores(List<Persona> administradores) { this.administradores = administradores; }
 
     public List<Persona> getPotencialesVoluntarios() { return potencialesVoluntarios; }
 
@@ -135,8 +133,7 @@ public class Organizacion extends EntidadPersistente {
 
             // Todo: ver si se puede hacer un cambio de clase entre Persona a Voluntario
             // Todo: la otra forma es pasar TODOS los datos de una Persona a Voluntario, incluyendo todo lo que se encuentar en la BD
-            ((Voluntario)nuevoVoluntario).setOrganizacion(this);
-            this.voluntarios.add((Voluntario) nuevoVoluntario);
+            this.voluntarios.add(nuevoVoluntario);
         }
     }
 

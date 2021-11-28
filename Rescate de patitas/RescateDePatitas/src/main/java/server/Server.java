@@ -1,9 +1,6 @@
 package server;
 
 import database.EntityManagerHelper;
-import domain.business.mascota.Chapa;
-import domain.business.mascota.Mascota;
-import domain.business.users.Duenio;
 import spark.Spark;
 import spark.debug.DebugScreen;
 

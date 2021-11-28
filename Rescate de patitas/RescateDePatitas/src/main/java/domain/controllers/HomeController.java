@@ -8,19 +8,18 @@ import domain.business.caracteristicas.Caracteristica;
 import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
 import domain.business.mascota.MascotaPerdida;
-import domain.business.users.Duenio;
-import domain.repositorios.RepositorioCaracteristicas;
-import domain.repositorios.RepositorioChapas;
-import domain.repositorios.RepositorioMascotaPerdida;
-import domain.repositorios.RepositorioMascotas;
-import domain.repositorios.factories.FactoryRepositorioCaracteristicas;
-import domain.repositorios.factories.FactoryRepositorioChapas;
-import domain.repositorios.factories.FactoryRepositorioMascota;
-import domain.repositorios.factories.FactoryRepositorioMascotaPerdida;
+import domain.business.publicaciones.Pregunta;
+import domain.business.publicaciones.PublicacionMascotaEnAdopcion;
+import domain.business.publicaciones.PublicacionMascotaPerdida;
+import domain.business.users.Persona;
+import domain.repositorios.*;
+import domain.repositorios.factories.*;
 import domain.security.Admin;
 import domain.security.TipoRol;
 import domain.security.Usuario;
+import json.JsonController;
 import json.JsonMap;
+import org.eclipse.jetty.util.IO;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -75,24 +74,12 @@ public class HomeController {
         return template.text();
     }
 
-    public ModelAndView mascotasRegistradas(Request request, Response response) throws IOException {
-        //TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
-        //Handlebars handlebars = new Handlebars(loader);
-        //Template template = handlebars.compile("mascotas-registradas");
+    public String mascotasRegistradas(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("mascotas-registradas");
 
-        //System.out.println("OBTENIENDO EL USUARIO ----------------------------");
-        //String idSesion = request.headers("Authorization");
-        //System.out.println("ID Sesion: " + idSesion);
-
-        //Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
-        //Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
-        //System.out.println("Login: " + sesionUsuario);
-
-        Map<String, Object> model = new HashMap<>();
-        //model.put("usuario", sesionUsuario);
-
-        //return template.apply(model);
-        return new ModelAndView(model, "mascotas-registradas.hbs");
+        return template.text();
     }
 
 
@@ -141,34 +128,34 @@ public class HomeController {
 
 
     public String mascotasPerdidas(Request request, Response response) throws IOException {
-        RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
+        RepositorioPubliMascotaPerdida repositorioPubliMascotaPerdida = FactoryRepositorioPubliMascotaPerdida.get();
 
-        List<MascotaPerdida> mascotasPerdidas = repositorioMascotaPerdida.buscarTodos();
+        List<PublicacionMascotaPerdida> mascotasPerdidas = repositorioPubliMascotaPerdida.buscarTodos();
 
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("mascotas-perdidas");
         Map<String, Object> viewModel = new HashMap<>();
         viewModel.put("mascotasPerdidas", mascotasPerdidas);
+
         return template.apply(viewModel);
     }
 
     public String estoyPerdido(Request request, Response response) throws IOException {
-        RepositorioMascotaPerdida repositorioMascotaPerdida = FactoryRepositorioMascotaPerdida.get();
+        RepositorioPubliMascotaPerdida repositorioPubliMascotaPerdida = FactoryRepositorioPubliMascotaPerdida.get();
 
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("estoy-perdido");
-// TODO: no son mascotas en si, son publicaciones, ya que contienen MAS datos
-//   contienen: Datos de la Mascota, Ubicacion donde fue encontrada, Autor
-        int idMascota = new Integer(request.params("id"));
-        System.out.println(idMascota);
 
-        MascotaPerdida mascotaPerdida = repositorioMascotaPerdida.buscar(idMascota);
-        System.out.println(new JsonMap<MascotaPerdida>(mascotaPerdida).transformar());
+        int idPublicacion = new Integer(request.params("id"));
+        System.out.println(idPublicacion);
+
+        PublicacionMascotaPerdida publicacionMascotaPerdida = repositorioPubliMascotaPerdida.buscar(idPublicacion);
+        System.out.println(JsonController.transformar(publicacionMascotaPerdida));
 
         Map<String, Object> viewModel = new HashMap<>();
-        viewModel.put("mascota", mascotaPerdida);
+        viewModel.put("publicacion", publicacionMascotaPerdida);
 
         return template.apply(viewModel);
     }
@@ -187,21 +174,21 @@ public class HomeController {
 
 
     public String mascotasEnAdopcion(Request request, Response response) throws IOException {
-        RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
-        List<Mascota> mascotasEnAdopcion = repositorioMascotas.buscarTodos();
+        RepositorioPubliMascotaEnAdopcion repositorioPubliMascotaEnAdopcion = FactoryRepositorioPubliMascotaEnAdopcion.get();
+        List<PublicacionMascotaEnAdopcion> publicaciones = repositorioPubliMascotaEnAdopcion.buscarTodos();
 
         Map<String, Object> viewModel = new HashMap<>();
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
         Template template = handlebars.compile("mascotas-en-adopcion");
 
-        viewModel.put("mascotasEnAdopcion", mascotasEnAdopcion);
+        viewModel.put("mascotasEnAdopcion", publicaciones);
 
         return template.apply(viewModel);
     }
 
     public String estoyEnAdopcion(Request request, Response response) throws IOException {
-        RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
+        RepositorioPubliMascotaEnAdopcion repositorioPubliMascotaEnAdopcion = FactoryRepositorioPubliMascotaEnAdopcion.get();
 
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
@@ -209,13 +196,12 @@ public class HomeController {
 
         int idMascota = new Integer(request.params("id"));
         System.out.println(idMascota);
-// TODO: no son mascotas en si, son publicaciones, ya que contienen MAS datos
-//   contienen: Datos de la Mascota, Autor
-        Mascota mascotaEnAdopcion = repositorioMascotas.buscar(idMascota);
-        System.out.println(new JsonMap<Mascota>(mascotaEnAdopcion).transformar());
+
+        PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = repositorioPubliMascotaEnAdopcion.buscar(idMascota);
+        System.out.println(JsonController.transformar(publicacionMascotaEnAdopcion));
 
         Map<String, Object> viewModel = new HashMap<>();
-        viewModel.put("mascota", mascotaEnAdopcion);
+        viewModel.put("publicacion", publicacionMascotaEnAdopcion);
 
         return template.apply(viewModel);
     }
@@ -257,6 +243,54 @@ public class HomeController {
         Template template = handlebars.compile("dar-mascota-adopcion");
 
         return template.text();
+    }
+
+    public String darMascotaAdopcionParticular(Request request, Response response) throws IOException {
+
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID SESION: " + idSesion);
+
+        if(idSesion == null) {
+            response.redirect("/sin-permisos");
+            return null;
+        }
+        else {
+            int idMascota = new Integer(request.params("id"));
+
+            RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
+            Mascota mascota = repositorioMascotas.buscar(idMascota);
+
+            if(mascota == null) {
+                TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+                Handlebars handlebars = new Handlebars(loader);
+                Template template = handlebars.compile("no-existe-pagina");
+
+                return template.text();
+            }
+            else {
+                Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+                Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+
+                RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
+                RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
+                Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+                Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
+
+                RepositorioPreguntas repositorioPreguntas = FactoryRepositorioPreguntas.get();
+                List<Pregunta> preguntas = repositorioPreguntas.buscarTodos();
+
+                TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+                Handlebars handlebars = new Handlebars(loader);
+                Template template = handlebars.compile("dar-mascota-adopcion-particular");
+                Map<String, Object> viewModel = new HashMap<>();
+
+                viewModel.put("persona", persona);
+                viewModel.put("mascota", mascota);
+                viewModel.put("preguntas", preguntas);
+
+                return template.apply(viewModel);
+            }
+        }
     }
 
 

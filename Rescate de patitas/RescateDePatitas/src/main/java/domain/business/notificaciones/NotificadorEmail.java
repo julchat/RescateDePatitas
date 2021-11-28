@@ -29,8 +29,8 @@ public class NotificadorEmail extends Notificacion{
     }
 
     @Override
-    public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta) {
-           mailSender.enviarEmail(destinatario.getEmail(), "Hay un interesado en adoptar tu mascota", armarMensajeHayInteresadoEnAdoptar(destinatario, interesado, mascotaPorSerAdoptada, ruta));
+    public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada) {
+           mailSender.enviarEmail(destinatario.getEmail(), "Hay un interesado en adoptar tu mascota", armarMensajeHayInteresadoEnAdoptar(destinatario, interesado, mascotaPorSerAdoptada));
     }
 
     @Override

@@ -1,5 +1,5 @@
 package domain.business.users;
-
+/*
 import domain.business.publicaciones.EstadoPublicacion;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
 
@@ -20,3 +20,4 @@ public class Voluntario extends PersonaOrganizacion {
     }
 
 }
+*/

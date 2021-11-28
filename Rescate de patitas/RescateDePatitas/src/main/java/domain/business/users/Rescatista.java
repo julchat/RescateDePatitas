@@ -1,5 +1,5 @@
 package domain.business.users;
-
+/*
 import domain.business.ubicacion.Lugar;
 import domain.business.mascota.MascotaPerdida;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
@@ -44,28 +44,5 @@ public class Rescatista extends Persona {
         mascotasAlojadas.add(mascotaPerdida);
     }
 
-    public void mapearDatosDuenio(Persona persona) {
-        this.setNombre(persona.getNombre());
-        this.setApellido(persona.getApellido());
-        this.setFechaDeNacimiento(persona.getFechaDeNacimiento());
-        this.setTipoDocumento(persona.getTipoDocumento());
-        this.setNumeroDocumento(persona.getNumeroDocumento());
-        this.setTelefono(persona.getTelefono());
-        this.setEmail(persona.getEmail());
-        this.setFormasDeNotificacion(persona.getFormasDeNotificacion());
-        this.setContactos(persona.getContactos());
-    }
-
-    @Override
-    public void mostrarDatosNoSensibles() {
-        super.mostrarDatosNoSensibles();
-        System.out.println("Puede alojar mascota: " + isPuedeAlojarMascota());
-        System.out.println("Domicilio: ");
-        System.out.println("    - Provincia: " + getDomicilio().getProvincia());
-        System.out.println("    - Localidad: " + getDomicilio().getLocalidad());
-        System.out.println("    - Calle: " + getDomicilio().getCalle());
-        System.out.println("    - Numeración: " + getDomicilio().getNumeracion());
-    }
-
-
 }
+*/

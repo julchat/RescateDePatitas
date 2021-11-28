@@ -35,21 +35,24 @@
         </header>
 
         <h1 class="subtitulo">Mascotas en Adopción</h1>
+        <div class="tabla">
         {{#each mascotasEnAdopcion}}
+
             <div class="publicacion">
                 <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
                 <label>Nombre Mascota:<br></label>
-                <p class="datos">{{this.nombreMascota}}</p>
+                <p class="datos">{{this.mascotaElegida.nombreMascota}}</p>
                 <a href="/mascotas-en-adopcion/estoy-en-adopcion/{{id}}"><button class="boton">Ver más</button></a>
                 <a href="/mascotas-en-adopcion/notificar-duenio/{{id}}"><button class="boton">Adoptar</button></a>
             </div>
+
         {{else}}
             <div class="subtitulo3">¡No hay mascotas en adopción por el momento!<br><br><br>
                 <img class="imgAviso" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687243/img/perro_y_gato_mimiendo_ziucj4.png" >
             </div>
 
         {{/each}}
-
+        </div>
         <br><br><br><br>
         <label class="texto">¿No encontraste tu mascota ideal?<br>Crea tu propia publicación para encontrarla</label>
         <br>

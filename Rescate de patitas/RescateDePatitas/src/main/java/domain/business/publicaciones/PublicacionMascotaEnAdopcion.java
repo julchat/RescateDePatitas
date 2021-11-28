@@ -1,6 +1,5 @@
 package domain.business.publicaciones;
 
-import domain.business.users.Duenio;
 import domain.business.mascota.Mascota;
 import domain.business.users.Persona;
 
@@ -16,7 +15,7 @@ public class PublicacionMascotaEnAdopcion extends Publicacion {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "duenioActual")
-    private Duenio duenioActual;
+    private Persona duenioActual;
 
     @OneToOne
     @JoinColumn(name = "mascotaElegida")
@@ -31,6 +30,10 @@ public class PublicacionMascotaEnAdopcion extends Publicacion {
 
 
     // Getters and Setters
+    public Persona getDuenioActual() { return duenioActual; }
+
+    public void setDuenioActual(Persona duenioActual) { this.duenioActual = duenioActual; }
+
     public List<Respuesta> getRespuestas() { return respuestas; }
 
     public void setRespuestas(List<Respuesta> respuestas) { this.respuestas = respuestas; }
@@ -39,11 +42,15 @@ public class PublicacionMascotaEnAdopcion extends Publicacion {
 
     public void setMascotaElegida(Mascota mascotaElegida) { this.mascotaElegida = mascotaElegida; }
 
+    public List<Persona> getPersonasInteresadas() { return personasInteresadas; }
+
+    public void setPersonasInteresadas(List<Persona> personasInteresadas) { this.personasInteresadas = personasInteresadas; }
 
     // Métodos
     public void crearPublicacion(Persona autor, Mascota mascotaElegida, List<Respuesta> respuestasOrganizacion) {
         super.crearPublicacion(new Pendiente());
         this.setAutor(autor);
+        this.setDuenioActual(autor);
         this.setMascotaElegida(mascotaElegida);
         this.setRespuestas(respuestasOrganizacion);
         this.personasInteresadas = new ArrayList<>();
@@ -51,16 +58,5 @@ public class PublicacionMascotaEnAdopcion extends Publicacion {
 
     public void nuevoInteresado(Persona interesado) {
         this.personasInteresadas.add(interesado);
-    }
-
-
-    @Override
-    public void mostrarPublicacion() {
-        this.mascotaElegida.mostrarDatosMascota();
-        this.getAutor().mostrarDatosNoSensibles();
-        for(Respuesta respuesta : respuestas) {
-            respuesta.mostrarRespuesta();
-        }
-        System.out.println("Personas interesadas: " + personasInteresadas.size());
     }
 }

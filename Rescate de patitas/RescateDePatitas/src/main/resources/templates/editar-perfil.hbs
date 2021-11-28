@@ -12,6 +12,7 @@
 
         <link rel="shortcut icon" href="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
 
+        <link rel="stylesheet" href="/css/editar-perfil.css">
         <link rel="stylesheet" href="/css/barra-menu.css">
         <link rel="stylesheet" href="/css/reset.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
@@ -35,26 +36,33 @@
 
         <br><br><br><br><br><br><br><br>
 
-        <div class="form1" id="appVue">
+        <div class="formulario" id="appVue">
 
-            <label for="name">Nombre<br></label>
-            <div class="text-input"><br>{{persona.nombre}}</div>
-            <label for="surname">Apellido<br></label>
-            <div class="text-input"><br>{{persona.apellido}}</div>
-            <label for="date">Fecha de Nacimiento</label>
-            <div class="text-input"><br>{{persona.fechaDeNacimiento}}</div>
-            <label for="email">Email<br></label>
-            <div class="text-input"><br>{{persona.email}}</div>
-            <label for="doc-type">Tipo de documento<br></label>
-            <div class="text-input"><br>{{persona.tipoDocumento}}</div>
-            <label for="n-doc">Número de documento<br></label>
-            <div class="text-input"><br>{{persona.numeroDocumento}}</div>
-            <label for="cel">Teléfono / Celular<br></label>
-            <div class="text-input"><br>{{persona.telefono}}</div>
-            <label for="notification">Formas de notificación<br></label><br>
-            <ul v-for="formaDeNotificacion in formasDeNotificacion">
-                <a><input class="check" type="checkbox" checked> {{formaDeNotificacion.tipoDeNotificacion}}</a>
-            </ul>
+            <h3 class="subtitulo3">Datos Personales</h3>
+            <div></div>
+            <div></div>
+            <fieldset>
+                <div for="name">Nombre<br></div>
+                <div class="text-input"><br>{{persona.nombre}}</div><br>
+                <div for="surname">Apellido<br></div>
+                <div class="text-input"><br>{{persona.apellido}}</div><br>
+                <div for="date">Fecha de Nacimiento</div>
+                <div class="text-input"><br>{{persona.fechaDeNacimiento}}</div><br>
+                <div for="email">Email<br></div>
+                <div class="text-input"><br>{{persona.email}}</div><br>
+                <div for="doc-type">Tipo de documento<br></div>
+                <div class="text-input"><br>{{persona.tipoDocumento}}</div><br>
+                <div for="n-doc">Número de documento<br></div>
+                <div class="text-input"><br>{{persona.numeroDocumento}}</div><br>
+                <div for="cel">Teléfono / Celular<br></div>
+                <div class="text-input"><br>{{persona.telefono}}</div><br>
+                <div for="notification">Formas de notificación<br></div><br>
+                <ul v-for="formaDeNotificacion in formasDeNotificacion">
+                    <a><input class="check" type="checkbox" checked disabled> {{formaDeNotificacion.tipoDeNotificacion}}</a>
+                </ul>
+                <br><br>
+            </fieldset>
+
 
             <h3 class="subtitulo3">Contactos</h3>
             <div></div>
@@ -62,18 +70,46 @@
             <fieldset v-for="contacto in contactos">
 
                     <label for="contactName">Nombre<br></label>
-                    <div class="text-input" disabled><br>{{contacto.nombreContacto}}</div>
+                    <div class="text-input" disabled><br>{{contacto.nombreContacto}}</div><br>
 
                     <label for="contactSurname">Apellido<br></label>
-                    <div class="text-input" disabled><br>{{contacto.apellidoContacto}}</div>
+                    <div class="text-input" disabled><br>{{contacto.apellidoContacto}}</div><br>
 
                     <label for="contactEmail">Email<br></label>
-                    <div class="text-input" disabled><br>{{contacto.emailContacto}}</div>
+                    <div class="text-input" disabled><br>{{contacto.emailContacto}}</div><br>
 
                     <label for="contactTel">Teléfono / Celular<br></label>
-                    <div class="text-input" disabled><br>{{contacto.telefonoContacto}}</div>
+                    <div class="text-input" disabled><br>{{contacto.telefonoContacto}}</div><br>
 
+                    <br><br>
             </fieldset>
+
+            <h3 class="subtitulo3">Domicilio</h3>
+            <div></div>
+            <div></div>
+            <fieldset>
+                <label for="contactName">Provincia<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.provincia}}</div><br>
+
+                <label for="contactSurname">Localidad<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.localidad}}</div><br>
+
+                <label for="contactEmail">Codigo Postal<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.codigoPostal}}</div><br>
+
+                <label for="contactTel">Calle<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.calle}}</div><br>
+
+                <label for="contactTel">Numeración<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.numeracion}}</div><br>
+
+                <label for="contactTel">Departamento<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.departamento}}</div><br>
+
+                <label for="contactTel">Piso<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.piso}}</div><br>
+            </fieldset>
+
         </div>
     </div>
 

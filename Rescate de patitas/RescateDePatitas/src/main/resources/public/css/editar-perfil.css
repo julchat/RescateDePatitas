@@ -7,16 +7,6 @@
     padding-top: 95px;
 }
 
-.subtitulo2 {
-    color: grey;
-    padding-top: 10px;
-    font-weight:300;
-    font-size: 18px;
-    padding-bottom: 10px;
-    display: block;
-    text-align: center;
-}
-
 .subtitulo3 {
     color: #8dc0c0;
     padding-top: 30px;
@@ -26,42 +16,21 @@
     text-align: center;
 }
 
-.select {
-    background-color: #F0F0F0;
-    color: grey;
-    border: none;
-    min-width: 100px;
-    max-width: 200px;
-    height: 100px;
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-    align-content: center;
-    margin-top: 10px;
-    line-height: 3;
-    font-size: 15px;
-    display: flex;
-    font-size: 15px;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    cursor: pointer;
-    transition: transform .5s;
-}
-
-.form1 {
-    width: 70%;
-    margin: 0 auto;
-    padding: 25px;
+.formulario {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     padding: 25px;
     background:  white;
     border-radius: 20px;
     text-align: center;
     justify-content: center;
-    margin-top: 15px;
-    margin-bottom: 35px;
+    align-items: center;
+    width: 50%;
+    max-width: 350px;
+    left: 50%;
+    margin: 0 auto;
+    background:  white;
 }
+
 
 .texto {
     color: grey;
@@ -83,6 +52,10 @@ label {
     width: 90%;
 }
 
+.registro {
+    display: none;
+}
+
 .radio {
     margin-right: 5px;
     margin-left: 15px;
@@ -91,9 +64,9 @@ label {
 
 .text-input {
     background-color: #F0F0F0;
-    width: 90%;
+    width: 100%;
     height: 40px;
-    margin: 10px;
+    margin-top: 15px;
     border: none;
     text-align: center;
     border-radius: 10px;
@@ -154,10 +127,10 @@ label {
 
 .boton-foto {
     padding-top: 15px;
-    text-align: center; 
+    text-align: center;
     cursor: pointer;
     margin: 0 auto;
-} 
+}
 
 
 .si-no {

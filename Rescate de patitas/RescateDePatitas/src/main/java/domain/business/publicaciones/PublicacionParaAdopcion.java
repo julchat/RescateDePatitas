@@ -49,11 +49,4 @@ public class PublicacionParaAdopcion extends Publicacion {
         this.setComodidades(comodidades);
         this.setPreferencias(preferencias);
     }
-
-    @Override
-    public void mostrarPublicacion() {
-        this.getAutor().mostrarDatosNoSensibles();
-        System.out.println("Comodidades: " + obtenerComodidades());
-        System.out.println("Preferencias: " + obtenerPreferencias());
-    }
 }

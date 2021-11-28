@@ -2,9 +2,7 @@ package domain.repositorios.factories;
 
 import config.Config;
 import domain.business.users.Contacto;
-import domain.business.users.Duenio;
 import domain.repositorios.RepositorioContactos;
-import domain.repositorios.RepositorioDuenio;
 import domain.repositorios.daos.DAO;
 import domain.repositorios.daos.DAOHibernate;
 

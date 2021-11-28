@@ -35,17 +35,26 @@
         <div class=formita>
             <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png">
             <div>
-                <label>Tipo Animal:<br></label>
-                <label class="datos">{{mascota.tipoAnimal}}<br></label>
-                <label>Tamanio:<br></label>
-                <label class="datos">{{mascota.tamanio}}<br></label>
-                <label>Descripción:<br></label>
-                <label class="datos">{{mascota.descripcion}}<br></label>
-                <!--<label>Lugar de Tránsito:<br></label>
-                <label class="datos">{{mascota.lugarDeTransito}}<br></label>-->
-                <label>Ubicación Encontrado:<br></label>
-                <label class="datos">{{mascota.ubicacionEncontrada}}<br></label>
-                <a href="/mascotas-perdidas/notificar-rescatista/{{mascota.id}}"><br><button class="boton">TE ENCONTRÉ</button></a>
+                <label>• Fecha de Publicación:<br></label>
+                <div class="datos">{{publicacion.fechaDePublicacion}}<br></div>
+                <label>• Autor:<br></label>
+                <label class="datos"> {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}<br></label>
+                <br>
+                <label>MASCOTA PERDIDA<br></label>
+                <label>• Tipo Animal:<br></label>
+                <label class="datos">{{publicacion.mascotaRescatada.tipoAnimal}}<br></label>
+                <label>• Sexo Animal:<br></label>
+                <label class="datos">{{publicacion.mascotaRescatada.sexoMascota}}<br></label>
+                <label>• Tamanio:<br></label>
+                <label class="datos">{{publicacion.mascotaRescatada.tamanio}}<br></label>
+                <label>• Descripción:<br></label>
+                <label class="datos">{{publicacion.mascotaRescatada.descripcion}}<br></label>
+                <br>
+                <label>LUGAR DE TRÁNSITO<br></label>
+                <label>• Dirección:<br></label>
+                <label class="datos">{{publicacion.lugarDeTransito.direccion}}<br></label>
+
+                <a href="/mascotas-perdidas/notificar-rescatista/{{publicacion.mascotaRescatada.id}}"><br><button class="boton">TE ENCONTRÉ</button></a>
             </div>
         </div>
     </div>

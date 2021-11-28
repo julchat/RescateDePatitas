@@ -2,8 +2,11 @@ package domain.business.users;
 
 import domain.business.EntidadPersistente;
 import domain.business.Sistema;
+import domain.business.mascota.Chapa;
 import domain.business.mascota.Mascota;
+import domain.business.mascota.MascotaPerdida;
 import domain.business.notificaciones.Notificacion;
+import domain.business.organizaciones.Organizacion;
 import domain.business.publicaciones.*;
 import domain.business.ubicacion.Domicilio;
 
@@ -15,8 +18,6 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "persona")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo")
 public class Persona extends EntidadPersistente {
 
     private String nombre;
@@ -41,6 +42,22 @@ public class Persona extends EntidadPersistente {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "contactos")
     private List<Contacto> contactos;
+
+    /*
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @Column(name = "mascotasACargo")
+    private List<Chapa> mascotasACargo;*/
+
+    private boolean puedeAlojarMascota;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @Column(name = "mascotasAlojadas")
+    private List<MascotaPerdida> mascotasAlojadas;
+
+    /*
+    @OneToOne
+    @JoinColumn(name = "organizacion")
+    private Organizacion organizacion;*/
 
     private boolean suscripto;
 
@@ -82,35 +99,21 @@ public class Persona extends EntidadPersistente {
 
     public void setFormasDeNotificacion(List<Notificacion> formasDeNotificacion) { this.formasDeNotificacion = formasDeNotificacion; }
 
-    public void agregarNuevaFormaDeNotificacion(Notificacion nuevaFormaDeNotificacion) { this.formasDeNotificacion.add(nuevaFormaDeNotificacion); }
-
-   public void quitarFormaDeNotificacion(Notificacion formaDeNotificacion) {
-        if(this.formasDeNotificacion.contains(formaDeNotificacion)) {
-            this.formasDeNotificacion.remove(formaDeNotificacion);
-        }
-        else {
-            System.out.println("Dicha forma de Notificación no se encuentra en la lista de notificaciones de la Persona.");
-        }
-   }
-
     public List<Contacto> getContactos() { return contactos; }
 
     public void setContactos(List<Contacto> contactos) { this.contactos = contactos; }
 
-    public void agregarContacto(Contacto nuevoContacto) { this.contactos.add(nuevoContacto);}
+    public boolean isPuedeAlojarMascota() { return puedeAlojarMascota; }
 
-    public void quitarContacto(Contacto contacto) {
-        if(this.contactos.contains(contacto)) {
-            this.contactos.remove(contacto);
-        }
-        else {
-            System.out.println("El contacto no se encuentra en la lista de contactos de la Persona");
-        }
+    public void setPuedeAlojarMascota(boolean puedeAlojarMascota) { this.puedeAlojarMascota = puedeAlojarMascota; }
+
+    public List<MascotaPerdida> getMascotasAlojadas() { return mascotasAlojadas; }
+
+    public void setMascotasAlojadas(List<MascotaPerdida> mascotasAlojadas) {
+        this.mascotasAlojadas = mascotasAlojadas;
     }
 
-    public void suscribirseNovedades() {
-        this.suscripto = true;
-    }
+    public void suscribirseNovedades() { this.suscripto = true; }
 
     public void desuscribirseNovedades() {
         this.suscripto = false;
@@ -121,26 +124,6 @@ public class Persona extends EntidadPersistente {
     public Persona() {}
 
     // Metodos
-    public void crearPublicacionParaAdoptar() {
-        List<String> comodidades = new ArrayList<>();
-        List<String> preferencias = new ArrayList<>();
-
-        //PublicacionParaAdoptar publicacionParaAdoptar = new PublicacionParaAdoptar();
-        //publicacionParaAdoptar.crearPublicacion(this, comodidades, preferencias);
-        // TODO: agregar la publicacion al Repositorio de Publicaciones
-    }
-
-    public void crearPublicacionParaDarAdopcion() {
-        PublicacionMascotaEnAdopcion publicacionCreada = new PublicacionMascotaEnAdopcion();
-        Mascota mascotaElegida = new Mascota();
-
-        List<Respuesta> respuestas = new ArrayList<>();
-
-        publicacionCreada.crearPublicacion(this, mascotaElegida, respuestas);
-        // TODO: agregar la publicacion al Repositorio de Publicaciones
-    }
-
-    // Todo: no es la parte final
     public void buscarPublicacionesMascotaEnAdopcion(){
         Sistema miSistema = Sistema.getInstance();
         miSistema.getPublicaciones().stream().filter(publicacion -> publicacion.getClass().equals(PublicacionMascotaEnAdopcion.class)).collect(Collectors.toList());
@@ -157,24 +140,5 @@ public class Persona extends EntidadPersistente {
     public List<Publicacion> buscarPublicacionesMascotaPerdida(){
         Sistema miSistema = Sistema.getInstance();
         return miSistema.getPublicaciones().stream().filter(publicacion -> publicacion.getClass().equals(PublicacionMascotaPerdida.class)).collect(Collectors.toList());
-    }
-
-    public void comunicarseConAutor(Publicacion publicacion) {
-        publicacion.getAutor().mostrarDatosNoSensibles();
-    }
-
-
-    public void mostrarDatosNoSensibles() {
-        System.out.println("Nombre y Apellido: " + getNombre() + " " + getApellido());
-        System.out.println("Email: " + getEmail());
-        System.out.println("Teléfono: " + getTelefono());
-        if(!getContactos().isEmpty()) {
-            System.out.println("Contacto/s: ");
-            for(Contacto contacto : getContactos()){
-                System.out.println(" - Nombre y Apellido: " + contacto.getNombreContacto() + " " + contacto.getApellidoContacto());
-                System.out.println(" - Email Contacto: " + contacto.getEmailContacto());
-                System.out.println(" - Teléfono Contacto: " + contacto.getTelefonoContacto());
-            }
-        }
     }
 }

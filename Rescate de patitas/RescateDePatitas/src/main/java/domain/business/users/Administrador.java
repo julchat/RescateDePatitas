@@ -1,5 +1,5 @@
 package domain.business.users;
-
+/*
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.organizaciones.Organizacion;
 import domain.business.publicaciones.Pregunta;
@@ -58,3 +58,4 @@ public class Administrador extends PersonaOrganizacion {
         }
     }
 }
+*/

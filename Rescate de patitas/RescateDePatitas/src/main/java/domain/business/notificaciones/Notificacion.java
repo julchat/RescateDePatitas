@@ -45,9 +45,9 @@ public abstract class Notificacion extends EntidadPersistente {
                  " ha encontrado a su mascota.\n";
     }
 
-    public String armarMensajeHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta){
+    public String armarMensajeHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada){
         return "Estimado/a " + destinatario.getNombre() + "\n" + "Nos comunicamos para informarle que el usuario " + interesado.getApellido() + " " + interesado.getNombre() +
-                "esta interesado/a en adoptar a su mascota " + mascotaPorSerAdoptada.getNombreMascota() +  ".\n Para mas informacion ingrese a " + ruta;
+                "esta interesado/a en adoptar a su mascota " + mascotaPorSerAdoptada.getNombreMascota() +  ".\n";
     }
 
     public String armarMensajeRecomendacionesSemanales(Persona destinatario, PublicacionParaAdopcion publicacion, String ruta){
@@ -59,7 +59,7 @@ public abstract class Notificacion extends EntidadPersistente {
 
     public abstract void notificarMascotaEncontradaRescatista(Persona destinatario, Persona duenio, MascotaPerdida mascotaPerdida);
 
-    public abstract void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta);
+    public abstract void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada);
 
     public abstract void notificarRecomendaciones(Persona destinatario, PublicacionParaAdopcion publicacion, String ruta);
 }

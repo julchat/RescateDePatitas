@@ -36,16 +36,16 @@
 
         <h1 class="subtitulo">Publicaciones Pendientes</h1>
             <div id="appVue">
-                <div v-if="publicaciones.length > 0">
-                    <div class="tabla" v-for="publicacion in publicaciones">
+                <div class="tabla" v-if="publicaciones.length > 0">
+                    <div v-for="publicacion in publicaciones">
                         <div class="publicacion">
-                            ID: {{publicacion.id}} <br>
+                            ID: {{publicacion.id}}<br>
                             Fecha de Publicación: {{publicacion.fechaDePublicacion}} <br>
-                            Autor: {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}
+                            Autor: {{publicacion.autor.nombre}} {{publicacion.autor.apellido}} <br><br>
                             <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png">
-                            <a href="/publicaciones-pendientes/1"><button class="boton" v-on:click="verPublicacion(publicacion.id)">Ver más</button></a>
-                            <button class="boton">Aprobar</button>
-                            <button class="boton">Rechazar</button>
+                            <button class="boton" v-on:click="verDetalles(publicacion.id)">Ver Publicación</button>
+                            <button class="boton" v-on:click="aprobarPublicacion(publicacion.id)">Aprobar</button>
+                            <button class="boton" v-on:click="rechazarPublicacion(publicacion.id)">Rechazar</button>
                         </div>
                     </div>
                 </div>
@@ -62,3 +62,17 @@
 </html>
 
 
+
+<!--
+                            ID: {{publicacion.id}}<br>
+                            Fecha de Publicación: {{publicacion.fechaDePublicacion}} <br>
+                            Autor: {{publicacion.autor.nombre}} {{publicacion.autor.apellido}} <br><br>
+                            Mascota rescatada <br>
+                            Descripcion: {{publicacion.mascotaRescatada.descripcion}} <br>
+                            Tipo animal: {{publicacion.mascotaRescatada.tipoAnimal}} <br>
+                            Sexo animal: {{publicacion.mascotaRescatada.sexoMascota}} <br>
+                            Tamaño: {{publicacion.mascotaRescatada.tamanio}} <br>
+                            Caracteristicas: <br><br>
+                            Lugar de Tránsito <br>
+                            Dirección: {{publicacion.lugarDeTransito.direccion}}
+-->

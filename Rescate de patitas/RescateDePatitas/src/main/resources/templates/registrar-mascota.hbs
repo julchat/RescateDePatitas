@@ -133,7 +133,6 @@
                 </fieldset>
                 <br><br><br><br>
 
-
                 <div></div>
                 <h3 class="subtitulo3">Sobre la mascota</h3>
                 <div></div>
@@ -171,7 +170,9 @@
 
                 <div class="grid-item">
                     <label for="name">Características<br></label>
-                    <input type="text" id="caracteristicas" class="text-input">
+                    <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                        <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                    </select>
                 </div>
 
                 <div class="grid-item">
@@ -321,7 +322,9 @@
 
                 <div class="grid-item">
                     <label for="name">Características<br></label>
-                    <input type="text" id="caracteristicas" class="text-input">
+                    <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                        <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                    </select>
                 </div>
 
                 <div class="grid-item">
@@ -496,7 +499,9 @@
 
                 <div class="grid-item">
                     <label for="name">Características<br></label>
-                    <input type="text" id="caracteristicas" class="text-input">
+                    <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                        <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                    </select>
                 </div>
 
                 <div class="grid-item">
