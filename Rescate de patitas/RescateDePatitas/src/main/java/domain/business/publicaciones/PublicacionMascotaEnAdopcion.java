@@ -13,16 +13,12 @@ import java.util.List;
 @DiscriminatorColumn(name = "mascota_en_adopcion")
 public class PublicacionMascotaEnAdopcion extends Publicacion {
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "duenioActual")
-    private Persona duenioActual;
-
     @OneToOne
     @JoinColumn(name = "mascotaElegida")
     private Mascota mascotaElegida;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "respuestas")
+    @JoinColumn(name = "id_publicacion")
     private List<Respuesta> respuestas = new ArrayList<>();
 
     @Transient
@@ -30,10 +26,6 @@ public class PublicacionMascotaEnAdopcion extends Publicacion {
 
 
     // Getters and Setters
-    public Persona getDuenioActual() { return duenioActual; }
-
-    public void setDuenioActual(Persona duenioActual) { this.duenioActual = duenioActual; }
-
     public List<Respuesta> getRespuestas() { return respuestas; }
 
     public void setRespuestas(List<Respuesta> respuestas) { this.respuestas = respuestas; }
@@ -48,9 +40,8 @@ public class PublicacionMascotaEnAdopcion extends Publicacion {
 
     // Métodos
     public void crearPublicacion(Persona autor, Mascota mascotaElegida, List<Respuesta> respuestasOrganizacion) {
-        super.crearPublicacion(new Pendiente());
+        super.crearPublicacion();
         this.setAutor(autor);
-        this.setDuenioActual(autor);
         this.setMascotaElegida(mascotaElegida);
         this.setRespuestas(respuestasOrganizacion);
         this.personasInteresadas = new ArrayList<>();

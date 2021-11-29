@@ -17,28 +17,17 @@ public abstract class Publicacion extends EntidadPersistente {
     @Enumerated(EnumType.STRING)
     private Estados estado;
 
-    @Transient
-    private EstadoPublicacion estadoPublicacion;
-
     @OneToOne
     @JoinColumn(name = "autor")
     private Persona autor;
 
     private LocalDate fechaDePublicacion;
 
-    //private String ruta;
-
 
     // Getters and Setters
     public Estados getEstado() { return estado; }
 
     public void setEstado(Estados estado) { this.estado = estado; }
-
-    public EstadoPublicacion getEstadoPublicacion() {
-        return estadoPublicacion;
-    }
-
-    public void setEstadoPublicacion(EstadoPublicacion estadoPublicacion) { this.estadoPublicacion = estadoPublicacion; }
 
     public Persona getAutor() {
         return autor;
@@ -52,24 +41,11 @@ public abstract class Publicacion extends EntidadPersistente {
 
     public void setFechaDePublicacion(LocalDate fechaDePublicacion) { this.fechaDePublicacion = fechaDePublicacion; }
 
-    //public String getRuta() { return ruta; }
-
-    //public void setRuta(String ruta) { this.ruta = ruta; }
-
 
     // Metodos
-    public void crearPublicacion(EstadoPublicacion estadoPublicacion) {
-        this.setEstadoPublicacion(estadoPublicacion);
+    public void crearPublicacion() {
         this.setEstado(Estados.PENDIENTE);
         this.setFechaDePublicacion(LocalDate.now());
-    }
-
-    public void cambiarEstado(EstadoPublicacion nuevoEstado) {
-        this.estadoPublicacion = nuevoEstado;
-    }
-
-    public boolean esVisible(Usuario usuario) {
-        return this.estadoPublicacion.esVisible(usuario);
     }
 
 }

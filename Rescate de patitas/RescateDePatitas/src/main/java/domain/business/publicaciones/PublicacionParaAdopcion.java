@@ -44,7 +44,7 @@ public class PublicacionParaAdopcion extends Publicacion {
 
     // Métodos
     public void crearPublicacion(Persona autor, List<String> comodidades, List<String> preferencias) {
-        super.crearPublicacion(new Pendiente());
+        super.crearPublicacion();
         this.setAutor(autor);
         this.setComodidades(comodidades);
         this.setPreferencias(preferencias);
