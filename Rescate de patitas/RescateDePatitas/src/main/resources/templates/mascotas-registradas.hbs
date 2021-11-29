@@ -38,8 +38,8 @@
 
         <div class="form1" id="appVue">
             <div v-if="mascotasRegistradas.length > 0">
-                <div v-for="mascota in mascotasRegistradas">
-                    <div class="tabla">
+                <div class="tabla">
+                    <div v-for="mascota in mascotasRegistradas">
                         <div class="publicacion">
                             <u class="titulo2">Nombre Mascota:</u> {{mascota.nombreMascota}}<br>
                             <u class="titulo2">Apodo Mascota:</u> {{mascota.apodoMascota}}<br>
@@ -51,7 +51,7 @@
                             <div v-for="caracteristica in mascota.caracteristicasMascota">
                                 • {{caracteristica.caracteristica}}<br>
                             </div>
-
+f
                             <!-- Fotos -->
                             <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
                             <br><br>

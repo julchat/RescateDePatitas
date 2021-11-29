@@ -33,6 +33,11 @@ public class Lugar extends EntidadPersistente {
     // Constructor
     public Lugar() {}
 
+    public Lugar(String direccion, double longitud, double latitud) {
+        this.direccion = direccion;
+        this.longitud = longitud;
+        this.latitud = latitud;
+    }
 
     // Metodos
     public Lugar mapearLugar(Domicilio domicilio) {

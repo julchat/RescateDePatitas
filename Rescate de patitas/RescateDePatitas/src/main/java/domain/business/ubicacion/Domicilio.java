@@ -2,10 +2,7 @@ package domain.business.ubicacion;
 
 import domain.business.EntidadPersistente;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "domicilio")
@@ -18,6 +15,10 @@ public class Domicilio extends EntidadPersistente {
     private int numeracion;
     private int departamento;
     private int piso;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lugar")
+    private Lugar lugar;
 
     // Getters and Setters
     public String getProvincia() { return provincia; }
@@ -47,6 +48,10 @@ public class Domicilio extends EntidadPersistente {
     public int getPiso() { return piso; }
 
     public void setPiso(int piso) { this.piso = piso; }
+
+    public Lugar getLugar() { return lugar; }
+
+    public void setLugar(Lugar lugar) { this.lugar = lugar; }
 
 
     // Constructor

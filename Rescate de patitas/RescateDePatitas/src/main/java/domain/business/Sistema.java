@@ -88,7 +88,7 @@ public class Sistema {
     public HogarDeTransito buscarHogarMasCercano(int radio, MascotaPerdida mascotaEncontrada) {
 
         Lugar ubicacionMascota = mascotaEncontrada.getLugarEncontrada();
-        List<HogarDeTransito> hogaresCercanos = this.getHogaresDeTransito().stream().filter(hogarDeTransito -> hogarDeTransito.distancia(hogarDeTransito.getLatitud(), hogarDeTransito.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) <= radio*1000).collect(Collectors.toList());
+        List<HogarDeTransito> hogaresCercanos = this.getHogaresDeTransito().stream().filter(hogarDeTransito -> hogarDeTransito.distancia(hogarDeTransito.getLugar().getLatitud(), hogarDeTransito.getLugar().getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) <= radio*1000).collect(Collectors.toList());
         HogarDeTransito hogarAdecuado = null;
 
         OrdenarPorCercania ordenador = new OrdenarPorCercania(ubicacionMascota);
@@ -98,9 +98,9 @@ public class Sistema {
         if(hogarAdecuado != null) {
             System.out.println("NOMBRE: " + hogarAdecuado.getNombreOrganizacion());
             System.out.println("UBICACION: ");
-            System.out.println("    - DIRECCION: " + hogarAdecuado.getDireccion());
-            System.out.println("    - LATITUD: " + hogarAdecuado.getLatitud());
-            System.out.println("    - LONGITUD: " + hogarAdecuado.getLongitud());
+            System.out.println("    - DIRECCION: " + hogarAdecuado.getLugar().getDireccion());
+            System.out.println("    - LATITUD: " + hogarAdecuado.getLugar().getLatitud());
+            System.out.println("    - LONGITUD: " + hogarAdecuado.getLugar().getLongitud());
             System.out.println("TELEFONO: " + hogarAdecuado.getTelefono());
             System.out.println("ADMISIONES: ");
             System.out.println("    - PERROS: " + hogarAdecuado.aceptaPerros());

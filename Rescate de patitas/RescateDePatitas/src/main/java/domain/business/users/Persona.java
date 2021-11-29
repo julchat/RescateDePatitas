@@ -40,13 +40,13 @@ public class Persona extends EntidadPersistente {
     private List<Notificacion> formasDeNotificacion = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contactos")
+    @Column(name = "contactos")
     private List<Contacto> contactos;
 
     private boolean puedeAlojarMascota;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name = "mascotasAlojadas")
+    @JoinColumn(name = "persona_id")
     private List<MascotaPerdida> mascotasAlojadas;
 
     private boolean suscripto;
