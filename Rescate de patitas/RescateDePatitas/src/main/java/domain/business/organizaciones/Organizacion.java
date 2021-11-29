@@ -42,14 +42,14 @@ public class Organizacion extends EntidadPersistente {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @Column(name = "voluntarios")
-    private List<Persona> voluntarios = new ArrayList<>();
+    private List<Usuario> voluntarios = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @Column(name = "administradores")
-    private List<Persona> administradores = new ArrayList<>();
+    private List<Usuario> administradores = new ArrayList<>();
 
     @Transient
-    private List<Persona> potencialesVoluntarios = new ArrayList<>();
+    private List<Usuario> potencialesVoluntarios = new ArrayList<>();
 
     //@OneToMany(cascade = CascadeType.PERSIST)
     //@JoinColumn(name = "mascotasAsociadas")
@@ -109,15 +109,15 @@ public class Organizacion extends EntidadPersistente {
 
     public void setPreguntasOrganizacion(List<Pregunta> preguntasOrganizacion) { this.preguntasOrganizacion = preguntasOrganizacion; }
 
-    public List<Persona> getVoluntarios() { return voluntarios; }
+    public List<Usuario> getVoluntarios() { return voluntarios; }
 
-    public void setVoluntarios(List<Persona> voluntarios) { this.voluntarios = voluntarios; }
+    public void setVoluntarios(List<Usuario> voluntarios) { this.voluntarios = voluntarios; }
 
-    public List<Persona> getAdministradores() { return administradores; }
+    public List<Usuario> getAdministradores() { return administradores; }
 
-    public void setAdministradores(List<Persona> administradores) { this.administradores = administradores; }
+    public void setAdministradores(List<Usuario> administradores) { this.administradores = administradores; }
 
-    public List<Persona> getPotencialesVoluntarios() { return potencialesVoluntarios; }
+    public List<Usuario> getPotencialesVoluntarios() { return potencialesVoluntarios; }
 
     public List<Mascota> getMascotasAsociadas() { return mascotasAsociadas; }
 
@@ -127,16 +127,6 @@ public class Organizacion extends EntidadPersistente {
 
 
     // Metodos
-    public void aceptarVoluntario(Persona nuevoVoluntario) {
-        if(this.potencialesVoluntarios.contains(nuevoVoluntario)){
-            this.potencialesVoluntarios.remove(nuevoVoluntario);
-
-            // Todo: ver si se puede hacer un cambio de clase entre Persona a Voluntario
-            // Todo: la otra forma es pasar TODOS los datos de una Persona a Voluntario, incluyendo todo lo que se encuentar en la BD
-            this.voluntarios.add(nuevoVoluntario);
-        }
-    }
-
     public void asociarMascota(Mascota nuevaMascota) {
         if(nuevaMascota.getCaracteristicasMascota().stream().allMatch(caracteristica -> this.aceptaCaracteristica(caracteristica))){
             nuevaMascota.getFotos().forEach(foto -> foto.normalizarA(this.getDimensionEstandar()));
@@ -162,8 +152,5 @@ public class Organizacion extends EntidadPersistente {
         return caracteristicasAdmitidas.stream().anyMatch(caracteristica -> caracteristica.equals(nombreCaracteristica));
     }
 
-    public void crearPregunta(String pregunta) {
-        Pregunta nuevaPregunta = new Pregunta(pregunta);
-        this.preguntasOrganizacion.add(nuevaPregunta);
-    }
+
 }
