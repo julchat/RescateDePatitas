@@ -41,6 +41,7 @@ public class Router {
         Spark.get("/api/user", apiRestController::obtenerRol);
         Spark.get("/api/mascotasUser", apiRestController::obtenerMascotasPorUser);
         Spark.get("/api/publicaciones", apiRestController::obtenerPublicaciones);
+        Spark.get("/api/publicacion/:id", apiRestController::obtenerPublicacion);
         Spark.get("/api/cambiar-caracteristicas", apiRestController::permiteAdministrar);
         Spark.get("/api/perfilRegistroMascota", apiRestController::obtenerPerfilParaRegistrarMascota);
         Spark.get("/api/perfilDarEnAdopcion", apiRestController::obtenerPerfilParaDarAdopcion);
@@ -53,6 +54,7 @@ public class Router {
         Spark.before("/", authMiddleware::verificarSesion);
         Spark.get("/home", homeController::inicio);
         Spark.get("/sin-permisos", homeController::sinPermisos);
+        Spark.get("/no-existe", homeController::noExiste);
 
         Spark.get("/iniciar-sesion", homeController::iniciarSesion);
         Spark.post("/iniciar-sesion", loginController::iniciarSesion);

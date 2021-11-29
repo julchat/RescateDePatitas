@@ -1,5 +1,9 @@
 package domain.controllers;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
+import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
+import com.github.jknack.handlebars.io.TemplateLoader;
 import com.google.gson.Gson;
 import domain.business.Sistema;
 import domain.business.caracteristicas.Caracteristica;
@@ -15,6 +19,7 @@ import spark.Request;
 import spark.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,6 +33,9 @@ public class ApiRestController {
     private RepositorioCaracteristicas repositorioCaracteristicas = FactoryRepositorioCaracteristicas.get();
 
     private RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
+    private RepositorioPubliMascotaPerdida repositorioPubliMascotaPerdida = FactoryRepositorioPubliMascotaPerdida.get();
+    private RepositorioPubliMascotaEnAdopcion repositorioPubliMascotaEnAdopcion = FactoryRepositorioPubliMascotaEnAdopcion.get();
+
 
     public String obtenerPerfil(Request request, Response response) {
         System.out.println("OBTENIENDO EL PERFIL ----------------------------");
@@ -41,26 +49,13 @@ public class ApiRestController {
         Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
         System.out.println(usuario);
 
-        //System.out.println(new Gson().toJson(usuario));
-// Todo: por mas que le cambie en la BD de Persona a Duenio, el problema es que un usuario
-//      esta relacionado con una PERSONA, asi que ese campo esta limitado a ese tipo de dato
-//      en el caso de que se guarde un Duenio directamente a la BD, este queda como Duenio, y si lo asociamos
-//      a un usuario, tiene que ser si o si una Persona
-//      Prueba: si una Persona es de tipo Duenio, tira error, pero si es de tipo Persona puede obtener los datos del perfil
+        Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
 
-        if(usuario.getPersona().getClass() == Persona.class) {
-            Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
-            System.out.println(persona);
+        response.status(200);
+        System.out.println(new Gson().toJson(persona));
 
-            response.status(200);
-            //System.out.println(new Gson().toJson(persona));
+        return new Gson().toJson(persona);
 
-            return new Gson().toJson(persona);
-        }
-        else {
-            response.status(204);
-            return null;
-        }
     }
 
     public String obtenerUsuario(Request request, Response response)  {
@@ -160,6 +155,61 @@ public class ApiRestController {
 
                 response.status(200);
                 return JsonController.transformar(publicacionesPendientes);
+            }
+            else {
+                System.out.println("No tiene permisos suficientes.");
+                response.status(203);
+                return new Mensaje("No hay permisos suficientes.").transformar();
+            }
+        }
+        catch (NullPointerException e) {
+            System.out.println("No tiene permisos suficientes.");
+            response.status(203);
+            return new Mensaje("No hay permisos suficientes.").transformar();
+        }
+    }
+
+    public String obtenerPublicacion(Request request, Response response) {
+        Sistema miSistema = Sistema.getInstance();
+
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID Sesion: " + idSesion);
+
+        try {
+            Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+            Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+            System.out.println("Login: " + sesionUsuario.getNombreUsuario());
+
+            Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+
+            if(miSistema.validarRol(usuario.getTipoRol()).puedoAprobarPublicaciones()) {
+                System.out.println("Validando permisos...");
+
+                int idPublicacion = new Integer(request.params("id"));
+                System.out.println(idPublicacion);
+
+                PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = repositorioPubliMascotaEnAdopcion.buscar(idPublicacion);
+
+                if(publicacionMascotaEnAdopcion == null) {
+                    PublicacionMascotaPerdida publicacionMascotaPerdida = repositorioPubliMascotaPerdida.buscar(idPublicacion);
+
+                    if(publicacionMascotaPerdida == null) {
+                        response.status(404);
+                        return new Mensaje("La página no existe.").transformar();
+                    }
+                    else{
+                        System.out.println(JsonController.transformar(publicacionMascotaPerdida));
+
+                        response.status(200);
+                        return JsonController.transformar(publicacionMascotaPerdida);
+                    }
+                }
+                else {
+                    System.out.println(JsonController.transformar(publicacionMascotaEnAdopcion));
+
+                    response.status(200);
+                    return JsonController.transformar(publicacionMascotaEnAdopcion);
+                }
             }
             else {
                 System.out.println("No tiene permisos suficientes.");

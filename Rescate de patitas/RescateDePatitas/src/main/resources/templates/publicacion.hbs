@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Estoy perdido</title>
 
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script defer src="/js/index.js"></script>
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
@@ -31,25 +32,85 @@
                 </ul>
             </nav>
         </header>
-        <h1 class="subtitulo">ESTOY PERDIDO</h1>
-        <div class=formita>
-            <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png">
-            <div>
-                ID: {{publicacion.id}}<br>
-                Fecha de Publicación: {{publicacion.fechaDePublicacion}} <br>
-                Autor: {{publicacion.autor.nombre}} {{publicacion.autor.apellido}} <br><br>
-                Mascota rescatada <br>
-                Descripcion: {{publicacion.mascotaRescatada.descripcion}} <br>
-                Tipo animal: {{publicacion.mascotaRescatada.tipoAnimal}} <br>
-                Sexo animal: {{publicacion.mascotaRescatada.sexoMascota}} <br>
-                Tamaño: {{publicacion.mascotaRescatada.tamanio}} <br>
-                Caracteristicas: <br><br>
-                Lugar de Tránsito <br>
-                Dirección: {{publicacion.lugarDeTransito.direccion}}
+        <h1 class="subtitulo">Publicación pendiente</h1>
 
-                <a href="/mascotas-perdidas/notificar-rescatista/{{publicacion.mascotaRescatada.id}}"><br><button class="boton">TE ENCONTRÉ</button></a>
+        <div id="appVue">
+            <div class=formita>
+                <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png">
+                <div v-if="publicacion.mascotaRescatada">
+                    <!-- ES UNA PUBLICACION DE MASCOTA PERDIDA -->
+                    <label>Fecha de Publicación:<br></label>
+                    <div class="datos">{{publicacion.fechaDePublicacion}}<br></div>
+                    <label>Autor:<br></label>
+                    <label class="datos"> {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}<br></label>
+                    <br>
+                    <label class="subtitulo2">Mascota perdida<br></label>
+                    <br>
+                    <label>Tipo Animal:<br></label>
+                    <label class="datos">{{publicacion.mascotaRescatada.tipoAnimal}}<br></label>
+                    <label>Sexo Animal:<br></label>
+                    <label class="datos">{{publicacion.mascotaRescatada.sexoMascota}}<br></label>
+                    <label>Tamanio:<br></label>
+                    <label class="datos">{{publicacion.mascotaRescatada.tamanio}}<br></label>
+                    <label>Descripción:<br></label>
+                    <label class="datos">{{publicacion.mascotaRescatada.descripcion}}<br></label>
+                    <br>
+                    <label class="subtitulo2">Lugar de tránsito<br></label>
+                    <br>
+                    <label>Dirección:<br></label>
+                    <label class="datos">{{publicacion.lugarDeTransito.direccion}}<br></label>
+
+                    <button class="boton" v-on:click="aprobarPublicacion(publicacion.id)">Aprobar</button>
+                    <button class="boton" v-on:click="rechazarPublicacion(publicacion.id)">Rechazar</button>
+                </div>
+
+                <div v-else>
+                    <label>Fecha de Publicación: </label>
+                    <p class="datos">{{publicacion.fechaDePublicacion}}<br></p>
+                    <label>Autor:</label>
+                    <p class="datos"> {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}<br></p>
+                    <label>Provincia:</label>
+                    <p class="datos"> {{publicacion.autor.domicilio.provincia}}<br></p>
+                    <label>Localidad:</label>
+                    <p class="datos"> {{publicacion.autor.domicilio.localidad}}<br></p>
+
+                    <br>
+                    <label class="subtitulo2">Mascota en adopción<br></label>
+                    <br>
+                    <label>Nombre Mascota:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.nombreMascota}}<br></p>
+                    <label>Apodo Mascota:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.apodoMascota}}<br></p>
+                    <label>Edad Mascota:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.edadMascota}}<br></p>
+                    <label>Tipo Animal:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.tipoAnimal}}<br></p>
+                    <label>Sexo Animal:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.sexoMascota}}<br></p>
+                    <label>Descripción:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.descripcionMascota}}<br></p>
+                    <br>
+
+                    <button class="boton" v-on:click="aprobarPublicacion(publicacion.id)">Aprobar</button>
+                    <button class="boton" v-on:click="rechazarPublicacion(publicacion.id)">Rechazar</button>
+                </div>
+
             </div>
         </div>
+
     </div>
+
+    <script src="/js/publicacion.js"></script>
     </body>
 </html>
+
+<!--Mascota rescatada <br>
+                    Descripcion: {{publicacion.mascotaRescatada.descripcion}} <br>
+                    Tipo animal: {{publicacion.mascotaRescatada.tipoAnimal}} <br>
+                    Sexo animal: {{publicacion.mascotaRescatada.sexoMascota}} <br>
+                    Tamaño: {{publicacion.mascotaRescatada.tamanio}} <br>
+                    Caracteristicas: <br><br>
+                    Lugar de Tránsito <br>
+                    Dirección: {{publicacion.lugarDeTransito.direccion}}
+
+                    <a href="/mascotas-perdidas/notificar-rescatista/{{publicacion.mascotaRescatada.id}}"><br><button class="boton">TE ENCONTRÉ</button></a>-->

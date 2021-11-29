@@ -9,14 +9,8 @@ import domain.business.Sistema;
 import domain.business.publicaciones.Estados;
 import domain.business.publicaciones.Publicacion;
 import domain.business.publicaciones.PublicacionMascotaPerdida;
-import domain.repositorios.RepositorioPersonas;
-import domain.repositorios.RepositorioPubliMascotaPerdida;
-import domain.repositorios.RepositorioPublicaciones;
-import domain.repositorios.RepositorioUsuarios;
-import domain.repositorios.factories.FactoryRepositorioPersonas;
-import domain.repositorios.factories.FactoryRepositorioPubliMascotaPerdida;
-import domain.repositorios.factories.FactoryRepositorioPublicaciones;
-import domain.repositorios.factories.FactoryRepositorioUsuarios;
+import domain.repositorios.*;
+import domain.repositorios.factories.*;
 import domain.security.Usuario;
 import json.FormEstadoPublicacion;
 import json.JsonController;
@@ -37,6 +31,7 @@ public class PublicacionesController {
 
     private RepositorioPublicaciones repositorioPublicaciones = FactoryRepositorioPublicaciones.get();
     private RepositorioPubliMascotaPerdida repositorioPubliMascotaPerdida = FactoryRepositorioPubliMascotaPerdida.get();
+    private RepositorioPubliMascotaEnAdopcion repositorioPubliMascotaEnAdopcion = FactoryRepositorioPubliMascotaEnAdopcion.get();
 
     public String publicacion(Request request , Response response) throws IOException {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");

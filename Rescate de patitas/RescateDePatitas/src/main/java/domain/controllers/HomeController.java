@@ -48,6 +48,14 @@ public class HomeController {
         return template.text();
     }
 
+    public String noExiste(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("no-existe-pagina");
+
+        return template.text();
+    }
+
     public String iniciarSesion(Request request, Response response) throws IOException {
         TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
         Handlebars handlebars = new Handlebars(loader);
@@ -99,11 +107,8 @@ public class HomeController {
         Chapa chapita = repositorioChapas.buscarChapa(idChapita);
 
         if(chapita == null) {
-            TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
-            Handlebars handlebars = new Handlebars(loader);
-            Template template = handlebars.compile("no-existe-pagina");
-
-            return template.text();
+            response.redirect("/no-existe");
+            return null;
         }
         else {
             TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
