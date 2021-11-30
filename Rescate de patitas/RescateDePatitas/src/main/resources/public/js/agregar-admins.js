@@ -3,7 +3,7 @@ const dominio = "http://rescatedepatitasdds.herokuapp.com";
 function verificarEstado(status, datos){
     if(status == 200) {
         alert(datos.mensaje);
-        window.location.href = "/"
+        window.location.reload()
     }
     else {
         alert(datos.mensaje);
@@ -11,50 +11,50 @@ function verificarEstado(status, datos){
 }
 
 let app = new Vue({
-        el: "#appVue",
-        data: {
-            usuarios: [],
-            nuevosAdmins: [],
-            viejosAdmins: [],
-        },
-        methods: {
-            crearNuevosAdmins: function() {
-                let status;
-                let datos;
-                fetch(dominio + "/agregar-admin", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        nuevosAdmins: this.nuevosAdmins,
-                    })
+    el: "#appVue",
+    data: {
+        usuarios: [],
+        nuevosAdmins: [],
+        viejosAdmins: [],
+    },
+    methods: {
+        crearNuevosAdmins: function() {
+            let status;
+            let datos;
+            fetch(dominio + "/agregar-admin", {
+                method: "POST",
+                body: JSON.stringify({
+                    nuevosAdmins: this.nuevosAdmins,
                 })
-                    .then(response =>{
-                        status = response.status
-                        datos = response.json()
-                        return datos
-                    })
-                    .then(datos => {
-                        verificarEstado(status, datos)
-                    })
-            },
-            quitarAdmins: function() {
-                let status;
-                let datos;
-                fetch(dominio + "/quitar-admin", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        viejosAdmins: this.viejosAdmins,
-                    })
+            })
+                .then(response =>{
+                    status = response.status
+                    datos = response.json()
+                    return datos
                 })
-                    .then(response =>{
-                        status = response.status
-                        datos = response.json()
-                        return datos
-                    })
-                    .then(datos => {
-                        verificarEstado(status, datos)
-                    })
-            }
+                .then(datos => {
+                    verificarEstado(status, datos)
+                })
         },
+        quitarAdmins: function() {
+            let status;
+            let datos;
+            fetch(dominio + "/quitar-admin", {
+                method: "POST",
+                body: JSON.stringify({
+                    viejosAdmins: this.viejosAdmins,
+                })
+            })
+                .then(response =>{
+                    status = response.status
+                    datos = response.json()
+                    return datos
+                })
+                .then(datos => {
+                    verificarEstado(status, datos)
+                })
+        }
+    },
     created() {
         let status;
         let datos;

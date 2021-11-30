@@ -238,7 +238,7 @@ let app = new Vue({
     },
     created() {
         let idSesion = localStorage.getItem("IDSESION")
-        fetch(dominio + "/api/perfil", {
+        fetch(dominio + "/api/perfilRegistroMascota", {
             method : "GET",
             headers: {
                 "Authorization": idSesion
