@@ -43,7 +43,7 @@ body {
     transition: transform .5s;
     color: white;
     left:6%;
-    top:35%;
+    top:30%;
 }
 
 .boton1:hover{
@@ -59,8 +59,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:24%;
-    top:70%;
+    left:28%;
+    top:65%;
 }
 
 .boton2:hover{
@@ -76,8 +76,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:39%;
-    top:45%;
+    left:41%;
+    top:42%;
 }
 
 .boton3:hover{
@@ -93,8 +93,8 @@ body {
     margin: auto;
     transition: transform .5s;
     color: white;
-    left:60%;
-    top:25%;
+    left:61%;
+    top:23%;
 }
 
 .boton4:hover{
@@ -166,6 +166,7 @@ body {
     height: 40px;
     text-align: center;
     align-content: center;
+    justify-content: center;
     border-radius: 10px;
     padding: 12px;
     position: absolute;
@@ -217,6 +218,82 @@ nav ul li ul a:hover {
     font-weight: bold;
 }
 
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 56px;
+    height: 100vh;
+    background: #E5C6FE;
+    padding: 1.25rem 0.5rem 2rem;
+    transition: 0.5s;
+}
+
+nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.nav-inner {
+    margin-top: 5rem;
+}
+
+.nav-toggle {
+    position: absolute;
+    top: 1.1rem;
+    right: -0.5rem;
+    background: #CB93F6;
+    padding: 5px 9px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+a {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.active {
+    color: white;
+}
+
+a:hover{
+    color: black;
+}
+
+.icon {
+    font-size: 20px;
+    color: white;
+    margin-right: 1rem;
+}
+
+.text {
+    font-weight: bold;
+}
+
+.show {
+    width: 250px;
+}
+
+.rotate {
+    transform:  rotate(180deg);
+    transition: 0.5s;
+}
 
 .boton-ingresar {
     background-color: #CB93F6;

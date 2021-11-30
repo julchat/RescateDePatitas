@@ -1,5 +1,7 @@
 package json;
 
+import java.util.List;
+
 public class FormRegisterPet {
     // Persona
     String nombre;
@@ -25,6 +27,7 @@ public class FormRegisterPet {
     String userName;
     String password;
     String passConf;
+    String register;
     // Mascota
     String tipoAnimal;
     String sexoMascota;
@@ -32,6 +35,8 @@ public class FormRegisterPet {
     String apodoMascota;
     String edadMascota;
     String descripcionMascota;
+    List<String> caracteristicasElegidas;
+    List<String> respuestas;
     // Domicilio
     String provincia;
     String localidad;
@@ -41,7 +46,8 @@ public class FormRegisterPet {
     String departamento;
     String piso;
 
-    public FormRegisterPet(String nombre, String apellido, String fechaDeNacimiento, String email, String tipoDoc, String nroDocumento, String telefono, String notificacionSms, String notificacionEmail, String notificacionWpp, String contactoNombre, String contactoApellido, String contactoEmail, String contactoTelefono, String contactoNotificacionSms, String contactoNotificacionEmail, String contactoNotificacionWpp, String userName, String password, String passConf, String tipoAnimal, String sexoMascota, String nombreMascota, String apodoMascota, String edadMascota, String descripcionMascota, String provincia, String localidad, String codigoPostal, String calle, String numeracion, String departamento, String piso) {
+
+    public FormRegisterPet(String nombre, String apellido, String fechaDeNacimiento, String email, String tipoDoc, String nroDocumento, String telefono, String notificacionSms, String notificacionEmail, String notificacionWpp, String contactoNombre, String contactoApellido, String contactoEmail, String contactoTelefono, String contactoNotificacionSms, String contactoNotificacionEmail, String contactoNotificacionWpp, String userName, String password, String passConf, String register, String tipoAnimal, String sexoMascota, String nombreMascota, String apodoMascota, String edadMascota, String descripcionMascota, List<String> caracteristicasElegidas, List<String> respuestas, String provincia, String localidad, String codigoPostal, String calle, String numeracion, String departamento, String piso) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaDeNacimiento = fechaDeNacimiento;
@@ -62,12 +68,15 @@ public class FormRegisterPet {
         this.userName = userName;
         this.password = password;
         this.passConf = passConf;
+        this.register = register;
         this.tipoAnimal = tipoAnimal;
         this.sexoMascota = sexoMascota;
         this.nombreMascota = nombreMascota;
         this.apodoMascota = apodoMascota;
         this.edadMascota = edadMascota;
         this.descripcionMascota = descripcionMascota;
+        this.caracteristicasElegidas = caracteristicasElegidas;
+        this.respuestas = respuestas;
         this.provincia = provincia;
         this.localidad = localidad;
         this.codigoPostal = codigoPostal;
@@ -237,6 +246,14 @@ public class FormRegisterPet {
         this.passConf = passConf;
     }
 
+    public String getRegister() {
+        return register;
+    }
+
+    public void setRegister(String register) {
+        this.register = register;
+    }
+
     public String getTipoAnimal() {
         return tipoAnimal;
     }
@@ -283,6 +300,22 @@ public class FormRegisterPet {
 
     public void setDescripcionMascota(String descripcionMascota) {
         this.descripcionMascota = descripcionMascota;
+    }
+
+    public List<String> getCaracteristicasElegidas() {
+        return caracteristicasElegidas;
+    }
+
+    public void setCaracteristicasElegidas(List<String> caracteristicasElegidas) {
+        this.caracteristicasElegidas = caracteristicasElegidas;
+    }
+
+    public List<String> getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(List<String> respuestas) {
+        this.respuestas = respuestas;
     }
 
     public String getProvincia() {

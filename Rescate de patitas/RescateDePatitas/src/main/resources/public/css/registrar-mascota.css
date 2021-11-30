@@ -16,6 +16,28 @@
     text-align: center;
 }
 
+.select {
+    background-color: #F0F0F0;
+    color: grey;
+    border: none;
+    min-width: 100px;
+    max-width: 200px;
+    height: 100px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    align-content: center;
+    margin-top: 10px;
+    line-height: 3;
+    font-size: 15px;
+    display: flex;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
 .form1 {
     width: 70%;
     margin: 0 auto;

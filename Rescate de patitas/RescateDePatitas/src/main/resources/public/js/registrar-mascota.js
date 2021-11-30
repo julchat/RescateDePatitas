@@ -1,4 +1,5 @@
-var dominio = "http://rescatedepatitasdds.herokuapp.com";
+const dominio = "http://rescatedepatitasdds.herokuapp.com";
+
 function hideUser() {
     document.getElementById('registro').style.display = 'none';
     document.getElementById('petRegister').style.display = 'block';
@@ -55,6 +56,8 @@ let app = new Vue({
         apodoMascota: "",
         edadMascota: "",
         descripcionMascota: "",
+        caracteristicas: [],
+        caracteristicasElegidas: [],
 
         // Domicilio
         provincia: "",
@@ -72,7 +75,8 @@ let app = new Vue({
 
         // Para verificar que una persona haya iniciado sesion, por defecto nadie inició
         activa: false,
-        domicilio: false
+        domicilio: false,
+        register: ""
     },
     methods: {
         registrarMascotaSoloMascotaUserYDomicilio: function() {
@@ -97,7 +101,8 @@ let app = new Vue({
                     nombreMascota: this.nombreMascota,
                     apodoMascota: this.apodoMascota,
                     edadMascota: this.edadMascota,
-                    descripcionMascota: this.descripcionMascota
+                    descripcionMascota: this.descripcionMascota,
+                    caracteristicasElegidas: this.caracteristicasElegidas
                 })
             })
                 .then(response => {
@@ -122,7 +127,8 @@ let app = new Vue({
                     nombreMascota: this.nombreMascota,
                     apodoMascota: this.apodoMascota,
                     edadMascota: this.edadMascota,
-                    descripcionMascota: this.descripcionMascota
+                    descripcionMascota: this.descripcionMascota,
+                    caracteristicasElegidas: this.caracteristicasElegidas
                 })
             })
                 .then(response => {
@@ -167,7 +173,9 @@ let app = new Vue({
                     nombreMascota: this.nombreMascota,
                     apodoMascota: this.apodoMascota,
                     edadMascota: this.edadMascota,
-                    descripcionMascota: this.descripcionMascota
+                    descripcionMascota: this.descripcionMascota,
+                    caracteristicasElegidas: this.caracteristicasElegidas,
+                    register: this.register
                 })
             })
                 .then(response => {
@@ -215,7 +223,9 @@ let app = new Vue({
                     nombreMascota: this.nombreMascota,
                     apodoMascota: this.apodoMascota,
                     edadMascota: this.edadMascota,
-                    descripcionMascota: this.descripcionMascota
+                    descripcionMascota: this.descripcionMascota,
+                    caracteristicasElegidas: this.caracteristicasElegidas,
+                    register: this.register
                 })
             })
                 .then(response => {
@@ -235,13 +245,20 @@ let app = new Vue({
             }
         })  .then(response => response.json())
             .then(datos => {
-                this.persona = datos
-                this.formasDeNotificacion = datos.formasDeNotificacion
-                this.contactos = datos.contactos
-                this.activa = true
-                if(datos.domicilio.calle != null && datos.domicilio.provincia != null && datos.domicilio.localidad != null) {
-                    this.domicilio = true
+                if(datos.persona == null) {
+                    this.caracteristicas = datos.caracteristicas
                 }
+                else {
+                    this.persona = datos.persona
+                    this.formasDeNotificacion = datos.persona.formasDeNotificacion
+                    this.contactos = datos.persona.contactos
+                    this.caracteristicas = datos.caracteristicas
+                    this.activa = true
+                    if(datos.persona.domicilio.calle != null && datos.persona.domicilio.provincia != null && datos.persona.domicilio.localidad != null) {
+                        this.domicilio = true
+                    }
+                }
+
             })
     }
 })

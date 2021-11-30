@@ -10,7 +10,7 @@
         <script defer src="/js/index.js"></script>
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
-        <link rel="shortcut icon" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
+        <link rel="shortcut icon" href="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
 
         <link rel="stylesheet" href="/css/barra-menu.css">
         <link rel="stylesheet" href="/css/registrar-mascota.css">
@@ -85,37 +85,37 @@
                 <div></div>
                 <div class="grid-item">
                     <label for="provincia">Provincia<br></label>
-                    <input type="text" id="provincia" v-model="provincia" name="provincia" class="text-input">
+                    <input type="text" id="provincia" v-model="provincia" name="provincia" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="localidad">Localidad<br></label>
-                    <input type="text" id="localidad" v-model="localidad" name="localidad" class="text-input">
+                    <input type="text" id="localidad" v-model="localidad" name="localidad" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="codigoPostal">Código Postal<br></label>
-                    <input type="text" id="cp" v-model="codigoPostal" name="codigoPostal" class="text-input">
+                    <input type="text" id="cp" v-model="codigoPostal" name="codigoPostal" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="calle">Calle<br></label>
-                    <input type="text" id="calle" v-model="calle" name="calle" class="text-input">
+                    <input type="text" id="calle" v-model="calle" name="calle" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="num">Numeración<br></label>
-                    <input type="text" id="num" v-model="numeracion" name="numeracion" class="text-input">
+                    <input type="text" id="num" v-model="numeracion" name="numeracion" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="dpto">Departamento <br></label>
-                    <input type="text" id="dpto" v-model="departamento" name="departamento" class="text-input">
+                    <input type="text" id="dpto" v-model="departamento" name="departamento" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="piso">Piso <br></label>
-                    <input type="text" id="piso" v-model="piso" name="piso" class="text-input">
+                    <input type="text" id="piso" v-model="piso" name="piso" class="text-input" required>
                 </div>
 
                 <div></div><div></div>
@@ -133,20 +133,19 @@
                 </fieldset>
                 <br><br><br><br>
 
-
                 <div></div>
                 <h3 class="subtitulo3">Sobre la mascota</h3>
                 <div></div>
                 <div class="grid-item">
                     <label for="name">Tipo de Animal<br></label>
-                    <input class="radio" type="radio" v-model="tipoPerro" name="tipoAnimal" value="PERRO">Perro
-                    <input class="radio" type="radio" v-model="tipoGato" name="tipoAnimal" value="GATO">Gato
+                    <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="PERRO">Perro
+                    <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="GATO">Gato
                 </div>
 
                 <div class="grid-item">
                     <label for="sexo">Sexo<br></label>
-                    <input class="radio" type="radio" v-model="sexoHembra" name="sexoMascota" value="HEMBRA">Hembra
-                    <input class="radio" type="radio" v-model="sexoMacho" name="sexoMascota" value="MACHO">Macho
+                    <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="HEMBRA">Hembra
+                    <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="MACHO">Macho
                 </div>
 
                 <div class="grid-item">
@@ -171,7 +170,9 @@
 
                 <div class="grid-item">
                     <label for="name">Características<br></label>
-                    <input type="text" id="caracteristicas" class="text-input">
+                    <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                        <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                    </select>
                 </div>
 
                 <div class="grid-item">
@@ -321,7 +322,9 @@
 
                 <div class="grid-item">
                     <label for="name">Características<br></label>
-                    <input type="text" id="caracteristicas" class="text-input">
+                    <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                        <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                    </select>
                 </div>
 
                 <div class="grid-item">
@@ -392,37 +395,37 @@
                 <div></div>
                 <div class="grid-item">
                     <label for="provincia">Provincia<br></label>
-                    <input type="text" id="provincia" v-model="provincia" name="provincia" class="text-input">
+                    <input type="text" id="provincia" v-model="provincia" name="provincia" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="localidad">Localidad<br></label>
-                    <input type="text" id="localidad" v-model="localidad" name="localidad" class="text-input">
+                    <input type="text" id="localidad" v-model="localidad" name="localidad" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="codigoPostal">Código Postal<br></label>
-                    <input type="text" id="cp" v-model="codigoPostal" name="codigoPostal" class="text-input">
+                    <input type="text" id="cp" v-model="codigoPostal" name="codigoPostal" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="calle">Calle<br></label>
-                    <input type="text" id="calle" v-model="calle" name="calle" class="text-input">
+                    <input type="text" id="calle" v-model="calle" name="calle" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="num">Numeración<br></label>
-                    <input type="text" id="num" v-model="numeracion" name="numeracion" class="text-input">
+                    <input type="text" id="num" v-model="numeracion" name="numeracion" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="dpto">Departamento <br></label>
-                    <input type="text" id="dpto" v-model="departamento" name="departamento" class="text-input">
+                    <input type="text" id="dpto" v-model="departamento" name="departamento" class="text-input" required>
                 </div>
 
                 <div class="grid-item">
                     <label for="piso">Piso <br></label>
-                    <input type="text" id="piso" v-model="piso" name="piso" class="text-input">
+                    <input type="text" id="piso" v-model="piso" name="piso" class="text-input" required>
                 </div>
 
                 <div></div><div></div>
@@ -464,14 +467,14 @@
                 <div></div>
                 <div class="grid-item">
                     <label for="name">Tipo de Animal<br></label>
-                    <input class="radio" type="radio" v-model="tipoPerro" name="tipoAnimal" value="PERRO">Perro
-                    <input class="radio" type="radio" v-model="tipoGato" name="tipoAnimal" value="GATO">Gato
+                    <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="PERRO">Perro
+                    <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="GATO">Gato
                 </div>
 
                 <div class="grid-item">
                     <label for="sexo">Sexo<br></label>
-                    <input class="radio" type="radio" v-model="sexoHembra" name="sexoMascota" value="HEMBRA">Hembra
-                    <input class="radio" type="radio" v-model="sexoMacho" name="sexoMascota" value="MACHO">Macho
+                    <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="HEMBRA">Hembra
+                    <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="MACHO">Macho
                 </div>
 
                 <div class="grid-item">
@@ -496,7 +499,9 @@
 
                 <div class="grid-item">
                     <label for="name">Características<br></label>
-                    <input type="text" id="caracteristicas" class="text-input">
+                    <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                        <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                    </select>
                 </div>
 
                 <div class="grid-item">
@@ -508,8 +513,8 @@
 
                 <fieldset>
                     <label class="texto"><br>¿Desea crear una cuenta?</label>
-                    <input class="si-no" type="radio" onclick="showUser()" name="si-no" value="true">Si
-                    <input class="si-no2" type="radio" onclick="hideUser()" name="si-no" value="false" checked>No
+                    <input class="si-no" type="radio" onclick="showUser()" v-model="register" id="si" name="si" value="si">Si
+                    <input class="si-no2" type="radio" onclick="hideUser()" v-model="register" id="no" name="no" value="no">No
                 </fieldset>
 
                 <div></div><div></div>
@@ -528,7 +533,7 @@
 
                     <div class="grid-item">
                         <label for="password">Confirmar la Contraseña<br></label>
-                        <input type="password" id="passConf" v-model="passConf" name="passConf" class="text-input"required>
+                        <input type="password" id="passConf" v-model="passConf" name="passConf" class="text-input" required>
                     </div>
 
                     <button type="submit" class="boton" v-on:click="registroCompleto()">REGISTRARSE</button>

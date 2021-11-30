@@ -1,0 +1,13 @@
+
+.subtitulo {
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 95px;
+}
+
+.imgAviso {
+    width: 400px;
+    height: 400px;
+    align-content: center;
+}

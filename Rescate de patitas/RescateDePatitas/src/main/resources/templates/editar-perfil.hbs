@@ -10,8 +10,9 @@
         <script defer src="/js/index.js"></script>
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
-        <link rel="shortcut icon" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
+        <link rel="shortcut icon" href="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
 
+        <link rel="stylesheet" href="/css/editar-perfil.css">
         <link rel="stylesheet" href="/css/barra-menu.css">
         <link rel="stylesheet" href="/css/reset.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
@@ -36,47 +37,128 @@
         <br><br><br><br><br><br><br><br>
 
         <div class="form1" id="appVue">
+            <div></div>
+            <h3 class="subtitulo3">Datos Personales</h3>
+            <div></div>
 
-            <label for="name">Nombre<br></label>
-            <div class="text-input"><br>{{persona.nombre}}</div>
-            <label for="surname">Apellido<br></label>
-            <div class="text-input"><br>{{persona.apellido}}</div>
-            <label for="date">Fecha de Nacimiento</label>
-            <div class="text-input"><br>{{persona.fechaDeNacimiento}}</div>
-            <label for="email">Email<br></label>
-            <div class="text-input"><br>{{persona.email}}</div>
-            <label for="doc-type">Tipo de documento<br></label>
-            <div class="text-input"><br>{{persona.tipoDocumento}}</div>
-            <label for="n-doc">Número de documento<br></label>
-            <div class="text-input"><br>{{persona.numeroDocumento}}</div>
-            <label for="cel">Teléfono / Celular<br></label>
-            <div class="text-input"><br>{{persona.telefono}}</div>
-            <label for="notification">Formas de notificación<br></label><br>
-            <ul v-for="formaDeNotificacion in formasDeNotificacion">
-                <a><input class="check" type="checkbox" checked> {{formaDeNotificacion.tipoDeNotificacion}}</a>
-            </ul>
+            <div class="grid-item">
+                <label for="name">Nombre</label>
+                <div class="text-input"><br>{{persona.nombre}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <div for="surname">Apellido</div>
+                <div class="text-input"><br>{{persona.apellido}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <div for="date">Fecha de Nacimiento</div>
+                <div class="text-input"><br>{{persona.fechaDeNacimiento}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <div for="email">Email</div>
+                <div class="text-input"><br>{{persona.email}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <div for="doc-type">Tipo de documento</div>
+                <div class="text-input"><br>{{persona.tipoDocumento}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <div for="n-doc">Número de documento</div>
+                <div class="text-input"><br>{{persona.numeroDocumento}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <div for="cel">Teléfono / Celular</div>
+                <div class="text-input"><br>{{persona.telefono}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <div for="notification">Formas de notificación</div><br>
+                <ul v-for="formaDeNotificacion in formasDeNotificacion">
+                    <a><input class="check" type="checkbox" checked disabled> {{formaDeNotificacion.tipoDeNotificacion}}</a>
+                </ul>
+            </div>
+
+            <div></div><div></div>
 
             <h3 class="subtitulo3">Contactos</h3>
             <div></div>
             <div></div>
-            <fieldset v-for="contacto in contactos">
 
-                    <label for="contactName">Nombre<br></label>
-                    <div class="text-input" disabled><br>{{contacto.nombreContacto}}</div>
+            <div v-for="contacto in contactos">
+                <ul v-if="contacto.nombreContacto === ''"></ul>
 
-                    <label for="contactSurname">Apellido<br></label>
-                    <div class="text-input" disabled><br>{{contacto.apellidoContacto}}</div>
+                <ul v-else>
+                    <div class="grid-item">
+                        <label for="contactName">Nombre<br></label>
+                        <div class="text-input" disabled><br>{{contacto.nombreContacto}}</div><br>
+                    </div>
 
-                    <label for="contactEmail">Email<br></label>
-                    <div class="text-input" disabled><br>{{contacto.emailContacto}}</div>
+                    <div class="grid-item">
+                        <label for="contactSurname">Apellido<br></label>
+                        <div class="text-input" disabled><br>{{contacto.apellidoContacto}}</div><br>
+                    </div>
 
-                    <label for="contactTel">Teléfono / Celular<br></label>
-                    <div class="text-input" disabled><br>{{contacto.telefonoContacto}}</div>
+                    <div class="grid-item">
+                        <label for="contactEmail">Email<br></label>
+                        <div class="text-input" disabled><br>{{contacto.emailContacto}}</div><br>
+                    </div>
 
-            </fieldset>
+                    <div class="grid-item">
+                        <label for="contactTel">Teléfono / Celular<br></label>
+                        <div class="text-input" disabled><br>{{contacto.telefonoContacto}}</div><br>
+                    </div>
+
+                </ul>
+            </div>
+
+            <div></div>
+            <div></div>
+            <h3 class="subtitulo3">Domicilio</h3>
+            <div></div>
+
+            <div class="grid-item">
+                <label for="contactName">Provincia<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.provincia}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <label for="contactSurname">Localidad<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.localidad}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <label for="contactEmail">Codigo Postal<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.codigoPostal}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <label for="contactTel">Calle<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.calle}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <label for="contactTel">Numeración<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.numeracion}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <label for="contactTel">Departamento<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.departamento}}</div><br>
+            </div>
+
+            <div class="grid-item">
+                <label for="contactTel">Piso<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.piso}}</div><br>
+            </div>
+
         </div>
-
     </div>
+
     <script src="/js/perfil.js"></script>
     </body>
 </html>

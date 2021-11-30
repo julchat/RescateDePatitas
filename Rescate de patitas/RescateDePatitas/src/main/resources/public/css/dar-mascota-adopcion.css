@@ -7,6 +7,16 @@
     padding-top: 95px;
 }
 
+.subtitulo2 {
+    color: grey;
+    padding-top: 10px;
+    font-weight:300;
+    font-size: 18px;
+    padding-bottom: 10px;
+    display: block;
+    text-align: center;
+}
+
 .subtitulo3 {
     color: #8dc0c0;
     padding-top: 30px;
@@ -14,6 +24,28 @@
     font-weight: bold;
     font-size: 18px;
     text-align: center;
+}
+
+.select {
+    background-color: #F0F0F0;
+    color: grey;
+    border: none;
+    min-width: 100px;
+    max-width: 200px;
+    height: 100px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    align-content: center;
+    margin-top: 10px;
+    line-height: 3;
+    font-size: 15px;
+    display: flex;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    transition: transform .5s;
 }
 
 .form1 {

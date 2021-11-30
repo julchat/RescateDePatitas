@@ -38,7 +38,17 @@
     margin:auto;
     border-radius: 20px;
     background: white;
-    grid-gap: 10px;
+    grid-gap: 20px;
+}
+
+.publicacion img{
+    margin-top: 20px;
+    width: 85%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 5px;
+    transition: 0.3s all ease;
+    margin: 20px;
 }
 
 .aviso {
@@ -74,16 +84,6 @@ h3 {
     font-weight: bold;
     font-size: 20px;
     text-align: center;
-}
-
-.publicacion img{
-    margin-top: 15px;
-    width: 90%;
-    height: 90%;
-    object-fit: fill;
-    border-radius: 5px;
-    transition: 0.3s all ease;
-    margin: 10px;
 }
 
 .img:hover {

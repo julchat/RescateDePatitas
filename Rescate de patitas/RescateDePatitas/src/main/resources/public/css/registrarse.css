@@ -53,9 +53,13 @@ label {
 
 .usuario {
     margin: 0 auto;
+    padding: 10px;
     align-content: center;
     text-align: center;
     width: 30%;
+    background: white;
+    border-radius: 20px;
+    display: grid;
 }
 
 .texto {

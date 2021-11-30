@@ -1,4 +1,5 @@
-var dominio = "http://rescatedepatitasdds.herokuapp.com";
+const dominio = "http://rescatedepatitasdds.herokuapp.com";
+
 function verificarEstado(status, datos){
     if(status == 200) {
         alert("Bienvenido a Rescate de Patitas...");

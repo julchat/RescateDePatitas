@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Estoy perdido</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script defer src="/js/index.js"></script>
+        <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
+
+        <link rel="shortcut icon" href="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
+
+        <link rel="stylesheet" href="/css/barra-menu.css">
+        <link rel="stylesheet" href="/css/ver-mas.css">
+        <link rel="stylesheet" href="/css/reset.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+    </head>
+    <body>
+    <div class="container">
+        <header class="header">
+            <nav class="menu">
+                <a href="/" class="logo"><img src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/home-logo_nqrjnd.png"></a>
+                <button class="toggle"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-en-adopcion">ADOPTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/dar-mascota-adopcion">DAR EN ADOPCIÓN</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/reportar-mascota">REPORTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-perdidas">MASCOTAS PERDIDAS</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link nav-menu-link_Active" href="/registrar-mascota">REGISTRAR MASCOTAS</a></li>
+                </ul>
+            </nav>
+        </header>
+        <h1 class="subtitulo">Publicación pendiente</h1>
+
+        <div id="appVue">
+            <div class=formita>
+                <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png">
+                <div v-if="publicacion.mascotaRescatada">
+                    <!-- ES UNA PUBLICACION DE MASCOTA PERDIDA -->
+                    <label>Fecha de Publicación:<br></label>
+                    <div class="datos">{{publicacion.fechaDePublicacion}}<br></div>
+                    <label>Autor:<br></label>
+                    <label class="datos"> {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}<br></label>
+                    <br>
+                    <label class="subtitulo2">Mascota perdida<br></label>
+                    <br>
+                    <label>Tipo Animal:<br></label>
+                    <label class="datos">{{publicacion.mascotaRescatada.tipoAnimal}}<br></label>
+                    <label>Sexo Animal:<br></label>
+                    <label class="datos">{{publicacion.mascotaRescatada.sexoMascota}}<br></label>
+                    <label>Tamanio:<br></label>
+                    <label class="datos">{{publicacion.mascotaRescatada.tamanio}}<br></label>
+                    <label>Descripción:<br></label>
+                    <label class="datos">{{publicacion.mascotaRescatada.descripcion}}<br></label>
+                    <br>
+                    <label class="subtitulo2">Lugar de tránsito<br></label>
+                    <br>
+                    <label>Dirección:<br></label>
+                    <label class="datos">{{publicacion.lugarDeTransito.direccion}}<br></label>
+
+                    <button class="boton" v-on:click="aprobarPublicacion(publicacion.id)">Aprobar</button>
+                    <button class="boton" v-on:click="rechazarPublicacion(publicacion.id)">Rechazar</button>
+                </div>
+
+                <div v-else>
+                    <label>Fecha de Publicación: </label>
+                    <p class="datos">{{publicacion.fechaDePublicacion}}<br></p>
+                    <label>Autor:</label>
+                    <p class="datos"> {{publicacion.autor.nombre}} {{publicacion.autor.apellido}}<br></p>
+                    <label>Provincia:</label>
+                    <p class="datos"> {{publicacion.autor.domicilio.provincia}}<br></p>
+                    <label>Localidad:</label>
+                    <p class="datos"> {{publicacion.autor.domicilio.localidad}}<br></p>
+
+                    <br>
+                    <label class="subtitulo2">Mascota en adopción<br></label>
+                    <br>
+                    <label>Nombre Mascota:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.nombreMascota}}<br></p>
+                    <label>Apodo Mascota:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.apodoMascota}}<br></p>
+                    <label>Edad Mascota:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.edadMascota}}<br></p>
+                    <label>Tipo Animal:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.tipoAnimal}}<br></p>
+                    <label>Sexo Animal:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.sexoMascota}}<br></p>
+                    <label>Descripción:</label>
+                    <p class="datos">{{publicacion.mascotaElegida.descripcionMascota}}<br></p>
+                    <br>
+
+                    <button class="boton" v-on:click="aprobarPublicacion(publicacion.id)">Aprobar</button>
+                    <button class="boton" v-on:click="rechazarPublicacion(publicacion.id)">Rechazar</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/js/publicacion.js"></script>
+    </body>
+</html>
+
+<!--Mascota rescatada <br>
+                    Descripcion: {{publicacion.mascotaRescatada.descripcion}} <br>
+                    Tipo animal: {{publicacion.mascotaRescatada.tipoAnimal}} <br>
+                    Sexo animal: {{publicacion.mascotaRescatada.sexoMascota}} <br>
+                    Tamaño: {{publicacion.mascotaRescatada.tamanio}} <br>
+                    Caracteristicas: <br><br>
+                    Lugar de Tránsito <br>
+                    Dirección: {{publicacion.lugarDeTransito.direccion}}
+
+                    <a href="/mascotas-perdidas/notificar-rescatista/{{publicacion.mascotaRescatada.id}}"><br><button class="boton">TE ENCONTRÉ</button></a>-->

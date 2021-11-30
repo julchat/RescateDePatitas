@@ -1,8 +1,8 @@
 package domain.business.notificaciones;
 import domain.business.mascota.Mascota;
 import domain.business.mascota.MascotaPerdida;
+import domain.business.publicaciones.PublicacionParaAdopcion;
 import domain.business.users.Persona;
-import domain.business.publicaciones.PublicacionParaAdoptar;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -29,12 +29,12 @@ public class NotificadorEmail extends Notificacion{
     }
 
     @Override
-    public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta) {
-           mailSender.enviarEmail(destinatario.getEmail(), "Hay un interesado en adoptar tu mascota", armarMensajeHayInteresadoEnAdoptar(destinatario, interesado, mascotaPorSerAdoptada, ruta));
+    public void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada) {
+           mailSender.enviarEmail(destinatario.getEmail(), "Hay un interesado en adoptar tu mascota", armarMensajeHayInteresadoEnAdoptar(destinatario, interesado, mascotaPorSerAdoptada));
     }
 
     @Override
-    public void notificarRecomendaciones(Persona destinatario, PublicacionParaAdoptar publicacion, String ruta) {
+    public void notificarRecomendaciones(Persona destinatario, PublicacionParaAdopcion publicacion, String ruta) {
             mailSender.enviarEmail(destinatario.getEmail(), "Revisa estas recomendaciones para adoptar!", armarMensajeRecomendacionesSemanales(destinatario, publicacion, ruta));
     }
 }

@@ -4,7 +4,6 @@ import domain.business.EntidadPersistente;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.foto.Foto;
 import domain.business.organizaciones.Organizacion;
-import domain.business.users.Duenio;
 
 import javax.persistence.*;
 import java.io.IOException;

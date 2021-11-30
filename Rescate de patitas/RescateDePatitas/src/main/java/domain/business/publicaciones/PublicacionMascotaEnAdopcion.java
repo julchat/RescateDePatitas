@@ -1,6 +1,5 @@
 package domain.business.publicaciones;
 
-import domain.business.users.Duenio;
 import domain.business.mascota.Mascota;
 import domain.business.users.Persona;
 
@@ -11,19 +10,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "publicacion_mascota_en_adopcion")
-@DiscriminatorColumn(name = "publicacion_mascota_en_adopcion")
+@DiscriminatorColumn(name = "mascota_en_adopcion")
 public class PublicacionMascotaEnAdopcion extends Publicacion {
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "duenioActual")
-    private Duenio duenioActual;
 
     @OneToOne
     @JoinColumn(name = "mascotaElegida")
     private Mascota mascotaElegida;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "respuestas")
+    @JoinColumn(name = "id_publicacion")
     private List<Respuesta> respuestas = new ArrayList<>();
 
     @Transient
@@ -39,10 +34,13 @@ public class PublicacionMascotaEnAdopcion extends Publicacion {
 
     public void setMascotaElegida(Mascota mascotaElegida) { this.mascotaElegida = mascotaElegida; }
 
+    public List<Persona> getPersonasInteresadas() { return personasInteresadas; }
+
+    public void setPersonasInteresadas(List<Persona> personasInteresadas) { this.personasInteresadas = personasInteresadas; }
 
     // Métodos
     public void crearPublicacion(Persona autor, Mascota mascotaElegida, List<Respuesta> respuestasOrganizacion) {
-        super.crearPublicacion(new Pendiente());
+        super.crearPublicacion();
         this.setAutor(autor);
         this.setMascotaElegida(mascotaElegida);
         this.setRespuestas(respuestasOrganizacion);
@@ -51,16 +49,5 @@ public class PublicacionMascotaEnAdopcion extends Publicacion {
 
     public void nuevoInteresado(Persona interesado) {
         this.personasInteresadas.add(interesado);
-    }
-
-
-    @Override
-    public void mostrarPublicacion() {
-        this.mascotaElegida.mostrarDatosMascota();
-        this.getAutor().mostrarDatosNoSensibles();
-        for(Respuesta respuesta : respuestas) {
-            respuesta.mostrarRespuesta();
-        }
-        System.out.println("Personas interesadas: " + personasInteresadas.size());
     }
 }

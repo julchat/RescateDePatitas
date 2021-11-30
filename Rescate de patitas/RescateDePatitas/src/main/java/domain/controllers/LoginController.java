@@ -22,15 +22,8 @@ import java.util.Map;
 public class LoginController {
     private RepositorioUsuarios repositorio = FactoryRepositorioUsuarios.get();
 
-    public String iniciarSesion(Request request, Response response) throws IOException {
-        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
-        Handlebars handlebars = new Handlebars(loader);
-        Template template = handlebars.compile("iniciar-sesion");
 
-        return template.text();
-    }
-
-    public String iniciarSesionPost(Request request, Response response) {
+    public String iniciarSesion(Request request, Response response) {
 
         Sesion nuevaSesion = new Gson().fromJson(request.body(), Sesion.class);
 

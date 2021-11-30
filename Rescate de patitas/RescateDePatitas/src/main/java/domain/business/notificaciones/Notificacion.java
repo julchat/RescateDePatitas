@@ -2,8 +2,9 @@ package domain.business.notificaciones;
 import domain.business.EntidadPersistente;
 import domain.business.mascota.Mascota;
 import domain.business.mascota.MascotaPerdida;
+import domain.business.publicaciones.PublicacionParaAdopcion;
 import domain.business.users.Persona;
-import domain.business.publicaciones.PublicacionParaAdoptar;
+import domain.business.publicaciones.PublicacionMascotaEnAdopcion;
 
 import javax.persistence.*;
 
@@ -44,12 +45,12 @@ public abstract class Notificacion extends EntidadPersistente {
                  " ha encontrado a su mascota.\n";
     }
 
-    public String armarMensajeHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta){
+    public String armarMensajeHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada){
         return "Estimado/a " + destinatario.getNombre() + "\n" + "Nos comunicamos para informarle que el usuario " + interesado.getApellido() + " " + interesado.getNombre() +
-                "esta interesado/a en adoptar a su mascota " + mascotaPorSerAdoptada.getNombreMascota() +  ".\n Para mas informacion ingrese a " + ruta;
+                "esta interesado/a en adoptar a su mascota " + mascotaPorSerAdoptada.getNombreMascota() +  ".\n";
     }
 
-    public String armarMensajeRecomendacionesSemanales(Persona destinatario, PublicacionParaAdoptar publicacion, String ruta){
+    public String armarMensajeRecomendacionesSemanales(Persona destinatario, PublicacionParaAdopcion publicacion, String ruta){
         return "Estimado/a " + destinatario.getNombre() + "\n" + " Nos comunicamos para informarle que hay recomendaciones de mascotas para adoptar relacionadas a su publicacion disponibles!" +
                 " para visualizarlas, ingrese a " + ruta;
     }
@@ -58,7 +59,7 @@ public abstract class Notificacion extends EntidadPersistente {
 
     public abstract void notificarMascotaEncontradaRescatista(Persona destinatario, Persona duenio, MascotaPerdida mascotaPerdida);
 
-    public abstract void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada, String ruta);
+    public abstract void notificarHayInteresadoEnAdoptar(Persona destinatario, Persona interesado, Mascota mascotaPorSerAdoptada);
 
-    public abstract void notificarRecomendaciones(Persona destinatario, PublicacionParaAdoptar publicacion, String ruta);
+    public abstract void notificarRecomendaciones(Persona destinatario, PublicacionParaAdopcion publicacion, String ruta);
 }

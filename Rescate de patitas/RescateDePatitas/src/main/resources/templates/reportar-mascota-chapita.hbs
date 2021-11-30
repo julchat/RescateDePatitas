@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reportar Mascota Perdida</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script defer src="/js/index.js"></script>
+        <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
+
+        <link rel="shortcut icon" href="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
+
+        <link rel="stylesheet" href="/css/barra-menu.css">
+        <link rel="stylesheet" href="/css/reportar-mascota.css">
+        <link rel="stylesheet" href="/css/reset.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100&display=swap" rel="stylesheet">
+    </head>
+    <body>
+    <div class="container">
+        <header class="header">
+            <nav class="menu">
+                <a href="/" class="logo"><img src="/img/home-logo.png"></a>
+                <button class="toggle"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-en-adopcion">ADOPTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/dar-mascota-adopcion">DAR EN ADOPCIÓN</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/reportar-mascota">REPORTAR</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="/mascotas-perdidas">MASCOTAS PERDIDAS</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link nav-link nav-menu-link_Active" href="/registrar-mascota">REGISTRAR MASCOTAS</a></li>
+                </ul>
+            </nav>
+        </header>
+        <h2 class="subtitulo">Complete el siguiente formulario para reportar a una mascota perdida</h2>
+
+        <div id="appVue">
+            <div class="form1" >
+                <div class="grid-item">
+                    <label for="name">Nombre<br></label>
+                    <input type="text" id="name" v-model="nombre" name="nombre" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="surname">Apellido<br></label>
+                    <input type="text" id="surname" v-model="apellido" name="apellido" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="date">Fecha de Nacimiento</label>
+                    <input type="date" id="date" v-model="fechaDeNacimiento" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="email">Email<br></label>
+                    <input type="text" id="email" v-model="email" name="email" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="doc-type">Tipo de documento<br></label>
+                    <select class="doc"  id="doc-type" v-model="tipoDoc" name="tipoDoc" required>
+                        <option value="DNI">DNI</option>
+                        <option value="CEDULA">Cedula</option>
+                        <option value="PASAPORTE">Pasaporte</option>
+                    </select>
+                </div>
+
+                <div class="grid-item">
+                    <label for="n-doc">Número de documento<br></label>
+                    <input type="text" id="n-doc" v-model="nroDocumento" name="nroDocumento" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="cel">Teléfono / Celular<br></label>
+                    <input type="text" id="cel" v-model="telefono" name="telefono" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="notification">Formas de notificación<br></label><br>
+                    <a><input class="check" type="checkbox" v-model="notificacionSms" name="SMS"> SMS</a>
+                    <a><input class="check" type="checkbox" v-model="notificacionEmail" name="EMAIL"> Email</a>
+                    <a><input class="check" type="checkbox" v-model="notificacionWpp" name="WHATSAPP"> WhatsApp</a>
+                </div>
+
+                <div class="grid-item">
+                    <label for="name">Provincia<br></label>
+                    <input type="text" id="provincia" v-model="provincia" name="provincia" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="date">Localidad<br></label>
+                    <input type="text" id="localidad" v-model="localidad" name="localidad" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="email">Código Postal<br></label>
+                    <input type="text" id="cp" v-model="codigoPostal" name="codigoPostal" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="name">Calle<br></label>
+                    <input type="text" id="calle" v-model="calle" name="calle" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="name">Numeración<br></label>
+                    <input type="text" id="numeracion" v-model="numeracion" name="numeracion" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="name">Departamento <br></label>
+                    <input type="text" id="dpto" v-model="departamento" name="departamento" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="name">Piso <br></label>
+                    <input type="text" id="piso" v-model="piso" name="piso" class="text-input" required>
+                </div>
+
+                <br><br><br>
+
+                <h3 class="subtitulo3">Agregar contacto</h3>
+                <br>
+
+                <div class="grid-item">
+                    <label for="name">Nombre<br></label>
+                    <input type="text" id="name" v-model="contactoNombre" name="contactoNombre" class="text-input">
+                </div>
+
+                <div class="grid-item">
+                    <label for="surname">Apellido<br></label>
+                    <input type="text" id="surname" v-model="contactoApellido" name="contactoApellido" class="text-input">
+                </div>
+
+                <div class="grid-item">
+                    <label for="email">Email<br></label>
+                    <input type="text" id="email" v-model="contactoEmail" name="contactoEmail" class="text-input">
+                </div>
+
+                <div class="grid-item">
+                    <label for="cel">Teléfono / Celular<br></label>
+                    <input type="text" id="cel" v-model="contactoTelefono" name="contactoTelefono" class="text-input">
+                </div>
+                <div></div>
+                <div class="grid-item">
+                    <label for="notification">Formas de notificación<br></label><br>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionSms" name="SMS"> SMS</a>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionEmail" name="EMAIL"> Email</a>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionWpp" name="WHATSAPP"> WhatsApp</a>
+                </div>
+
+                <div></div><div></div><div></div>
+                <br><br><br><br>
+
+                <button type="submit" class="boton" v-on:click="reportarMascota({{chapita.id}})">NOTIFICAR RESCATE</button>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/reportar-mascota-chapita.js"></script>
+    </body>
+</html>

@@ -2,10 +2,7 @@ package domain.business.ubicacion;
 
 import domain.business.EntidadPersistente;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "domicilio")
@@ -19,10 +16,9 @@ public class Domicilio extends EntidadPersistente {
     private int departamento;
     private int piso;
 
-    @OneToOne
-    @JoinColumn(name = "ubicacion")
-    private Ubicacion ubicacion;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lugar")
+    private Lugar lugar;
 
     // Getters and Setters
     public String getProvincia() { return provincia; }
@@ -53,9 +49,10 @@ public class Domicilio extends EntidadPersistente {
 
     public void setPiso(int piso) { this.piso = piso; }
 
-    public Ubicacion getUbicacion() { return ubicacion; }
+    public Lugar getLugar() { return lugar; }
 
-    public void setUbicacion(Ubicacion ubicacion) { this.ubicacion = ubicacion; }
+    public void setLugar(Lugar lugar) { this.lugar = lugar; }
+
 
     // Constructor
     public Domicilio() {
@@ -64,7 +61,7 @@ public class Domicilio extends EntidadPersistente {
         this.calle = null;
     }
 
-    public Domicilio(String provincia, String localidad, int codigoPostal, String calle, int numeracion, int departamento, int piso, Ubicacion ubicacion) {
+    public Domicilio(String provincia, String localidad, int codigoPostal, String calle, int numeracion, int departamento, int piso) {
         this.provincia = provincia;
         this.localidad = localidad;
         this.codigoPostal = codigoPostal;
@@ -72,7 +69,6 @@ public class Domicilio extends EntidadPersistente {
         this.numeracion = numeracion;
         this.departamento = departamento;
         this.piso = piso;
-        this.ubicacion = ubicacion;
     }
 
     //Metodos

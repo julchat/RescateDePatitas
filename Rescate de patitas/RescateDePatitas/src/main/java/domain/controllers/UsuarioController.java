@@ -109,27 +109,31 @@ public class UsuarioController {
                         nuevoUsuario.getPersona().getFormasDeNotificacion().add(new NotificadorWhatsapp());
                     }
 
-                    Contacto contactoUnico = new Contacto();
-                    contactoUnico.setNombreContacto(formUser.getContactoNombre());
-                    contactoUnico.setApellidoContacto(formUser.getContactoApellido());
-                    contactoUnico.setEmailContacto(formUser.getContactoEmail());
-                    contactoUnico.setTelefonoContacto(formUser.getContactoTelefono());
+                    if(formUser.getContactoNombre() != "" &&
+                            formUser.getContactoApellido() != "" &&
+                            formUser.getContactoEmail() != "" &&
+                            formUser.getContactoTelefono() != ""){
+                        Contacto contactoUnico = new Contacto();
+                        contactoUnico.setNombreContacto(formUser.getContactoNombre());
+                        contactoUnico.setApellidoContacto(formUser.getContactoApellido());
+                        contactoUnico.setEmailContacto(formUser.getContactoEmail());
+                        contactoUnico.setTelefonoContacto(formUser.getContactoTelefono());
 
-                    if(formUser.getContactoNotificacionSms() == "true") {
-                        contactoUnico.getFormasDeNotificacion().add(new NotificadorSms());
+                        if(formUser.getContactoNotificacionSms() == "true") {
+                            contactoUnico.getFormasDeNotificacion().add(new NotificadorSms());
+                        }
+
+                        if(formUser.getContactoNotificacionEmail() == "true") {
+                            contactoUnico.getFormasDeNotificacion().add(new NotificadorEmail());
+                        }
+
+                        if(formUser.getContactoNotificacionWpp() == "true") {
+                            contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
+                        }
+                        nuevoUsuario.getPersona().setContactos(new ArrayList<>());
+                        nuevoUsuario.getPersona().getContactos().add(contactoUnico);
+                        repositorioContactos.agregar(contactoUnico);
                     }
-
-                    if(formUser.getContactoNotificacionEmail() == "true") {
-                        contactoUnico.getFormasDeNotificacion().add(new NotificadorEmail());
-                    }
-
-                    if(formUser.getContactoNotificacionWpp() == "true") {
-                        contactoUnico.getFormasDeNotificacion().add(new NotificadorWhatsapp());
-                    }
-
-                    nuevoUsuario.getPersona().getContactos().add(contactoUnico);
-                    repositorioContactos.agregar(contactoUnico);
-                    repositorioPersonas.agregar(nuevoUsuario.getPersona());
 
                     this.repositorioUsuarios.guardarUsuario(nuevoUsuario, password);
 
@@ -145,7 +149,6 @@ public class UsuarioController {
             }
             else {
                 PasswordStatus passwordStatus = PasswordStatus.getInstance();
-                // Todo: tirar mensajes de acuerdo a los errores que comete dicha contraseña
                 List<String> lista = validador.verificarPassword(nombreUsuario, password);
                 List<String> listaFiltrada = lista.stream().filter(s -> !s.equals(passwordStatus.getStatusOK())).collect(Collectors.toList());
                 String fallas = new String();

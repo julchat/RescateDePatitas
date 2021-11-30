@@ -3,7 +3,6 @@ package domain.business.mascota;
 import domain.business.EntidadPersistente;
 import domain.business.caracteristicas.Caracteristica;
 import domain.business.ubicacion.Lugar;
-import domain.business.ubicacion.Ubicacion;
 import domain.business.foto.Foto;
 
 import javax.persistence.*;
@@ -22,6 +21,10 @@ public class MascotaPerdida extends EntidadPersistente {
     private TipoAnimal tipoAnimal;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "sexoMascota")
+    private SexoMascota sexoMascota;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "tamanio")
     private Tamanio tamanio;
 
@@ -33,10 +36,9 @@ public class MascotaPerdida extends EntidadPersistente {
     @JoinColumn(name = "caracteristicasMascota")
     private List<Caracteristica> caracteristicasMascota = new ArrayList<>();
 
-    // Tal vez aca podria ser directamente un Lugar, ya que podria ponerse ademas de las coordenadas, la Direccion del lugar
-    @OneToOne
-    @JoinColumn(name = "ubicacionEncontrada")
-    private Ubicacion ubicacionEncontrada;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lugarEncontrada")
+    private Lugar lugarEncontrada;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "carrouselFotos")
@@ -64,6 +66,10 @@ public class MascotaPerdida extends EntidadPersistente {
 
     public void setTipoAnimal(TipoAnimal tipoAnimal) { this.tipoAnimal = tipoAnimal; }
 
+    public SexoMascota getSexoMascota() { return sexoMascota; }
+
+    public void setSexoMascota(SexoMascota sexoMascota) { this.sexoMascota = sexoMascota; }
+
     public Tamanio getTamanio() { return tamanio; }
 
     public void setTamanio(Tamanio tamanio) { this.tamanio = tamanio; }
@@ -74,11 +80,9 @@ public class MascotaPerdida extends EntidadPersistente {
 
     public void setLugarDeTransito(Lugar lugarDeTransito) { this.lugarDeTransito = lugarDeTransito; }
 
-    public Ubicacion getUbicacionEncontrada() {
-        return ubicacionEncontrada;
-    }
+    public Lugar getLugarEncontrada() { return lugarEncontrada; }
 
-    public void setUbicacionEncontrada(Ubicacion ubicacionEncontrada) { this.ubicacionEncontrada = ubicacionEncontrada; }
+    public void setLugarEncontrada(Lugar lugarEncontrada) { this.lugarEncontrada = lugarEncontrada; }
 
     public List<Caracteristica> getCaracteristicaMascotas() { return caracteristicasMascota; }
 
@@ -100,8 +104,8 @@ public class MascotaPerdida extends EntidadPersistente {
         System.out.println("Tamaño del animal: " + this.getTamanio());
         System.out.println("Descripción de la Mascota: " + this.getDescripcion());
         System.out.println("Ubicación encontrada:");
-        System.out.println("    - Latitud: " + this.getUbicacionEncontrada().getLatitud());
-        System.out.println("    - Longitud: " + this.getUbicacionEncontrada().getLongitud());
+        System.out.println("    - Latitud: " + this.getLugarEncontrada().getLatitud());
+        System.out.println("    - Longitud: " + this.getLugarEncontrada().getLongitud());
         System.out.println("Hogar de Tránsito actual: " + this.getLugarDeTransito());
         System.out.println("---------------------------------------------------------------------------------------");
         System.out.println();

@@ -7,7 +7,6 @@ import domain.business.mascota.Tamanio;
 import domain.business.mascota.TipoAnimal;
 import domain.business.organizaciones.apiHogares.entidades.Hogar;
 import domain.business.ubicacion.Lugar;
-import domain.business.ubicacion.Ubicacion;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,9 +17,15 @@ import java.util.List;
 public class HogarDeTransito extends EntidadPersistente {
 
     private String nombreOrganizacion;
-    private String direccion;
-    private double latitud;
-    private double longitud;
+
+    //private String direccion;
+    //private double latitud;
+    //private double longitud;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lugar")
+    private Lugar lugar;
+
     private String telefono;
     private boolean aceptaPerros;
     private boolean aceptaGatos;
@@ -28,12 +33,12 @@ public class HogarDeTransito extends EntidadPersistente {
     private int capacidad;
     private int lugaresDisponibles;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "caracteristicasAdmitidas")
     private List<Caracteristica> caracteristicasAdmitidas = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name = "mascotasActuales")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "hogarDeTransito")
     private List<MascotaPerdida> mascotasActuales = new ArrayList<>();
 
 
@@ -42,30 +47,9 @@ public class HogarDeTransito extends EntidadPersistente {
 
     public void setNombreOrganizacion(String nombreOrganizacion) { this.nombreOrganizacion = nombreOrganizacion; }
 
-    public Lugar getLugar() {
-        Lugar lugar = new Lugar();
-        lugar.setDireccion(this.getDireccion());
-        Ubicacion nuevaUbicacion = new Ubicacion();
-        lugar.setUbicacion(nuevaUbicacion);
-        lugar.getUbicacion().setLatitud(this.getLatitud());
-        lugar.getUbicacion().setLongitud(this.getLongitud());
+    public Lugar getLugar() { return lugar; }
 
-        return lugar;
-    }
-
-    public void setDireccion(String direccion) { this.direccion = direccion; }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public double getLatitud() { return latitud; }
-
-    public void setLatitud(double latitud) { this.latitud = latitud; }
-
-    public double getLongitud() { return longitud; }
-
-    public void setLongitud(double longitud) { this.longitud = longitud; }
+    public void setLugar(Lugar lugar) { this.lugar = lugar; }
 
     public String getTelefono() { return telefono; }
 
@@ -141,9 +125,7 @@ public class HogarDeTransito extends EntidadPersistente {
     // Metodos
     public void mappearHogar(Hogar hogar) {
         this.setNombreOrganizacion(hogar.getNombre());
-        this.setDireccion(hogar.getUbicacion().getDireccion());
-        this.setLatitud(hogar.getUbicacion().getLat());
-        this.setLongitud(hogar.getUbicacion().getLongitud());
+        this.setLugar(new Lugar(hogar.getUbicacion().getDireccion(), hogar.getUbicacion().getLat(), hogar.getUbicacion().getLongitud()));
         this.setTelefono(hogar.getTelefono());
         this.setAceptaPerros(hogar.getAdmisiones().admitePerros());
         this.setAceptaGatos(hogar.getAdmisiones().admiteGatos());
@@ -216,7 +198,7 @@ public class HogarDeTransito extends EntidadPersistente {
         return distance;
     }
 
-    public boolean masCercanoQue(HogarDeTransito otroHogar, Ubicacion ubicacionMascota) {
-        return this.distancia(this.getLatitud(), this.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud()) >= otroHogar.distancia(otroHogar.getLatitud(), otroHogar.getLongitud(), ubicacionMascota.getLatitud(), ubicacionMascota.getLongitud());
+    public boolean masCercanoQue(HogarDeTransito otroHogar, Lugar lugarEncontrada) {
+        return this.distancia(this.getLugar().getLatitud(), this.getLugar().getLongitud(), lugarEncontrada.getLatitud(), lugarEncontrada.getLongitud()) >= otroHogar.distancia(otroHogar.getLugar().getLatitud(), otroHogar.getLugar().getLongitud(), lugarEncontrada.getLatitud(), lugarEncontrada.getLongitud());
     }
 }

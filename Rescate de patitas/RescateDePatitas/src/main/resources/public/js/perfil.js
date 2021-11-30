@@ -1,4 +1,5 @@
-var dominio = "http://rescatedepatitasdds.herokuapp.com";
+const dominio = "http://rescatedepatitasdds.herokuapp.com";
+
 function verificarEstado(status, datos){
     if(status == 200) {
         alert(datos.mensaje);
@@ -23,16 +24,6 @@ let app = new Vue({
         notificacionSms: "",
         notificacionEmail: "",
         notificacionWpp: "",
-
-        // Mascota
-        tipoPerro: "",
-        tipoGato: "",
-        sexoHembra: "",
-        sexoMacho: "",
-        nombreMascota: "",
-        apodoMascota: "",
-        edadMascota: "",
-        descripcionMascota: "",
 
         // Domicilio
         provincia: "",
@@ -106,7 +97,7 @@ let app = new Vue({
     created() {
         let idSesion = localStorage.getItem("IDSESION")
         fetch(dominio + "/api/perfil", {
-            method : "get",
+            method : "GET",
             headers: {
                 "Authorization": idSesion
             }

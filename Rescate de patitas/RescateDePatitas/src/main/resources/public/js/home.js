@@ -1,4 +1,5 @@
-var dominio = "http://rescatedepatitasdds.herokuapp.com";
+const dominio = "http://rescatedepatitasdds.herokuapp.com";
+
 let app = new Vue({
     el: "#appVue",
     data: {

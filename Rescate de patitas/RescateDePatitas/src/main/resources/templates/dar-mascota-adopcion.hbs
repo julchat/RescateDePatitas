@@ -6,10 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dar Mascota en Adopción</title>
 
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script defer src="/js/index.js"></script>
         <script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
 
-        <link rel="shortcut icon" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
+        <link rel="shortcut icon" href="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687235/img/icono-patitas_c1xqq0.ico"/>
 
         <link rel="stylesheet" href="/css/barra-menu.css">
         <link rel="stylesheet" href="/css/dar-mascota-adopcion.css">
@@ -33,208 +34,545 @@
         </header>
         <h2 class="subtitulo">Complete el siguiente formulario para dar a una mascota en adopción</h2>
 
-        <form action="/dar-mascota-adopcion" method="post" class="form1">
+        <div id="appVue">
+            <div v-if="activa && !domicilio">
+                <p class="subtitulo2"> Si usted desea dar en adopción a una mascota que ya tiene registrada, cree la publicación entrando en este enlace</p>
+                    <div class="grid-item" align="center">
+                        <a href="/mascotas-registradas"><button type="submit" class="boton">MASCOTAS REGISTRADAS</button></a>
+                    </div>
+                <br>
+                <p class="subtitulo2">En caso de no haberla registrado, por favor, complete el siguiente formulario para crear la publicación en el sitio</p>
 
-            <div class="grid-item">
-                <label for="name">Nombre<br></label>
-                <input type="text" id="name" name="nombre" class="text-input" required>
+                <div class="form1">
+                    <div class="grid-item">
+                        <label for="name">Nombre<br></label>
+                        <div class="text-input" disabled><br>{{persona.nombre}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="surname">Apellido<br></label>
+                        <div class="text-input" disabled><br>{{persona.apellido}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="date">Fecha de Nacimiento</label>
+                        <div class="text-input" disabled><br>{{persona.fechaDeNacimiento}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="email">Email<br></label>
+                        <div class="text-input" disabled><br>{{persona.email}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="doc-type">Tipo de documento<br></label>
+                        <div class="text-input" disabled><br>{{persona.tipoDocumento}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="n-doc">Número de documento<br></label>
+                        <div class="text-input" disabled><br>{{persona.numeroDocumento}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="cel">Teléfono / Celular<br></label>
+                        <div class="text-input" disabled><br>{{persona.telefono}}</div>
+                    </div>
+                    <div></div>
+                    <div class="grid-item">
+                        <label for="notification">Formas de notificación<br></label><br>
+                        <ul v-for="formaDeNotificacion in formasDeNotificacion">
+                            <a><input class="check" type="checkbox" checked disabled> {{formaDeNotificacion.tipoDeNotificacion}}</a>
+                        </ul>
+                    </div>
+
+                    <div></div>
+                    <h3 class="subtitulo3">Ingrese los datos de su Domicilio</h3>
+                    <div></div>
+                    <div class="grid-item">
+                        <label for="provincia">Provincia<br></label>
+                        <input type="text" id="provincia" v-model="provincia" name="provincia" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="localidad">Localidad<br></label>
+                        <input type="text" id="localidad" v-model="localidad" name="localidad" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="codigoPostal">Código Postal<br></label>
+                        <input type="text" id="cp" v-model="codigoPostal" name="codigoPostal" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="calle">Calle<br></label>
+                        <input type="text" id="calle" v-model="calle" name="calle" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="num">Numeración<br></label>
+                        <input type="text" id="num" v-model="numeracion" name="numeracion" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="dpto">Departamento <br></label>
+                        <input type="text" id="dpto" v-model="departamento" name="departamento" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="piso">Piso <br></label>
+                        <input type="text" id="piso" v-model="piso" name="piso" class="text-input" required>
+                    </div>
+
+                    <div></div><div></div>
+                    <br><br><br><br>
+
+                    <h3 class="subtitulo3">Contactos</h3>
+                    <div></div>
+                    <div></div>
+                    <fieldset v-for="contacto in contactos">
+                        <ul v-if="contacto.nombreContacto === ''"></ul>
+                        <ul v-else>
+                            Nombre contacto: {{contacto.nombreContacto}} {{contacto.apellidoContacto}}<br>
+                            Email: {{contacto.emailContacto}} <br>
+                            Telefono: {{contacto.telefonoContacto}} <br><br>
+                        </ul>
+                    </fieldset>
+
+
+                    <div></div><div></div><div></div><div></div>
+                    <br><br><br><br>
+
+                    <h3 class="subtitulo3">Sobre la mascota</h3>
+                    <div></div>
+                    <div class="grid-item">
+                        <label for="name">Tipo de Animal<br></label>
+                        <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="PERRO">Perro
+                        <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="GATO">Gato
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="sexo">Sexo<br></label>
+                        <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="HEMBRA">Hembra
+                        <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="MACHO">Macho
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="petName">Nombre<br></label>
+                        <input type="text" id="name" v-model="nombreMascota" name="nombreMascota" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="alias">Apodo<br></label>
+                        <input type="text" id="name" v-model="apodoMascota" name="apodoMascota" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="date">Edad aproximada<br></label>
+                        <input type="text" id="edad-aprox" v-model="edadMascota" name="edadMascota" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="email">Descripción física<br></label>
+                        <input type="text" id="descripcion-fisica" v-model="descripcionMascota" name="descripcionMascota" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="name">Características<br></label>
+                        <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                            <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                        </select>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="date">Fotos<br></label>
+                        <input class="boton-foto" type="file" name="imagen1">
+                    </div>
+
+
+                    <div></div><div></div>
+                    <h3 class="subtitulo3">Preguntas</h3>
+                    <div></div>
+                    <div v-for="(pregunta, index) in preguntas" :key="index">
+                        <div class="grid-item">
+                            <label for="email">{{pregunta.pregunta}}<br></label>
+                            <input type="text" id="text" class="text-input" placeholder="" v-model="respuestas[index]" v-on:blur.once="agregarRespuesta()">
+                        </div>
+                    </div>
+
+                    <br><br><br><br><br>
+                    <div class="grid-item" align="center">
+                        <button type="submit" class="boton" v-on:click="registrarMascotaSoloMascotaUserYDomicilio()">CREAR PUBLICACIÓN</button>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="grid-item">
-                <label for="surname">Apellido<br></label>
-                <input type="text" id="surname" name="apellido" class="text-input" required>
+            <div v-else-if="activa && domicilio">
+                <p class="subtitulo2"> Si usted desea dar en adopción a una mascota que ya tiene registrada, cree la publicación entrando en este enlace</p>
+                <div class="grid-item" align="center">
+                    <a href="/mascotas-registradas"><button type="submit" class="boton">MASCOTAS REGISTRADAS</button></a>
+                </div>
+                <br>
+                <p class="subtitulo2">En caso de no haberla registrado, por favor, complete el siguiente formulario para crear la publicación en el sitio</p>
+
+
+                <div class="form1" >
+                    <div class="grid-item">
+                        <label for="name">Nombre<br></label>
+                        <div class="text-input" disabled><br>{{persona.nombre}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="surname">Apellido<br></label>
+                        <div class="text-input" disabled><br>{{persona.apellido}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="date">Fecha de Nacimiento</label>
+                        <div class="text-input" disabled><br>{{persona.fechaDeNacimiento}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="email">Email<br></label>
+                        <div class="text-input" disabled><br>{{persona.email}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="doc-type">Tipo de documento<br></label>
+                        <div class="text-input" disabled><br>{{persona.tipoDocumento}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="n-doc">Número de documento<br></label>
+                        <div class="text-input" disabled><br>{{persona.numeroDocumento}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="cel">Teléfono / Celular<br></label>
+                        <div class="text-input" disabled><br>{{persona.telefono}}</div>
+                    </div>
+                    <div></div>
+                    <div class="grid-item">
+                        <label for="notification">Formas de notificación<br></label><br>
+                        <ul v-for="formaDeNotificacion in formasDeNotificacion">
+                            <a><input class="check" type="checkbox" checked disabled> {{formaDeNotificacion.tipoDeNotificacion}}</a>
+                        </ul>
+                    </div>
+
+                    <div></div>
+                    <h3 class="subtitulo3">Datos de su Domicilio</h3>
+                    <div></div>
+                    <div class="grid-item">
+                        <label for="provincia">Provincia<br></label>
+                        <div class="text-input" disabled><br>{{persona.domicilio.provincia}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="localidad">Localidad<br></label>
+                        <div class="text-input" disabled><br>{{persona.domicilio.localidad}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="codigoPostal">Código Postal<br></label>
+                        <div class="text-input" disabled><br>{{persona.domicilio.codigoPostal}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="calle">Calle<br></label>
+                        <div class="text-input" disabled><br>{{persona.domicilio.calle}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="num">Numeración<br></label>
+                        <div class="text-input" disabled><br>{{persona.domicilio.numeracion}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="dpto">Departamento <br></label>
+                        <div class="text-input" disabled><br>{{persona.domicilio.departamento}}</div>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="piso">Piso <br></label>
+                        <div class="text-input" disabled><br>{{persona.domicilio.piso}}</div>
+                    </div>
+
+                    <div></div><div></div>
+                    <br><br><br><br>
+
+                    <h3 class="subtitulo3">Contactos</h3>
+                    <div></div>
+                    <div></div>
+                    <fieldset v-for="contacto in contactos">
+                        <ul v-if="contacto.nombreContacto === ''"></ul>
+                        <ul v-else>
+                            Nombre contacto: {{contacto.nombreContacto}} {{contacto.apellidoContacto}}<br>
+                            Email: {{contacto.emailContacto}} <br>
+                            Telefono: {{contacto.telefonoContacto}} <br><br>
+                        </ul>
+                    </fieldset>
+
+                    <div></div><div></div><div></div><div></div>
+                    <br><br><br><br>
+
+                    <h3 class="subtitulo3">Sobre la mascota</h3>
+                    <div></div>
+                    <div class="grid-item">
+                        <label for="name">Tipo de Animal<br></label>
+                        <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="PERRO">Perro
+                        <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="GATO">Gato
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="sexo">Sexo<br></label>
+                        <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="HEMBRA">Hembra
+                        <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="MACHO">Macho
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="petName">Nombre<br></label>
+                        <input type="text" id="name" v-model="nombreMascota" name="nombreMascota" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="alias">Apodo<br></label>
+                        <input type="text" id="name" v-model="apodoMascota" name="apodoMascota" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="date">Edad aproximada<br></label>
+                        <input type="text" id="edad-aprox" v-model="edadMascota" name="edadMascota" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="email">Descripción física<br></label>
+                        <input type="text" id="descripcion-fisica" v-model="descripcionMascota" name="descripcionMascota" class="text-input" required>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="name">Características<br></label>
+                        <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                            <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                        </select>
+                    </div>
+
+                    <div class="grid-item">
+                        <label for="date">Fotos<br></label>
+                        <input class="boton-foto" type="file" name="imagen1">
+                    </div>
+
+
+                    <div></div><div></div>
+                    <h3 class="subtitulo3">Preguntas</h3>
+                    <div></div>
+                    <div v-for="(pregunta, index) in preguntas" :key="index">
+                        <div class="grid-item">
+                            <label for="email">{{pregunta.pregunta}}<br></label>
+                            <input type="text" id="text" class="text-input" placeholder="" v-model="respuestas[index]" v-on:blur.once="agregarRespuesta()">
+                        </div>
+                    </div>
+
+                    <br><br><br><br><br>
+                    <div class="grid-item" align="center">
+                        <button type="submit" class="boton" v-on:click="registrarMascotaSoloMascotaUser()">CREAR PUBLICACIÓN</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid-item">
-                <label for="date">Fecha de Nacimiento</label>
-                <input type="date" id="date" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
+
+            <div class="form1" v-else>
+
+                <div class="grid-item">
+                    <label for="name">Nombre<br></label>
+                    <input type="text" id="name" v-model="nombre" name="nombre" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="surname">Apellido<br></label>
+                    <input type="text" id="surname" v-model="apellido" name="apellido" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="date">Fecha de Nacimiento</label>
+                    <input type="date" id="date" v-model="fechaDeNacimiento" name="fechaDeNacimiento" class="fecha" value="aa-mm-dd" min="1930-01-01" max="2004-01-01" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="email">Email<br></label>
+                    <input type="text" id="email" v-model="email" name="email" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="doc-type">Tipo de documento<br></label>
+                    <select class="doc" v-model="tipoDoc" id="doc-type" name="tipoDoc" required>
+                        <option value="DNI">DNI</option>
+                        <option value="CEDULA">Cedula</option>
+                        <option value="PASAPORTE">Pasaporte</option>
+                    </select>
+                </div>
+
+                <div class="grid-item">
+                    <label for="n-doc">Número de documento<br></label>
+                    <input type="text" id="n-doc" v-model="nroDocumento" name="nroDocumento" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="cel">Teléfono / Celular<br></label>
+                    <input type="text" id="cel" v-model="telefono" name="telefono" class="text-input" required>
+                </div>
+
+                <div></div>
+
+                <div class="grid-item">
+                    <label for="notification">Formas de notificación<br></label><br>
+                    <a><input class="check" type="checkbox" v-model="notificacionSms" name="SMS"> SMS</a>
+                    <a><input class="check" type="checkbox" v-model="notificacionEmail" name="EMAIL"> Email</a>
+                    <a><input class="check" type="checkbox" v-model="notificacionWpp" name="WHATSAPP"> WhatsApp</a>
+                </div>
+
+                <div></div>
+                <h3 class="subtitulo3">Ingrese los datos de su Domicilio</h3>
+                <div></div>
+                <div class="grid-item">
+                    <label for="provincia">Provincia<br></label>
+                    <input type="text" id="provincia" v-model="provincia" name="provincia" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="localidad">Localidad<br></label>
+                    <input type="text" id="localidad" v-model="localidad" name="localidad" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="codigoPostal">Código Postal<br></label>
+                    <input type="text" id="cp" v-model="codigoPostal" name="codigoPostal" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="calle">Calle<br></label>
+                    <input type="text" id="calle" v-model="calle" name="calle" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="num">Numeración<br></label>
+                    <input type="text" id="num" v-model="numeracion" name="numeracion" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="dpto">Departamento <br></label>
+                    <input type="text" id="dpto" v-model="departamento" name="departamento" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="piso">Piso <br></label>
+                    <input type="text" id="piso" v-model="piso" name="piso" class="text-input" required>
+                </div>
+
+                <div></div><div></div>
+                <br><br><br><br>
+
+
+                <h3 class="subtitulo3">Agregar contacto</h3>
+                <br>
+
+                <div class="grid-item">
+                    <label for="contactoName">Nombre<br></label>
+                    <input type="text" id="contactoName" v-model="contactoNombre" name="contactoNombre" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="contactoSurname">Apellido<br></label>
+                    <input type="text" id="contactoSurname" v-model="contactoApellido" name="contactoApellido" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="contactoEmail">Email<br></label>
+                    <input type="text" id="contactoEmail" v-model="contactoEmail" name="contactoEmail" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="contactoTel">Teléfono / Celular<br></label>
+                    <input type="text" id="contactoTel" v-model="contactoTelefono" name="contactoTelefono" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="contactoNotification">Formas de notificación<br></label><br>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionSms" name="SMS"> SMS</a>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionEmail" name="EMAIL"> Email</a>
+                    <a><input class="check" type="checkbox" v-model="contactoNotificacionWpp" name="WHATSAPP"> WhatsApp</a>
+                </div>
+
+
+                <div></div><div></div><div></div><div></div>
+                <br><br><br><br>
+
+                <h3 class="subtitulo3">Sobre la mascota</h3>
+                <div></div>
+                <div class="grid-item">
+                    <label for="name">Tipo de Animal<br></label>
+                    <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="PERRO">Perro
+                    <input class="radio" type="radio" v-model="tipoAnimal" name="tipoAnimal" value="GATO">Gato
+                </div>
+
+                <div class="grid-item">
+                    <label for="sexo">Sexo<br></label>
+                    <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="HEMBRA">Hembra
+                    <input class="radio" type="radio" v-model="sexoMascota" name="sexoMascota" value="MACHO">Macho
+                </div>
+
+                <div class="grid-item">
+                    <label for="petName">Nombre<br></label>
+                    <input type="text" id="name" v-model="nombreMascota" name="nombreMascota" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="alias">Apodo<br></label>
+                    <input type="text" id="name" v-model="apodoMascota" name="apodoMascota" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="date">Edad aproximada<br></label>
+                    <input type="text" id="edad-aprox" v-model="edadMascota" name="edadMascota" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="email">Descripción física<br></label>
+                    <input type="text" id="descripcion-fisica" v-model="descripcionMascota" name="descripcionMascota" class="text-input" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="name">Características<br></label>
+                    <select class="select" name="select" multiple="true" v-model="caracteristicasElegidas">
+                        <option v-for="carac in caracteristicas" v-bind:value="carac.id" v-if="carac.esVisible">{{carac.caracteristica}}</option>
+                    </select>
+                </div>
+
+                <div class="grid-item">
+                    <label for="date">Fotos<br></label>
+                    <input class="boton-foto" type="file" name="imagen1">
+                </div>
+
+
+                <div></div><div></div>
+                <h3 class="subtitulo3">Preguntas</h3>
+                <div></div>
+                <div v-for="(pregunta, index) in preguntas">
+                    <div class="grid-item">
+                        <label for="email">{{pregunta.pregunta}}<br></label>
+                        <input type="text" id="text" class="text-input" placeholder="" v-model="respuestas[index]" v-on:blur.once="agregarRespuesta()">
+                    </div>
+                </div>
+
+                <div></div>
+                <br><br><br><br><br>
+                <div class="grid-item" align="center">
+                    <button type="submit" class="boton" v-on:click="registroCompleto()">CREAR PUBLICACIÓN</button>
+                </div>
             </div>
-
-            <div class="grid-item">
-                <label for="email">Email<br></label>
-                <input type="text" id="email" name="email" class="text-input" required>
-            </div>
-
-            <div class="grid-item">
-                <label for="doc-type">Tipo de documento<br></label><br>
-                <select class="doc"  id="doc-type" name="tipoDoc" required>
-                    <option value="DNI">DNI</option>
-                    <option value="CEDULA">Cedula</option>
-                    <option value="PASAPORTE">Pasaporte</option>
-                </select>
-            </div>
-
-            <div class="grid-item">
-                <label for="n-doc">Número de documento<br></label>
-                <input type="text" id="n-doc" name="nroDocumento" class="text-input" required>
-            </div>
-
-            <div class="grid-item">
-                <label for="cel">Teléfono / Celular<br></label>
-                <input type="text" id="cel" name="telefono" class="text-input" required>
-            </div>
-
-            <div class="grid-item">
-                <label for="notification">Formas de notificación<br></label><br>
-                <a><input class="check" type="checkbox" name="SMS"> SMS</a>
-                <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
-                <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
-            </div>
-
-            <div class="grid-item">
-                <label for="provincia">Provincia<br></label>
-                <input type="text" id="provincia" name="provincia" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="localidad">Localidad<br></label>
-                <input type="text" id="localidad" name="localidad" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="codigoPostal">Código Postal<br></label>
-                <input type="text" id="cp" name="codigoPostal" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="calle">Calle<br></label>
-                <input type="text" id="calle" name="calle" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="num">Numeración<br></label>
-                <input type="text" id="num" name="numeracion" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="dpto">Departamento <br></label>
-                <input type="text" id="dpto" name="departamento" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="piso">Piso <br></label>
-                <input type="text" id="piso" name="piso" class="text-input">
-            </div>
-
-            <div></div><div></div><div></div>
-            <br><br><br><br>
-
-
-            <h3 class="subtitulo3">Agregar contacto</h3>
-            <br>
-
-            <div class="grid-item">
-                <label for="name">Nombre<br></label>
-                <input type="text" id="name" name="nombre" class="text-input" required>
-            </div>
-
-            <div class="grid-item">
-                <label for="surname">Apellido<br></label>
-                <input type="text" id="surname" name="apellido" class="text-input" required>
-            </div>
-
-            <div class="grid-item">
-                <label for="email">Email<br></label>
-                <input type="text" id="email" name="email" class="text-input" required>
-            </div>
-
-            <div class="grid-item">
-                <label for="cel">Teléfono / Celular<br></label>
-                <input type="text" id="cel" name="telefono" class="text-input" required>
-            </div>
-            <div></div>
-            <div class="grid-item">
-                <label for="notification">Formas de notificación<br></label><br>
-                <a><input class="check" type="checkbox" name="SMS"> SMS</a>
-                <a><input class="check" type="checkbox" name="EMAIL"> Email</a>
-                <a><input class="check" type="checkbox" name="WHATSAPP"> WhatsApp</a>
-            </div>
-
-
-            <div></div><div></div><div></div>
-            <br><br><br><br>
-
-            <h3 class="subtitulo3">Sobre la mascota</h3>
-            <div></div>
-            <div class="grid-item">
-                <label for="name">Tipo de Animal<br></label>
-                <input class="radio" type="radio" name="tipoAnimal" value="PERRO">Perro
-                <input class="radio" type="radio" name="tipoAnimal" value="GATO">Gato
-            </div>
-
-            <div class="grid-item">
-                <label for="sexo">Sexo<br></label>
-                <input class="radio" type="radio" name="sexoMascota" value="HEMBRA">Hembra
-                <input class="radio" type="radio" name="sexoMascota" value="MACHO">Macho
-            </div>
-
-            <div class="grid-item">
-                <label for="petName">Nombre<br></label>
-                <input type="text" id="name" name="nombreMascota" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="alias">Apodo<br></label>
-                <input type="text" id="name" name="apodoMascota" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="date">Edad aproximada<br></label>
-                <input type="text" id="edad-aprox" name="edadMascota" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="email">Descripción física<br></label>
-                <input type="text" id="descripcion-fisica" name="descripcionMascota" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="name">Características<br></label>
-                <input type="text" id="caracteristicas" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="date">Fotos<br></label>
-                <input class="boton-foto" type="file" name="imagen1" />
-            </div>
-            <div></div><div></div>
-            <h3 class="subtitulo3">Preguntas</h3>
-            <div></div>
-            <div class="grid-item">
-                <label for="email">Pregunta 1<br></label>
-                <input type="text" id="text" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="email">Pregunta 2<br></label>
-                <input type="text" id="text" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="email">Pregunta 3<br></label>
-                <input type="text" id="text" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="email">Pregunta 4<br></label>
-                <input type="text" id="text" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="email">Pregunta 5<br></label>
-                <input type="text" id="text" class="text-input">
-            </div>
-
-            <div class="grid-item">
-                <label for="email">Pregunta 6<br></label>
-                <input type="text" id="text" class="text-input">
-            </div>
-            <div></div>
-
-            <button type="submit" class="boton">CREAR PUBLICACIÓN</button>
-
-        </form>
+        </div>
     </div>
 
+    <script src="/js/dar-mascota-adopcion.js"></script>
     </body>
 </html>
