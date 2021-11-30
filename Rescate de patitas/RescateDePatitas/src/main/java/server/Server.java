@@ -10,7 +10,7 @@ import java.io.IOException;
 // Unico punto de partida / unico MAIN
 public class Server {
     public static void main(String[] args) throws IOException {
-        EntityManager em = EntityManagerHelper.getEntityManager();
+        //EntityManager em = EntityManagerHelper.getEntityManager();
         Spark.port(getHerokuAssignedPort());
         Router.init();
         DebugScreen.enableDebugScreen();
