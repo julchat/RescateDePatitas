@@ -5,6 +5,14 @@ let app = new Vue({
     data: {
         publicaciones: [],
     },
+    methods: {
+        estoyPerdido: function(id) {
+            window.location.href = "estoy-perdido/" + id;
+        },
+        notificarRescatista: function(id) {
+            window.location.href = "notificar-rescatista/" + id;
+        }
+    },
     created() {
         let idSesion = localStorage.getItem("IDSESION")
         fetch(dominio + "/api/mascotas-perdidas", {

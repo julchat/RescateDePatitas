@@ -41,15 +41,21 @@
                 <div class="tabla">
                     <div v-for="mascota in mascotasRegistradas">
                         <div class="publicacion">
-                            <u class="titulo2">Nombre Mascota:</u> {{mascota.nombreMascota}}<br>
-                            <u class="titulo2">Apodo Mascota:</u> {{mascota.apodoMascota}}<br>
-                            <u class="titulo2">Edad Mascota:</u> {{mascota.edadMascota}}<br>
-                            <u class="titulo2">Tipo de Animal:</u> {{mascota.tipoAnimal}}<br>
-                            <u class="titulo2">Sexo Animal:</u> {{mascota.sexoMascota}}<br>
-                            <u class="titulo2">Descripción:</u> {{mascota.descripcionMascota}}<br>
+                            <u class="titulo2">Nombre Mascota:</u>
+                            <i>{{mascota.nombreMascota}}<br></i>
+                            <u class="titulo2">Apodo Mascota:</u>
+                            <i>{{mascota.apodoMascota}}<br></i>
+                            <u class="titulo2">Edad Mascota:</u>
+                            <i>{{mascota.edadMascota}}<br></i>
+                            <u class="titulo2">Tipo de Animal:</u>
+                            <i>{{mascota.tipoAnimal}}<br></i>
+                            <u class="titulo2">Sexo Animal:</u>
+                            <i>{{mascota.sexoMascota}}<br></i>
+                            <u class="titulo2">Descripción:</u>
+                            <i>{{mascota.descripcionMascota}}<br></i>
                             <u class="titulo2">Características:</u><br>
                             <div v-for="caracteristica in mascota.caracteristicasMascota">
-                                • {{caracteristica.caracteristica}}<br>
+                                <ul><i>{{caracteristica.caracteristica}}</i></ul>
                             </div>
 f
                             <!-- Fotos -->

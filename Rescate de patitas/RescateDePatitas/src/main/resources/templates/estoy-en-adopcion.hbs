@@ -62,6 +62,11 @@
                 <p class="datos">{{publicacion.mascotaElegida.sexoMascota}}<br></p>
                 <label>Descripción:</label>
                 <p class="datos">{{publicacion.mascotaElegida.descripcionMascota}}<br></p>
+                <label>Características:</label>
+                {{#each publicacion.mascotaElegida.caracteristicasMascota}}
+                    <ul class="datos">{{this.caracteristica}}</ul>
+                {{/each}}
+
                 <br>
 
                 <a href="/mascotas-en-adopcion/notificar-duenio/{{publicacion.mascotaElegida.id}}"><br><button class="boton">ADOPTAR</button></a>

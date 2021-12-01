@@ -42,8 +42,8 @@
                     <div class="publicacion">
                         <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
                         <p class="datos">{{publicacion.mascotaElegida.nombreMascota}}</p>
-                        <a href="/mascotas-en-adopcion/estoy-en-adopcion/{{id}}"><button class="boton">Ver más</button></a>
-                        <a href="/mascotas-en-adopcion/notificar-duenio/{{id}}"><button class="boton">Adoptar</button></a>
+                        <button class="boton" v-on:click="estoyEnAdopcion(publicacion.id)">Ver más</button>
+                        <button class="boton" v-on:click="notificarDuenio(publicacion.id)">Adoptar</button>
                     </div>
                 </div>
             </div>

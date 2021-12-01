@@ -74,8 +74,6 @@
     transition: transform .5s;
 }
 
-
-
 .boton:hover{
     transform: scale(1.1);
 }
