@@ -2,7 +2,7 @@
 function verificarEstado(status, datos){
     if(status == 200) {
         alert(datos.mensaje);
-        window.location.href = "/"
+        window.location.reload();
     }
     else {
         alert(datos.mensaje);

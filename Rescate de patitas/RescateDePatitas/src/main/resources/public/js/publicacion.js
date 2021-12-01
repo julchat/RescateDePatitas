@@ -2,7 +2,7 @@
 function verificarEstado(status, datos){
     if(status == 200) {
         alert(datos.mensaje);
-        window.location.reload();
+        window.location.href = "publicaciones-pendientes"
     }
     else {
         alert(datos.mensaje);

@@ -39,8 +39,8 @@
                 <div class="tabla" v-for="publicacion in publicaciones">
                     <div class="publicacion">
                         <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
-                        <a href="/mascotas-perdidas/estoy-perdido/{{id}}"><button class="boton">Ver más</button></a>
-                        <a href="/mascotas-perdidas/notificar-rescatista/{{id}}"><button class="boton">Te encontré</button></a>
+                        <button class="boton" v-on:click="estoyPerdido(publicacion.id)">Ver más</button>
+                        <button class="boton" v-on:click="notificarRescatista(publicacion.id)">Te encontré</button>/a>
                     </div>
                 </div>
             </div>
