@@ -16,7 +16,7 @@ public class QRCode {
     static final int ancho = 400;
     static final int altura = 400;
     // Provisoriamente es esta carpeta, en si, deberia guardarse en el Repositorio de Chapas
-    static final String ruta = "D:\\Data User\\Desktop\\CodigosQR";
+    static final String ruta = ".\\target\\classes\\utils";
 
     public void crearQR(String mensaje, String nombre) throws IOException {
         BitMatrix matrix;
