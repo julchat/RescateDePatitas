@@ -388,6 +388,74 @@ public class ApiRestController {
     }
 
 
+    public String obtenerMascotaEnAdopcion(Request request, Response response) {
+
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID SESION: " + idSesion);
+
+        if(idSesion == null) {
+            System.out.println("No tiene permisos para acceder.");
+            response.status(203);
+            return new Mensaje("No tiene permisos para acceder").transformar();
+        }
+        else {
+            System.out.println(request.params("id"));
+            int idMascota = new Integer(request.params("id"));
+            System.out.println(idMascota);
+
+            RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
+            Mascota mascota = repositorioMascotas.buscar(idMascota);
+            System.out.println(JsonController.transformar(mascota));
+
+            if(mascota == null) {
+                System.out.println("No existe la página.");
+                response.status(404);
+                return new Mensaje("No existe la página a la que intenta ingresar.").transformar();
+            }
+            else {
+
+                RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
+                RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
+                RepositorioChapas repositorioChapas = FactoryRepositorioChapas.get();
+
+                try {
+                    Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+                    Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+
+                    Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+                    Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
+                    System.out.println(JsonController.transformar(persona));
+
+                    Persona duenio = repositorioChapas.buscarDuenio(idMascota);
+                    System.out.println(JsonController.transformar(duenio));
+
+                    if(persona.getId() != duenio.getId()){
+                        System.out.println("No tiene permisos para acceder.");
+                        response.status(203);
+                        return new Mensaje("No tiene permisos para acceder").transformar();
+                    }
+                    else {
+                        RepositorioPreguntas repositorioPreguntas = FactoryRepositorioPreguntas.get();
+                        List<Pregunta> preguntas = repositorioPreguntas.buscarTodos();
+                        System.out.println(JsonController.transformar(preguntas));
+
+                        FormAdopPet formulario = new FormAdopPet(duenio, mascota, preguntas);
+                        System.out.println(JsonController.transformar(formulario));
+
+                        response.status(200);
+                        return JsonController.transformar(formulario);
+                    }
+                }
+                catch (NullPointerException e) {
+                    System.out.println("No tiene permisos para acceder.");
+                    response.status(203);
+                    return new Mensaje("No tiene permisos para acceder").transformar();
+                }
+            }
+        }
+    }
+
+
     public String permiteAdministrar(Request request, Response response) {
         Sistema miSistema = Sistema.getInstance();
 

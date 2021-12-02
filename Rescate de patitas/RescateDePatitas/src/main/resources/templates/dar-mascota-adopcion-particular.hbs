@@ -32,10 +32,10 @@
                 </ul>
             </nav>
         </header>
-        <h2 class="subtitulo">Complete el siguiente formulario para dar a una mascota en adopción</h2>
+        <h2 class="subtitulo">Complete el siguiente formulario para dar a su mascota en adopción</h2>
 
-        <div>
-            <form action="/dar-mascota-adopcion/{{mascota.id}}" method="POST" class="form1">
+        <div id="appVue">
+            <div class="form1" >
                 <div class="grid-item">
                     <label for="name">Nombre<br></label>
                     <div class="text-input" disabled><br>{{persona.nombre}}</div>
@@ -73,9 +73,9 @@
                 <div></div>
                 <div class="grid-item">
                     <label for="notification">Formas de notificación<br></label><br>
-                    {{#each persona.formasDeNotificacion}}
-                        <a><input class="check" type="checkbox" checked disabled> {{this.tipoDeNotificacion}}</a>
-                    {{/each}}
+                    <ul v-for="formaDeNotificacion in formasDeNotificacion">
+                        <a><input class="check" type="checkbox" checked disabled> {{formaDeNotificacion.tipoDeNotificacion}}</a>
+                    </ul>
                 </div>
 
                 <div></div>
@@ -122,14 +122,13 @@
                 <h3 class="subtitulo3">Contactos</h3>
                 <div></div>
                 <div></div>
-                <fieldset>
-                {{#if persona.contactos}}
-                    {{#each persona.contactos}}
-                        Nombre contacto: {{this.nombreContacto}} {{this.apellidoContacto}}<br>
-                        Email: {{this.emailContacto}} <br>
-                        Telefono: {{this.telefonoContacto}} <br><br>
-                    {{/each}}
-                {{/if}}
+                <fieldset v-for="contacto in contactos">
+                    <ul v-if="contacto.nombreContacto === ''"></ul>
+                    <ul v-else>
+                        Nombre contacto: {{contacto.nombreContacto}} {{contacto.apellidoContacto}}<br>
+                        Email: {{contacto.emailContacto}} <br>
+                        Telefono: {{contacto.telefonoContacto}} <br><br>
+                    </ul>
                 </fieldset>
 
                 <div></div><div></div><div></div><div></div>
@@ -143,6 +142,7 @@
                 </div>
 
                 <div class="grid-item">
+                    <label for="sexo">Sexo<br></label>
                     <label for="sexo">Sexo<br></label>
                     <div class="text-input" disabled><br>{{mascota.sexoMascota}}</div>
                 </div>
@@ -169,37 +169,33 @@
 
                 <div class="grid-item">
                     <label for="name">Características<br></label>
-                    <select class="select" name="select" multiple="true" disabled>
-                        {{#each mascota.caracteristicasMascota}}
-                            <option>{{this.caracteristica}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-
-                <div class="grid-item">
-                    <label for="date">Fotos<br></label>
-                    <input class="boton-foto" type="file" name="imagen1">
+                    <fieldset v-for="caracteristica in caracteristicasMascota">
+                        <ul v-if="caracteristica.caracteristica === ''"></ul>
+                        <div v-else>
+                            <ul></ul>{{caracteristica.caracteristica}}
+                        </div>
+                    </fieldset>
                 </div>
 
 
                 <div></div><div></div>
                 <h3 class="subtitulo3">Preguntas</h3>
                 <div></div>
-                {{#each preguntas}}
+                <div v-for="(pregunta, index) in preguntas" :key="index">
                     <div class="grid-item">
-                        <label>{{this.pregunta}}<br></label>
-                        <input type="text" id="text" class="text-input">
+                        <label for="email">{{pregunta.pregunta}}<br></label>
+                        <input type="text" id="text" class="text-input" placeholder="" v-model="respuestas[index]" v-on:blur.once="agregarRespuesta()">
                     </div>
-                {{/each}}
-
+                </div>
 
                 <br><br><br><br><br>
                 <div class="grid-item" align="center">
-                    <button type="submit" class="boton">CREAR PUBLICACIÓN</button>
+                    <button type="submit" class="boton" v-on:click="registrarMascotaEnAdopcion(mascota.id)">CREAR PUBLICACIÓN</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
+    <script src="/js/dar-mascota-adopcion-particular.js"></script>
     </body>
 </html>

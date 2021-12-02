@@ -6,15 +6,7 @@ let app = new Vue({
     },
     methods: {
         darEnAdopcion: function(id) {
-            let idSesion = localStorage.getItem("IDSESION")
-            fetch( "http://localhost:9000/dar-mascota-adopcion/" + id, {
-                method: "GET",
-                headers: {
-                    "Authorization": idSesion
-                },
-
-            }) .finally()
-                //.then(window.location.replace("dar-mascota-adopcion/" + id))
+            window.location.href = "dar-mascota-adopcion/" + id;
         }
 
     },
