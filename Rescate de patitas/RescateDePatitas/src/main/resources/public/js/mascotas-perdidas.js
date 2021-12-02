@@ -7,10 +7,10 @@ let app = new Vue({
     },
     methods: {
         estoyPerdido: function(id) {
-            window.location.href = "estoy-perdido/" + id;
+            window.location.href = "mascotas-perdidas-pesado/estoy-perdido/" + id;
         },
         notificarRescatista: function(id) {
-            window.location.href = "notificar-rescatista/" + id;
+            window.location.href = "mascotas-perdidas-pesado/notificar-rescatista/" + id;
         }
     },
     created() {

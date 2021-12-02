@@ -7,10 +7,10 @@ let app = new Vue({
     },
     methods: {
         estoyEnAdopcion: function(id) {
-            window.location.href = "estoy-en-adopcion/" + id;
+            window.location.href = "mascotas-en-adopcion-pesado/estoy-en-adopcion/" + id;
         },
         notificarDuenio: function(id) {
-            window.location.href = "notificar-duenio/" + id;
+            window.location.href = "mascotas-en-adopcion-pesado/notificar-duenio/" + id;
         }
     },
     created() {

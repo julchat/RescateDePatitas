@@ -35,8 +35,8 @@
 
         <h1 class="subtitulo">Mascotas Perdidas</h1>
         <div id="appVue">
-            <div v-if="publicaciones.length > 0">
-                <div class="tabla" v-for="publicacion in publicaciones">
+            <div class="tabla" v-if="publicaciones.length > 0">
+                <div  v-for="publicacion in publicaciones">
                     <div class="publicacion">
                         <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
                         <button class="boton" v-on:click="estoyPerdido(publicacion.id)">Ver más</button>

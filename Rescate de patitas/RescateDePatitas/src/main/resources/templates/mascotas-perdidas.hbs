@@ -33,20 +33,19 @@
         </header>
 
         <h1 class="subtitulo">Mascotas Perdidas</h1>
+        <div class="tabla">
         {{#each mascotasPerdidas}}
-            <div class="tabla">
-                <div class="publicacion">
-                    <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
-                    <a href="/mascotas-perdidas/estoy-perdido/{{id}}"><button class="boton">Ver más</button></a>
-                    <a href="/mascotas-perdidas/notificar-rescatista/{{id}}"><button class="boton">Te encontré</button></a>
-                </div>
+            <div class="publicacion">
+                <img class="img" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687250/img/pantuflas_wopgw1.png" >
+                <a href="/mascotas-perdidas/estoy-perdido/{{id}}"><button class="boton">Ver más</button></a>
+                <a href="/mascotas-perdidas/notificar-rescatista/{{id}}"><button class="boton">Te encontré</button></a>
             </div>
         {{else}}
             <div class="subtitulo3">¡No hay mascotas perdidas por el momento!<br><br><br>
                 <img class="imgAviso" src="https://res.cloudinary.com/rescatedepatitas08/image/upload/v1637687238/img/jugando_con_la_cola_vxwwjm.png" >
             </div>
         {{/each}}
-
+        </div>
 
     </div>
     </body>
