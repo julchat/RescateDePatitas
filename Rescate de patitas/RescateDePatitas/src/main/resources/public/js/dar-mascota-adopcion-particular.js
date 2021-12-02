@@ -28,8 +28,12 @@ let app = new Vue({
         registrarMascotaEnAdopcion: function(id) {
             let status;
             let datos;
+            let idSesion = localStorage.getItem("IDSESION");
             fetch(dominio + "/dar-mascota-adopcion/" + id, {
                 method: "POST",
+                headers: {
+                    "Authorization": idSesion
+                },
                 body: JSON.stringify({
                     respuestas: this.respuestas
                 })
@@ -46,23 +50,37 @@ let app = new Vue({
         }
     },
     created() {
-        let idSesion = localStorage.getItem("IDSESION")
-        fetch(dominio + "/api/darMascotaEnAdopcionUser", {
+        let idSesion = localStorage.getItem("IDSESION");
+        let status;
+        let datos;
+        let params = window.location.href.split('/');
+        let id = params[4];
+        fetch(dominio + "/api/darMascotaEnAdopcionUser/" + id, {
             method : "GET",
             headers: {
                 "Authorization": idSesion
             }
-        })  .then(response => response.json())
-            .then(datos => {
-                this.persona = datos.persona
-                this.formasDeNotificacion = datos.persona.formasDeNotificacion
-                this.contactos = datos.persona.contactos
-                this.mascota = datos.mascota
-                this.caracteristicasMascota = datos.mascota.caracteristicasMascota
-                this.preguntas = datos.preguntas
-                this.activa = true
-                if(datos.persona.domicilio.calle != null && datos.persona.domicilio.provincia != null && datos.persona.domicilio.localidad != null) {
-                    this.domicilio = true
+        })  .then(response => {
+            status = response.status
+            datos = response.json()
+            return datos
+        })
+            .then(data => {
+                if(status == 200) {
+                    this.persona = data.persona
+                    this.formasDeNotificacion = data.persona.formasDeNotificacion
+                    this.contactos = data.persona.contactos
+                    this.mascota = data.mascota
+                    this.caracteristicasMascota = data.mascota.caracteristicasMascota
+                    this.preguntas = data.preguntas
+                    this.activa = true
+                    console.log(persona);
+                }
+                else if(status == 404) {
+                    window.location.href = "/no-existe"
+                }
+                else {
+                    window.location.href = "/sin-permisos"
                 }
             })
     }

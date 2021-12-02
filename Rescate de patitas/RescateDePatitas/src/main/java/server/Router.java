@@ -45,7 +45,7 @@ public class Router {
         Spark.get("/api/cambiar-caracteristicas", apiRestController::permiteAdministrar);
         Spark.get("/api/perfilRegistroMascota", apiRestController::obtenerPerfilParaRegistrarMascota);
         Spark.get("/api/perfilDarEnAdopcion", apiRestController::obtenerPerfilParaDarAdopcion);
-        Spark.get("/api/darMascotaEnAdopcionUser", apiRestController::obtenerMascotaEnAdopcion);
+        Spark.get("/api/darMascotaEnAdopcionUser/:id", apiRestController::obtenerMascotaEnAdopcion);
         Spark.get("/api/agregar-admin", apiRestController::permiteAgregarAdmin);
         Spark.get("/api/mascotas-perdidas", apiRestController::mascotasPerdidas);
         Spark.get("/api/mascotas-en-adopcion", apiRestController::mascotasEnAdopcion);
