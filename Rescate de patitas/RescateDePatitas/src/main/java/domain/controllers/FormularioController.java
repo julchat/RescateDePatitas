@@ -512,9 +512,50 @@ public class FormularioController {
     }
 
     public String darMascotaAdopcionParticular(Request request, Response response) {
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID SESION: " + idSesion);
 
-        return null;
+        int idMascota = new Integer(request.params("id"));
+
+        Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+        Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+        System.out.println("Login: " + sesionUsuario.getNombreUsuario());
+
+        FormRegisterPet formulario = new Gson().fromJson(request.body(), FormRegisterPet.class);
+        System.out.println(request.body());
+
+        Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+        Persona duenio = repositorioPersonas.buscar(usuario.getPersona().getId());
+        System.out.println(new Gson().toJson(duenio));
+
+        Mascota mascotaElegida = repositorioMascotas.buscar(idMascota);
+        System.out.println(new Gson().toJson(mascotaElegida));
+
+        RepositorioPreguntas repositorioPreguntas = FactoryRepositorioPreguntas.get();
+        List<Pregunta> preguntas = repositorioPreguntas.buscarTodos();
+        List<Respuesta> respuestasPublicacion = new ArrayList<>();
+        int contador = 0;
+        for(Pregunta pregunta : preguntas) {
+            System.out.println(pregunta.getPregunta());
+
+            Respuesta nuevaRespuesta = new Respuesta();
+            nuevaRespuesta.setPregunta(pregunta);
+            System.out.println(formulario.getRespuestas().get(contador));
+
+            nuevaRespuesta.setRespuesta(formulario.getRespuestas().get(contador));
+            respuestasPublicacion.add(nuevaRespuesta);
+            contador ++;
+        }
+        System.out.println(JsonController.transformar(respuestasPublicacion));
+
+        PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion();
+        publicacionMascotaEnAdopcion.crearPublicacion(duenio, mascotaElegida, respuestasPublicacion);
+        repositorioPubliMascotaEnAdopcion.agregar(publicacionMascotaEnAdopcion);
+
+        response.status(200);
+        return new Mensaje("Se ha creado la publicación para dar en adopción a la mascota elegida de forma satisfactoria.").transformar();
     }
+
 
 /* ==============================================================================================================
     Adoptar a una Mascota -> El usuario se comunica con el Dueño de la mascota que desea adoptar

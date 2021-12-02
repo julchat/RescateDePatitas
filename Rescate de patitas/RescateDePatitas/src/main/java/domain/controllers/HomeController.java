@@ -261,51 +261,11 @@ public class HomeController {
     }
 
     public String darMascotaAdopcionParticular(Request request, Response response) throws IOException {
+        TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
+        Handlebars handlebars = new Handlebars(loader);
+        Template template = handlebars.compile("dar-mascota-adopcion-particular");
 
-        String idSesion = request.headers("Authorization");
-        System.out.println("ID SESION: " + idSesion);
-
-        if(idSesion == null) {
-            response.redirect("/sin-permisos");
-            return null;
-        }
-        else {
-            int idMascota = new Integer(request.params("id"));
-
-            RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
-            Mascota mascota = repositorioMascotas.buscar(idMascota);
-
-            if(mascota == null) {
-                TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
-                Handlebars handlebars = new Handlebars(loader);
-                Template template = handlebars.compile("no-existe-pagina");
-
-                return template.text();
-            }
-            else {
-                Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
-                Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
-
-                RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
-                RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
-                Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
-                Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
-
-                RepositorioPreguntas repositorioPreguntas = FactoryRepositorioPreguntas.get();
-                List<Pregunta> preguntas = repositorioPreguntas.buscarTodos();
-
-                TemplateLoader loader = new ClassPathTemplateLoader("/templates", ".hbs");
-                Handlebars handlebars = new Handlebars(loader);
-                Template template = handlebars.compile("dar-mascota-adopcion-particular");
-                Map<String, Object> viewModel = new HashMap<>();
-
-                viewModel.put("persona", persona);
-                viewModel.put("mascota", mascota);
-                viewModel.put("preguntas", preguntas);
-
-                return template.apply(viewModel);
-            }
-        }
+        return template.text();
     }
 
 

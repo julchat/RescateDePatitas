@@ -21,9 +21,8 @@
 
 .tabla {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 700px;
-    grid-auto-columns: 600px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 400px;
     padding: 20px;
     grid-gap: 10px;
     text-align: center;

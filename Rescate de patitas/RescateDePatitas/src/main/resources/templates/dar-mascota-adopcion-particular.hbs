@@ -32,174 +32,168 @@
                 </ul>
             </nav>
         </header>
-        <h2 class="subtitulo">Complete el siguiente formulario para dar a una mascota en adopción</h2>
+        <h2 class="subtitulo">Complete el siguiente formulario para dar a su mascota en adopción</h2>
 
-        <div>
-            <form action="/dar-mascota-adopcion/{{mascota.id}}" method="POST" class="form1">
-                <div class="grid-item">
-                    <label for="name">Nombre<br></label>
-                    <div class="text-input" disabled><br>{{persona.nombre}}</div>
-                </div>
+        <div class="form1" >
+            <div class="grid-item">
+                <label for="name">Nombre<br></label>
+                <div class="text-input" disabled><br>{{persona.nombre}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="surname">Apellido<br></label>
-                    <div class="text-input" disabled><br>{{persona.apellido}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="surname">Apellido<br></label>
+                <div class="text-input" disabled><br>{{persona.apellido}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="date">Fecha de Nacimiento</label>
-                    <div class="text-input" disabled><br>{{persona.fechaDeNacimiento}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="date">Fecha de Nacimiento</label>
+                <div class="text-input" disabled><br>{{persona.fechaDeNacimiento}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="email">Email<br></label>
-                    <div class="text-input" disabled><br>{{persona.email}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="email">Email<br></label>
+                <div class="text-input" disabled><br>{{persona.email}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="doc-type">Tipo de documento<br></label>
-                    <div class="text-input" disabled><br>{{persona.tipoDocumento}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="doc-type">Tipo de documento<br></label>
+                <div class="text-input" disabled><br>{{persona.tipoDocumento}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="n-doc">Número de documento<br></label>
-                    <div class="text-input" disabled><br>{{persona.numeroDocumento}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="n-doc">Número de documento<br></label>
+                <div class="text-input" disabled><br>{{persona.numeroDocumento}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="cel">Teléfono / Celular<br></label>
-                    <div class="text-input" disabled><br>{{persona.telefono}}</div>
-                </div>
-                <div></div>
-                <div class="grid-item">
-                    <label for="notification">Formas de notificación<br></label><br>
-                    {{#each persona.formasDeNotificacion}}
-                        <a><input class="check" type="checkbox" checked disabled> {{this.tipoDeNotificacion}}</a>
-                    {{/each}}
-                </div>
+            <div class="grid-item">
+                <label for="cel">Teléfono / Celular<br></label>
+                <div class="text-input" disabled><br>{{persona.telefono}}</div>
+            </div>
+            <div></div>
+            <div class="grid-item">
+                <label for="notification">Formas de notificación<br></label><br>
+                <ul v-for="formaDeNotificacion in formasDeNotificacion">
+                    <a><input class="check" type="checkbox" checked disabled> {{formaDeNotificacion.tipoDeNotificacion}}</a>
+                </ul>
+            </div>
 
-                <div></div>
-                <h3 class="subtitulo3">Datos de su Domicilio</h3>
-                <div></div>
-                <div class="grid-item">
-                    <label for="provincia">Provincia<br></label>
-                    <div class="text-input" disabled><br>{{persona.domicilio.provincia}}</div>
-                </div>
+            <div></div>
+            <h3 class="subtitulo3">Datos de su Domicilio</h3>
+            <div></div>
+            <div class="grid-item">
+                <label for="provincia">Provincia<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.provincia}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="localidad">Localidad<br></label>
-                    <div class="text-input" disabled><br>{{persona.domicilio.localidad}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="localidad">Localidad<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.localidad}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="codigoPostal">Código Postal<br></label>
-                    <div class="text-input" disabled><br>{{persona.domicilio.codigoPostal}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="codigoPostal">Código Postal<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.codigoPostal}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="calle">Calle<br></label>
-                    <div class="text-input" disabled><br>{{persona.domicilio.calle}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="calle">Calle<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.calle}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="num">Numeración<br></label>
-                    <div class="text-input" disabled><br>{{persona.domicilio.numeracion}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="num">Numeración<br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.numeracion}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="dpto">Departamento <br></label>
-                    <div class="text-input" disabled><br>{{persona.domicilio.departamento}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="dpto">Departamento <br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.departamento}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="piso">Piso <br></label>
-                    <div class="text-input" disabled><br>{{persona.domicilio.piso}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="piso">Piso <br></label>
+                <div class="text-input" disabled><br>{{persona.domicilio.piso}}</div>
+            </div>
 
-                <div></div><div></div>
-                <br><br><br><br>
+            <div></div><div></div>
+            <br><br><br><br>
 
-                <h3 class="subtitulo3">Contactos</h3>
-                <div></div>
-                <div></div>
-                <fieldset>
-                {{#if persona.contactos}}
-                    {{#each persona.contactos}}
-                        Nombre contacto: {{this.nombreContacto}} {{this.apellidoContacto}}<br>
-                        Email: {{this.emailContacto}} <br>
-                        Telefono: {{this.telefonoContacto}} <br><br>
-                    {{/each}}
-                {{/if}}
-                </fieldset>
+            <h3 class="subtitulo3">Contactos</h3>
+            <div></div>
+            <div></div>
+            <fieldset v-for="contacto in contactos">
+                <ul v-if="contacto.nombreContacto === ''"></ul>
+                <ul v-else>
+                    Nombre contacto: {{contacto.nombreContacto}} {{contacto.apellidoContacto}}<br>
+                    Email: {{contacto.emailContacto}} <br>
+                    Telefono: {{contacto.telefonoContacto}} <br><br>
+                </ul>
+            </fieldset>
 
-                <div></div><div></div><div></div><div></div>
-                <br><br><br><br>
+            <div></div><div></div><div></div><div></div>
+            <br><br><br><br>
 
-                <h3 class="subtitulo3">Sobre la mascota</h3>
-                <div></div>
-                <div class="grid-item">
-                    <label for="name">Tipo de Animal<br></label>
-                    <div class="text-input" disabled><br>{{mascota.tipoAnimal}}</div>
-                </div>
+            <h3 class="subtitulo3">Sobre la mascota</h3>
+            <div></div>
+            <div class="grid-item">
+                <label for="name">Tipo de Animal<br></label>
+                <div class="text-input" disabled><br>{{mascota.tipoAnimal}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="sexo">Sexo<br></label>
-                    <div class="text-input" disabled><br>{{mascota.sexoMascota}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="sexo">Sexo<br></label>
+                <label for="sexo">Sexo<br></label>
+                <div class="text-input" disabled><br>{{mascota.sexoMascota}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="petName">Nombre<br></label>
-                    <div class="text-input" disabled><br>{{mascota.nombreMascota}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="petName">Nombre<br></label>
+                <div class="text-input" disabled><br>{{mascota.nombreMascota}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="alias">Apodo<br></label>
-                    <div class="text-input" disabled><br>{{mascota.apodoMascota}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="alias">Apodo<br></label>
+                <div class="text-input" disabled><br>{{mascota.apodoMascota}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="date">Edad aproximada<br></label>
-                    <div class="text-input" disabled><br>{{mascota.edadMascota}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="date">Edad aproximada<br></label>
+                <div class="text-input" disabled><br>{{mascota.edadMascota}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="email">Descripción física<br></label>
-                    <div class="text-input" disabled><br>{{mascota.descripcionMascota}}</div>
-                </div>
+            <div class="grid-item">
+                <label for="email">Descripción física<br></label>
+                <div class="text-input" disabled><br>{{mascota.descripcionMascota}}</div>
+            </div>
 
-                <div class="grid-item">
-                    <label for="name">Características<br></label>
-                    <select class="select" name="select" multiple="true" disabled>
-                        {{#each mascota.caracteristicasMascota}}
-                            <option>{{this.caracteristica}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-
-                <div class="grid-item">
-                    <label for="date">Fotos<br></label>
-                    <input class="boton-foto" type="file" name="imagen1">
-                </div>
-
-
-                <div></div><div></div>
-                <h3 class="subtitulo3">Preguntas</h3>
-                <div></div>
-                {{#each preguntas}}
-                    <div class="grid-item">
-                        <label>{{this.pregunta}}<br></label>
-                        <input type="text" id="text" class="text-input">
+            <div class="grid-item">
+                <label for="name">Características<br></label>
+                <fieldset v-for="caracteristica in caracteristicasMascota">
+                    <ul v-if="caracteristica.caracteristica === ''"></ul>
+                    <div v-else>
+                        <ul></ul>{{caracteristica.caracteristica}}
                     </div>
-                {{/each}}
+                </fieldset>
+            </div>
 
 
-                <br><br><br><br><br>
-                <div class="grid-item" align="center">
-                    <button type="submit" class="boton">CREAR PUBLICACIÓN</button>
+            <div></div><div></div>
+            <h3 class="subtitulo3">Preguntas</h3>
+            <div></div>
+            <div v-for="(pregunta, index) in preguntas" :key="index">
+                <div class="grid-item">
+                    <label for="email">{{pregunta.pregunta}}<br></label>
+                    <input type="text" id="text" class="text-input" placeholder="" v-model="respuestas[index]" v-on:blur.once="agregarRespuesta()">
                 </div>
-            </form>
+            </div>
+
+            <br><br><br><br><br>
+            <div class="grid-item" align="center">
+                <button type="submit" class="boton" v-on:click="registrarMascotaEnAdopcion(mascota.id)">CREAR PUBLICACIÓN</button>
+            </div>
         </div>
     </div>
 
+    <script src="/js/dar-mascota-adopcion-particular.js"></script>
     </body>
 </html>

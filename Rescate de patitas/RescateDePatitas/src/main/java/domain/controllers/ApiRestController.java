@@ -387,6 +387,45 @@ public class ApiRestController {
         return null;
     }
 
+    public String obtenerMascotaEnAdopcion(Request request, Response response) {
+
+        String idSesion = request.headers("Authorization");
+        System.out.println("ID SESION: " + idSesion);
+
+        if(idSesion == null) {
+            response.redirect("/sin-permisos");
+            return null;
+        }
+        else {
+            int idMascota = new Integer(request.params("id"));
+
+            RepositorioMascotas repositorioMascotas = FactoryRepositorioMascota.get();
+            Mascota mascota = repositorioMascotas.buscar(idMascota);
+
+            if(mascota == null) {
+                response.redirect("/no-existe");
+                return null;
+            }
+            else {
+                Map<String, Object> atributosSesion = SesionManager.get().obtenerAtributos(idSesion);
+                Usuario sesionUsuario = (Usuario) atributosSesion.get("usuario");
+
+                RepositorioUsuarios repositorioUsuarios = FactoryRepositorioUsuarios.get();
+                RepositorioPersonas repositorioPersonas = FactoryRepositorioPersonas.get();
+                Usuario usuario = repositorioUsuarios.buscar(sesionUsuario.getId());
+                Persona persona = repositorioPersonas.buscar(usuario.getPersona().getId());
+
+                RepositorioPreguntas repositorioPreguntas = FactoryRepositorioPreguntas.get();
+                List<Pregunta> preguntas = repositorioPreguntas.buscarTodos();
+
+                FormAdopPet formulario = new FormAdopPet(persona, mascota, preguntas);
+
+                response.status(200);
+                return JsonController.transformar(formulario);
+            }
+        }
+    }
+
 
     public String permiteAdministrar(Request request, Response response) {
         Sistema miSistema = Sistema.getInstance();
