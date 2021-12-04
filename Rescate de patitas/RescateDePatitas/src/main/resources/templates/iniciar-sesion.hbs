@@ -7,6 +7,7 @@
         <title>Iniciar sesión</title>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="/js/login-doge.js"></script>
         <script defer src="/js/iniciar-sesion.js"></script>
         <script defer src="/js/index.js"></script>
         <script defer src="/js/links.js"></script>
@@ -36,12 +37,17 @@
             </nav>
         </header>
 
+        <br><br><br><br><br><br>
+        <div style="text-align: center">
+            <img class="doge" id="doge" src="../public/img/login1.png">
+        </div>
+
         <div class="form1" id="appVue">
             <div class="formulario">
                 <h2 class="subtitulo">INICIO DE SESIÓN</h2>
 
                 <div class="grid-item">
-                    <input type="text" placeholder="Usuario" value="" v-model="userName" name="userName" id="userName" class="text-input" required>
+                    <input type="text" placeholder="Usuario" value="" v-model="userName" name="userName" id="userName" class="text-input" onblur="continuar()" onclick="esconder()" required>
                 </div>
 
                 <br>

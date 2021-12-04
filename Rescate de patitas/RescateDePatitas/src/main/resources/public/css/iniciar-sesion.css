@@ -21,8 +21,8 @@ form {
 }
 
 .form1 {
-    padding: 35px;
-    margin: 100px auto 15px;
+    padding: 15px;
+    margin: 20px auto 15px;
 }
 
 .formulario {
@@ -89,4 +89,10 @@ form {
 .olvido {
     text-align: center;
     font-size: 15px;
+}
+
+.doge {
+    text-align: center;
+    width: 200px;
+    height: 200px;
 }
