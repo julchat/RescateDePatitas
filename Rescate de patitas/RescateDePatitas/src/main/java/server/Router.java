@@ -89,6 +89,7 @@ public class Router {
         Spark.get("/mascotas-en-adopcion/estoy-en-adopcion/:id", homeController::estoyEnAdopcion);
         Spark.get("/mascotas-en-adopcion/notificar-duenio/:id", homeController::notificarDuenio);
         Spark.post("/mascotas-en-adopcion/notificar-duenio/:id", formularioController::notificarDuenio);
+
         Spark.get("/mascotas-en-adopcion/busqueda-mascota-ideal", homeController::buscarMascotaIdeal);
         Spark.post("/mascotas-en-adopcion/busqueda-mascota-ideal", formularioController::buscarMascotaIdeal);
 
