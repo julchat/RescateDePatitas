@@ -3,7 +3,6 @@ let images = ['https://res.cloudinary.com/rescatedepatitas08/image/upload/v16385
     'https://res.cloudinary.com/rescatedepatitas08/image/upload/v1638577761/img/login2_k7ulyb.png',
     'https://res.cloudinary.com/rescatedepatitas08/image/upload/v1638577753/img/login3_huxstc.png'];
 
-let index = 0;
 let imgElement = document.getElementById('doge');
 imgElement.src = "https://res.cloudinary.com/rescatedepatitas08/image/upload/v1638577754/img/login1_pkgal6.png";
 
